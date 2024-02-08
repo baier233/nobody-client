@@ -1,6 +1,6 @@
 #include "NonNullList.h"
 
-List CNonNullList::getList()
+List CNonNullList::getList(JNIEnv* env )
 {
-	return List(Java::Env->GetObjectField(this->instance,StrayCache::nonNullList_List));
+	return List(env->GetObjectField(this->instance, StrayCache::nonNullList_List));
 }

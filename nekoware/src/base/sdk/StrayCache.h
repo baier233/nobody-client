@@ -70,6 +70,10 @@ struct StrayCache {
 	inline static jmethodID playerControllerMP_attackEntity;
 	inline static jmethodID playerControllerMP_sendUseItem;
 
+	//NetworkManager Class
+	inline static jclass networkManager_class;
+	inline static jmethodID networkManager_sendPacket;
+	inline static jmethodID networkManager_channelRead0;
 
 	// ENTITY CLASS
 	inline static jclass entity_class;
@@ -707,6 +711,14 @@ struct StrayCache {
 			gamesettings_gammaSetting = Java::Env->GetFieldID(StrayCache::gamesettings_class, "field_74333_Y", "F");
 			gamesettings_keyBindFullscreen = Java::Env->GetFieldID(StrayCache::gamesettings_class, "field_152395_am", "Lnet/minecraft/client/settings/KeyBinding;");
 			gamesettings_keyBindSneak = Java::Env->GetFieldID(gamesettings_class, "field_74311_E", "Lnet/minecraft/client/settings/KeyBinding;");
+
+		}
+
+		{
+			Java::AssignClass("net.minecraft.network.NetworkManager", networkManager_class);
+			networkManager_class = (jclass)Java::Env->NewGlobalRef(networkManager_class);
+			networkManager_sendPacket = Java::Env->GetMethodID(networkManager_class, "func_179288_a", "(Lnet/minecraft/network/Packet;Lio/netty/util/concurrent/GenericFutureListener;[Lio/netty/util/concurrent/GenericFutureListener;)V");
+			networkManager_channelRead0 = Java::Env->GetMethodID(networkManager_class, "channelRead0", "(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V");
 
 		}
 
@@ -2552,6 +2564,7 @@ struct StrayCache {
 		Java::Env->DeleteGlobalRef(blockAir_class);
 		Java::Env->DeleteGlobalRef(itemTool_class);
 		Java::Env->DeleteGlobalRef(nonNullList_class);
+		Java::Env->DeleteGlobalRef(networkManager_class);
 
 	}
 

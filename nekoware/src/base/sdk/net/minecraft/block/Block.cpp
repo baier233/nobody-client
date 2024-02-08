@@ -1,14 +1,14 @@
 #include "Block.h"
 
-int CBlock::GetID()
+int CBlock::GetID(JNIEnv* env )
 {
-	if(!this->getInstance())return 0;
+	if (!this->getInstance())return 0;
 
-	const auto blockClass = Java::Env->GetObjectClass(this->getInstance());
+	const auto blockClass = env->GetObjectClass(this->getInstance());
 
-	const auto ret = Java::Env->CallStaticIntMethod(blockClass,StrayCache::block_getIdFromBlock,this->getInstance());
+	const auto ret = env->CallStaticIntMethod(blockClass, StrayCache::block_getIdFromBlock, this->getInstance());
 
 	if (blockClass)
-		Java::Env->DeleteLocalRef((jclass)blockClass);
+		env->DeleteLocalRef((jclass)blockClass);
 	return ret;
 }

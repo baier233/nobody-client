@@ -19,60 +19,60 @@
 //	return this->Instance;
 //}
 
-float CEntityLivingBase::GetHealth()
+float CEntityLivingBase::GetHealth(JNIEnv* env )
 {
-	return Java::Env->CallFloatMethod(this->getInstance(), StrayCache::entityLivingBase_getHealth);
+	return env->CallFloatMethod(this->getInstance(), StrayCache::entityLivingBase_getHealth);
 }
 
-float CEntityLivingBase::GetMaxHealth()
+float CEntityLivingBase::GetMaxHealth(JNIEnv* env )
 {
-	return Java::Env->CallFloatMethod(this->getInstance(), StrayCache::entityLivingBase_getMaxHealth);
+	return env->CallFloatMethod(this->getInstance(), StrayCache::entityLivingBase_getMaxHealth);
 }
 
-float CEntityLivingBase::getMoveStrafe()
+float CEntityLivingBase::getMoveStrafe(JNIEnv* env )
 {
 
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveStrafe);
+	return env->GetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveStrafe);
 }
 
-float CEntityLivingBase::getMoveForward()
+float CEntityLivingBase::getMoveForward(JNIEnv* env )
 {
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveForward);
+	return env->GetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveForward);
 
 }
 
-bool CEntityLivingBase::CanEntityBeSeen(jobject entity) 
+bool CEntityLivingBase::CanEntityBeSeen(jobject entity, JNIEnv* env )
 {
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::entityLivingBase_canEntityBeSeen, entity);
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::entityLivingBase_canEntityBeSeen, entity);
 }
 
 
-bool CEntityLivingBase::isPlayerSleeping()
+bool CEntityLivingBase::isPlayerSleeping(JNIEnv* env )
 {
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::entityLivingBase_isPlayerSleeping);
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::entityLivingBase_isPlayerSleeping);
 }
 
-int CEntityLivingBase::getHurtTime() {
-	return Java::Env->GetIntField(this->getInstance(), StrayCache::entityLivingBase_hurttime);
+int CEntityLivingBase::getHurtTime(JNIEnv* env ) {
+	return env->GetIntField(this->getInstance(), StrayCache::entityLivingBase_hurttime);
 }
 
-void CEntityLivingBase::swingItem()
+void CEntityLivingBase::swingItem(JNIEnv* env )
 {
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::entityLivingBase_swingItem);
+	env->CallVoidMethod(this->getInstance(), StrayCache::entityLivingBase_swingItem);
 }
 
-void CEntityLivingBase::jump()
+void CEntityLivingBase::jump(JNIEnv* env )
 {
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::entityLivingBase_jump);
+	env->CallVoidMethod(this->getInstance(), StrayCache::entityLivingBase_jump);
 }
 
-void CEntityLivingBase::setMoveStrafe(float i)
+void CEntityLivingBase::setMoveStrafe(float i, JNIEnv* env )
 {
-	Java::Env->SetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveStrafe, i);
+	env->SetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveStrafe, i);
 }
 
-void CEntityLivingBase::setMoveForward(float i)
+void CEntityLivingBase::setMoveForward(float i, JNIEnv* env )
 {
-	Java::Env->SetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveForward, i);
+	env->SetFloatField(this->getInstance(), StrayCache::entityLivingBase_moveForward, i);
 
 }

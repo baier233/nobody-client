@@ -1,7 +1,7 @@
 #pragma once
 #include "../JVM.hpp"
 #include "../../../../ext/jni/jni.h"
-
+#include "../../java/java.h"
 namespace JavaHook
 {
 	//        |-------------------------------------------------------|
@@ -25,7 +25,7 @@ namespace JavaHook
 	void partial_clean();
 	bool init();
 
-	void add_to_java_hook(jmethodID methodID, callback_t interpreted_callback);
+	void add_to_java_hook(jmethodID methodID, callback_t interpreted_callback, jclass owner = nullptr);
 
 	jobject oop_to_jobject(void* oop, void* thread);
 	jobject oop_to_jobject(void* oop, JNIEnv* env);
@@ -39,15 +39,16 @@ namespace JavaHook
 	{
 		return *(T*)((uint64_t*)sp + 1 + index);
 	}
-	jobject get_jobject_arg_at(void* sp, int index, void* thread);
+	jobject get_jobject_arg_at(void* sp, int index, void* thread, JNIEnv* env = Java::Env);
 
 	JNIEnv* get_env_for_thread(void* thread);
+	JNIEnv* get_current_thread_env();
 
 	inline bool is_old_java = false;
 }
 struct HookedJavaMethodCache
 {
-    JavaHook::callback_t interpreted_callback;
-    uint8_t* prev_i2i_entry = nullptr;
-    uint8_t* original_i2i_entry = nullptr;
+	JavaHook::callback_t interpreted_callback;
+	uint8_t* prev_i2i_entry = nullptr;
+	uint8_t* original_i2i_entry = nullptr;
 };

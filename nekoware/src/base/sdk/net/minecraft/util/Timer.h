@@ -7,10 +7,10 @@ class CTimer : public Object
 public:
 	using Object::Object;
 
-	float GetTimerSpeed();
+	float GetTimerSpeed(JNIEnv* env = Java::Env);
 
-	void SetTimerSpeed(float speed);
+	void SetTimerSpeed(float speed, JNIEnv* env = Java::Env);
 
-	float GetRenderPartialTicks();
+	float GetRenderPartialTicks(JNIEnv* env = Java::Env);
 };
 

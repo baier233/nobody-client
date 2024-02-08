@@ -13,7 +13,7 @@ class CAxisAlignedBB : public Object
 	//jobject getInstance();
 public:
 	using Object::Object;
-	BoundingBox GetNativeBoundingBox();
-	void SetBoundingBox(BoundingBox newBoundingBox);
+	BoundingBox GetNativeBoundingBox(JNIEnv* env = Java::Env);
+	void SetBoundingBox(BoundingBox newBoundingBox, JNIEnv* env = Java::Env);
 };
 

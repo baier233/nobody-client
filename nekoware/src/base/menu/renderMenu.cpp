@@ -297,8 +297,6 @@ void Menu::RenderMenu()
 				ImGui::ColorEdit4("ESP Circles", Esp::getInstance()->TestCirclesColorValue->getValuePtr(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar);
 				ImGui::ColorEdit4("ESP Text", Esp::getInstance()->TextColorValue->getValuePtr(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar);
 				ImGui::ColorEdit4("ESP Text Outline", Esp::getInstance()->TextOutlineColorValue->getValuePtr(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar);
-
-				ImGui::ColorEdit4("Chams Color", Chams::getInstance()->ChamsColor->getValuePtr(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar);
 			}
 			ImGui::EndChild();
 			ImGui::SameLine(0, 20);

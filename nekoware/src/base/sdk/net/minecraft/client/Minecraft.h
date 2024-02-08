@@ -14,18 +14,18 @@ class CMinecraft : public Object
 {
 public:
 	using Object::Object;
-	CWorldClient getTheWorld();
-	CEntityPlayerSP getThePlayer();
-	CEntity GetRenderViewEntity();
-	bool IsInGuiState();
-	int getDebugFPS();
-	void ClickMouse();
-	void setRightClickDelayTimer(jint delay);
-	Object getPlayerController();
-	CMovingObjectPosition GetMouseOver();
-	CRenderManager GetRenderManager();
-	CNetHandlerPlayClient getNetHandler();
-	CGuiIngame getIngameGUI();
+	CWorldClient getTheWorld(JNIEnv* env = Java::Env);
+	CEntityPlayerSP getThePlayer(JNIEnv* env = Java::Env);
+	CEntity GetRenderViewEntity(JNIEnv* env = Java::Env);
+	bool IsInGuiState(JNIEnv* env = Java::Env);
+	int getDebugFPS(JNIEnv* env = Java::Env);
+	void ClickMouse(JNIEnv* env = Java::Env);
+	void setRightClickDelayTimer(jint delay, JNIEnv* env = Java::Env);
+	Object getPlayerController(JNIEnv* env = Java::Env);
+	CMovingObjectPosition GetMouseOver(JNIEnv* env = Java::Env);
+	CRenderManager GetRenderManager(JNIEnv* env = Java::Env);
+	CNetHandlerPlayClient getNetHandler(JNIEnv* env = Java::Env);
+	CGuiIngame getIngameGUI(JNIEnv* env = Java::Env);
 
 
 	CEntityPlayerSP* thePlayer;

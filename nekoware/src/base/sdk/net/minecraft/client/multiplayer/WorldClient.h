@@ -8,7 +8,7 @@ class CWorldClient :public CWorld
 public:
 	using CWorld::CWorld;
 	jclass EntityPlayer;
-	Set GetEntityList();
-	int getIDFromBlock(jobject block);
+	Set GetEntityList(JNIEnv* env = Java::Env);
+	int getIDFromBlock(jobject block, JNIEnv* env = Java::Env);
 };
 

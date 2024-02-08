@@ -5,13 +5,13 @@
 
 #include <vector>
 
-Matrix FloatBuffer::GetMatrix()
+Matrix FloatBuffer::GetMatrix(JNIEnv* env  )
 {
 
 	std::vector<float> arr;
 	for (int i = 0; i < 16; i++)
 	{
-		arr.push_back(Java::Env->CallFloatMethod(this->getInstance(), StrayCache::floatBuffer_get, i));
+		arr.push_back(env->CallFloatMethod(this->getInstance(), StrayCache::floatBuffer_get, i));
 	}
 
 	Matrix m;

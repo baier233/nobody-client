@@ -461,6 +461,8 @@
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
     <ClInclude Include="ext\imgui\main.h" />
     <ClInclude Include="ext\json\json.hpp" />
+    <ClInclude Include="src\base\sdk\net\minecraft\client\network\NetworkManger.h" />
+    <ClInclude Include="src\base\sdk\net\minecraft\client\network\Packet.h" />
     <ClInclude Include="src\base\util\module\Module.hpp" />
     <ClInclude Include="src\base\jvm\hook\JavaHook.h" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
@@ -485,8 +487,6 @@
     <ClInclude Include="src\base\moduleManager\Value.h" />
     <ClInclude Include="src\base\sdk\java\nio\IntBuffer.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\HUD.h" />
-    <ClInclude Include="src\base\eventManager\events\EventChams.hpp" />
-    <ClInclude Include="src\base\menu\hooks\glTexEnviHook.h" />
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
     <ClInclude Include="src\base\moduleManager\modules\player\AutoTool.h" />
     <ClInclude Include="src\base\sdk\java\lang\System.h" />
@@ -511,7 +511,6 @@
     <ClInclude Include="src\base\eventManager\events\EventPacketReceive.h" />
     <ClInclude Include="src\base\eventManager\events\EventPacketSend.h" />
     <ClInclude Include="src\base\extension\config.h" />
-    <ClInclude Include="src\base\menu\hooks\WSA.h" />
     <ClInclude Include="src\base\menu\ImGuiUtils.h" />
     <ClInclude Include="src\base\moduleManager\AbstractModule.h" />
     <ClInclude Include="src\base\moduleManager\commonData.h" />
@@ -602,6 +601,9 @@
     <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\base\menu\hooks\GameHook.cpp" />
+    <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
+    <ClCompile Include="src\base\sdk\net\minecraft\client\network\Packet.cpp" />
     <ClCompile Include="src\base\util\module\Module.cpp" />
     <ClCompile Include="src\base\jvm\hook\JavaHook.cpp" />
     <ClCompile Include="src\base\jvm\JVM.cpp" />
@@ -614,7 +616,6 @@
     <ClCompile Include="src\base\resource\ResourceManager.cpp" />
     <ClCompile Include="src\base\sdk\java\nio\IntBuffer.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\HUD.cpp" />
-    <ClCompile Include="src\base\menu\hooks\glTexEnviHook.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\player\Scaffold.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\player\AutoTool.cpp" />
     <ClCompile Include="src\base\sdk\java\lang\System.cpp" />
@@ -638,7 +639,6 @@
     <ClCompile Include="src\base\sdk\net\minecraft\item\ItemArmor.cpp" />
     <ClCompile Include="src\base\eventManager\events\EventUpdate.hpp" />
     <ClCompile Include="src\base\menu\hooks\WalkingUpdate.cpp" />
-    <ClCompile Include="src\base\menu\hooks\WSA.cpp" />
     <ClCompile Include="src\base\moduleManager\AbstractModule.cpp" />
     <ClCompile Include="src\base\moduleManager\ModuleManager.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\combat\KillAura.cpp" />

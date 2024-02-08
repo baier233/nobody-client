@@ -1,7 +1,7 @@
 #include "BlockState.h"
 
 
-CBlock CBlockState::getBlock() {
+CBlock CBlockState::getBlock(JNIEnv* env ) {
 	if (!this->isValid() || this->isNULL())	return CBlock{};
-	return CBlock(Java::Env->GetObjectField(this->instance, StrayCache::blockState_block));
+	return CBlock(env->GetObjectField(this->instance, StrayCache::blockState_block));
 }

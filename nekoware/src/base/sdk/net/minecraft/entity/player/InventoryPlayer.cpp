@@ -24,30 +24,30 @@
 //	return this->Instance;
 //}
 
-CItemStack CInventoryPlayer::GetCurrentItem()
+CItemStack CInventoryPlayer::GetCurrentItem(JNIEnv* env )
 {
-	return CItemStack(Java::Env->CallObjectMethod(this->getInstance(), StrayCache::inventoryPlayer_getCurrentItem));
+	return CItemStack(env->CallObjectMethod(this->getInstance(), StrayCache::inventoryPlayer_getCurrentItem));
 }
 
-void CInventoryPlayer::SetCurrentItem(int index)
+void CInventoryPlayer::SetCurrentItem(int index, JNIEnv* env )
 {
-	Java::Env->SetIntField(this->getInstance(), StrayCache::inventoryPlayer_currentItem, index);
+	env->SetIntField(this->getInstance(), StrayCache::inventoryPlayer_currentItem, index);
 }
 
-CItemStack CInventoryPlayer::GetIndexItem(int index)
+CItemStack CInventoryPlayer::GetIndexItem(int index, JNIEnv* env )
 {
-	jobject mainInventory = Java::Env->GetObjectField(this->getInstance(), StrayCache::inventoryPlayer_mainInv);
-	jobject itemstack = Java::Env->GetObjectArrayElement((jobjectArray)mainInventory, index);
+	jobject mainInventory = env->GetObjectField(this->getInstance(), StrayCache::inventoryPlayer_mainInv);
+	jobject itemstack = env->GetObjectArrayElement((jobjectArray)mainInventory, index);
 	return CItemStack(itemstack);
 
 }
-CItemStack CInventoryPlayer::GetStackInSlot(int index)
+CItemStack CInventoryPlayer::GetStackInSlot(int index, JNIEnv* env )
 {
-	return CItemStack(Java::Env->CallObjectMethod(this->getInstance(), StrayCache::inventoryPlayer_getStackInSlot,index));
+	return CItemStack(env->CallObjectMethod(this->getInstance(), StrayCache::inventoryPlayer_getStackInSlot, index));
 
 }
 
-CItemStack CInventoryPlayer::GetArmorItem(int index)
+CItemStack CInventoryPlayer::GetArmorItem(int index, JNIEnv* env )
 {
 
 	if (!isValid() || isNULL())
@@ -57,12 +57,13 @@ CItemStack CInventoryPlayer::GetArmorItem(int index)
 	jobjectArray array;
 	if (Base::version == 1)
 	{
-		array = CNonNullList(Java::Env->GetObjectField(this->getInstance(), StrayCache::inventoryPlayer_armorInv)).getList().toArray();
-	} else {
-		array = (jobjectArray)Java::Env->GetObjectField(this->getInstance(), StrayCache::inventoryPlayer_armorInv);
+		array = CNonNullList(env->GetObjectField(this->getInstance(), StrayCache::inventoryPlayer_armorInv)).getList().toArray();
+	}
+	else {
+		array = (jobjectArray)env->GetObjectField(this->getInstance(), StrayCache::inventoryPlayer_armorInv);
 	}
 	if (!array) return CItemStack();
-	jobject itemstack = Java::Env->GetObjectArrayElement(array, index);
+	jobject itemstack = env->GetObjectArrayElement(array, index);
 	if (!itemstack) return CItemStack();
 	return CItemStack(itemstack);
 

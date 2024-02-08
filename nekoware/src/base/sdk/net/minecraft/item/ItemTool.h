@@ -9,5 +9,5 @@ class CItemTool : public CItem
 
 public:
 	using CItem::CItem;
-	float GetStrVsBlock(CItemStack stack, CBlock state);
+	float GetStrVsBlock(CItemStack stack, CBlock state, JNIEnv* env = Java::Env);
 };

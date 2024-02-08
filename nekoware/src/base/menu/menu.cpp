@@ -11,7 +11,7 @@ void Menu::Init()
 	Menu::Initialized = false;
 	Menu::Open = false;
 	Menu::Keybind = VK_INSERT;
-	
+
 	Menu::PlaceHooks();
 }
 
@@ -20,21 +20,21 @@ void Menu::DoSliderStuff(int id, const char* text, float* bruh, float min, float
 
 	ImGui::SliderFloat(text, bruh, min, max);
 	return;
-	
+
 }
 
 void Menu::DoToggleButtonStuff(int id, const char* text, bool* bruh) {
 	ImGui::Checkboxx(text, image::check, bruh);
 	return;
-	
+
 }
 
 
 
-void Menu::DoToggleButtonStuff(int id, const char* text, AbstractModule* module){
+void Menu::DoToggleButtonStuff(int id, const char* text, AbstractModule* module) {
 	ImGui::Checkboxx(text, image::check, module);
 	return;
-	
+
 }
 
 
@@ -50,8 +50,7 @@ void Menu::Kill()
 void Menu::PlaceHooks()
 {
 	Menu::Hook_wglSwapBuffers();
-	Menu::Hook_WSA();
-	Menu::Hook_glTexEnvi();
+	Menu::LoadAllGameHook();
 	//Menu::HookUpdate();
 }
 
@@ -59,7 +58,6 @@ void Menu::RemoveHooks()
 {
 	Menu::Unhook_wndProc();
 	Menu::Unhook_wglSwapBuffers();
-	Menu::Unhook_WSA();
-	Menu::UnHook_glTexEnvi();
+	Menu::RemoveAllGameHook();
 	//Menu::UnhookUpdate();
 }

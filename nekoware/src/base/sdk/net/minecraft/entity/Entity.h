@@ -9,51 +9,51 @@ class CEntity : public Object
 public:
 	using Object::Object;
 
-	std::string GetName();
+	std::string GetName(JNIEnv* env = Java::Env);
 
-	Object GetObjectName();
+	Object GetObjectName(JNIEnv* env = Java::Env);
 
-	Vector3 GetPos() const;
-	Vector3 GetEyePos();
-	Vector3 GetLastTickPos();
+	Vector3 GetPos(JNIEnv* env = Java::Env) const;
+	Vector3 GetEyePos(JNIEnv* env = Java::Env);
+	Vector3 GetLastTickPos(JNIEnv* env = Java::Env);
 
-	void setMotion(Vector3 motion);
-	void setSprint(bool state);
+	void setMotion(Vector3 motion, JNIEnv* env = Java::Env);
+	void setSprint(bool state, JNIEnv* env = Java::Env);
 
-	Vector3 getMotion();
+	Vector3 getMotion(JNIEnv* env = Java::Env);
 
-	bool isOnGround();
-	bool inWater();
-	bool isDead();
-	bool isInvisible();
-	float fallDistance();
-	void setFallDistance(float i);
-	int ticksExisted();
-	void setPos(double x, double y, double z);
-	void setOnGround(bool state);
+	bool isOnGround(JNIEnv* env = Java::Env);
+	bool inWater(JNIEnv* env = Java::Env);
+	bool isDead(JNIEnv* env = Java::Env);
+	bool isInvisible(JNIEnv* env = Java::Env);
+	float fallDistance(JNIEnv* env = Java::Env);
+	void setFallDistance(float i, JNIEnv* env = Java::Env);
+	int ticksExisted(JNIEnv* env = Java::Env);
+	void setPos(double x, double y, double z, JNIEnv* env = Java::Env);
+	void setOnGround(bool state, JNIEnv* env = Java::Env);
 
-	bool IsSneaking();
-	void setSneaking(bool state);
+	bool IsSneaking(JNIEnv* env = Java::Env);
+	void setSneaking(bool state, JNIEnv* env = Java::Env);
 
-	float GetHeight();
-	float GetWidth();
+	float GetHeight(JNIEnv* env = Java::Env);
+	float GetWidth(JNIEnv* env = Java::Env);
 
-	float GetDistanceWalkedModified();
-	float GetPrevDistanceWalkedModified();
+	float GetDistanceWalkedModified(JNIEnv* env = Java::Env);
+	float GetPrevDistanceWalkedModified(JNIEnv* env = Java::Env);
 
-	float GetRotationYaw();
-	float GetRotationPitch();
+	float GetRotationYaw(JNIEnv* env = Java::Env);
+	float GetRotationPitch(JNIEnv* env = Java::Env);
 
-	float GetPrevRotationYaw();
-	float GetPrevRotationPitch();
+	float GetPrevRotationYaw(JNIEnv* env = Java::Env);
+	float GetPrevRotationPitch(JNIEnv* env = Java::Env);
 
-	jobject getUniqueID();
+	jobject getUniqueID(JNIEnv* env = Java::Env);
 
-	Vector2 GetAngles();
-	Vector2 GetPrevAngles();
+	Vector2 GetAngles(JNIEnv* env = Java::Env);
+	Vector2 GetPrevAngles(JNIEnv* env = Java::Env);
 
-	void SetAngles(Vector2 angles);
+	void SetAngles(Vector2 angles, JNIEnv* env = Java::Env);
 
-	CAxisAlignedBB GetBB();
-	void SetBB(BoundingBox bb);
+	CAxisAlignedBB GetBB(JNIEnv* env = Java::Env);
+	void SetBB(BoundingBox bb, JNIEnv* env = Java::Env);
 };

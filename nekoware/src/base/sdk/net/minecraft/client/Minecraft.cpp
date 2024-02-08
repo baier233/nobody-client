@@ -6,16 +6,16 @@
 #include "../../../sdk.h"
 
 
-CWorldClient CMinecraft::getTheWorld()
+CWorldClient CMinecraft::getTheWorld(JNIEnv* env)
 {
 	if (!this->instance) return CWorldClient();
-	return CWorldClient(Java::Env->GetObjectField(this->instance, StrayCache::minecraft_theWorld));
+	return CWorldClient(env->GetObjectField(this->instance, StrayCache::minecraft_theWorld));
 }
 
-CEntityPlayerSP CMinecraft::getThePlayer()
+CEntityPlayerSP CMinecraft::getThePlayer(JNIEnv* env)
 {
 	if (!this->instance) return CEntityPlayerSP();
-	return CEntityPlayerSP(Java::Env->GetObjectField(this->instance, StrayCache::minecraft_thePlayer));
+	return CEntityPlayerSP(env->GetObjectField(this->instance, StrayCache::minecraft_thePlayer));
 }
 
 //GameSettings Minecraft::getGameSettings()
@@ -24,61 +24,61 @@ CEntityPlayerSP CMinecraft::getThePlayer()
 //	return GameSettings(Ripterms::p_env->GetObjectField(instance, Ripterms::classcache->MinecraftClass.fields["gameSettings"]));
 //}
 
-CEntity CMinecraft::GetRenderViewEntity()
+CEntity CMinecraft::GetRenderViewEntity(JNIEnv* env)
 {
-	return CEntity(Java::Env->CallObjectMethod(this->getInstance(),StrayCache::minecraft_getRenderViewEntity));
+	return CEntity(env->CallObjectMethod(this->getInstance(), StrayCache::minecraft_getRenderViewEntity));
 }
 
-bool CMinecraft::IsInGuiState()
+bool CMinecraft::IsInGuiState(JNIEnv* env)
 {
-	if (Java::Env->IsSameObject(Java::Env->GetObjectField(this->getInstance(), StrayCache::minecraft_currentScreen), NULL))
+	if (env->IsSameObject(env->GetObjectField(this->getInstance(), StrayCache::minecraft_currentScreen), NULL))
 	{
 		return false;
 	}
 	return true;
 }
 
-int CMinecraft::getDebugFPS()
+int CMinecraft::getDebugFPS(JNIEnv* env)
 {
-	return Java::Env->CallIntMethod(this->getInstance(), StrayCache::minecraft_getDebugFPS);
+	return env->CallIntMethod(this->getInstance(), StrayCache::minecraft_getDebugFPS);
 }
 
-void CMinecraft::ClickMouse()
+void CMinecraft::ClickMouse(JNIEnv* env)
 {
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::minecraft_clickMouse);
+	env->CallVoidMethod(this->getInstance(), StrayCache::minecraft_clickMouse);
 
 }
 
-void CMinecraft::setRightClickDelayTimer(jint delay) {
-	Java::Env->SetIntField(this->getInstance(), StrayCache::minecraft_rightClickDelayTimer, delay);
+void CMinecraft::setRightClickDelayTimer(jint delay, JNIEnv* env) {
+	env->SetIntField(this->getInstance(), StrayCache::minecraft_rightClickDelayTimer, delay);
 }
 
-Object CMinecraft::getPlayerController()
+Object CMinecraft::getPlayerController(JNIEnv* env)
 {
-	return Object(Java::Env->GetObjectField(this->getInstance(), StrayCache::minecraft_playerController));
+	return Object(env->GetObjectField(this->getInstance(), StrayCache::minecraft_playerController));
 }
-CRenderManager CMinecraft::GetRenderManager() {
+CRenderManager CMinecraft::GetRenderManager(JNIEnv* env) {
 	if (!this->instance) return GetRenderManager();
-	return CRenderManager(Java::Env->GetObjectField(SDK::Minecraft->getInstance(), StrayCache::minecraft_renderManager));
+	return CRenderManager(env->GetObjectField(SDK::Minecraft->getInstance(), StrayCache::minecraft_renderManager));
 }
 
-CNetHandlerPlayClient CMinecraft::getNetHandler()
+CNetHandlerPlayClient CMinecraft::getNetHandler(JNIEnv* env)
 {
-	//return CNetHandlerPlayClient(Java::Env->CallObjectMethod(this->getInstance(),StrayCache::minecraft_getNetHandler));
-	return CNetHandlerPlayClient(Java::Env->GetObjectField(thePlayer->getInstance(), StrayCache::entityPlayerSP_sendQueue));
+	//return CNetHandlerPlayClient(env->CallObjectMethod(this->getInstance(),StrayCache::minecraft_getNetHandler));
+	return CNetHandlerPlayClient(env->GetObjectField(thePlayer->getInstance(), StrayCache::entityPlayerSP_sendQueue));
 }
 
-CGuiIngame CMinecraft::getIngameGUI()
+CGuiIngame CMinecraft::getIngameGUI(JNIEnv* env)
 {
-	auto objectGui = Java::Env->GetObjectField(this->getInstance(), StrayCache::minecraft_ingameGUI);
+	auto objectGui = env->GetObjectField(this->getInstance(), StrayCache::minecraft_ingameGUI);
 	if (objectGui)
 	{
 		return CGuiIngame(objectGui);
 	}
-	return NULL;
+	return CGuiIngame();
 }
 
-CMovingObjectPosition CMinecraft::GetMouseOver()
+CMovingObjectPosition CMinecraft::GetMouseOver(JNIEnv* env)
 {
-	return CMovingObjectPosition(Java::Env->GetObjectField(this->getInstance(), StrayCache::minecraft_objectMouseOver));
+	return CMovingObjectPosition(env->GetObjectField(this->getInstance(), StrayCache::minecraft_objectMouseOver));
 }

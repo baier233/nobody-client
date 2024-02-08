@@ -10,10 +10,10 @@ struct Java
 	static void Init();
 	static void Kill();
 
-	static bool AssignClass(std::string name, jclass &out);
-
+	static bool AssignClass(std::string name, jclass& out);
 	static inline JNIEnv* Env;
 	static inline jvmtiEnv* Jvmti;
+	static inline JavaVM* jvm;
 	static inline bool Initialized;
 };
 

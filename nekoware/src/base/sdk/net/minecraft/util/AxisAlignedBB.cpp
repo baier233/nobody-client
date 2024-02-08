@@ -25,26 +25,26 @@
 //	return this->Instance;
 //}
 
-BoundingBox CAxisAlignedBB::GetNativeBoundingBox()
+BoundingBox CAxisAlignedBB::GetNativeBoundingBox(JNIEnv* env )
 {
 	return BoundingBox{
-		Java::Env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minX),
-		Java::Env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minY),
-		Java::Env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minZ),
+		env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minX),
+		env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minY),
+		env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minZ),
 
-		Java::Env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxX),
-		Java::Env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxY),
-		Java::Env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxZ),
+		env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxX),
+		env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxY),
+		env->GetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxZ),
 	};
 }
 
-void CAxisAlignedBB::SetBoundingBox(BoundingBox newBoundingBox)
+void CAxisAlignedBB::SetBoundingBox(BoundingBox newBoundingBox, JNIEnv* env )
 {
-	Java::Env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minX, newBoundingBox.minX);
-	Java::Env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minY, newBoundingBox.minY);
-	Java::Env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minZ, newBoundingBox.minZ);
+	env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minX, newBoundingBox.minX);
+	env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minY, newBoundingBox.minY);
+	env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_minZ, newBoundingBox.minZ);
 
-	Java::Env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxX, newBoundingBox.maxX);
-	Java::Env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxY, newBoundingBox.maxY);
-	Java::Env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxZ, newBoundingBox.maxZ);
+	env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxX, newBoundingBox.maxX);
+	env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxY, newBoundingBox.maxY);
+	env->SetDoubleField(this->getInstance(), StrayCache::axisAlignedBB_maxZ, newBoundingBox.maxZ);
 }

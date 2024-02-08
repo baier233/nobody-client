@@ -21,22 +21,22 @@
 //	return this->Instance;
 //}
 
-CItem CItemStack::GetItem()
+CItem CItemStack::GetItem(JNIEnv* env )
 {
-	return CItem(Java::Env->CallObjectMethod(this->getInstance(), StrayCache::itemStack_getItem));
+	return CItem(env->CallObjectMethod(this->getInstance(), StrayCache::itemStack_getItem));
 }
 
 
-float CItemStack::GetStrVsBlock(CBlock block)
+float CItemStack::GetStrVsBlock(CBlock block, JNIEnv* env )
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
 	if (Base::version == 1)return 1.f;
-	return Java::Env->CallFloatMethod(this->instance, StrayCache::itemStack_getStrVsBlock,block.getInstance());
+	return env->CallFloatMethod(this->instance, StrayCache::itemStack_getStrVsBlock, block.getInstance());
 }
 
-float CItemStack::GetStrVsBlock(CIBlockState block)
+float CItemStack::GetStrVsBlock(CIBlockState block, JNIEnv* env )
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
 	if (Base::version != 1)return 1.f;
-	return Java::Env->CallFloatMethod(this->instance, StrayCache::itemStack_getStrVsBlock,block.getInstance());
+	return env->CallFloatMethod(this->instance, StrayCache::itemStack_getStrVsBlock, block.getInstance());
 }

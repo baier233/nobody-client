@@ -21,16 +21,16 @@
 //	}
 //
 //	if (JNIHelper::IsForge()) {
-//		this->FieldIDs["entityList"] = Java::Env->GetFieldID(this->Class, "field_73032_d", "Ljava/util/Set;");
+//		this->FieldIDs["entityList"] = env->GetFieldID(this->Class, "field_73032_d", "Ljava/util/Set;");
 //		return;
 //	}
 //	/*
 //	if (JNIHelper::IsVanilla()) {
-//		this->FieldIDs["entityList"] = Java::Env->GetFieldID(this->Class, "c ", "Ljava/util/Set;");
+//		this->FieldIDs["entityList"] = env->GetFieldID(this->Class, "c ", "Ljava/util/Set;");
 //		return;
 //	}
 //	*/
-//	this->FieldIDs["entityList"] = Java::Env->GetFieldID(this->Class, "entityList", "Ljava/util/Set;");
+//	this->FieldIDs["entityList"] = env->GetFieldID(this->Class, "entityList", "Ljava/util/Set;");
 //}
 //
 //jclass CWorldClient::getClass()
@@ -40,26 +40,26 @@
 //
 //jobject CWorldClient::getInstance()
 //{
-//	return Java::Env->GetObjectField(SDK::Minecraft->getInstance(), SDK::Minecraft->FieldIDs["theWorld"]);
+//	return env->GetObjectField(SDK::Minecraft->getInstance(), SDK::Minecraft->FieldIDs["theWorld"]);
 //}
 
-Set CWorldClient::GetEntityList()
+Set CWorldClient::GetEntityList(JNIEnv* env )
 {
 	jfieldID targetField = StrayCache::worldClient_entityList;
 
-	jobject playerEntitiesList = Java::Env->GetObjectField(this->getInstance(), targetField);
+	jobject playerEntitiesList = env->GetObjectField(this->getInstance(), targetField);
 
-	
+
 	return Set(playerEntitiesList);
 }
 
-int CWorldClient::getIDFromBlock(jobject block)
+int CWorldClient::getIDFromBlock(jobject block, JNIEnv* env )
 {
 	if (this->getInstance() == NULL)return 0;
-	int blockID = Java::Env->CallIntMethod(StrayCache::blockPos_class, StrayCache::block_getIdFromBlock, block);
+	int blockID = env->CallIntMethod(StrayCache::blockPos_class, StrayCache::block_getIdFromBlock, block);
 
 
-	//Java::Env->DeleteLocalRef(block);
+	//env->DeleteLocalRef(block);
 	//mc.env->DeleteLocalRef(blockName);
 	return blockID;
 }

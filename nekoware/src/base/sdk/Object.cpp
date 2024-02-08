@@ -1,21 +1,21 @@
 #include "Object.h"
 
-Object::Object(jobject instance)
+Object::Object(jobject instance, JNIEnv* env)
 {
 	if (instance) {
-		this->instance = Java::Env->NewGlobalRef(instance);
-		Java::Env->DeleteLocalRef(instance);
+		this->instance = env->NewGlobalRef(instance);
+		env->DeleteLocalRef(instance);
 	}
 	else this->instance = nullptr;
 }
 
-Object::Object(const Object& other_Object)
+Object::Object(const Object& other_Object, JNIEnv* env)
 {
-	if (other_Object.instance) this->instance = Java::Env->NewGlobalRef(other_Object.instance);
+	if (other_Object.instance) this->instance = env->NewGlobalRef(other_Object.instance);
 	else this->instance = nullptr;
 }
 
-Object::Object()
+Object::Object(JNIEnv* env)
 {
 }
 
@@ -38,13 +38,13 @@ Object& Object::operator=(jobject instance)
 	return *this;
 }
 
-bool Object::isEqualTo(const Object& other_Object)
+bool Object::isEqualTo(const Object& other_Object, JNIEnv* env)
 {
 	if (this->instance == other_Object.instance) {
 		return true;
 	}
 	else if (this->instance && other_Object.instance) {
-		return Java::Env->IsSameObject(this->instance, other_Object.instance) == JNI_TRUE;
+		return env->IsSameObject(this->instance, other_Object.instance) == JNI_TRUE;
 	}
 	return false;
 }
@@ -54,16 +54,16 @@ bool Object::operator!()
 	return this->instance == nullptr;
 }
 
-bool Object::isValid()
+bool Object::isValid(JNIEnv* env)
 {
 	return this->instance != nullptr;
 }
-bool Object::check() {
+bool Object::check(JNIEnv* env) {
 	return this->isValid() || !this->isNULL();
 }
-bool Object::isNULL()
+bool Object::isNULL(JNIEnv* env)
 {
-	return Java::Env->IsSameObject(this->instance,NULL);
+	return env->IsSameObject(this->instance, NULL);
 }
 
 Object::~Object()
@@ -72,21 +72,21 @@ Object::~Object()
 	if (instance) Java::Env->DeleteGlobalRef(instance);
 }
 
-void Object::clear()
+void Object::clear(JNIEnv* env)
 {
-	if (!Java::Env) return;
+	if (!env) return;
 	if (this->instance) {
-		Java::Env->DeleteGlobalRef(this->instance);
+		env->DeleteGlobalRef(this->instance);
 		this->instance = nullptr;
 	}
 }
 
-jobject Object::getInstance() const
+jobject Object::getInstance(JNIEnv* env) const
 {
 	return instance;
 }
 
-jclass Object::getClass() const
+jclass Object::getClass(JNIEnv* env) const
 {
-	return Java::Env->GetObjectClass(this->instance);
+	return env->GetObjectClass(this->instance);
 }

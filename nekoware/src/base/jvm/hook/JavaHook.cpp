@@ -51,7 +51,6 @@ extern "C" JNIIMPORT VMTypeEntry * gHotSpotVMTypes;
 bool JavaHook::init()
 {
 	VMTypes::init(gHotSpotVMStructs, gHotSpotVMTypes);
-
 	Module jvmdll("jvm.dll");
 	uint8_t make_local_pattern[] =
 	{
@@ -85,11 +84,12 @@ bool JavaHook::init()
 		make_local2 = (jobject(*)(JNIEnv*, void*))
 			jvmdll.pattern_scan(make_local_pattern3, sizeof(make_local_pattern3), PAGE_EXECUTE_READ);
 	}
-	return true;	
+	return true;
 }
 #include "./../../java/java.h"
+#include <thread>
 
-void JavaHook::add_to_java_hook(jmethodID methodID, callback_t interpreted_callback)
+void JavaHook::add_to_java_hook(jmethodID methodID, callback_t interpreted_callback, jclass owner)
 {
 	static int runonce = []()->int
 		{
@@ -97,11 +97,16 @@ void JavaHook::add_to_java_hook(jmethodID methodID, callback_t interpreted_callb
 			Java::Jvmti->AddCapabilities(&capabilities);
 			return 0;
 		}();
+		if (!owner)
+		{
+			Java::Jvmti->GetMethodDeclaringClass(methodID, &owner);
+			Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
+			Java::Env->DeleteLocalRef(owner);
+		}
+		else {
+			Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
+		}
 
-		jclass owner = nullptr;
-		Java::Jvmti->GetMethodDeclaringClass(methodID, &owner);
-		Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
-		Java::Env->DeleteLocalRef(owner);
 
 		HookedJavaMethodCache& m = hookedMethods[methodID];
 		m.interpreted_callback = interpreted_callback;
@@ -126,11 +131,11 @@ void JavaHook::add_to_java_hook(jmethodID methodID, callback_t interpreted_callb
 			uint8_t* _adapter = *method.get_field<uint8_t*>("_adapter").value();
 			uint8_t* _c2i_entry = *(uint8_t**)(_adapter + 0x20);
 			uint8_t** p_from_compiled_entry = method.get_field<uint8_t*>("_from_compiled_entry").value();
-			*p_from_compiled_entry = _c2i_entry;	
-			if (m.prev_i2i_entry) 
+			*p_from_compiled_entry = _c2i_entry;
+			if (m.prev_i2i_entry)
 				VirtualFree(m.prev_i2i_entry, 0, MEM_RELEASE);
 			m.prev_i2i_entry = new_i2i_entry;
-			
+
 			//*((uint8_t**)(method + 0x48)) = nullptr; // delete compiled code
 		}
 }
@@ -145,14 +150,14 @@ jobject JavaHook::oop_to_jobject(void* oop, JNIEnv* env)
 	return make_local2(env, oop);
 }
 
-jobject JavaHook::get_jobject_arg_at(void* sp, int index, void* thread)
+jobject JavaHook::get_jobject_arg_at(void* sp, int index, void* thread, JNIEnv* env)
 {
 
 	void* oop = get_primitive_arg_at<void*>(sp, index);
 	if (!oop) return nullptr;
 	if (JavaHook::is_old_java)
 	{
-		return oop_to_jobject(oop, Java::Env);
+		return oop_to_jobject(oop, env);
 	}
 	return oop_to_jobject(oop, thread);
 }
@@ -163,7 +168,29 @@ JNIEnv* JavaHook::get_env_for_thread(void* thread)
 	return (JNIEnv*)((uintptr_t)thread + offset);
 }
 
-uint8_t * AllocateNearbyMemory(uint8_t* nearby_addr, int size, int access = PAGE_EXECUTE_READWRITE)
+JNIEnv* JavaHook::get_current_thread_env()
+{
+	static std::unordered_map<std::thread::id, JNIEnv*> env_cache{};
+	try
+	{
+		return env_cache.at(std::this_thread::get_id());
+	}
+	catch (...)
+	{
+		JNIEnv* env = nullptr;
+		JavaVM* jvm = Java::jvm;
+		if (!jvm)
+			return nullptr;
+		if (jvm->GetEnv((void**)&env, JNI_VERSION_1_8) == JNI_EDETACHED)
+			jvm->AttachCurrentThreadAsDaemon((void**)&env, nullptr);
+		if (env)
+			env_cache.insert({ std::this_thread::get_id(), env });
+		return env;
+	}
+	return nullptr;
+}
+
+uint8_t* AllocateNearbyMemory(uint8_t* nearby_addr, int size, int access = PAGE_EXECUTE_READWRITE)
 {
 	//this is slow, maybe change the value
 	int fail = 0;

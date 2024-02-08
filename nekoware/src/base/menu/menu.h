@@ -23,7 +23,6 @@ struct Menu
 	static inline bool Open;
 	static inline int Keybind;
 	static inline ImFont* Font;
-	//static inline ImFont* Minecraft;
 	static inline bool Initialized;
 
 	static void SetupImgui();
@@ -35,8 +34,6 @@ struct Menu
 	static void DoSliderStuff(int id, const char* text, float* bruh, float min, float max);
 	static void DoToggleButtonStuff(int id, const char* text, bool* bruh);
 	static void DoToggleButtonStuff(int id, const char* text, AbstractModule* module);
-
-	//static void GlitchText(const char* text, ImVec2 pos);
 
 	static inline HWND HandleWindow;
 	static inline HDC HandleDeviceContext;
@@ -53,13 +50,9 @@ struct Menu
 	static void Unhook_wglSwapBuffers();
 	static void Unhook_wndProc();
 
-	static void Unhook_WSA();
-	static void Hook_WSA();
-	
-	static void UnHook_glTexEnvi();
-	static void Hook_glTexEnvi();
-
 	static void UnhookUpdate();
 	static void HookUpdate();
+	static void LoadAllGameHook();
+	static void RemoveAllGameHook();
 };
 

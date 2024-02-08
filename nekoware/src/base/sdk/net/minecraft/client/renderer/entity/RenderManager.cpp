@@ -3,20 +3,20 @@
 #include "../../../../../../java/java.h"
 #include "../../../../../sdk.h"
 
-Vector3 CRenderManager::RenderPos()
+Vector3 CRenderManager::RenderPos(JNIEnv* env)
 {
 	return Vector3{
-		(float)(double) Java::Env->GetDoubleField(instance, StrayCache::renderManager_renderPosX),
-		(float)(double) Java::Env->GetDoubleField(instance, StrayCache::renderManager_renderPosY),
-		(float)(double) Java::Env->GetDoubleField(instance, StrayCache::renderManager_renderPosZ)
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_renderPosX),
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_renderPosY),
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_renderPosZ)
 	};
 }
 
-Vector3 CRenderManager::ViewerPos()
+Vector3 CRenderManager::ViewerPos(JNIEnv* env)
 {
 	return Vector3{
-		(float)(double)Java::Env->GetDoubleField(instance, StrayCache::renderManager_viewerPosX),
-		(float)(double)Java::Env->GetDoubleField(instance, StrayCache::renderManager_viewerPosY),
-		(float)(double)Java::Env->GetDoubleField(instance, StrayCache::renderManager_viewerPosZ)
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_viewerPosX),
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_viewerPosY),
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_viewerPosZ)
 	};
 }

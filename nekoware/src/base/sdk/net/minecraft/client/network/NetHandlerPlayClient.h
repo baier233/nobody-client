@@ -5,5 +5,5 @@ class CNetHandlerPlayClient : public Object
 {
 public:
 	using Object::Object;
-	CNetworkPlayerInfo getPlayerInfo(Object UUID);
+	CNetworkPlayerInfo getPlayerInfo(Object UUID, JNIEnv* env = Java::Env);
 };

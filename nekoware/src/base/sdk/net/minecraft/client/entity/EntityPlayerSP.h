@@ -7,40 +7,40 @@ class CEntityPlayerSP : public CEntityPlayer
 {
 public:
 	using CEntityPlayer::CEntityPlayer;
-	void setSneak(bool state);
-	void attackEntity(CEntityPlayerSP* player, jobject entity);
-	bool sendUseItem(CEntityPlayer* player, CWorld* world, CItemStack item);
+	void setSneak(bool state, JNIEnv* env = Java::Env);
+	void attackEntity(CEntityPlayerSP* player, jobject entity, JNIEnv* env = Java::Env);
+	bool sendUseItem(CEntityPlayer* player, CWorld* world, CItemStack item, JNIEnv* env = Java::Env);
 
-	double get_motion_x();
+	double get_motion_x(JNIEnv* env = Java::Env);
 
-	void set_motion_x(double x);
+	void set_motion_x(double x, JNIEnv* env = Java::Env);
 
-	double get_motion_y();
+	double get_motion_y(JNIEnv* env = Java::Env);
 
-	void set_motion_y(double y);
+	void set_motion_y(double y, JNIEnv* env = Java::Env);
 
-	double get_motion_z();
+	double get_motion_z(JNIEnv* env = Java::Env);
 
-	void set_motion_z(double z);
+	void set_motion_z(double z, JNIEnv* env = Java::Env);
 
-	double toRadians(float degrees);
+	double toRadians(float degrees, JNIEnv* env = Java::Env);
 
-	float get_direction();
+	float get_direction(JNIEnv* env = Java::Env);
 
-	float get_speed();
+	float get_speed(JNIEnv* env = Java::Env);
 
-	bool isStrafing();
+	bool isStrafing(JNIEnv* env = Java::Env);
 
-	bool isMovingForwardsOrBackwards();
+	bool isMovingForwardsOrBackwards(JNIEnv* env = Java::Env);
 
-	bool isMovingForwards();
+	bool isMovingForwards(JNIEnv* env = Java::Env);
 
-	bool isMovingBackwards();
+	bool isMovingBackwards(JNIEnv* env = Java::Env);
 
-	void set_speed(const float speed);
+	void set_speed(const float speed, JNIEnv* env = Java::Env);
 
-	void sendGroundPacket(Object Packet);
+	void sendGroundPacket(Object Packet, JNIEnv* env = Java::Env);
 
-	Object C03PacketPlayer(jboolean ground, float yaw, float pitch);
+	Object C03PacketPlayer(jboolean ground, float yaw, float pitch, JNIEnv* env = Java::Env);
 
 };

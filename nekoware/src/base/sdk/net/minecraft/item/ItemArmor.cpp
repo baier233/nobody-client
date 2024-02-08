@@ -24,14 +24,14 @@
 //	return this->Instance;
 //}
 //
-CItemArmor::CItemArmor(CItem item) {
-	this->instance = Java::Env->NewGlobalRef(item.getInstance());
+CItemArmor::CItemArmor(CItem item, JNIEnv* env) {
+	this->instance = env->NewGlobalRef(item.getInstance());
 }
-int CItemArmor::getColor(CItemStack stack) {
+int CItemArmor::getColor(CItemStack stack, JNIEnv* env) {
 	if (!stack.check()) return NULL;
 	if (!stack.GetItem().getInstance()) return NULL;
-	if (!Java::Env->IsInstanceOf(stack.GetItem().getInstance(),StrayCache::itemArmor_Class)) return NULL;
+	if (!env->IsInstanceOf(stack.GetItem().getInstance(), StrayCache::itemArmor_Class)) return NULL;
 
 
-	return Java::Env->CallIntMethod(this->getInstance(), StrayCache::itemArmor_getColor , stack.getInstance());
+	return env->CallIntMethod(this->getInstance(), StrayCache::itemArmor_getColor, stack.getInstance());
 }

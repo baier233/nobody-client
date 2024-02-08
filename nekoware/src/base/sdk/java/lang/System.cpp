@@ -1,6 +1,6 @@
 #include "System.h"
 
-void System::gc()
+void System::gc(JNIEnv* env)
 {
-	Java::Env->CallStaticVoidMethod(StrayCache::system_class, StrayCache::system_gc);
+	env->CallStaticVoidMethod(StrayCache::system_class, StrayCache::system_gc);
 }

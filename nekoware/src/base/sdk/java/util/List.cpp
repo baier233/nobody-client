@@ -2,12 +2,12 @@
 #include "../../../java/java.h"
 
 
-jobjectArray List::toArray()
+jobjectArray List::toArray(JNIEnv* env)
 {
 	if (this->instance == nullptr)
 	{
 		return NULL;
 	}
 
-	return (jobjectArray) Java::Env->CallObjectMethod(this->instance, StrayCache::list_toArray);
+	return (jobjectArray)env->CallObjectMethod(this->instance, StrayCache::list_toArray);
 }

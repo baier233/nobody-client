@@ -24,61 +24,61 @@
 //	return this->Instance;
 //}
 
-CVec3 CMovingObjectPosition::GetBlockPosition()
+CVec3 CMovingObjectPosition::GetBlockPosition(JNIEnv* env )
 {
-	return CVec3(Java::Env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_hitVec));
+	return CVec3(env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_hitVec));
 }
 
-bool CMovingObjectPosition::IsTypeOfBlock()
+bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )
 {
 	if (!this->getInstance()) return true;
-	
-	jobject typeOfHit = Java::Env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
+
+	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
 	if (!typeOfHit) return false;
 
-	jclass movingObjectType = Java::Env->GetObjectClass(typeOfHit);
+	jclass movingObjectType = env->GetObjectClass(typeOfHit);
 	if (!movingObjectType) return false;
 
 	jfieldID block;
 
 	if (Base::version == 1)
 	{
-		block = Java::Env->GetStaticFieldID(movingObjectType, "BLOCK", "Lnet/minecraft/util/math/RayTraceResult$Type;");
+		block = env->GetStaticFieldID(movingObjectType, "BLOCK", "Lnet/minecraft/util/math/RayTraceResult$Type;");
 	}
 	else {
-		block = Java::Env->GetStaticFieldID(movingObjectType, "BLOCK", "Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;");
+		block = env->GetStaticFieldID(movingObjectType, "BLOCK", "Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;");
 
 	}
 	if (!block) return false;
-	jobject object = Java::Env->GetStaticObjectField(movingObjectType, block);
+	jobject object = env->GetStaticObjectField(movingObjectType, block);
 	if (!object) return false;
 
-	return Java::Env->IsSameObject(object, typeOfHit);
+	return env->IsSameObject(object, typeOfHit);
 }
 
-bool CMovingObjectPosition::IsTypeOfEntity()
+bool CMovingObjectPosition::IsTypeOfEntity(JNIEnv* env )
 {
-	jobject typeOfHit = Java::Env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
+	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
 	if (!typeOfHit) return false;
 
-	jclass movingObjectType = Java::Env->GetObjectClass(typeOfHit);
+	jclass movingObjectType = env->GetObjectClass(typeOfHit);
 	if (!movingObjectType) return false;
 	jfieldID block;
 	if (Base::version == 1)
 	{
-		block = Java::Env->GetStaticFieldID(movingObjectType, "ENTITY", "Lnet/minecraft/util/math/RayTraceResult$Type;");
+		block = env->GetStaticFieldID(movingObjectType, "ENTITY", "Lnet/minecraft/util/math/RayTraceResult$Type;");
 	}
 	else {
-		block = Java::Env->GetStaticFieldID(movingObjectType, "ENTITY", "Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;");
+		block = env->GetStaticFieldID(movingObjectType, "ENTITY", "Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;");
 	}
 	if (!block) return false;
-	jobject object = Java::Env->GetStaticObjectField(movingObjectType, block);
+	jobject object = env->GetStaticObjectField(movingObjectType, block);
 	if (!object) return false;
 
-	return Java::Env->IsSameObject(object, typeOfHit);
+	return env->IsSameObject(object, typeOfHit);
 }
 
-BlockPos CMovingObjectPosition::getBlockPos()
+BlockPos CMovingObjectPosition::getBlockPos(JNIEnv* env )
 {
-	return BlockPos(Java::Env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_blockPos));
+	return BlockPos(env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_blockPos));
 }

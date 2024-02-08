@@ -11,17 +11,17 @@
 //	}
 //	if (JNIHelper::IsForge()) {
 //
-//		StrayCache::chunk_getBlock = Java::Env->GetMethodID(StrayCache::chunk_class, "func_177438_a", "(III)Lnet/minecraft/block/Block;");
+//		StrayCache::chunk_getBlock ->GetMethodID(StrayCache::chunk_class, "func_177438_a", "(III)Lnet/minecraft/block/Block;");
 //		return;
 //	}
 //
 //	
-//	StrayCache::chunk_getBlock = Java::Env->GetMethodID(StrayCache::chunk_class, "getBlock", "(III)Lnet/minecraft/block/Block;");
+//	StrayCache::chunk_getBlock ->GetMethodID(StrayCache::chunk_class, "getBlock", "(III)Lnet/minecraft/block/Block;");
 //	
 //	this->Instance = instance;
 //}
 
-CBlock CChunk::getBlock(jint x, jint y, jint z)
+CBlock CChunk::getBlock(jint x, jint y, jint z, JNIEnv* env )
 {
-	return CBlock(Java::Env->CallObjectMethod(this->getInstance(), StrayCache::chunk_getBlock, x, y, z));
+	return CBlock(env->CallObjectMethod(this->getInstance(), StrayCache::chunk_getBlock, x, y, z));
 }

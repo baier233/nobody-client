@@ -2,13 +2,14 @@
 
 
 #include "../AbstractEvent.h"
-
-class EventPacketSend : public Event<EventPacketSend> {
+#include "../../sdk/net/minecraft/client/network/Packet.h"
+class EventPacketSend : public Event<EventPacketSend>, public EventCallback {
 public:
-    EventPacketSend(const char* buffer) : buffer(buffer) {}
+	EventPacketSend(JNIEnv* env, CPacket cp) : packet(cp), env(env) {}
 
-    const char* getPackets() const { return this->buffer; }
-
+	CPacket getPackets() const { return this->packet; }
+	JNIEnv* getEnv() const { return this->env; }
 private:
-    const char* buffer;
+	CPacket packet;
+	JNIEnv* env;
 };

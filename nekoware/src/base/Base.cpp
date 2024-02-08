@@ -39,11 +39,9 @@
 #include "util/stb_image.h"
 #include "menu/Notification/NotificationManager.h"
 #include "menu/web/WebServerManager.h"
+#include "jvm/hook/JavaHook.h"
 
 Version Base::version = UNKNOWN;
-
-// LUA import
-//#include "extension/scripting.hpp"
 
 const char* GetWindowTitle(HWND hWnd)
 {
@@ -87,18 +85,8 @@ static void handleUpdate(JNIEnv* env)
 			if (msg.wParam == VK_ESCAPE && Menu::Open)
 				Menu::Open = false;
 			ModuleManager::getInstance().ProcessKeyEvent(msg.wParam);
-			//EventManager::getInstance().call(EventKey(msg.wParam));
 		}
-
-		/*UINT value1 = msg.message;
-		UINT value2 = msg.wParam;
-		UINT value3 = msg.lParam;
-		*/
-
-		TranslateMessage(&msg); // ·¢³öWM_CHAR
-
-		//(jint)value1, (jlong)value2, (jlong)value3);
-
+		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
 }
@@ -132,6 +120,7 @@ void Base::Init()
 	Base::isObfuscate = false;
 	checkVersion();
 	SDK::Init();
+	JavaHook::init();
 	Menu::Init();
 	initModule();
 	InitUpdateMessge();
@@ -140,7 +129,6 @@ void Base::Init()
 	SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
 	WebServerManager::getInstance().Start(8080);
 	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
-
 	while (Base::Running)
 	{
 		if (IsKeyReleased(VK_F11)) {
@@ -171,7 +159,7 @@ void Base::initConsole() {
 }
 
 void Base::initModule() {
-	
+
 	{
 		ModuleManager::getInstance().addModule<Killaura>(Killaura::getInstance());
 		ModuleManager::getInstance().addModule<AimAssist>(AimAssist::getInstance());
@@ -301,6 +289,7 @@ void Base::Kill()
 	SDK::Minecraft->gameSettings->RestoreFullscreenKey();
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
+	JavaHook::clean();
 	SDK::Clean();
 	StrayCache::DeleteRefs();
 	auto og = GetProcAddress(GetModuleHandle("lwjgl64.dll"), "Java_org_lwjgl_opengl_WindowsDisplay_nUpdate");

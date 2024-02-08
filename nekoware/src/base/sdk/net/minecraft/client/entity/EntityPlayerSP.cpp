@@ -7,67 +7,67 @@
 
 
 
-void CEntityPlayerSP::setSneak(bool state)
+void CEntityPlayerSP::setSneak(bool state, JNIEnv* env )
 {
 	CGameSettings* settings = SDK::Minecraft->gameSettings;
-	jobject sneakObj = Java::Env->GetObjectField(settings->getInstance(), StrayCache::gamesettings_keyBindSneak);
-	jclass keybind_class = Java::Env->GetObjectClass(sneakObj);
+	jobject sneakObj = env->GetObjectField(settings->getInstance(), StrayCache::gamesettings_keyBindSneak);
+	jclass keybind_class = env->GetObjectClass(sneakObj);
 	jfieldID pressed;
 
-	Java::Env->SetBooleanField(sneakObj, StrayCache::keybind_pressed, state);
+	env->SetBooleanField(sneakObj, StrayCache::keybind_pressed, state);
 }
 
-void CEntityPlayerSP::attackEntity(CEntityPlayerSP* player, jobject entity)
+void CEntityPlayerSP::attackEntity(CEntityPlayerSP* player, jobject entity, JNIEnv* env )
 {
 
 	Object playerControllerObj = SDK::Minecraft->getPlayerController();
-	return Java::Env->CallVoidMethod(playerControllerObj.getInstance(), StrayCache::playerControllerMP_attackEntity, player->getInstance(), entity);
+	return env->CallVoidMethod(playerControllerObj.getInstance(), StrayCache::playerControllerMP_attackEntity, player->getInstance(), entity);
 }
 
-bool CEntityPlayerSP::sendUseItem(CEntityPlayer* player, CWorld* world, CItemStack item)
+bool CEntityPlayerSP::sendUseItem(CEntityPlayer* player, CWorld* world, CItemStack item, JNIEnv* env )
 {
 	Object playerControllerObj = SDK::Minecraft->getPlayerController();
 
-	return Java::Env->CallBooleanMethod(playerControllerObj.getInstance(), StrayCache::playerControllerMP_sendUseItem, player->getInstance(), world, item.getInstance());
+	return env->CallBooleanMethod(playerControllerObj.getInstance(), StrayCache::playerControllerMP_sendUseItem, player->getInstance(), world, item.getInstance());
 }
 
-double CEntityPlayerSP::get_motion_x()
+double CEntityPlayerSP::get_motion_x(JNIEnv* env )
 {
 	return this->getMotion().x;
 }
 
-void CEntityPlayerSP::set_motion_x(double x)
+void CEntityPlayerSP::set_motion_x(double x, JNIEnv* env )
 {
-	Java::Env->SetDoubleField(getInstance(), StrayCache::entity_motionX, (jdouble)x);
+	env->SetDoubleField(getInstance(), StrayCache::entity_motionX, (jdouble)x);
 }
 
-double CEntityPlayerSP::get_motion_y()
+double CEntityPlayerSP::get_motion_y(JNIEnv* env )
 {
-	double y = (double)Java::Env->GetDoubleField(getInstance(), StrayCache::entity_motionY);
+	double y = (double)env->GetDoubleField(getInstance(), StrayCache::entity_motionY);
 	return y;
 }
 
-void CEntityPlayerSP::set_motion_y(double y)
+void CEntityPlayerSP::set_motion_y(double y, JNIEnv* env )
 {
-	Java::Env->SetDoubleField(getInstance(), StrayCache::entity_motionY, (jdouble)y);
+	env->SetDoubleField(getInstance(), StrayCache::entity_motionY, (jdouble)y);
 }
 
-double CEntityPlayerSP::get_motion_z()
+double CEntityPlayerSP::get_motion_z(JNIEnv* env )
 {
-	double z = (double)Java::Env->GetDoubleField(getInstance(), StrayCache::entity_motionZ);
+	double z = (double)env->GetDoubleField(getInstance(), StrayCache::entity_motionZ);
 	return z;
 }
 
-void CEntityPlayerSP::set_motion_z(double z)
+void CEntityPlayerSP::set_motion_z(double z, JNIEnv* env )
 {
-	Java::Env->SetDoubleField(getInstance(), StrayCache::entity_motionZ, (jdouble)z);
+	env->SetDoubleField(getInstance(), StrayCache::entity_motionZ, (jdouble)z);
 }
 
-double CEntityPlayerSP::toRadians(float degrees) {
+double CEntityPlayerSP::toRadians(float degrees, JNIEnv* env ) {
 	return degrees * (M_PI / 180);
 }
 
-float CEntityPlayerSP::get_direction()
+float CEntityPlayerSP::get_direction(JNIEnv* env )
 {
 	float yaw = SDK::Minecraft->thePlayer->GetRotationYaw();
 	float strafe = 45;
@@ -97,34 +97,34 @@ float CEntityPlayerSP::get_direction()
 	return yaw;
 }
 
-float CEntityPlayerSP::get_speed()
+float CEntityPlayerSP::get_speed(JNIEnv* env )
 {
 	Vector3 velocity_vector = SDK::Minecraft->thePlayer->getMotion();
 
 	return sqrt(velocity_vector.x * velocity_vector.x + velocity_vector.z * velocity_vector.z);
 }
 
-bool CEntityPlayerSP::isStrafing() {
+bool CEntityPlayerSP::isStrafing(JNIEnv* env ) {
 	return SDK::Minecraft->thePlayer->getMoveStrafe() != 0;
 }
 
-bool CEntityPlayerSP::isMovingForwardsOrBackwards() {
+bool CEntityPlayerSP::isMovingForwardsOrBackwards(JNIEnv* env ) {
 	return SDK::Minecraft->thePlayer->getMoveForward() != 0;
 }
 
-bool CEntityPlayerSP::isMovingForwards()
+bool CEntityPlayerSP::isMovingForwards(JNIEnv* env )
 {
 	return SDK::Minecraft->thePlayer->getMoveForward() > 0;
 
 }
 
-bool CEntityPlayerSP::isMovingBackwards()
+bool CEntityPlayerSP::isMovingBackwards(JNIEnv* env )
 {
 	return SDK::Minecraft->thePlayer->getMoveForward() < 0;
 
 }
 
-void CEntityPlayerSP::set_speed(const float speed)
+void CEntityPlayerSP::set_speed(const float speed, JNIEnv* env )
 {
 	if (getMotion().x != 0 && getMotion().y != 0) {
 		double yaw = toRadians(get_direction());
@@ -135,31 +135,31 @@ void CEntityPlayerSP::set_speed(const float speed)
 	}
 }
 
-void CEntityPlayerSP::sendGroundPacket(Object Packet)
+void CEntityPlayerSP::sendGroundPacket(Object Packet, JNIEnv* env )
 {
 	auto queueObject = SDK::Minecraft->getNetHandler();
 
-	Java::Env->CallVoidMethod(queueObject.getInstance(), StrayCache::netHandlerPlayClient_addToSendQueue, Packet.getInstance());
+	env->CallVoidMethod(queueObject.getInstance(), StrayCache::netHandlerPlayClient_addToSendQueue, Packet.getInstance());
 
 	return;
 }
 
-Object CEntityPlayerSP::C03PacketPlayer(jboolean ground, float yaw, float pitch)
+Object CEntityPlayerSP::C03PacketPlayer(jboolean ground, float yaw, float pitch, JNIEnv* env )
 {
 	jclass C03;
 	Java::AssignClass("net.minecraft.network.play.client.C03PacketPlayer", C03);
-	jmethodID c03Constructer = Java::Env->GetMethodID(C03, "<init>", "(Z)V");
+	jmethodID c03Constructer = env->GetMethodID(C03, "<init>", "(Z)V");
 	jfieldID yawf, pitchf;
 	if (JNIHelper::IsForge()) {
-		yawf = Java::Env->GetFieldID(C03, "field_149476_e", "F");
-		pitchf = Java::Env->GetFieldID(C03, "field_149473_f", "F");
+		yawf = env->GetFieldID(C03, "field_149476_e", "F");
+		pitchf = env->GetFieldID(C03, "field_149473_f", "F");
 	}
 	else {
-		yawf = Java::Env->GetFieldID(C03, "yaw", "F");
-		pitchf = Java::Env->GetFieldID(C03, "pitch", "F");
+		yawf = env->GetFieldID(C03, "yaw", "F");
+		pitchf = env->GetFieldID(C03, "pitch", "F");
 	}
-	jobject Packet = Java::Env->NewObject(C03, c03Constructer, ground);
-	Java::Env->SetFloatField(Packet, yawf, yaw);
-	Java::Env->SetFloatField(Packet, pitchf, pitch);
+	jobject Packet = env->NewObject(C03, c03Constructer, ground);
+	env->SetFloatField(Packet, yawf, yaw);
+	env->SetFloatField(Packet, pitchf, pitch);
 	return Object(Packet);
 }

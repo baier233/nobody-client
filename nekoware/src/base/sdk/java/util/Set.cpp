@@ -1,6 +1,6 @@
 #include "Set.h"
 #include "../../../java/java.h"
-jobjectArray Set::toArray()
+jobjectArray Set::toArray(JNIEnv* env)
 {
-	return (jobjectArray)Java::Env->CallObjectMethod(this->getInstance(), StrayCache::set_toArray);
+	return (jobjectArray)env->CallObjectMethod(this->getInstance(), StrayCache::set_toArray);
 }

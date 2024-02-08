@@ -6,6 +6,6 @@ class List : public Collection
 {
 public:
 	using Collection::Collection;
-	jobjectArray toArray();
+	jobjectArray toArray(JNIEnv* env = Java::Env);
 };
 

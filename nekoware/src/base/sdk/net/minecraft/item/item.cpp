@@ -2,8 +2,8 @@
 
 #include "../../../strayCache.h"
 
-int CItem::GetIdFromItem(CItem item)
+int CItem::GetIdFromItem(CItem item, JNIEnv* env)
 {
-    return Java::Env->CallStaticIntMethod(this->getClass(), StrayCache::item_getIdFromItem, item.getInstance());
+	return env->CallStaticIntMethod(this->getClass(), StrayCache::item_getIdFromItem, item.getInstance());
 
 }

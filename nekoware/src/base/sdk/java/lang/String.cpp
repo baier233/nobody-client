@@ -2,21 +2,21 @@
 #include "../../../java/java.h"
 
 
-String::String(std::string text)
+String::String(std::string text, JNIEnv* env)
 {
-	this->instance = (jobject)Java::Env->NewStringUTF(text.c_str());
+	this->instance = (jobject)env->NewStringUTF(text.c_str());
 }
 
 
-std::string String::ToString()
+std::string String::ToString(JNIEnv* env)
 {
 	jstring jStr = (jstring)this->getInstance();
-	const char* nativeStr = Java::Env->GetStringUTFChars(jStr, nullptr);
-	Java::Env->ReleaseStringUTFChars(jStr, nativeStr);
+	const char* nativeStr = env->GetStringUTFChars(jStr, nullptr);
+	env->ReleaseStringUTFChars(jStr, nativeStr);
 	return std::string(nativeStr);
 }
 
-bool String::contains(jstring str) {
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::string_contains, str);
+bool String::contains(jstring str, JNIEnv* env) {
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::string_contains, str);
 }
 

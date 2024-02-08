@@ -7,7 +7,7 @@ class CRenderManager :public Object
 {
 public:
 	using Object::Object;
-	Vector3 RenderPos();
-	Vector3 ViewerPos();
+	Vector3 RenderPos(JNIEnv* env = Java::Env);
+	Vector3 ViewerPos(JNIEnv* env = Java::Env);
 };
 

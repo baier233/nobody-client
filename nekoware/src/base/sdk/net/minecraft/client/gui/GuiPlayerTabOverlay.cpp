@@ -1,9 +1,9 @@
 #include "GuiPlayerTabOverlay.h"
 
-String CGuiPlayerTabOverlay::getPlayName(CNetworkPlayerInfo info) {
+String CGuiPlayerTabOverlay::getPlayName(CNetworkPlayerInfo info, JNIEnv* env) {
 	if (!(this->check() || info.check()))
 	{
-		return NULL;
+		return String();
 	}
-	return String(Java::Env->CallObjectMethod(this->getInstance(), StrayCache::guiPlayerTabOverlay_getPlayerName, info.getInstance()));
+	return String(env->CallObjectMethod(this->getInstance(), StrayCache::guiPlayerTabOverlay_getPlayerName, info.getInstance()));
 }

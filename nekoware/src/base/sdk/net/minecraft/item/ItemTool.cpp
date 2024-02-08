@@ -1,6 +1,6 @@
 #include "ItemTool.h"
 
-float CItemTool::GetStrVsBlock(CItemStack stack, CBlock state)
+float CItemTool::GetStrVsBlock(CItemStack stack, CBlock state, JNIEnv* env )
 {
-	return Java::Env->CallFloatMethod(this->instance,StrayCache::itemTool_getStrVsBlock,stack.getInstance(),state.getInstance());
+	return env->CallFloatMethod(this->instance, StrayCache::itemTool_getStrVsBlock, stack.getInstance(), state.getInstance());
 }

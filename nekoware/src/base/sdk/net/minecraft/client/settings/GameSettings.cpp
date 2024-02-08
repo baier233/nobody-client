@@ -2,36 +2,35 @@
 #include "../../../../sdk.h"
 #include "../../../../../java/java.h"
 
-float CGameSettings::GetFOV()
+float CGameSettings::GetFOV(JNIEnv* env )
 {
-	return Java::Env->GetFloatField(this->getInstance() , StrayCache::gamesettings_fovSetting);
+	return env->GetFloatField(this->getInstance(), StrayCache::gamesettings_fovSetting);
 }
 
-void CGameSettings::SetGamma(float gamma)
+void CGameSettings::SetGamma(float gamma, JNIEnv* env )
 {
-	jobject instance = this->getInstance();
-	Java::Env->SetFloatField(this->getInstance(), StrayCache::gamesettings_gammaSetting, gamma);
+	env->SetFloatField(this->getInstance(), StrayCache::gamesettings_gammaSetting, gamma);
 }
 
-float CGameSettings::GetGamma()
+float CGameSettings::GetGamma(JNIEnv* env )
 {
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::gamesettings_gammaSetting);
+	return env->GetFloatField(this->getInstance(), StrayCache::gamesettings_gammaSetting);
 }
 
-void CGameSettings::SetFullscreenKeyToNull()
+void CGameSettings::SetFullscreenKeyToNull(JNIEnv* env )
 {
 
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::gamesettings_setOptionKeyBinding, Java::Env->GetObjectField(this->getInstance(), StrayCache::gamesettings_keyBindFullscreen), 0);
+	env->CallVoidMethod(this->getInstance(), StrayCache::gamesettings_setOptionKeyBinding, env->GetObjectField(this->getInstance(), StrayCache::gamesettings_keyBindFullscreen), 0);
 }
 
-void CGameSettings::RestoreFullscreenKey()
+void CGameSettings::RestoreFullscreenKey(JNIEnv* env )
 {
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::gamesettings_setOptionKeyBinding, Java::Env->GetObjectField(this->getInstance(), StrayCache::gamesettings_keyBindFullscreen), 87);
+	env->CallVoidMethod(this->getInstance(), StrayCache::gamesettings_setOptionKeyBinding, env->GetObjectField(this->getInstance(), StrayCache::gamesettings_keyBindFullscreen), 87);
 }
 
 
-int CGameSettings::GetThirdPersonView()
+int CGameSettings::GetThirdPersonView(JNIEnv* env )
 {
-	return Java::Env->GetIntField(this->getInstance(), StrayCache::gamesettings_thirdPersonView);
+	return env->GetIntField(this->getInstance(), StrayCache::gamesettings_thirdPersonView);
 }
 

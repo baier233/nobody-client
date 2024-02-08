@@ -25,12 +25,12 @@
 //	return this->Instance;
 //}
 
-Vector3 CVec3::GetNativeVector3()
+Vector3 CVec3::GetNativeVector3(JNIEnv* env )
 {
 	// ERROR AFTER THIS LINE
-	float x = (float)Java::Env->GetDoubleField(this->getInstance(), StrayCache::vec3_xCoord);
-	float y = (float)Java::Env->GetDoubleField(this->getInstance(), StrayCache::vec3_yCoord);
-	float z = (float)Java::Env->GetDoubleField(this->getInstance(), StrayCache::vec3_zCoord);
+	float x = (float)env->GetDoubleField(this->getInstance(), StrayCache::vec3_xCoord);
+	float y = (float)env->GetDoubleField(this->getInstance(), StrayCache::vec3_yCoord);
+	float z = (float)env->GetDoubleField(this->getInstance(), StrayCache::vec3_zCoord);
 	return Vector3{
 		x,y,z
 	};

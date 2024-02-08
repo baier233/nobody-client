@@ -5,7 +5,7 @@
 
 #include "../../../../util/logger.h"
 
-std::string CEntity::GetName()
+std::string CEntity::GetName(JNIEnv* env)
 {
 	return "";
 	if (!this->check())
@@ -15,39 +15,39 @@ std::string CEntity::GetName()
 	auto data = this->GetObjectName();
 	if (!data.check())return"";
 
-	std::string res = JNIHelper::jstring2string(Java::Env, static_cast<jstring>(data.getInstance()));
+	std::string res = JNIHelper::jstring2string(env, static_cast<jstring>(data.getInstance()));
 	std::string gbkstr = JNIHelper::UtfToGbk(res.c_str());
 	data.clear();
 	return gbkstr;
 }
 
-Object CEntity::GetObjectName()
+Object CEntity::GetObjectName(JNIEnv* env)
 {
 	if (!this->check())
 	{
 		return Object{};
 	}
-	jobject data = Java::Env->CallObjectMethod(this->getInstance(), StrayCache::entity_getName);
-	if (data == nullptr)return NULL;
+	jobject data = env->CallObjectMethod(this->getInstance(), StrayCache::entity_getName);
+	if (data == nullptr)return Object();
 	return Object(data);
 }
 
-Vector3 CEntity::GetPos() const
+Vector3 CEntity::GetPos(JNIEnv* env) const
 {
 
 	if (!this->getInstance())
-	{	
-		return Vector3{0,0,0};
+	{
+		return Vector3{ 0,0,0 };
 	}
-			
+
 	return Vector3{
-		(float)(double) Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_posX),
-		(float)(double) Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_posY),
-		(float)(double) Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_posZ)
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_posX),
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_posY),
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_posZ)
 	};
 }
 
-Vector3 CEntity::GetEyePos()
+Vector3 CEntity::GetEyePos(JNIEnv* env)
 {
 	if (!this->getInstance())
 	{
@@ -61,190 +61,190 @@ Vector3 CEntity::GetEyePos()
 	};
 }
 
-Vector3 CEntity::GetLastTickPos()
+Vector3 CEntity::GetLastTickPos(JNIEnv* env)
 {
 	return Vector3{
-		(float)(double) Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosX),
-		(float)(double) Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosY),
-		(float)(double) Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosZ)
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosX),
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosY),
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosZ)
 	};
 }
 
-void CEntity::setMotion(Vector3 motion) {
+void CEntity::setMotion(Vector3 motion, JNIEnv* env) {
 	if (motion.x != 100000000000) {
-		Java::Env->SetDoubleField(this->getInstance(), StrayCache::entity_motionX, motion.x);
+		env->SetDoubleField(this->getInstance(), StrayCache::entity_motionX, motion.x);
 	}
 	if (motion.y != 100000000000) {
-		Java::Env->SetDoubleField(this->getInstance(), StrayCache::entity_motionY, motion.y);
+		env->SetDoubleField(this->getInstance(), StrayCache::entity_motionY, motion.y);
 	}
 	if (motion.z != 100000000000) {
-		Java::Env->SetDoubleField(this->getInstance(), StrayCache::entity_motionZ, motion.z);
+		env->SetDoubleField(this->getInstance(), StrayCache::entity_motionZ, motion.z);
 	}
 }
 
-void CEntity::setSprint(bool state)
+void CEntity::setSprint(bool state, JNIEnv* env)
 {
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::entity_setSprint, state);
+	env->CallVoidMethod(this->getInstance(), StrayCache::entity_setSprint, state);
 }
 
-Vector3 CEntity::getMotion() {
+Vector3 CEntity::getMotion(JNIEnv* env) {
 	return Vector3{
-		(float)(double)Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_motionX),
-		(float)(double)Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_motionY),
-		(float)(double)Java::Env->GetDoubleField(this->getInstance(), StrayCache::entity_motionZ)
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_motionX),
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_motionY),
+		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_motionZ)
 	};
 }
 
-bool CEntity::isOnGround()
+bool CEntity::isOnGround(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return false;
-	return Java::Env->GetBooleanField(this->getInstance(), StrayCache::entity_onGround);
+	return env->GetBooleanField(this->getInstance(), StrayCache::entity_onGround);
 }
 
-bool CEntity::inWater()
+bool CEntity::inWater(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return false;
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::entity_inWater);
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::entity_inWater);
 
 }
 
-bool CEntity::isDead()
+bool CEntity::isDead(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return true;
-	return Java::Env->GetBooleanField(this->getInstance(), StrayCache::entity_isDead);
+	return env->GetBooleanField(this->getInstance(), StrayCache::entity_isDead);
 }
 
-bool CEntity::isInvisible()
+bool CEntity::isInvisible(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return true;
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::entity_isInvisible);
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::entity_isInvisible);
 }
 
-float CEntity::fallDistance()
+float CEntity::fallDistance(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_fallDistance);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_fallDistance);
 }
 
-void CEntity::setFallDistance(float i)
+void CEntity::setFallDistance(float i, JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return;
-	Java::Env->SetFloatField(this->getInstance(), StrayCache::entity_fallDistance, i);
+	env->SetFloatField(this->getInstance(), StrayCache::entity_fallDistance, i);
 
 }
 
-int CEntity::ticksExisted()
+int CEntity::ticksExisted(JNIEnv* env)
 {
-	return Java::Env->GetIntField(this->getInstance(), StrayCache::entity_ticksExisted);
+	return env->GetIntField(this->getInstance(), StrayCache::entity_ticksExisted);
 
 }
 
-void CEntity::setPos(double x, double y, double z)
-{
-	if (!this->isValid() || this->isNULL()) return;
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::entity_setPosition, x, y, z);
-
-}
-
-void CEntity::setOnGround(bool state)
+void CEntity::setPos(double x, double y, double z, JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return;
-	Java::Env->SetBooleanField(this->getInstance(), StrayCache::entity_onGround, state);
+	env->CallVoidMethod(this->getInstance(), StrayCache::entity_setPosition, x, y, z);
+
 }
 
-bool CEntity::IsSneaking()
+void CEntity::setOnGround(bool state, JNIEnv* env)
+{
+	if (!this->isValid() || this->isNULL()) return;
+	env->SetBooleanField(this->getInstance(), StrayCache::entity_onGround, state);
+}
+
+bool CEntity::IsSneaking(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return false;
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::entity_isSneaking);
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::entity_isSneaking);
 }
 
-void CEntity::setSneaking(bool state)
+void CEntity::setSneaking(bool state, JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return;
-	Java::Env->CallVoidMethod(this->getInstance(), StrayCache::entity_setSneaking, state);
+	env->CallVoidMethod(this->getInstance(), StrayCache::entity_setSneaking, state);
 }
 
-float CEntity::GetHeight()
+float CEntity::GetHeight(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_height);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_height);
 }
 
-float CEntity::GetWidth()
+float CEntity::GetWidth(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_width);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_width);
 }
 
-float CEntity::GetDistanceWalkedModified()
+float CEntity::GetDistanceWalkedModified(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_distanceWalkedModified);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_distanceWalkedModified);
 }
 
-float CEntity::GetPrevDistanceWalkedModified()
+float CEntity::GetPrevDistanceWalkedModified(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_prevDistanceWalkedModified);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_prevDistanceWalkedModified);
 }
 
-float CEntity::GetRotationYaw()
+float CEntity::GetRotationYaw(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_rotationYaw);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_rotationYaw);
 }
 
-float CEntity::GetRotationPitch()
+float CEntity::GetRotationPitch(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_rotationPitch);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_rotationPitch);
 }
 
-float CEntity::GetPrevRotationYaw()
+float CEntity::GetPrevRotationYaw(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_prevRotationYaw);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_prevRotationYaw);
 }
 
-float CEntity::GetPrevRotationPitch()
+float CEntity::GetPrevRotationPitch(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
-	return Java::Env->GetFloatField(this->getInstance(), StrayCache::entity_prevRotationPitch);
+	return env->GetFloatField(this->getInstance(), StrayCache::entity_prevRotationPitch);
 }
 
-jobject CEntity::getUniqueID()
+jobject CEntity::getUniqueID(JNIEnv* env)
 {
-	return Java::Env->CallObjectMethod(this->getInstance(),StrayCache::entity_getUniqueID);
+	return env->CallObjectMethod(this->getInstance(), StrayCache::entity_getUniqueID);
 }
 
-Vector2 CEntity::GetAngles()
+Vector2 CEntity::GetAngles(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return Vector2{};
 	return Vector2(CEntity::GetRotationYaw(), CEntity::GetRotationPitch());
 }
 
-Vector2 CEntity::GetPrevAngles()
+Vector2 CEntity::GetPrevAngles(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return Vector2{};
 	return Vector2(CEntity::GetPrevRotationYaw(), CEntity::GetPrevRotationPitch());
 }
 
-void CEntity::SetAngles(Vector2 angles) 
+void CEntity::SetAngles(Vector2 angles, JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return;
-	Java::Env->SetFloatField(this->getInstance(), StrayCache::entity_rotationYaw, angles.x);
-	Java::Env->SetFloatField(this->getInstance(), StrayCache::entity_rotationPitch, angles.y);
+	env->SetFloatField(this->getInstance(), StrayCache::entity_rotationYaw, angles.x);
+	env->SetFloatField(this->getInstance(), StrayCache::entity_rotationPitch, angles.y);
 };
 
-CAxisAlignedBB CEntity::GetBB()
+CAxisAlignedBB CEntity::GetBB(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return CAxisAlignedBB{};
 	return CAxisAlignedBB(
-		Java::Env->GetObjectField(this->getInstance(), StrayCache::entity_boundingBox)
+		env->GetObjectField(this->getInstance(), StrayCache::entity_boundingBox)
 	);
 }
 
-void CEntity::SetBB(BoundingBox bb)
+void CEntity::SetBB(BoundingBox bb, JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return;
 	this->GetBB().SetBoundingBox(bb);

@@ -17,7 +17,8 @@ void VMTypes::init(VMStructEntry* vmstructs, VMTypeEntry* vmtypes)
 	for (int i = 0; vmstructs[i].fieldName != NULL; ++i) {
 		auto s = &vmstructs[i];
 #ifdef DumpSDK
-		std::cout << "TypeName :" << s->typeName << "  FieldName :" << s->fieldName << std::endl;
+
+		//std::cout << "TypeName :" << s->typeName << "  FieldName :" << s->fieldName << std::endl;
 #endif // DumpSDK
 		VMTypes::struct_entries[s->typeName][s->fieldName] = s;
 	}
@@ -25,7 +26,7 @@ void VMTypes::init(VMStructEntry* vmstructs, VMTypeEntry* vmtypes)
 	for (int i = 0; vmtypes[i].typeName != NULL; ++i) {
 		auto t = &vmtypes[i];
 #ifdef DumpSDK
-		std::cout << "VMType :" << t->typeName << "  Size :" << t->size << std::endl;
+		//std::cout << "VMType :" << t->typeName << "  Size :" << t->size << std::endl;
 #endif // DumpSDK
 		VMTypes::type_entries[t->typeName] = t;
 	}

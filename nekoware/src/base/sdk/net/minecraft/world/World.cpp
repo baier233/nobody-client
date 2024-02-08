@@ -10,19 +10,19 @@
 
 
 
-List CWorld::GetPlayerList()
+List CWorld::GetPlayerList(JNIEnv* env )
 {
-	return List(Java::Env->GetObjectField(instance, StrayCache::world_playerEntities));
+	return List(env->GetObjectField(instance, StrayCache::world_playerEntities));
 }
 
-Vector3 CWorld::rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock)
+Vector3 CWorld::rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock, JNIEnv* env )
 {
 	jclass cls = StrayCache::vec3_class;
-	jmethodID init = Java::Env->GetMethodID(cls, "<init>", "(DDD)V");
-	jobject j_to = Java::Env->NewObject(cls, init, (jdouble)(double)to.x, (jdouble)(double)to.y, (jdouble)(double)to.z);
-	jobject j_from = Java::Env->NewObject(cls, init, (jdouble)(double)from.x, (jdouble)(double)from.y, (jdouble)(double)from.z);
+	jmethodID init = env->GetMethodID(cls, "<init>", "(DDD)V");
+	jobject j_to = env->NewObject(cls, init, (jdouble)(double)to.x, (jdouble)(double)to.y, (jdouble)(double)to.z);
+	jobject j_from = env->NewObject(cls, init, (jdouble)(double)from.x, (jdouble)(double)from.y, (jdouble)(double)from.z);
 
-	CMovingObjectPosition movingObjPos = CMovingObjectPosition(Java::Env->CallObjectMethod(
+	CMovingObjectPosition movingObjPos = CMovingObjectPosition(env->CallObjectMethod(
 		this->getInstance(),
 		StrayCache::world_rayTraceBlocks,
 		j_from,
@@ -34,57 +34,57 @@ Vector3 CWorld::rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool
 
 	if (!movingObjPos.check())
 	{
-		Java::Env->DeleteLocalRef(j_to);
-		Java::Env->DeleteLocalRef(j_from);
-		Java::Env->DeleteLocalRef(cls);
+		env->DeleteLocalRef(j_to);
+		env->DeleteLocalRef(j_from);
+		env->DeleteLocalRef(cls);
 		return Vector3{};
 	}
 
 
 	Vector3 blockPos = movingObjPos.GetBlockPosition().GetNativeVector3();
-	Java::Env->DeleteLocalRef(j_to);
-	Java::Env->DeleteLocalRef(j_from);
-	Java::Env->DeleteLocalRef(cls);
+	env->DeleteLocalRef(j_to);
+	env->DeleteLocalRef(j_from);
+	env->DeleteLocalRef(cls);
 	return blockPos;
 }
 
-CChunk CWorld::getChunkFromChunkCoords(jint chunkX, jint chunkZ)
+CChunk CWorld::getChunkFromChunkCoords(jint chunkX, jint chunkZ, JNIEnv* env )
 {
-	return CChunk(Java::Env->CallObjectMethod(this->getInstance(), StrayCache::world_getChunkFromChunkCoords));
+	return CChunk(env->CallObjectMethod(this->getInstance(), StrayCache::world_getChunkFromChunkCoords));
 }
 
-CIBlockState CWorld::getBlockState(BlockPos pos) {
-	return CIBlockState(Java::Env->CallObjectMethod(this->getInstance(), StrayCache::world_getBlockState, pos.getInstance()));
+CIBlockState CWorld::getBlockState(BlockPos pos, JNIEnv* env ) {
+	return CIBlockState(env->CallObjectMethod(this->getInstance(), StrayCache::world_getBlockState, pos.getInstance()));
 }
 
-bool CWorld::isAirBlock(double x, double y, double z)
+bool CWorld::isAirBlock(double x, double y, double z, JNIEnv* env )
 {
 	if (JNIHelper::IsForge()) {
 		jclass blockPosClass = StrayCache::blockPos_class;
-		jmethodID blockPosConstructor = Java::Env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
-		jobject blockpos = Java::Env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
+		jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
+		jobject blockpos = env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
 
-		return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
+		return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
 
 	}
 	jclass blockPosClass = StrayCache::blockPos_class;
-	jmethodID blockPosConstructor = Java::Env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
-	jobject blockpos = Java::Env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
+	jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
+	jobject blockpos = env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
 
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
 }
 
-bool CWorld::isAirBlock(BlockPos pos)
+bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env )
 {
 
 	if (JNIHelper::IsForge()) {
-		return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, pos.getInstance());
+		return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, pos.getInstance());
 
 	}
-	return Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, pos.getInstance());
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, pos.getInstance());
 }
 
-int CWorld::getBlock(double x, double y, double z)
+int CWorld::getBlock(double x, double y, double z, JNIEnv* env )
 {
 	if (this->getInstance() == NULL)return 0;
 	if (Base::version == FORGE_1_7_10) {
@@ -92,23 +92,23 @@ int CWorld::getBlock(double x, double y, double z)
 		return 0;
 	}
 	jclass blockPosClass = StrayCache::blockPos_class;
-	jmethodID blockPosConstructor = Java::Env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
-	jobject blockpos = Java::Env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
+	jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
+	jobject blockpos = env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
 
-	jboolean isAir = Java::Env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
+	jboolean isAir = env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
 	if (isAir) {
-		Java::Env->DeleteLocalRef(blockpos);
+		env->DeleteLocalRef(blockpos);
 		return 0;
 	}
 
-	const auto blockState = Java::Env->CallObjectMethod(this->getInstance(), StrayCache::world_getBlockState, blockpos);
-	const auto block = Java::Env->CallObjectMethod(blockState, StrayCache::iBlockState_getBlock);
-	int blockID = Java::Env->CallIntMethod(StrayCache::block_class, StrayCache::block_getIdFromBlock, block);
+	const auto blockState = env->CallObjectMethod(this->getInstance(), StrayCache::world_getBlockState, blockpos);
+	const auto block = env->CallObjectMethod(blockState, StrayCache::iBlockState_getBlock);
+	int blockID = env->CallIntMethod(StrayCache::block_class, StrayCache::block_getIdFromBlock, block);
 
 	//free memory
-	Java::Env->DeleteGlobalRef(blockpos);
-	Java::Env->DeleteLocalRef(blockState);
-	Java::Env->DeleteLocalRef(block);
+	env->DeleteGlobalRef(blockpos);
+	env->DeleteLocalRef(blockState);
+	env->DeleteLocalRef(block);
 
 	return blockID;
 }

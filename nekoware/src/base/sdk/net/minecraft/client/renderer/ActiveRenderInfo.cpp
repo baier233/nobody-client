@@ -5,23 +5,23 @@
 #include "../../../../java/nio/FloatBuffer.h"
 #include "../../../../../util/logger.h"
 
-Matrix CActiveRenderInfo::ProjectionMatrix()
+Matrix CActiveRenderInfo::ProjectionMatrix(JNIEnv* env )
 {
-	jobject projection = Java::Env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_PROJECTION);
+	jobject projection = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_PROJECTION);
 	Matrix m = FloatBuffer(projection).GetMatrix();
 	return m;
 }
 
-Matrix CActiveRenderInfo::ModelViewMatrix()
+Matrix CActiveRenderInfo::ModelViewMatrix(JNIEnv* env )
 {
-	jobject modelView = Java::Env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_MODELVIEW);
+	jobject modelView = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_MODELVIEW);
 	Matrix m = FloatBuffer::FloatBuffer(modelView).GetMatrix();
 	return m;
 }
 
-int CActiveRenderInfo::Get_VIEWPORT()
+int CActiveRenderInfo::Get_VIEWPORT(JNIEnv* env )
 {
 	return 0;
-	//return Java::Env.CallFloatMethod();
+	//return env.CallFloatMethod();
 }
 
