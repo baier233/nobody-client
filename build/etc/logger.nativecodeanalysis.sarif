@@ -1,0 +1,59 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/logger.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "4095ac7742c9b20135b442fc1b6dac040bc4052f1ebada3528c603d3f6de4e2f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/xorstr.h"
+          },
+          "hashes": {
+            "sha-256": "36be25731af918c729731730231a8f728a410dd06d6b47a5c6c2d1e9efae10fc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/logger.h"
+          },
+          "hashes": {
+            "sha-256": "a4aa248afacbd491049227483768f98355ff5514e2fffff10cf5b41b708248d9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/math/geometry.h"
+          },
+          "hashes": {
+            "sha-256": "b279ebd87c6034dc535cceae46bfb67475619c73afa5ba124975145462c94a1e"
+          }
+        }
+      ]
+    }
+  ]
+}

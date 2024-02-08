@@ -1,0 +1,508 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 Value::m_value。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Value::{ctor}",
+                  "decoratedName": "??0Value@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Value::m_value"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "8201afd58bdfea44562a762a822eca067abe689e02975dc9acd13dd4e335ba56"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/menu/hooks/wndproc.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "e3be378dadd1562a106a7038160236b2f558cf8d7f4321e6c25d975fb2619ef8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/menu/menu.h"
+          },
+          "hashes": {
+            "sha-256": "3f735689b6938da4ef107035503e448aa809a3a76d586ada4919bbbfad5ad25f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "1b7c419fb9a9f4e56c31490586d1fe3e324eaec448207b2804bd9b97a0f269d1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "667920b41cffc02ed57db6b8610ca5518e189816cf31b10b33c6012799693660"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/abstractmodule.h"
+          },
+          "hashes": {
+            "sha-256": "a0d96867c1c3ec5f225fcd40da83000cc6bfb2e431b2aa728e743dd922ebbf4a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/main.h"
+          },
+          "hashes": {
+            "sha-256": "5355d5ec9adc457147a8182026dea7301130fc47028a70ab9dd5842f04db1bb5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui_internal.h"
+          },
+          "hashes": {
+            "sha-256": "61b21fda8d6990fd0d374a643146345886798fccbfb04f3a8de4cfac1722ab46"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imstb_textedit.h"
+          },
+          "hashes": {
+            "sha-256": "3f4cf71a2b771d938f62ce4225df3ebe429b334fcdb3b89f1fedf43eeb0a3e1e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui_impl_win32.h"
+          },
+          "hashes": {
+            "sha-256": "799f50c0d0b906e92d9b14d040f4d25ac8ece0f19c722a02fecb1d24a2bfdcb8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/base.h"
+          },
+          "hashes": {
+            "sha-256": "9d747ef15cf0470adbc4c8d5c2eb454e5e9ac4b9dcc45cf01ec4e6bdbf172f94"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/eventmanager/events/eventkey.hpp"
+          },
+          "hashes": {
+            "sha-256": "50a6339812709a7a56d24c625926c8c2110556d7f1362ce4af312c8941aaca1b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/eventmanager/abstractevent.h"
+          },
+          "hashes": {
+            "sha-256": "c21a7a24441a1fc4bba87b9abfc5ca4b46fbc04f4091e04b97543293cb07208a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/java/java.h"
+          },
+          "hashes": {
+            "sha-256": "651c5a52e553595617bfd2ec7219d72a4d9d9715a2878241dfc2f4b920e7131d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/jni/jni.h"
+          },
+          "hashes": {
+            "sha-256": "f0e94d1abb7d9637c5dd321fbd4b4bc8ba0e4a705301344c4e206cef061ef8dd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/jni/jni_md.h"
+          },
+          "hashes": {
+            "sha-256": "fc7abcadf7e12816fd410399aba5daed6eafb68f9ce239cfaef30ac7939b96ad"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/jni/jvmti.h"
+          },
+          "hashes": {
+            "sha-256": "da96a7d35aa7eea546961e48d9be4133fc213d2f283989004d85c7cb6f33fe3c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/mappingutil.h"
+          },
+          "hashes": {
+            "sha-256": "b81f1c8a8c691bf31d78caeac8f74a046c593faa9b712e5f364820661757d334"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/jnihelper.h"
+          },
+          "hashes": {
+            "sha-256": "360226bc5b22fe9b9abee28a1ad65ce500f429496f9fda279a07c1e0e5b39046"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/eventmanager/eventmanager.hpp"
+          },
+          "hashes": {
+            "sha-256": "3ed796c2a5742ca518b9ff728090d91b8b135dd45b26f78c87b7ec76ba0240cf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/sdk.h"
+          },
+          "hashes": {
+            "sha-256": "da6e8af61075324a2fad98fca0aae82a0123ac2923d2669fd973d975c85db8ea"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/minecraft.h"
+          },
+          "hashes": {
+            "sha-256": "e2db93332e3683f49e1c69bb34ffad0acd8aa71a2de5c7d512d42db14784d538"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/object.h"
+          },
+          "hashes": {
+            "sha-256": "d66d4b5a66a796e4feddbf63bf34a684de4719c6b47c1181daf18ee721724c8b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/straycache.h"
+          },
+          "hashes": {
+            "sha-256": "4748ad5ef6808eb71784d52080ba3ba8e9170e077bd9a02b73d8c600da53d028"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/logger.h"
+          },
+          "hashes": {
+            "sha-256": "a4aa248afacbd491049227483768f98355ff5514e2fffff10cf5b41b708248d9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/math/geometry.h"
+          },
+          "hashes": {
+            "sha-256": "b279ebd87c6034dc535cceae46bfb67475619c73afa5ba124975145462c94a1e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/entity/entityplayersp.h"
+          },
+          "hashes": {
+            "sha-256": "5b4fc2deb802a58ca57f2a2d0d2839b7d7d0ccb744221ca7da39026fb9d189f3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/entity/player/entityplayer.h"
+          },
+          "hashes": {
+            "sha-256": "ed49a668b26a76837c0744bc227f2a9c40bfba1024d8f859ea36caea8c1c30cf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/entity/entitylivingbase.h"
+          },
+          "hashes": {
+            "sha-256": "971157c8680e341c1802af99c8f4c7bbb9c0c2a96a7dc341b41bf51b729600ae"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/entity/entity.h"
+          },
+          "hashes": {
+            "sha-256": "249546deaf9e0f9bad55f3626ab7179db94f835127a806bad2e10b7cf0da354d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/util/axisalignedbb.h"
+          },
+          "hashes": {
+            "sha-256": "810b7d8a79496719bbfd9d783718d12ea8b815abf856e251f865fad3fc83ed54"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/entity/player/inventoryplayer.h"
+          },
+          "hashes": {
+            "sha-256": "eea7025c2e289b7611244a2a9d7cf8bdffb4ea67cc4c9ac23f96e175134c6263"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/item/itemstack.h"
+          },
+          "hashes": {
+            "sha-256": "a0ca7bcdd52fb364667c83090fbe248d79a6246122f252aa8e80757626262e07"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/block/block.h"
+          },
+          "hashes": {
+            "sha-256": "e79d8fff394dff3655bd0d89ab750bdf83d8f4909ad60b948e81cd80a949383b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/item/item.h"
+          },
+          "hashes": {
+            "sha-256": "d4b2f51f9202ee72208bd06fdfdb99a7ae13aba2584b7c66d6063439c1387aa7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/block/state/iblockstate.h"
+          },
+          "hashes": {
+            "sha-256": "52dfbf9ed0bc0124d87579710f377ac072e49df31f6bc72017b49f5cb2d14e18"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/world/world.h"
+          },
+          "hashes": {
+            "sha-256": "c8d08f153cb908c9f3e691e7ac35fd27526a54f1027ad9f07c42a157f47ebbbc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/world/chunk/chunk.h"
+          },
+          "hashes": {
+            "sha-256": "2fbbf4486dce064d27ee5c1cd2c391158d8bcf6dc64c10e038756cb805808d9a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/block/state/blockstate.h"
+          },
+          "hashes": {
+            "sha-256": "0dcb8528a53e1b0c789b43606ec8cdc9cbf50e32119613b5931a58d56926d3ee"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/util/blockpos.h"
+          },
+          "hashes": {
+            "sha-256": "b12425a86c591f4080cfe0a003ed9ea413c407239815fd1aa6c38e77ce6d07c3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/java/util/list.h"
+          },
+          "hashes": {
+            "sha-256": "de427812ff50a37e87bad6bbc040810a95027fa45cd333da9f7005d966467a6c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/java/util/collection.h"
+          },
+          "hashes": {
+            "sha-256": "55893c1b3f8691e8b5c313a5b83763ae513894a62cde7249159c1c34fcc55909"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/multiplayer/worldclient.h"
+          },
+          "hashes": {
+            "sha-256": "bd0ef3af426ca4308e4bc7be753ed0ba10df662c349abf26b18042e1cef39694"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/java/util/set.h"
+          },
+          "hashes": {
+            "sha-256": "75a75cddcc8573a0fe99b53b64baa94fac7695671ae81f911daf74acd58a8e5a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/renderer/activerenderinfo.h"
+          },
+          "hashes": {
+            "sha-256": "e3cb4b9a54d68314efc30d4a1d0fd075d9c313a702eed15eadb98751d827141b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/renderer/entity/rendermanager.h"
+          },
+          "hashes": {
+            "sha-256": "5e23adc9a229483513dd8ec28d0864d5df7159b7919a6c7d1d840336bb56efc7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/util/timer.h"
+          },
+          "hashes": {
+            "sha-256": "b46a81e1f30150ed0d8fe9c1b6537cbc261a0762f279e8f185dc82e2d4e9c008"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/settings/gamesettings.h"
+          },
+          "hashes": {
+            "sha-256": "a670c4e7d6be9eb9e9e577b4d8227ff17074276a920bc70301ed72f5aa70762c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/util/movingobjectposition.h"
+          },
+          "hashes": {
+            "sha-256": "2189b5ab2fb7f474cd81b543eccb7b433c3d86e651dc4761d990c812f9930679"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/util/vec3.h"
+          },
+          "hashes": {
+            "sha-256": "d93b1ce01a4cefb056b8ab2adbb2e8ddcc3bab59684bc6cd60094bae9208fc75"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/network/nethandlerplayclient.h"
+          },
+          "hashes": {
+            "sha-256": "f9c249c2d61e7244f1013bd4e251ba5021e9a4286550ebff6af40b467e85f645"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/network/networkplayerinfo.h"
+          },
+          "hashes": {
+            "sha-256": "f248ff190fb7eda9cb7baf6158835e248cccdf667f2e148095e74cdcee4fc96b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/gui/guiingame.h"
+          },
+          "hashes": {
+            "sha-256": "336b70daf4de512ba76821b5aecb9415cd81ca26e01464cbbd4b0184437f1a09"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/java/lang/string.h"
+          },
+          "hashes": {
+            "sha-256": "05a80054bf8a0aa46d8aa613de435ef3160af29fdef28ea928dcbceba057ace0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/net/minecraft/client/gui/guiplayertaboverlay.h"
+          },
+          "hashes": {
+            "sha-256": "41a7b4c519e2eb4a69dbb1a972b8194e4438125ba8959439c272fe2a459ea267"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/modulemanager.h"
+          },
+          "hashes": {
+            "sha-256": "041398ea97abb44603fb430d73dce468646a0a70a7741abe1b36dac46e9d0375"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,460 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 checkbox_state1::mark_size。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 1229,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "checkbox_state1::{ctor}",
+                  "decoratedName": "??0checkbox_state1@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "checkbox_state1::mark_size"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 checkbox_state1::rg。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 1229,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "checkbox_state1::{ctor}",
+                  "decoratedName": "??0checkbox_state1@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "checkbox_state1::rg"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 Value::m_value。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Value::{ctor}",
+                  "decoratedName": "??0Value@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Value::m_value"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 key_state::slow。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 1553,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "key_state::{ctor}",
+                  "decoratedName": "??0key_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "key_state::slow"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 slider_state::circle_anim。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 3508,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "slider_state::{ctor}",
+                  "decoratedName": "??0slider_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "slider_state::circle_anim"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 slider_state::slow_anim。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 3508,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "slider_state::{ctor}",
+                  "decoratedName": "??0slider_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "slider_state::slow_anim"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 inputtext_state::line1。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 4563,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "inputtext_state::{ctor}",
+                  "decoratedName": "??0inputtext_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "inputtext_state::line1"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 inputtext_state::speed。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 4563,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "inputtext_state::{ctor}",
+                  "decoratedName": "??0inputtext_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "inputtext_state::speed"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 inputtext_state::value。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 4563,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "inputtext_state::{ctor}",
+                  "decoratedName": "??0inputtext_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "inputtext_state::value"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 picker_state::hue_bar。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 5879,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "picker_state::{ctor}",
+                  "decoratedName": "??0picker_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "picker_state::hue_bar"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 picker_state::alpha_bar。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 5879,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "picker_state::{ctor}",
+                  "decoratedName": "??0picker_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "picker_state::alpha_bar"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 picker_state::circle。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+                },
+                "region": {
+                  "startLine": 5879,
+                  "startColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "picker_state::{ctor}",
+                  "decoratedName": "??0picker_state@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "picker_state::circle"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///D:/Code/Skidware/ext/imgui/imgui_widgets.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "22a985d513be07f76c69103d3f71c288f65d2f03042b24c0a1fcdea037d67b76"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "8201afd58bdfea44562a762a822eca067abe689e02975dc9acd13dd4e335ba56"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "1b7c419fb9a9f4e56c31490586d1fe3e324eaec448207b2804bd9b97a0f269d1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "667920b41cffc02ed57db6b8610ca5518e189816cf31b10b33c6012799693660"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/main.h"
+          },
+          "hashes": {
+            "sha-256": "5355d5ec9adc457147a8182026dea7301130fc47028a70ab9dd5842f04db1bb5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui_internal.h"
+          },
+          "hashes": {
+            "sha-256": "61b21fda8d6990fd0d374a643146345886798fccbfb04f3a8de4cfac1722ab46"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imstb_textedit.h"
+          },
+          "hashes": {
+            "sha-256": "3f4cf71a2b771d938f62ce4225df3ebe429b334fcdb3b89f1fedf43eeb0a3e1e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui_settings.h"
+          },
+          "hashes": {
+            "sha-256": "71e70e51159fd95ed5494117a060f053b7cd2ae3858fbfccd91b1113a7fdb203"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/modulemanager.h"
+          },
+          "hashes": {
+            "sha-256": "041398ea97abb44603fb430d73dce468646a0a70a7741abe1b36dac46e9d0375"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/abstractmodule.h"
+          },
+          "hashes": {
+            "sha-256": "a0d96867c1c3ec5f225fcd40da83000cc6bfb2e431b2aa728e743dd922ebbf4a"
+          }
+        }
+      ]
+    }
+  ]
+}

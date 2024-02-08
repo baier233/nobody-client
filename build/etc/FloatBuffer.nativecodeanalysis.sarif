@@ -1,0 +1,147 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/java/nio/floatbuffer.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "c24ab707760c32ea86ca7a7ed387ff903fde212cebef8f11323b9a930a95bb20"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/java/nio/floatbuffer.h"
+          },
+          "hashes": {
+            "sha-256": "93e6557c9239a35f32357e3700651ccaca1a28beea7bc96a6541c271eefeac93"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/object.h"
+          },
+          "hashes": {
+            "sha-256": "d66d4b5a66a796e4feddbf63bf34a684de4719c6b47c1181daf18ee721724c8b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/straycache.h"
+          },
+          "hashes": {
+            "sha-256": "4748ad5ef6808eb71784d52080ba3ba8e9170e077bd9a02b73d8c600da53d028"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/sdk/jnihelper.h"
+          },
+          "hashes": {
+            "sha-256": "360226bc5b22fe9b9abee28a1ad65ce500f429496f9fda279a07c1e0e5b39046"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/jni/jni.h"
+          },
+          "hashes": {
+            "sha-256": "f0e94d1abb7d9637c5dd321fbd4b4bc8ba0e4a705301344c4e206cef061ef8dd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/jni/jni_md.h"
+          },
+          "hashes": {
+            "sha-256": "fc7abcadf7e12816fd410399aba5daed6eafb68f9ce239cfaef30ac7939b96ad"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/java/java.h"
+          },
+          "hashes": {
+            "sha-256": "651c5a52e553595617bfd2ec7219d72a4d9d9715a2878241dfc2f4b920e7131d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/jni/jvmti.h"
+          },
+          "hashes": {
+            "sha-256": "da96a7d35aa7eea546961e48d9be4133fc213d2f283989004d85c7cb6f33fe3c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/logger.h"
+          },
+          "hashes": {
+            "sha-256": "a4aa248afacbd491049227483768f98355ff5514e2fffff10cf5b41b708248d9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/math/geometry.h"
+          },
+          "hashes": {
+            "sha-256": "b279ebd87c6034dc535cceae46bfb67475619c73afa5ba124975145462c94a1e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/base.h"
+          },
+          "hashes": {
+            "sha-256": "9d747ef15cf0470adbc4c8d5c2eb454e5e9ac4b9dcc45cf01ec4e6bdbf172f94"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/eventmanager/events/eventkey.hpp"
+          },
+          "hashes": {
+            "sha-256": "50a6339812709a7a56d24c625926c8c2110556d7f1362ce4af312c8941aaca1b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/eventmanager/abstractevent.h"
+          },
+          "hashes": {
+            "sha-256": "c21a7a24441a1fc4bba87b9abfc5ca4b46fbc04f4091e04b97543293cb07208a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/mappingutil.h"
+          },
+          "hashes": {
+            "sha-256": "b81f1c8a8c691bf31d78caeac8f74a046c593faa9b712e5f364820661757d334"
+          }
+        }
+      ]
+    }
+  ]
+}

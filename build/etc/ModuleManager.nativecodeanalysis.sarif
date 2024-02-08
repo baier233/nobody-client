@@ -1,0 +1,132 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 Value::m_value。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Value::{ctor}",
+                  "decoratedName": "??0Value@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Value::m_value"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "8201afd58bdfea44562a762a822eca067abe689e02975dc9acd13dd4e335ba56"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/modulemanager.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "b945aa0c95c3c22fac024bcd7865819b02dc159f3ab1a8b634fe3565d9845492"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/modulemanager.h"
+          },
+          "hashes": {
+            "sha-256": "041398ea97abb44603fb430d73dce468646a0a70a7741abe1b36dac46e9d0375"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/abstractmodule.h"
+          },
+          "hashes": {
+            "sha-256": "a0d96867c1c3ec5f225fcd40da83000cc6bfb2e431b2aa728e743dd922ebbf4a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/main.h"
+          },
+          "hashes": {
+            "sha-256": "5355d5ec9adc457147a8182026dea7301130fc47028a70ab9dd5842f04db1bb5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui_internal.h"
+          },
+          "hashes": {
+            "sha-256": "61b21fda8d6990fd0d374a643146345886798fccbfb04f3a8de4cfac1722ab46"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "1b7c419fb9a9f4e56c31490586d1fe3e324eaec448207b2804bd9b97a0f269d1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "667920b41cffc02ed57db6b8610ca5518e189816cf31b10b33c6012799693660"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imstb_textedit.h"
+          },
+          "hashes": {
+            "sha-256": "3f4cf71a2b771d938f62ce4225df3ebe429b334fcdb3b89f1fedf43eeb0a3e1e"
+          }
+        }
+      ]
+    }
+  ]
+}
