@@ -484,7 +484,6 @@
     <ClInclude Include="src\base\resource\ResourceManager.h" />
     <ClInclude Include="src\base\moduleManager\Value.h" />
     <ClInclude Include="src\base\sdk\java\nio\IntBuffer.h" />
-    <ClInclude Include="ext\fonts\Minecraft.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\HUD.h" />
     <ClInclude Include="src\base\eventManager\events\EventChams.hpp" />
     <ClInclude Include="src\base\menu\hooks\glTexEnviHook.h" />
@@ -534,7 +533,6 @@
     <ClInclude Include="src\base\sdk\JNIHelper.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\item\item.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\item\ItemStack.h" />
-    <ClInclude Include="ext\fonts\jetbrainsmono.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\entity\player\InventoryPlayer.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\util\BlockPos.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\util\MovingObjectPosition.h" />

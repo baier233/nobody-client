@@ -3,16 +3,16 @@
     "revision": 0,
     "rules": [
         {
-            "primary-output": "D:\\Code\\nekoware-code\\build\\etc\\NonNullList.h.obj",
+            "primary-output": "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\NonNullList.h.obj",
             "outputs": [
-                "D:\\Code\\nekoware-code\\build\\etc\\vc143.pdb",
-                "D:\\Code\\nekoware-code\\build\\etc\\",
-                "D:\\Code\\nekoware-code\\build\\etc\\NonNullList.h.ifc"
+                "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\vc143.pdb",
+                "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\",
+                "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\NonNullList.h.ifc"
             ],
             "provides": [
                 {
                     "logical-name": "src\\base\\sdk\\net\\minecraft\\util\\NonNullList.h",
-                    "source-path": "d:\\code\\nekoware-code\\src\\base\\sdk\\net\\minecraft\\util\\nonnulllist.h",
+                    "source-path": "d:\\code\\nekoware-code\\nekoware\\src\\base\\sdk\\net\\minecraft\\util\\nonnulllist.h",
                     "lookup-method": "absolute"
                 }
             ],

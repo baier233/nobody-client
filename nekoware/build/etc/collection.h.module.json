@@ -3,16 +3,16 @@
     "revision": 0,
     "rules": [
         {
-            "primary-output": "D:\\Code\\nekoware-code\\build\\etc\\Collection.h.obj",
+            "primary-output": "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\Collection.h.obj",
             "outputs": [
-                "D:\\Code\\nekoware-code\\build\\etc\\vc143.pdb",
-                "D:\\Code\\nekoware-code\\build\\etc\\",
-                "D:\\Code\\nekoware-code\\build\\etc\\Collection.h.ifc"
+                "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\vc143.pdb",
+                "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\",
+                "D:\\Code\\nekoware-code\\nekoware\\build\\etc\\Collection.h.ifc"
             ],
             "provides": [
                 {
                     "logical-name": "src\\base\\sdk\\java\\util\\Collection.h",
-                    "source-path": "d:\\code\\nekoware-code\\src\\base\\sdk\\java\\util\\collection.h",
+                    "source-path": "d:\\code\\nekoware-code\\nekoware\\src\\base\\sdk\\java\\util\\collection.h",
                     "lookup-method": "absolute"
                 }
             ],
