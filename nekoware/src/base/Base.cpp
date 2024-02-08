@@ -235,14 +235,7 @@ std::string getWindowName(HWND hwnd)
 void Base::checkVersion() {
 	auto window = getCurrentWindow();
 	auto name = getWindowName(window);
-	if (JNIHelper::IsVanilla()) {
-		if (name.find("Badlion") != -1) {
-			version = BADLION;
-			return;
-		}
-		version = VANILLA_1_8_9;
-		return;
-	}
+
 	if (JNIHelper::IsForge())
 	{
 		if (name.find("1.12.2") != -1 || name.find("花雨庭") != -1)
@@ -251,11 +244,7 @@ void Base::checkVersion() {
 			version = FORGE_1_7_10;
 		if (name.find("1.8.9") != -1)
 			version = FORGE_1_8_9;
-		if (name.find("Lunar") != -1)
-		{
-			version = LUNAR_1_8_9;
-			isObfuscate = false;
-		}
+
 		jint count;
 		jfieldID* fields;
 
@@ -274,6 +263,21 @@ void Base::checkVersion() {
 			}
 			isObfuscate = true;
 		}
+		return;
+	}
+	if (JNIHelper::IsVanilla()) {
+
+		version = VANILLA_1_8_9;
+		return;
+	}
+	if (name.find("Lunar") != -1)
+	{
+		version = LUNAR_1_8_9;
+		isObfuscate = false;
+		return;
+	}
+	if (name.find("Badlion") != -1) {
+		version = BADLION;
 		return;
 	}
 	if (JNIHelper::ForgeFindClass("net.minecraft.util.math.RayTraceResult$Type") != nullptr)

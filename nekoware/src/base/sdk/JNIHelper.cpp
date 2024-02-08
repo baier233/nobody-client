@@ -63,7 +63,7 @@ bool JNIHelper::IsForge()
 
 bool JNIHelper::IsVanilla()
 {
-	if (!IsForge()) {
+	if (!IsForge() && FindWindowA(NULL, "Minecraft 1.8.9")) {
 		return true;
 	}
 	return false;

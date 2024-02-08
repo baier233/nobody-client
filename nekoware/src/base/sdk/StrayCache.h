@@ -1071,6 +1071,15 @@ struct StrayCache {
 			gamesettings_keyBindSneak = Java::Env->GetFieldID(gamesettings_class, "keyBindSneak", "Lnet/minecraft/client/settings/KeyBinding;");
 
 		}
+
+		{
+			Java::AssignClass("net.minecraft.network.NetworkManager", networkManager_class);
+			networkManager_class = (jclass)Java::Env->NewGlobalRef(networkManager_class);
+			networkManager_sendPacket = Java::Env->GetMethodID(networkManager_class, "sendPacket", "(Lnet/minecraft/network/Packet;Lio/netty/util/concurrent/GenericFutureListener;[Lio/netty/util/concurrent/GenericFutureListener;)V");
+			networkManager_channelRead0 = Java::Env->GetMethodID(networkManager_class, "channelRead0", "(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V");
+
+		}
+
 		{
 			Java::AssignClass("net.minecraft.client.settings.KeyBinding", keybind_class);
 			keybind_pressed = Java::Env->GetFieldID(keybind_class, "pressed", "Z");
@@ -2460,9 +2469,15 @@ struct StrayCache {
 			Load112ForgeMap();
 			goto End;
 		}
+		if (Base::version == LUNAR_1_8_9) {
+			std::cout << "Lunar" << std::endl;
+			IsLunar = true;
+			//Lunar
+			Load189MCPMap();
+			goto End;
+		}
 
-
-		if (JNIHelper::IsVanilla()) {
+		if (Base::version == VANILLA_1_8_9) {
 			std::cout << "Vanilla" << std::endl;
 			Load189VanillaMap();
 			goto End;
@@ -2470,17 +2485,14 @@ struct StrayCache {
 
 
 
-		if (JNIHelper::IsForge()) {
+		if (Base::version == FORGE_1_8_9) {
 			std::cout << "Forge" << std::endl;
 			Load189ForgeMap();
 			//Load1710ForgeMap();懒得写判断,有点问题
 			goto End;
 		}
 
-		std::cout << "Lunar" << std::endl;
-		IsLunar = true;
-		//Lunar
-		Load189MCPMap();
+
 		//Load112MCPMap();
 	End:
 
