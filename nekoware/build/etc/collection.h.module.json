@@ -3,16 +3,16 @@
     "revision": 0,
     "rules": [
         {
-            "primary-output": "E:\\Dev\\SkidwareWorkSpace\\main\\Skidware-Inject\\build\\etc\\Collection.h.obj",
+            "primary-output": "D:\\Code\\nekoware-code\\build\\etc\\Collection.h.obj",
             "outputs": [
-                "E:\\Dev\\SkidwareWorkSpace\\main\\Skidware-Inject\\build\\etc\\vc143.pdb",
-                "E:\\Dev\\SkidwareWorkSpace\\main\\Skidware-Inject\\build\\etc\\",
-                "E:\\Dev\\SkidwareWorkSpace\\main\\Skidware-Inject\\build\\etc\\Collection.h.ifc"
+                "D:\\Code\\nekoware-code\\build\\etc\\vc143.pdb",
+                "D:\\Code\\nekoware-code\\build\\etc\\",
+                "D:\\Code\\nekoware-code\\build\\etc\\Collection.h.ifc"
             ],
             "provides": [
                 {
                     "logical-name": "src\\base\\sdk\\java\\util\\Collection.h",
-                    "source-path": "e:\\dev\\skidwareworkspace\\main\\skidware-inject\\src\\base\\sdk\\java\\util\\collection.h",
+                    "source-path": "d:\\code\\nekoware-code\\src\\base\\sdk\\java\\util\\collection.h",
                     "lookup-method": "absolute"
                 }
             ],
