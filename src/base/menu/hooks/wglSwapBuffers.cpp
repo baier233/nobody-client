@@ -5,18 +5,15 @@
 #include <GL/glext.h>
 #include <mutex>
 #include <Shlobj.h>
-//#include "moncraftfont.h"
 #include "../../../../ext/minhook/minhook.h"
 #include "../../../../ext/imgui/imgui.h"
 #include "../../../../ext/imgui/imgui_impl_win32.h"
 #include "../../../../ext/imgui/imgui_impl_opengl3.h"
 #include "../../util/logger.h"
 #include "../../util/trimmer.h"
-#include "../../../../ext/fonts/jetbrainsmono.h"
 #include "../../moduleManager/modules/visual/Xray.h"
 #include "../../moduleManager/modules/visual/BlockESP.h"
 #include "../../base.h"
-#include "../../../../ext/fonts/Minecraft.h"
 
 std::once_flag setupFlag;
 std::atomic_flag clipCursor = ATOMIC_FLAG_INIT;
