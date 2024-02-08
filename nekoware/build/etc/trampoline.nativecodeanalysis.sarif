@@ -1,0 +1,67 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/minhook/trampoline.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "57a661dc765766c501d2ef60e324f20045c8e299e862ea7c8e3a00360219aa89"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/minhook/hde/hde64.h"
+          },
+          "hashes": {
+            "sha-256": "fd5b39e2865e12b9525ebda8fd9e9658b341ead5932d1bcb412a189f81ca42ca"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/minhook/hde/pstdint.h"
+          },
+          "hashes": {
+            "sha-256": "975488009779ea99c7e04b83a160397d5cd7195cb5bf6ad79180805f756c7d00"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/minhook/trampoline.h"
+          },
+          "hashes": {
+            "sha-256": "23681f7768d5dbd23ea14b45ba64e488a337501f23122253c532b05dbed4b85f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/minhook/buffer.h"
+          },
+          "hashes": {
+            "sha-256": "175ec5496c020509cf4c7670322b51b5bcd5b63a345bfefc4a19b43675857fa7"
+          }
+        }
+      ]
+    }
+  ]
+}

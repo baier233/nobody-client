@@ -1,0 +1,1596 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 Value::m_value。始终初始化成员变量(type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Value::{ctor}",
+                  "decoratedName": "??0Value@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Value::m_value"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///D:/Code/Skidware/src/base/moduleManager/Value.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "8201afd58bdfea44562a762a822eca067abe689e02975dc9acd13dd4e335ba56"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/modules/visual/chestesp.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "6607f828b7fd6cdc7082f9eb3eec9c62260630c4a6d810f4c5bbd1b91762ee3f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/modules/visual/chestesp.h"
+          },
+          "hashes": {
+            "sha-256": "1bac085eebf60b3f36c91ad7afa1f8fa5995a257e5274499c2d634aa8c55564f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/modulemanager/abstractmodule.h"
+          },
+          "hashes": {
+            "sha-256": "a0d96867c1c3ec5f225fcd40da83000cc6bfb2e431b2aa728e743dd922ebbf4a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/main.h"
+          },
+          "hashes": {
+            "sha-256": "5355d5ec9adc457147a8182026dea7301130fc47028a70ab9dd5842f04db1bb5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui_internal.h"
+          },
+          "hashes": {
+            "sha-256": "61b21fda8d6990fd0d374a643146345886798fccbfb04f3a8de4cfac1722ab46"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "1b7c419fb9a9f4e56c31490586d1fe3e324eaec448207b2804bd9b97a0f269d1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "667920b41cffc02ed57db6b8610ca5518e189816cf31b10b33c6012799693660"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/imgui/imstb_textedit.h"
+          },
+          "hashes": {
+            "sha-256": "3f4cf71a2b771d938f62ce4225df3ebe429b334fcdb3b89f1fedf43eeb0a3e1e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/glm.hpp"
+          },
+          "hashes": {
+            "sha-256": "848c66bd5dab1bc1e695299e1bfea4f802d28a84a4f31ab14dad52f11b6dfe98"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/_fixes.hpp"
+          },
+          "hashes": {
+            "sha-256": "fa972e30228133d4a67cbdb1a05f0edfb32de4149c95c253650cf1ff1cf35ad1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/setup.hpp"
+          },
+          "hashes": {
+            "sha-256": "8a1ee2261c36c08efc209a7ddb3b63d08fd6aff22efadfdc732f6350e985a902"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/simd/platform.h"
+          },
+          "hashes": {
+            "sha-256": "94828fc7882d8672600400e025b828ee67e9681dd0adf49e3e5b8f22093f956b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/fwd.hpp"
+          },
+          "hashes": {
+            "sha-256": "b286d48791b9749e49b32a11397c1e156f6d3ec42bd6ae0cb34ed04f8fc6801a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/qualifier.hpp"
+          },
+          "hashes": {
+            "sha-256": "4b98355b9cf30c48953783aec2f8ebf342ff3a0bc55902fe40266d62cb10ddb9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/vec2.hpp"
+          },
+          "hashes": {
+            "sha-256": "471ef34e19e825f694d4c021dd0a8705e5e148b6dee9ea651d8455ec49ecaa00"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool2.hpp"
+          },
+          "hashes": {
+            "sha-256": "14dfb7baa6114b10d428991e1f998ad9fa8a3157ae45a245ba13321cf6c87043"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec2.hpp"
+          },
+          "hashes": {
+            "sha-256": "3f12c15be1b32dbfd77444ed12ece037ae0fd63b6cee7e665a6e425c9313d8ac"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec2.inl"
+          },
+          "hashes": {
+            "sha-256": "50b07bee21a68d98b34de9774cac247140f3a16be19480b056e32672fdf1c23d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/compute_vector_relational.hpp"
+          },
+          "hashes": {
+            "sha-256": "f4b44de6254936cd4f35756f93469934d60859f0062e821733bed79441f66abf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "a84467a8f9aeeb8de3b76df1aa5f8085503b5f4050bd5c808a60b2527736b72c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float2.hpp"
+          },
+          "hashes": {
+            "sha-256": "e04a566abf197f138dc8fb3156833cd2ba7fc4a92405f840b096b317fcc46961"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "a98bcd3d22935a48c693496dd13bd6020e98072079b94c45bc608b7b6d7a106d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double2.hpp"
+          },
+          "hashes": {
+            "sha-256": "da0b99d0c93f97bc072c2714fccd5e7215577482b28de408e3b7e3b30c4fc27f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "4fa7175b87630322d224aef6f050549120eb6119f78628d0bf002484bc2325bd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int2.hpp"
+          },
+          "hashes": {
+            "sha-256": "3f19cc4e45dca03b9f3a88608c942b9cf9d167c80e2766b83d6ab134284ad25c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int2_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "572513d752d915c3c55242af93a36530f5a6e33c3861092da588653044701872"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/scalar_int_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "c67f75286949a38f86de6d3685832a86a4188e54bb22121cd8f2e2a2ebdfb399"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint2.hpp"
+          },
+          "hashes": {
+            "sha-256": "3d03953933445d262f9e838144218343dcbd92f01ddcafcba368e68712affecf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint2_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "ba689ecb7f59648be907b99e4b55d4b81237806bf445d020cbf1ac13400e63f1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/scalar_uint_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "88ba07e9947d52cd5c33409ab6ce52af42c6f25839f615e4b10d17753c1d1eca"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/vec3.hpp"
+          },
+          "hashes": {
+            "sha-256": "d97ddb71ad02da39a4ac96670d4fe792264a8ec2e19477f60d7c245ae1a301b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool3.hpp"
+          },
+          "hashes": {
+            "sha-256": "8444556f70e1fa055558f8478ba741df295a734f142e287fc0786ffed9284a47"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec3.hpp"
+          },
+          "hashes": {
+            "sha-256": "07c7ca73ef1b9f7200674a665f68461627585c12b2195e3ee68d5d81cbe8ada3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec3.inl"
+          },
+          "hashes": {
+            "sha-256": "ba908c56eee85be50e188d314f4526940016f61d44b4e34cf66d3d3843c32425"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "764e4523aa8c416e0e3cf90f164332166eac1878a8784c232a8872fee5677f2b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float3.hpp"
+          },
+          "hashes": {
+            "sha-256": "03d186b2344d390c32a512a9b7736707b6399f0c3f77b80ab0d49a7d0b983751"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "217037d131b93e061aec1cff60642f856c84e99056acac5788425763728ff6cc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double3.hpp"
+          },
+          "hashes": {
+            "sha-256": "899740010c39bbe4e22b51daad27f6b4fa00da9bc4a4b70866036bd888afa984"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "936f965a1b879c915e970364b5baebc17bab7d649e879f6e0d96880e347f0621"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int3.hpp"
+          },
+          "hashes": {
+            "sha-256": "1296aa5290c52bf8331b54e24af32fbb7769d089f6f0146b6f3cdfee89a7aed6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int3_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "00fb3c97857b3e722284a2e782ebdd103e034ba7f35867875fbf848a393bb49a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint3.hpp"
+          },
+          "hashes": {
+            "sha-256": "48c423931390622043e17545a0308776dc4a322ba0d2e36e8ff7927d5e0b66fe"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint3_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "e8b2bb0ac1f67b8f37cc7c9bed17b1482322cd29926696477dfdb1f150a92a8c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/vec4.hpp"
+          },
+          "hashes": {
+            "sha-256": "8b44d493eb424728b5897924fd70c9f4a39c74e8886d2599c0cca669e7450016"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool4.hpp"
+          },
+          "hashes": {
+            "sha-256": "b9106d7154ed6df900ed9ed5919bed0b625d08058f761df8e783e14686daef39"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec4.hpp"
+          },
+          "hashes": {
+            "sha-256": "7d2d34d8b57ecae76197d7e2e05a47223a15dd724b60810539783be72c6f2431"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec4.inl"
+          },
+          "hashes": {
+            "sha-256": "13a7a3e84e6e333f94a374035cbad7622ce19789ee18ac64cfe0aad66d11820a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "2df19112b8540023df6130ab9b72f150e5e7081fafa02c77bdb7e9abe9ebd0ef"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float4.hpp"
+          },
+          "hashes": {
+            "sha-256": "b09270e5e76688f9093c055d4f92cf82d612cbc2f3d3d69e2343bbfd3acb8b13"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "9ab8578f82608014191f97a27413617faf029b9bf64311756de7a15fc47442ff"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double4.hpp"
+          },
+          "hashes": {
+            "sha-256": "272762761a35813caaa8647db255606e5fa356595a052ea94ed87e612c458957"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "8102adb66c260325ad13df339843de450894bb45eafedaa05753c479b830a934"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int4.hpp"
+          },
+          "hashes": {
+            "sha-256": "6115283d489e1d990ca4d88001f63c494ea4959cf216d44ef9e28dbf3d9b4620"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int4_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "81bab05dc476f0d432ce425d4f7e56526eb1436b8a594e625b596973b65c7620"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint4.hpp"
+          },
+          "hashes": {
+            "sha-256": "1afbf32485cf310fb8abd8f9610be2c7fef1fd71a5c4495cad4b942c74832b16"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint4_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "ce865c1ff455a477d3b3b153d99009ae2fe4ddc1a8d4af3b7a5f14f9fcc1ae3f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat2x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "1d72184e12db839cde03efd6301a33ae3dfe002930c382324ee4b53e89a775b8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double2x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "f162435d27c44b2123fb6aeabf6a1ad303038bc23ce2c4ce7c8d65059b4ff18d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat2x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "a93526c01e9d0ab69c6946d5ec0b2372a6a2b01c34f709847c2875d3069e87d1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat2x2.inl"
+          },
+          "hashes": {
+            "sha-256": "537a16a2a204e96db43d7bb209501449dd6792cbaedaed2357b1569bc9e6bb71"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/matrix.hpp"
+          },
+          "hashes": {
+            "sha-256": "18bb497af2e551453958997000562de890669da8b50c3c510480220db0d9f67e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat2x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "c4ab6c4610acbf6a2338fc8757fd50c0ae8837bda5119d8cb11a9f4aff48ab70"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double2x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "293555b0ed97a43a8943245ad856ae5dd7db047205cd518f3a6626475a3854f6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat2x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "e3dff52e7b4c4d16de3f69273598f57919fade4e2cc0cf75f6bb5f5aa997693c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat2x3.inl"
+          },
+          "hashes": {
+            "sha-256": "85f29e023da045f1f35c2e9473c3537ef0e6a4d30d7af30697c8467ef7b5bf5d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double2x3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "5b0ebe9a915f87f396870eb4897253e60fa0bea6044435ce7a28ee3a1920d71c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float2x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "d731b656ddded3ca7b9eb26b52849445a1d438457e4fad02d1fe94fa349b39a0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float2x3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "f8bd301e8a43b15e92c9935edb71c455b9ecd922c5f0a2e6d1b32783819cb28c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat2x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "2fe1239791b39696fd11569cb3fcb0b6a2e980be451587322287db854e774abb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double2x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "8a220b383965f0457b2e60cee0e01328a8e0ddce266e9e101f98e5471fff47bd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat2x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "aef20a588791b93f0fce5fe01af638ce546d29742b957ebadcbf3126ff86c0e1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat2x4.inl"
+          },
+          "hashes": {
+            "sha-256": "837cf079e3006a467a51862f014f2ef0637bac302510bc9bf3c111bf8d858e35"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double2x4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "1fd885f6484d863f6e43c8276ab2e3548e8789a584eb895a45dfb2479a032c02"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float2x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "f0be584885cc45b25708a181d859d69886d6919839f399f831ea727682c88a05"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float2x4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "15d8d7f61beeaacd077ef44296a5ed369a0c6aab5ec8481db9bd60f3290013dc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat3x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "f1f768b8ccf282c755a2d2ab4bd5529726de202b038813468752d00d8ca1c4bf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double3x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "21189033fd6644d820eb597cc1afa6c7ee4cc60e8f6d90d5a0d50b7e56f47e81"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat3x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "32e756a8cc5a4ab0178bf37bb24ff8f749c5fc88afc4c9c35cc4b0b871c1f3d6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat3x2.inl"
+          },
+          "hashes": {
+            "sha-256": "8a62ebfbd923882891b070914ee18c56e458b5ded4cf486f07191a860e5e964e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double3x2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "b8bfeb2bc4ad1e9a27673de6c6bf2a547a8db2c8766ee02a7324170b678ae60f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float3x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "990d9fbe4ab32cb35c67881a42bb88bdad38b9386f0a9e273bd7a5c4eb13dc7c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float3x2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "ac403a7bf1ee8ad2799a4c8a9630d679156bd82f411696a4c9eba1de5f6dc8cb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat3x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "11feaa133f2164a0e1f68beb23d94ff774734dcd71ca4c1a1f41bc47f8c4e625"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double3x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "ce0212b641e65eddba35e02df72b6343056309af06b0e26464a908d19eece282"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat3x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "a08783e629beb3b8209162b754eeb710a8815b5512b86f73b3fa9fca6c26e25d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat3x3.inl"
+          },
+          "hashes": {
+            "sha-256": "4a2f151782ca2e91b077e998c2ad619171657a11c813f73cb235c3675f8b7213"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double3x3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "bf7ea325238b15767ae810e556bfdfdeaf3898aa248b75f374b2284e8afa9ef4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float3x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "13afb5c9a76cd00924bfd90338861bc7ba85097cc8a2c93a747862d9aef95737"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float3x3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "7dabb577886c2d26c752462118e55e67f03d7119a46877980991bc87b6bce4fa"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat3x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "e2dacd780eabf7f38c4e1f2ec37ff6df37cdb5c14c25a07a695ab5e9952f080d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double3x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "5751fac2e7d8955c1a67a558ae6cf53168c279a8dab43a915e14292b130b242c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat3x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "ed246c36fb8e03959dcc36895d75a615b704537cd8eb3b4d147584eff985404e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat3x4.inl"
+          },
+          "hashes": {
+            "sha-256": "2c00cbd9fffbf9775d3a30cef29c3b95ed970f8d1df94a93fac9970dd7b9bdb3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double3x4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "271e3c054da08e16732398f7d9b24cd0af6ab40f862260404b42999d457c0b19"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float3x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "5a964ddc2ffed1f1a8f5f8d392f34aa4f870a0c985eda0c92c29ac6cd5679543"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float3x4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "096f630c612e71c525269940cfccea7f76dac9a5f282127a0bf89d3b08527830"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat4x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "1aa01695b0cdcf5bed33a7d02011449e5b6a2f2bccc5fea34a380175dedd5144"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double4x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "b0c0155ff665e99994487a4750f703b2018e7bfb6010d3fbd756c5e5d25f4685"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat4x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "677e0337f82b5acbd0611849143f64b6d93f352264a31d6035d415a9788bf98d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat4x2.inl"
+          },
+          "hashes": {
+            "sha-256": "ee81465fc49d8c8893ef7b9f86d83c87d9a2bb781142984aac34aae40f78ddf4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double4x2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "660f21b84ed78dd631c00d25442d807074bc7fbeb5e9001f925f1a3d9e4ad04f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float4x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "c911e033c9268da984c9c2254cb92604060525d55220a333daf1688bf4575f6d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float4x2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "dbf3daf91ede9b5987c57c4e4ea609eae089ad241b936aa4ffa604ca89e0346f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat4x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "4037fa966d5bb14ef1fd078c3419b1f1b4b904e4c702c1318c071ac7cd615083"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double4x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "6f5202c9dd2a3a97901220d018f728a9dafb56c9895f3b3cf99ced0304be3095"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat4x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "c4877112e12c9a9eb4b2ff5e97cc1531eaf8c4a9e620a89f86dbf31f3ca07355"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat4x3.inl"
+          },
+          "hashes": {
+            "sha-256": "9b77ef1c6bf477967b905180e7a52fc7c183beb756d78ada59715c32c63288f3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double4x3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "131fe335a681ffb23348f043cee30e2427a9e1f45be9f1c71df1ecb5c7589f6b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float4x3.hpp"
+          },
+          "hashes": {
+            "sha-256": "c8d6bff74c2a51cff7573afcd9541f044d5da519694f4b344ec4bdebc1b6a213"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float4x3_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "e178488c0bd2d95c8d1e907e83e7b7f14bad2c9f6012c10514837b814fdeb9b8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/mat4x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "367342aa2234872e97b18a7aa17d33aadcb09b2e92f83721cf2556e21567e697"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double4x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "2cfc993535a19a8b52a5f6a6d71a0eb3ab646cbf9da0d3cf50f5f3248d3c2e35"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat4x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "4548563a5da19892a6844cb0c27e8b73f7c3f0f0d001344cab6c862a0360ff86"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_mat4x4.inl"
+          },
+          "hashes": {
+            "sha-256": "c60a576aca7028431d49a4bf65430544bafef05f04856ee26c0ccc8ee54d500a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double4x4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "1e906578cda07f564ff7c5b5bf31b4749c686fb6e4052da2bbbd46c9dd6abe00"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float4x4.hpp"
+          },
+          "hashes": {
+            "sha-256": "66dbcdd06c50852fa77660429f618ef9d35131b8a8097821247a869014366c15"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float4x4_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "e8688aa7c58fa5ad167a79075788b9685096202569e6d2186e0433c93647c5bf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_matrix.inl"
+          },
+          "hashes": {
+            "sha-256": "916072c59b2243d31bff8357ecb13fe6d1cf683ca405903313d01428bc313c43"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/geometric.hpp"
+          },
+          "hashes": {
+            "sha-256": "4a658547b578577c1e5fcb1a369adf49b1019833859a8d1ce78140fc0507f79c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_geometric.inl"
+          },
+          "hashes": {
+            "sha-256": "459c9dfb53d667cd2b56ba6f75cd721fd319cd31a93eb0024255677b8a9b91cc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/exponential.hpp"
+          },
+          "hashes": {
+            "sha-256": "4dc2669786b270b7a2af461a8fbc3785b5af1d70e546142c3a6e07801170480e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec1.hpp"
+          },
+          "hashes": {
+            "sha-256": "e3e46ea5ef353993ae756ba56614aa5d484717562021e090d9a7c09852f6bc0d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_vec1.inl"
+          },
+          "hashes": {
+            "sha-256": "97ebcfc3fdc7d615da498b52ca78f81738ee751482a9735275539e76e00e3ba4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_exponential.inl"
+          },
+          "hashes": {
+            "sha-256": "2e5d6796e3e1b7c3c0e550a26cfc5781494e7bf1bf1aa0f4f3b7f0e40a04420d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/vector_relational.hpp"
+          },
+          "hashes": {
+            "sha-256": "5c461ca06d43006ab7d236be00e25bad24614fe4cdfbc76d10f7d8c1e73900b8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_vector_relational.inl"
+          },
+          "hashes": {
+            "sha-256": "98481b9150953869dde39fb823f0a3eba606cfe6cd2ae1f6b3936e92c377a689"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/_vectorize.hpp"
+          },
+          "hashes": {
+            "sha-256": "da5f0b653ca062e22c8e456b6ef5e430309ac8681d2dba4cb1606d4e4df0aa2d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/common.hpp"
+          },
+          "hashes": {
+            "sha-256": "776ef2f5073aa29b7abd0c45c41e99122306b65efeb1dbff0247cc11564a6272"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_common.inl"
+          },
+          "hashes": {
+            "sha-256": "188a78ac42d0355dd864111d36eb6cd0aea156c1843dbb06f8609869f577de8f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/compute_common.hpp"
+          },
+          "hashes": {
+            "sha-256": "86331dcb56212827e41afa91d72d23002ff3f73e6006d26032f8780ec75ffcd8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_double2x2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "870a26e88d5606eb59afd4dfeeaae03e4627fe3b2ac2412ef9909fde4a69c380"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float2x2.hpp"
+          },
+          "hashes": {
+            "sha-256": "ecf72a0f02fec9cf6747a4e5b3d62c9a6f07bbc35b4bbf949250a8100500c8ea"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_float2x2_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "955c6d5c0b661dafdcd0169a0e104784deb5dd7862a8fb132720dafb22f4a780"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/trigonometric.hpp"
+          },
+          "hashes": {
+            "sha-256": "54f1cece6f7b03dbb5a4b9cd225e2ad6b609e08450a7d1748d68bb47e20e4de9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_trigonometric.inl"
+          },
+          "hashes": {
+            "sha-256": "12452e0ba259301ece977d5339303437671e9c5939072d804d8ec5b3dc12e1cb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/packing.hpp"
+          },
+          "hashes": {
+            "sha-256": "beb3cec06933970594a957a9bc15f6a09883f113778ff5c648b701bf729d5b0e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_packing.inl"
+          },
+          "hashes": {
+            "sha-256": "60b1773a2531970a3112f774fb045122e7016cb51c9bc104a9a66160261910ec"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_half.hpp"
+          },
+          "hashes": {
+            "sha-256": "9f98c3e42ebf1ad0ca6a1f0d2211bf6d3c226c99555c8852b02ddc4d5c3fa1c5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_half.inl"
+          },
+          "hashes": {
+            "sha-256": "21e1701b96f9ed8f390e15ffe8bbef565ab5e9ddf582fd5c247c18f53646e556"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/integer.hpp"
+          },
+          "hashes": {
+            "sha-256": "cfaa556eeaa984a445a4c52687a8f8f9096a438b577521f95ff12527cccddf76"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/func_integer.inl"
+          },
+          "hashes": {
+            "sha-256": "cd812f4c57908631d0c63b49dbe621d124fa9c152276e9d470f0be8e6e911459"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/type_ptr.hpp"
+          },
+          "hashes": {
+            "sha-256": "0a3e75b3c788391865b5421f19d855f83a32690db7c6f175ca94741d530a2d5e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/quaternion.hpp"
+          },
+          "hashes": {
+            "sha-256": "9f289c70bc7d81c13d115f95c9c4a4d167c2ecad1b3819a57a61664350a2c2a5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/constants.hpp"
+          },
+          "hashes": {
+            "sha-256": "36cd438eac8a68a89413cb69168507459bd397645aeb8816ff4c1d0273b95199"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/scalar_constants.hpp"
+          },
+          "hashes": {
+            "sha-256": "a51a2f9dde6a44bd1ec12cd9ec4ed49b58c9ab63241cc5ce548994f192387198"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/scalar_constants.inl"
+          },
+          "hashes": {
+            "sha-256": "3adb0649ab3eff6f61b764364b2dfcca7b552896ce5c56e83c54c018be68c257"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/constants.inl"
+          },
+          "hashes": {
+            "sha-256": "587b16eb6d252447e7c1f938916cff128133fe5750ba7a85d5849b16dc88525f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/matrix_transform.hpp"
+          },
+          "hashes": {
+            "sha-256": "346e56e5cfba3f5b370d36533088c54852b182c12a53f66e42a3072b81a1c639"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_projection.hpp"
+          },
+          "hashes": {
+            "sha-256": "ab39c93d62ba24d631521c2020567a22d8bbfd0e61f8063b5f109acc39fa355b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_projection.inl"
+          },
+          "hashes": {
+            "sha-256": "850b4fb2afb8075979bd7795a311ba6d0b76a4da07157d714293fb8680ee89e9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_clip_space.hpp"
+          },
+          "hashes": {
+            "sha-256": "ab50948fb483e15105e7a7a37da89b77378a06c2f98a767965d6c58916d27965"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_clip_space.inl"
+          },
+          "hashes": {
+            "sha-256": "0b2bf71883991c5bb3e7e4855556a385c6287947081cf70b1d985df51f701966"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_transform.hpp"
+          },
+          "hashes": {
+            "sha-256": "77bf5b0c160bdf52b96d159786d953c7e5d67a61e40733ed018cc4ece72b7148"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/matrix_transform.inl"
+          },
+          "hashes": {
+            "sha-256": "8c1823c88297ccc3c1cc7a5aa044d1a3df89b9d6abcdadfe299e7dfa261dc46b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/matrix_transform.inl"
+          },
+          "hashes": {
+            "sha-256": "8c70386bd89f2a25fcacafe8ea7332ac9a7719714187e521fc36353e1e930a93"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_relational.hpp"
+          },
+          "hashes": {
+            "sha-256": "5a1a925bfff46226f7e56af47a2bf16495a859702d2feb1da44c1319976e7c91"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_relational.inl"
+          },
+          "hashes": {
+            "sha-256": "deab66a22d8187a086f473208f51841ed156166407a8aae5b5c30135430b73af"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_float.hpp"
+          },
+          "hashes": {
+            "sha-256": "33c1a7b88bcddae7ce51ae6e499626025d17ea47c40d946a24f9053994280580"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_common.hpp"
+          },
+          "hashes": {
+            "sha-256": "f573d4691cfdba6f6741e9897492de3633321f952febd43f9bf7987629c66b91"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_geometric.hpp"
+          },
+          "hashes": {
+            "sha-256": "0745d628f7004d979ce3b23f5b1cf245fe679dc19f1656f3897334c453863a46"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_geometric.inl"
+          },
+          "hashes": {
+            "sha-256": "bffde93ff7e2e809bc696d8a20fc74c3f05137512284426c586f5916e6e6a9fb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_common.inl"
+          },
+          "hashes": {
+            "sha-256": "e0bbedd9ad969ceff4bbd66e439902a7e624eda5893b21c43668076840a30588"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_float.hpp"
+          },
+          "hashes": {
+            "sha-256": "c7d3c561dde9b3ae7f431c48580e60fe6e07518fd48c9c097153f74620880b81"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_quat.hpp"
+          },
+          "hashes": {
+            "sha-256": "61cf382c6853b27323b99fc9f5f33db381fab2f841dd4f56d35a22bac8bb564f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_relational.hpp"
+          },
+          "hashes": {
+            "sha-256": "51d1fe010ce64cfdf7b70601d584e2db743ea6279430547a406aed003e25ffff"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_relational.inl"
+          },
+          "hashes": {
+            "sha-256": "0c4bd5dc106b0eb45140aadb5e082444d9aa736ba0324764d4c18573184e7440"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/detail/type_quat.inl"
+          },
+          "hashes": {
+            "sha-256": "3b5f13f5d96a59f2a2039a70b97f45948f64aed9f34f4dd94813d52e361743ae"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_float_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "eabb202f37e77ea6ee3dee1efe902dd45d1818ae2639bc1611d1e31784bcd209"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_double.hpp"
+          },
+          "hashes": {
+            "sha-256": "11607f4efb4a478df1c7701fa42a157ae47ffe3a5a6c9fc397fd7842fe68fdff"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_double_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "0e71b9f30dfbe962731b7fe48a639723d0bd0b9cd09f0ac138a75387c2ef28b2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_trigonometric.hpp"
+          },
+          "hashes": {
+            "sha-256": "747114a51e5e4be49c0e788ee685ff24764611ac1966de297bde10a0f55baf18"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_trigonometric.inl"
+          },
+          "hashes": {
+            "sha-256": "08010857f671a06f4e21d6a4a7548418246fc284c2e6672f32c6f22babc79f00"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_transform.hpp"
+          },
+          "hashes": {
+            "sha-256": "e0e26975dab377c5d324d791f83b64a07adebfc72f98dcb48c65d5ee3e014321"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/quaternion_transform.inl"
+          },
+          "hashes": {
+            "sha-256": "883fee5eef3137f46265691b5dc08105dfddef0fd9e2a13142db780a3d4e1c2c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/quaternion.inl"
+          },
+          "hashes": {
+            "sha-256": "ad950e939a20342e73d9414de87a4c6f53e8e6ee6a2bd6a75bb4f5695077c4e7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/epsilon.hpp"
+          },
+          "hashes": {
+            "sha-256": "84c82325f738c5f6e89813a1e8648a83a7389fdede12db3259246f48d66a56b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/epsilon.inl"
+          },
+          "hashes": {
+            "sha-256": "eed5e828e4ba760ffb06bbcda46fa20b96e58160698283bf545783d048abb1e7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/vec1.hpp"
+          },
+          "hashes": {
+            "sha-256": "eab17eae92de5f625cd766be224b24399f0fdf715a27b48ed64a434230a6f64f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool1.hpp"
+          },
+          "hashes": {
+            "sha-256": "50f4a314e5e58d4d9905d21c5e7f61a93fea6c904e3715c40363d7483f4dc881"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_bool1_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "1df14479afc2901b98e0be2086b6d588042646f17d5cd644dbfade37429b685a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float1.hpp"
+          },
+          "hashes": {
+            "sha-256": "37f00240a6daec9a6bb66657412148018cceb04b9a16865e7f0e1bb6b5c4ed10"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_float1_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "2ce1f1dc915c35bc6325bc52c87f2b2d25456b37841573036edfe797eca4d94c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double1.hpp"
+          },
+          "hashes": {
+            "sha-256": "c897f59c8185e3f235bdff984e49eb34d7b07199a7f735225525b946f634f66f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_double1_precision.hpp"
+          },
+          "hashes": {
+            "sha-256": "0a31897d68da3461dd898c680985d68d7caee4b87c6a3608d015e58d9fe68e28"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int1.hpp"
+          },
+          "hashes": {
+            "sha-256": "5665ac10cfd3b491367aa5baa201446648aad3311c89dededd79180522bd75a3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_int1_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "0299b93e72911547bc6898c3ec08945a8a17fc3f4554a3b6ad28297b54dcb65d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint1.hpp"
+          },
+          "hashes": {
+            "sha-256": "936046e1e48adf16a2daa297a69e3318537c55f39572a05efbae9aca1479cf89"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/ext/vector_uint1_sized.hpp"
+          },
+          "hashes": {
+            "sha-256": "dc76514f6b8b653675792bc893b458fb71481236b9156b92bc7a6a784b8e1fa5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/glm/gtc/type_ptr.inl"
+          },
+          "hashes": {
+            "sha-256": "afb8be6aab2fe2280d924d91f494c8866d6c2f94adbe1e3937908e0b35592a3b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/menu/menu.h"
+          },
+          "hashes": {
+            "sha-256": "3f735689b6938da4ef107035503e448aa809a3a76d586ada4919bbbfad5ad25f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/ext/minhook/minhook.h"
+          },
+          "hashes": {
+            "sha-256": "c3608e584bd9659aebdbb4c8c82585605989193623f240552d35c43311b3d31a"
+          }
+        }
+      ]
+    }
+  ]
+}

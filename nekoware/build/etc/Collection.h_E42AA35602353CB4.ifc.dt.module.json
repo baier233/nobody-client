@@ -1,0 +1,9 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "e:\\dev\\skidwareworkspace\\main\\skidware-inject\\src\\base\\sdk\\java\\util\\collection.h",
+        "ProvidedModule": "",
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

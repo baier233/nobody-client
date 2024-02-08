@@ -1,0 +1,51 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.39.33519.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/math/math.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "55afd7c43f3b2ec7a80029af6c0c234a496b1900b9ef67d358ed6aa3eb4ec6cd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/math/math.h"
+          },
+          "hashes": {
+            "sha-256": "d89691d6253b7bd9f80bb4269bbbdc8be991cd3cb441638f9eed160d6a0f8908"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/code/skidware/src/base/util/math/geometry.h"
+          },
+          "hashes": {
+            "sha-256": "b279ebd87c6034dc535cceae46bfb67475619c73afa5ba124975145462c94a1e"
+          }
+        }
+      ]
+    }
+  ]
+}
