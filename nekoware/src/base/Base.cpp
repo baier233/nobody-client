@@ -154,6 +154,12 @@ void JNICALL Base::detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong fu
 		SDK::Init();
 		JavaHook::init();
 		//SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
+		Menu::Init();
+		initModule();
+		InitUpdateMessge();
+		ResourceManager::getInstance().LoadAllResource();
+		WebServerManager::getInstance().Start(8080);
+		NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 		Base::Running = true;
 		runonce = false;
 	}
@@ -161,10 +167,11 @@ void JNICALL Base::detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong fu
 	if (Base::Running) {
 		if (!runonce)
 		{
-			mainLoop();
+			//mainLoop();
 		}
 	}
-	else {
+	else if (!runonce)
+	{
 		Main::Kill();
 	}
 
@@ -174,12 +181,7 @@ void JNICALL Base::detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong fu
 void Base::Init()
 {
 
-	Menu::Init();
-	initModule();
-	InitUpdateMessge();
-	ResourceManager::getInstance().LoadAllResource();
-	WebServerManager::getInstance().Start(8080);
-	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
+	
 	MH_Initialize();
 	BuildVersion = "Build 20240207 - f563a08";//动态获取？
 	Module lwjgl("lwjgl64.dll");
