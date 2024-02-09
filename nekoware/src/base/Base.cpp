@@ -146,17 +146,11 @@ void JNICALL Base::detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong fu
 	if (runonce)
 	{
 		Java::InitFromEnv(env);
+		Base::isObfuscate = false;
 		checkVersion();
 		SDK::Init();
-		Base::isObfuscate = false;
 		JavaHook::init();
-		initModule();
-		InitUpdateMessge();
-		Menu::Init();
-		ResourceManager::getInstance().LoadAllResource();
 		//SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
-		WebServerManager::getInstance().Start(8080);
-		NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 		Base::Running = true;
 		runonce = false;
 	}
@@ -179,6 +173,13 @@ nglClearType originalnglClear = nullptr;
 nglClearType targetnglClear = nullptr;
 void Base::Init()
 {
+
+	Menu::Init();
+	initModule();
+	InitUpdateMessge();
+	ResourceManager::getInstance().LoadAllResource();
+	WebServerManager::getInstance().Start(8080);
+	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 	MH_Initialize();
 	BuildVersion = "Build 20240207 - f563a08";//动态获取？
 	Module lwjgl("lwjgl64.dll");
