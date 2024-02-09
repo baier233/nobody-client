@@ -12,7 +12,7 @@ void PrintClassName(JNIEnv* env, jobject obj) {
 		return;
 	}
 
-	// »ñÈ¡ÀàÃû
+	// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	jmethodID mid = env->GetMethodID(cls, "getClass", "()Ljava/lang/Class;");
 	if (mid == nullptr) {
 		std::cerr << "Failed to get getClass method" << std::endl;
@@ -44,10 +44,10 @@ void PrintClassName(JNIEnv* env, jobject obj) {
 		return;
 	}
 
-	// ´òÓ¡ÀàÃû
+	// ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½
 	std::cout << "Class Name: " << className << std::endl;
 
-	// ÊÍ·Å×ÊÔ´
+	// ï¿½Í·ï¿½ï¿½ï¿½Ô´
 	env->ReleaseStringUTFChars(classNameStr, className);
 	env->DeleteLocalRef(classObj);
 	env->DeleteLocalRef(cls);

@@ -65,6 +65,16 @@ void setupClassLoader()
 	Java::Initialized = true;
 }
 
+void Java::InitFromEnv(JNIEnv* env) {
+	Java::Env = env;
+	env->GetJavaVM(&Java::jvm);
+	jint res = Java::jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
+	if (res == JNI_EDETACHED)
+		res = jvm->AttachCurrentThreadAsDaemon((void**)&Java::Env, nullptr); // ÿª§œﬂ≥Ã
+	if (res != JNI_OK)
+		std::cout << "Cant Setup Enviornment" << std::endl;
+}
+
 void Java::Init()
 {
 	Java::Initialized = false;

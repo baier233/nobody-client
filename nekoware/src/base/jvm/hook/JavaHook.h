@@ -25,7 +25,7 @@ namespace JavaHook
 	void partial_clean();
 	bool init();
 
-	void add_to_java_hook(jmethodID methodID, callback_t interpreted_callback, jclass owner = nullptr);
+	void add_to_java_hook(jmethodID methodID, callback_t interpreted_callback);
 
 	jobject oop_to_jobject(void* oop, void* thread);
 	jobject oop_to_jobject(void* oop, JNIEnv* env);

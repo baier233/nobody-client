@@ -50,7 +50,7 @@ void Menu::Kill()
 void Menu::PlaceHooks()
 {
 	Menu::Hook_wglSwapBuffers();
-	Menu::LoadAllGameHook();
+	//Menu::LoadAllGameHook();
 	//Menu::HookUpdate();
 }
 

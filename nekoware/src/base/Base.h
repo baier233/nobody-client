@@ -22,6 +22,7 @@ struct Base
 	static void checkVersion();
 	static void handleEventKey(int key);
 	static int InitUpdateMessge();
+	static int InitHookNglClear();
 	static void Kill();
 	static Version version;
 	static void RenderLoop(HDC hdc);
@@ -38,6 +39,7 @@ public:
 	Chronometer(std::chrono::milliseconds everyXms);
 	bool isElapsed();
 	void setEvery(std::chrono::milliseconds everyXms);
+	void reset();
 private:
 	std::chrono::steady_clock::time_point timerBegin;
 	std::chrono::milliseconds targetMs;

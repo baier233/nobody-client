@@ -2463,13 +2463,13 @@ struct StrayCache {
 			blockAir_class = (jclass)Java::Env->NewGlobalRef(blockAir_class);
 		}
 	}
-	static void Initialize() {
+ static void Initialize() {
 		IsLunar = false;
 		if (Base::version == FORGE_1_12_2) {
 			Load112ForgeMap();
 			goto End;
 		}
-		if (Base::version == LUNAR_1_8_9) {
+ 		if (Base::version == LUNAR_1_8_9) {
 			std::cout << "Lunar" << std::endl;
 			IsLunar = true;
 			//Lunar
@@ -2487,7 +2487,7 @@ struct StrayCache {
 
 		if (Base::version == FORGE_1_8_9) {
 			std::cout << "Forge" << std::endl;
-			Load189ForgeMap();
+ 			Load189ForgeMap();
 			//Load1710ForgeMap();懒得写判断,有点问题
 			goto End;
 		}

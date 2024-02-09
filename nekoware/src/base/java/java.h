@@ -7,6 +7,7 @@
 
 struct Java
 {
+	static void InitFromEnv(JNIEnv* env);
 	static void Init();
 	static void Kill();
 

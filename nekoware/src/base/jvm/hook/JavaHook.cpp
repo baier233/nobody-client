@@ -89,56 +89,104 @@ bool JavaHook::init()
 #include "./../../java/java.h"
 #include <thread>
 
-void JavaHook::add_to_java_hook(jmethodID methodID, callback_t interpreted_callback, jclass owner)
-{
+void JavaHook::add_to_java_hook(jmethodID methodID, callback_t interpreted_callback) {
 	static int runonce = []()->int
 		{
 			jvmtiCapabilities capabilities{ .can_retransform_classes = JVMTI_ENABLE };
 			Java::Jvmti->AddCapabilities(&capabilities);
 			return 0;
 		}();
-		if (!owner)
-		{
-			Java::Jvmti->GetMethodDeclaringClass(methodID, &owner);
-			Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
-			Java::Env->DeleteLocalRef(owner);
-		}
-		else {
-			Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
-		}
+		jclass owner{};
+		Java::Jvmti->GetMethodDeclaringClass(methodID, &owner);
+		Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
+		Java::Env->DeleteLocalRef(owner);
 
-
+		uint8_t* method = *((uint8_t**)methodID);
 		HookedJavaMethodCache& m = hookedMethods[methodID];
 		m.interpreted_callback = interpreted_callback;
 
-		auto method = VMType::from_instance("Method", *(void**)methodID).value();
+		//unsigned short* _flags = (unsigned short*)(method + 0x32);
+		//*_flags |= (1 << 2); //don't inline
 
-		jint* _access_flags = method.get_field<jint>("_access_flags").value();
-		*_access_flags |= 0x02000000; //no compile
-		*_access_flags |= 0x04000000;
-		*_access_flags |= 0x08000000;
+		int* access_flags = (int*)(method + (is_old_java ? 0x20 : 0x28));
+		//*access_flags |= 0x01000000; //fake onqueue
+		*access_flags |= 0x02000000; //no compile
+		*access_flags |= 0x04000000;
+		*access_flags |= 0x08000000;
 
-		uint8_t** p_i2i_entry = (uint8_t**)method.get_field<uint8_t*>("_i2i_entry").value();
+		uint8_t** p_i2i_entry = (uint8_t**)(method + (is_old_java ? 0x30 : 0x38));
 		uint8_t* _i2i_entry = *p_i2i_entry;
-
 		if (_i2i_entry && _i2i_entry != m.prev_i2i_entry)
 		{
+			//std::cout << "hooking" << '\n';
 			uint8_t* new_i2i_entry = generate_detour_code(m.interpreted_callback, _i2i_entry);
 			m.original_i2i_entry = _i2i_entry;
 			*p_i2i_entry = new_i2i_entry;
-			uint8_t** p_from_interpreted_entry = method.get_field<uint8_t*>("_from_interpreted_entry").value();
+			uint8_t** p_from_interpreted_entry = (uint8_t**)(method + 0x50);
 			*p_from_interpreted_entry = *p_i2i_entry;
-			uint8_t* _adapter = *method.get_field<uint8_t*>("_adapter").value();
+			uint8_t* _adapter = *(uint8_t**)(method + (is_old_java ? 0x38 : 0x20));
 			uint8_t* _c2i_entry = *(uint8_t**)(_adapter + 0x20);
-			uint8_t** p_from_compiled_entry = method.get_field<uint8_t*>("_from_compiled_entry").value();
+			uint8_t** p_from_compiled_entry = (uint8_t**)(method + 0x40);
 			*p_from_compiled_entry = _c2i_entry;
 			if (m.prev_i2i_entry)
 				VirtualFree(m.prev_i2i_entry, 0, MEM_RELEASE);
 			m.prev_i2i_entry = new_i2i_entry;
-
 			//*((uint8_t**)(method + 0x48)) = nullptr; // delete compiled code
 		}
+		return;
 }
+
+
+//void JavaHook::add_to_java_hook(jmethodID methodID, callback_t interpreted_callback, jclass owner)
+//{
+//	static int runonce = []()->int
+//		{
+//			jvmtiCapabilities capabilities{ .can_retransform_classes = JVMTI_ENABLE };
+//			Java::Jvmti->AddCapabilities(&capabilities);
+//			return 0;
+//		}();
+//		if (!owner)
+//		{
+//			Java::Jvmti->GetMethodDeclaringClass(methodID, &owner);
+//			Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
+//			Java::Env->DeleteLocalRef(owner);
+//		}
+//		else {
+//			Java::Jvmti->RetransformClasses(1, &owner); //small trick to delete any already compiled / inlined code
+//		}
+//
+//
+//		HookedJavaMethodCache& m = hookedMethods[methodID];
+//		m.interpreted_callback = interpreted_callback;
+//
+//		auto method = VMType::from_instance("Method", *(void**)methodID).value();
+//
+//		jint* _access_flags = method.get_field<jint>("_access_flags").value();
+//		*_access_flags |= 0x02000000; //no compile
+//		*_access_flags |= 0x04000000;
+//		*_access_flags |= 0x08000000;
+//
+//		uint8_t** p_i2i_entry = (uint8_t**)method.get_field<uint8_t*>("_i2i_entry").value();
+//		uint8_t* _i2i_entry = *p_i2i_entry;
+//
+//		if (_i2i_entry && _i2i_entry != m.prev_i2i_entry)
+//		{
+//			uint8_t* new_i2i_entry = generate_detour_code(m.interpreted_callback, _i2i_entry);
+//			m.original_i2i_entry = _i2i_entry;
+//			*p_i2i_entry = new_i2i_entry;
+//			uint8_t** p_from_interpreted_entry = method.get_field<uint8_t*>("_from_interpreted_entry").value();
+//			*p_from_interpreted_entry = *p_i2i_entry;
+//			uint8_t* _adapter = *method.get_field<uint8_t*>("_adapter").value();
+//			uint8_t* _c2i_entry = *(uint8_t**)(_adapter + 0x20);
+//			uint8_t** p_from_compiled_entry = method.get_field<uint8_t*>("_from_compiled_entry").value();
+//			*p_from_compiled_entry = _c2i_entry;
+//			if (m.prev_i2i_entry)
+//				VirtualFree(m.prev_i2i_entry, 0, MEM_RELEASE);
+//			m.prev_i2i_entry = new_i2i_entry;
+//
+//			//*((uint8_t**)(method + 0x48)) = nullptr; // delete compiled code
+//		}
+//}
 
 jobject JavaHook::oop_to_jobject(void* oop, void* thread)
 {

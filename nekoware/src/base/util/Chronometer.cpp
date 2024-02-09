@@ -21,3 +21,8 @@ void Chronometer::setEvery(std::chrono::milliseconds everyXms)
 	timerBegin = std::chrono::steady_clock::now();
 	targetMs = everyXms;
 }
+
+void Chronometer::reset()
+{
+	timerBegin = std::chrono::steady_clock::now();
+}
