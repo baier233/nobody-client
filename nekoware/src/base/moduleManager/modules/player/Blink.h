@@ -2,6 +2,7 @@
 #pragma once
 #include "../../../util/math/geometry.h"
 #include "../../../eventManager/events/EventUpdate.hpp"
+#include "../../../eventManager/events/EventPacketSend.h"
 #include "../../AbstractModule.h"
 #include <Windows.h>
 
@@ -30,6 +31,7 @@ public:
 	void onEnable();
 	void onDisable();
 	void onUpdate(const EventUpdate e);
+	void onPacket(const EventPacketSend e);
 	void RenderMenu();
 	void OnReceiveData();
 
@@ -39,4 +41,6 @@ public:
 	float Milliseonds = 10;
 private:
 	Blink();
+	void sendPackets(JNIEnv* env);
+	std::vector<CPacket> packets{};
 };

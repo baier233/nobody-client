@@ -3,8 +3,13 @@
 #include "../../../menu/menu.h"
 #include "../../commonData.h"
 
-Blink::Blink() : AbstractModule("Blink", Category::PLAYER,"Blink.") {
-	EventManager::getInstance().reg<EventUpdate>([this](auto&& PH1) { onUpdate(std::forward<decltype(PH1)>(PH1)); });
+Blink::Blink() : AbstractModule("Blink", Category::PLAYER, "Blink.") {
+	//EventManager::getInstance().reg<EventUpdate>([this](auto&& PH1) { onUpdate(std::forward<decltype(PH1)>(PH1)); });
+	EventManager::getInstance().reg<EventPacketSend>([this](auto&& PH1) { onPacket(std::forward<decltype(PH1)>(PH1)); });
+}
+
+void Blink::sendPackets(JNIEnv* env)
+{
 }
 
 Blink* Blink::getInstance() {
@@ -13,6 +18,7 @@ Blink* Blink::getInstance() {
 }
 
 void Blink::onDisable() {
+	sendPackets(Java::Env);
 }
 
 void Blink::onEnable() {
@@ -26,6 +32,17 @@ void Blink::onUpdate(const EventUpdate e)
 
 
 }
+void Blink::onPacket(EventPacketSend e)
+{
+	if (!this->getToggle()) {
+		if (!packets.empty())
+			sendPackets(e.getEnv());
+		return;
+	}
+	if (!CommonData::getInstance()->SanityCheck()) return;
+	e.SetCancel(true);
+	packets.push_back(CPacket(e.getPackets()));
+}
 void Blink::RenderMenu()
 {
 
@@ -34,9 +51,9 @@ void Blink::RenderMenu()
 		ImGui::Checkboxx("Toggle Blink", image::check, this);
 	}
 	ImGui::EndChild();
-	
+
 	ImGui::SameLine(0, 20);
-	
+
 	ImGui::BeginChild("Blink2", ImVec2(320, 426), true);
 	{
 		int mode{};
@@ -51,7 +68,7 @@ void Blink::OnReceiveData()
 	if (!this->getToggle())
 		return;
 
-	while (IsKeyBeingDown(this->getKey()) && (GetTickCount64() - timer < Milliseonds * 1000)) {
-		Sleep(1);
-	}
+	//while (IsKeyBeingDown(this->getKey()) && (GetTickCount64() - timer < Milliseonds * 1000)) {
+	//	Sleep(1);
+	//}
 }

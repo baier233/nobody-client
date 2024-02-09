@@ -293,7 +293,7 @@ void Base::Kill()
 	SDK::Minecraft->gameSettings->RestoreFullscreenKey();
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
-	JavaHook::clean();
+	//JavaHook::clean();
 	SDK::Clean();
 	StrayCache::DeleteRefs();
 	auto og = GetProcAddress(GetModuleHandle("lwjgl64.dll"), "Java_org_lwjgl_opengl_WindowsDisplay_nUpdate");
