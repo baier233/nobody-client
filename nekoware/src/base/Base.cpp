@@ -139,6 +139,9 @@ static void mainLoop() {
 	Java::Env->PopLocalFrame(nullptr);
 }
 
+typedef void(JNICALL* nglClearType)(JNIEnv* env, jclass clazz, jint mask, jlong function_pointer);
+nglClearType originalnglClear = nullptr;
+nglClearType targetnglClear = nullptr;
 void JNICALL Base::detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong function_pointer)
 {
 	static bool runonce = true;
@@ -165,12 +168,9 @@ void JNICALL Base::detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong fu
 		Main::Kill();
 	}
 
-
+	return originalnglClear(env, clazz, mask, function_pointer);
 	
 }
-typedef void(JNICALL* nglClearType)(JNIEnv* env, jclass clazz, jint mask, jlong function_pointer);
-nglClearType originalnglClear = nullptr;
-nglClearType targetnglClear = nullptr;
 void Base::Init()
 {
 
