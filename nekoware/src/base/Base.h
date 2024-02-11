@@ -15,7 +15,6 @@ enum Version
 
 struct Base
 {
-	static void JNICALL detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong function_pointer);
 	static void Init();
 	static void initConsole();
 	static void initModule();

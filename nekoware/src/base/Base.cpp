@@ -84,15 +84,6 @@ static void handleUpdate(JNIEnv* env)
 				Menu::Open = !Menu::Open;
 			if (msg.wParam == VK_ESCAPE && Menu::Open)
 				Menu::Open = false;
-
-			if (msg.wParam ==  VK_F11 ) {
-				if (Borderless::Enabled)
-					Borderless::Restore(Menu::HandleWindow);
-				else
-					Borderless::Enable(Menu::HandleWindow);
-			}
-
-			//EventManager::getInstance().call(EventUpdate());
 			ModuleManager::getInstance().ProcessKeyEvent(msg.wParam);
 		}
 		TranslateMessage(&msg);
@@ -115,82 +106,52 @@ int Base::InitUpdateMessge() {
 		return -1;
 	}
 
-
 	return Java::Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
 }
-
-int Base::InitHookNglClear()
-{
-	return 0;
-}
-
-
 #include<Windows.h>
 #include "moduleManager/modules/visual/ChestESP.h"
 #include "moduleManager/modules/visual/BlockESP.h"
 #include "moduleManager/modules/visual/Chams.h"
-#include "util/module/Module.hpp"
-
-static void mainLoop() {
-	static Chronometer timer = std::chrono::milliseconds(5);
-	if (!timer.isElapsed() || !StrayCache::initialized) return;
-	Java::Env->PushLocalFrame(100);
-	EventManager::getInstance().call(EventUpdate());
-	Java::Env->PopLocalFrame(nullptr);
-}
-
-typedef void(JNICALL* nglClearType)(JNIEnv* env, jclass clazz, jint mask, jlong function_pointer);
-nglClearType originalnglClear = nullptr;
-nglClearType targetnglClear = nullptr;
-void JNICALL Base::detournglClear(JNIEnv* env, jclass clazz, jint mask, jlong function_pointer)
-{
-	static bool runonce = true;
-
-	if (runonce)
-	{
-		Java::InitFromEnv(env);
-		Base::isObfuscate = false;
-		checkVersion();
-		SDK::Init();
-		JavaHook::init();
-		//SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
-		Menu::Init();
-		initModule();
-		InitUpdateMessge();
-		ResourceManager::getInstance().LoadAllResource();
-		WebServerManager::getInstance().Start(8080);
-		NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
-		Base::Running = true;
-		runonce = false;
-	}
-
-	if (Base::Running) {
-		if (!runonce)
-		{
-			//mainLoop();
-		}
-	}
-	else if (!runonce)
-	{
-		Main::Kill();
-	}
-
-	return originalnglClear(env, clazz, mask, function_pointer);
-	
-}
 void Base::Init()
 {
-
-	
 	MH_Initialize();
 	BuildVersion = "Build 20240207 - f563a08";//动态获取？
-	Module lwjgl("lwjgl64.dll");
-	if (!lwjgl)
-		return;
-	targetnglClear = (nglClearType)lwjgl.getProcAddress("Java_org_lwjgl_opengl_GL11_nglClear");
-	MH_CreateHook(targetnglClear, detournglClear, (LPVOID*)&originalnglClear);
-	MH_EnableHook(targetnglClear);
-	
+	Java::Init();
+	Base::isObfuscate = false;
+	checkVersion();
+	SDK::Init();
+	JavaHook::init();
+	Menu::Init();
+	initModule();
+	InitUpdateMessge();
+	ResourceManager::getInstance().LoadAllResource();
+	Base::Running = true;
+	SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
+	WebServerManager::getInstance().Start(8080);
+	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
+	while (Base::Running)
+	{
+		if (IsKeyReleased(VK_F11)) {
+			if (Borderless::Enabled)
+				Borderless::Restore(Menu::HandleWindow);
+			else
+				Borderless::Enable(Menu::HandleWindow);
+		}
+
+		EventManager::getInstance().call(EventUpdate());
+
+#ifndef _DEBUG
+		/*HideFromDebugger();*/
+#endif
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+#ifndef _DEBUG
+		/*Check();*/
+#endif
+	}
+
+	Main::Kill();
 }
 void Base::initConsole() {
 	AllocConsole();
@@ -329,7 +290,6 @@ void Base::handleEventKey(int key) {
 
 void Base::Kill()
 {
-	MH_RemoveHook(targetnglClear);
 	SDK::Minecraft->gameSettings->RestoreFullscreenKey();
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
