@@ -20,3 +20,11 @@ Vector3 CRenderManager::ViewerPos(JNIEnv* env)
 		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_viewerPosZ)
 	};
 }
+
+Vector2 CRenderManager::PlayerView(JNIEnv* env)
+{
+	return Vector2(
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_playerViewX),
+		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_playerViewY)
+	);
+}

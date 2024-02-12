@@ -36,7 +36,7 @@ public:
 	Matrix modelView;
 	Matrix projection;
 	Vector3 renderPos;
-	float renderPartialTicks; 
+	float renderPartialTicks;
 	float fov;
 	int thirdPersonView;
 
@@ -58,6 +58,7 @@ public:
 	};
 
 	List playerEntities{};
+	//List loadedEntities{};
 
 	void UpdateData(const EventUpdate e)
 	{
@@ -72,6 +73,7 @@ public:
 		fov = SDK::Minecraft->gameSettings->GetFOV();
 		thirdPersonView = SDK::Minecraft->gameSettings->GetThirdPersonView();
 		playerEntities = SDK::Minecraft->theWorld->GetPlayerList();
+		//loadedEntities = SDK::Minecraft->theWorld->GetLoadedEntityList();
 		float ySubtractValue = 3.4;
 		if (SDK::Minecraft->thePlayer->IsSneaking())
 			ySubtractValue -= .175f;
@@ -102,8 +104,8 @@ public:
 		//nativePlayerList = newData;
 
 		dataUpdated = true; // This entire function is stopped, and this is flipped once the world and or player object appears to be null
-							// Mainly for sanity checks for rendering functions, it prevents crashing whenever the user is not in a game because some data
-							// might be needed from within the render functions.
+		// Mainly for sanity checks for rendering functions, it prevents crashing whenever the user is not in a game because some data
+		// might be needed from within the render functions.
 	}
 
 	// Return false if sanity check failed
@@ -111,8 +113,8 @@ public:
 	bool SanityCheck() {
 
 
-		if ( Java::Env->IsSameObject(SDK::Minecraft->getTheWorld().getInstance(), NULL) ||
-			 Java::Env->IsSameObject(SDK::Minecraft->getThePlayer().getInstance(), NULL))
+		if (Java::Env->IsSameObject(SDK::Minecraft->getTheWorld().getInstance(), NULL) ||
+			Java::Env->IsSameObject(SDK::Minecraft->getThePlayer().getInstance(), NULL))
 		{
 			CommonData::dataUpdated = false;
 			return false;

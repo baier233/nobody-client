@@ -112,10 +112,11 @@ int Base::InitUpdateMessge() {
 #include "moduleManager/modules/visual/ChestESP.h"
 #include "moduleManager/modules/visual/BlockESP.h"
 #include "moduleManager/modules/visual/Chams.h"
+#include "moduleManager/modules/visual/ItemESP.h"
 void Base::Init()
 {
 	MH_Initialize();
-	BuildVersion = "Build 20240207 - f563a08";//动态获取？
+	BuildVersion = "Build 20240212 - f563a08";//动态获取？
 	Java::Init();
 	Base::isObfuscate = false;
 	checkVersion();
@@ -159,7 +160,6 @@ void Base::initConsole() {
 }
 
 void Base::initModule() {
-
 	{
 		ModuleManager::getInstance().addModule<Killaura>(Killaura::getInstance());
 		ModuleManager::getInstance().addModule<AimAssist>(AimAssist::getInstance());
@@ -169,12 +169,10 @@ void Base::initModule() {
 		ModuleManager::getInstance().addModule<Teams>(Teams::getInstance());
 	}
 
-
 	{
 		ModuleManager::getInstance().addModule<LClick>(LClick::getInstance());
 		ModuleManager::getInstance().addModule<RClick>(RClick::getInstance());
 	}
-
 
 	{
 		ModuleManager::getInstance().addModule<Eagle>(Eagle::getInstance());
@@ -191,6 +189,7 @@ void Base::initModule() {
 		ModuleManager::getInstance().addModule<Chams>(Chams::getInstance());
 		ModuleManager::getInstance().addModule<BlockESP>(BlockESP::getInstance());
 		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
+		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
 	}
 }
 
@@ -272,6 +271,11 @@ void Base::checkVersion() {
 	}
 	if (name.find("Lunar") != -1)
 	{
+		if (name.find("1.12.2") != -1) {
+			version = LUNAR_1_12_2;
+			isObfuscate = false;
+			return;
+		}
 		version = LUNAR_1_8_9;
 		isObfuscate = false;
 		return;

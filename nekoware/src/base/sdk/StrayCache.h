@@ -131,13 +131,9 @@ struct StrayCache {
 	inline static jfieldID entityPlayerSP_sendQueue;
 	inline static jfieldID entityPlayerSP_abilities;
 
-
-
-
 	//World Client
 	inline static jclass worldClient_class;
 	inline static jfieldID worldClient_entityList;
-
 
 	//RenderManager
 	inline static jclass renderManager_class;
@@ -147,6 +143,8 @@ struct StrayCache {
 	inline static jfieldID renderManager_viewerPosX;
 	inline static jfieldID renderManager_viewerPosY;
 	inline static jfieldID renderManager_viewerPosZ;
+	inline static jfieldID renderManager_playerViewX;
+	inline static jfieldID renderManager_playerViewY;
 
 	//Timer
 	inline static jclass timer_class;
@@ -161,7 +159,7 @@ struct StrayCache {
 	inline static jmethodID world_getChunkFromChunkCoords;
 	inline static jmethodID world_isAirBlock;
 	inline static jfieldID world_playerEntities;
-
+	inline static jfieldID world_loadedEntityList;//TODO:其他版本
 
 	//Chunk
 	inline static jclass chunk_class;
@@ -266,6 +264,9 @@ struct StrayCache {
 	inline static jclass nonNullList_class;
 	inline static jfieldID nonNullList_List;
 
+	//EntityItem Class
+	inline static jclass entityItem_class;
+
 	void helper() {
 		//这个方法不会被调用，只是用来方便跳转到指定的方法
 		Load112ForgeMap();
@@ -273,7 +274,7 @@ struct StrayCache {
 		Load189MCPMap();
 		Load189VanillaMap();
 		Load1710ForgeMap();
-		;
+		Load112MCPMap();
 	}
 
 	static void Load189VanillaMap() {
@@ -502,6 +503,7 @@ struct StrayCache {
 			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "a", "(II)Lamy;");
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "j", "Ljava/util/List;");
+			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "f", "Ljava/util/List;");
 		}
 
 		{
@@ -628,7 +630,14 @@ struct StrayCache {
 			Java::AssignClass("aey", blockAir_class);
 			blockAir_class = (jclass)Java::Env->NewGlobalRef(blockAir_class);
 		}
+
+		{
+			Java::AssignClass("uz", entityItem_class);
+			entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
+		}
+
 	}
+
 	static void Load189ForgeMap() {
 		{
 			Java::AssignClass("net.minecraft.client.Minecraft", minecraft_class);
@@ -876,6 +885,8 @@ struct StrayCache {
 			renderManager_viewerPosX = Java::Env->GetFieldID(renderManager_class, "field_78730_l", "D");
 			renderManager_viewerPosY = Java::Env->GetFieldID(renderManager_class, "field_78731_m", "D");
 			renderManager_viewerPosZ = Java::Env->GetFieldID(renderManager_class, "field_78728_n", "D");
+			renderManager_playerViewX = Java::Env->GetFieldID(renderManager_class, "field_78732_j", "D");
+			renderManager_playerViewY = Java::Env->GetFieldID(renderManager_class, "field_78735_i", "D");
 		}
 
 
@@ -897,6 +908,7 @@ struct StrayCache {
 			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "func_72964_e", "(II)Lnet/minecraft/world/chunk/Chunk;");
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "field_73010_i", "Ljava/util/List;");
+			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "field_72996_f", "Ljava/util/List;");
 		}
 
 		{
@@ -1031,7 +1043,14 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.block.BlockAir", blockAir_class);
 			blockAir_class = (jclass)Java::Env->NewGlobalRef(blockAir_class);
 		}
+
+		{
+			Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
+			entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
+		}
+
 	}
+
 	static void Load189MCPMap() {
 		{
 			Java::AssignClass("net.minecraft.client.Minecraft", minecraft_class);
@@ -1225,6 +1244,7 @@ struct StrayCache {
 			world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "isAirBlock", "(Lnet/minecraft/util/BlockPos;)Z");
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "playerEntities", "Ljava/util/List;");
+			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "loadedEntityList", "Ljava/util/List;");
 		}
 
 
@@ -1450,7 +1470,7 @@ struct StrayCache {
 			entity_rotationPitch = Java::Env->GetFieldID(entity_class, "rotationPitch", "F");
 			entity_prevRotationYaw = Java::Env->GetFieldID(entity_class, "prevRotationYaw", "F");
 			entity_prevRotationPitch = Java::Env->GetFieldID(entity_class, "prevRotationPitch", "F");
-			entity_boundingBox = Java::Env->GetFieldID(entity_class, "boundingBox", "Lnet/minecraft/util/AxisAlignedBB;");
+			entity_boundingBox = Java::Env->GetFieldID(entity_class, "boundingBox", "Lnet/minecraft/util/math/AxisAlignedBB;");
 			entity_motionX = Java::Env->GetFieldID(entity_class, "motionX", "D");
 			entity_motionY = Java::Env->GetFieldID(entity_class, "motionY", "D");
 			entity_motionZ = Java::Env->GetFieldID(entity_class, "motionZ", "D");
@@ -1498,10 +1518,6 @@ struct StrayCache {
 			entityPlayerSP_class = (jclass)Java::Env->NewGlobalRef(entityPlayerSP_class);
 		}
 
-
-
-
-
 		{
 			Java::AssignClass("net.minecraft.client.renderer.ActiveRenderInfo", activeRenderInfo_class);
 			activeRenderInfo_class = (jclass)Java::Env->NewGlobalRef(activeRenderInfo_class);
@@ -1536,12 +1552,13 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.world.World", world_class);
 			world_class = (jclass)Java::Env->NewGlobalRef(world_class);
 
-			world_rayTraceBlocks = Java::Env->GetMethodID(StrayCache::world_class, "rayTraceBlocks", "(Lnet/minecraft/util/Vec3;Lnet/minecraft/util/Vec3;ZZZ)Lnet/minecraft/util/MovingObjectPosition;");
+			world_rayTraceBlocks = Java::Env->GetMethodID(StrayCache::world_class, "rayTraceBlocks", "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;ZZZ)Lnet/minecraft/util/math/RayTraceResult;");
 			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "getChunkFromChunkCoords", "(II)Lnet/minecraft/world/chunk/Chunk;");
-			world_getBlockState = Java::Env->GetMethodID(StrayCache::world_class, "getBlockState", "(Lnet/minecraft/util/BlockPos;)Lnet/minecraft/block/state/IBlockState;");
-			world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "isAirBlock", "(Lnet/minecraft/util/BlockPos;)Z");
+			world_getBlockState = Java::Env->GetMethodID(StrayCache::world_class, "getBlockState", "(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/state/IBlockState;");
+			world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "isAirBlock", "(Lnet/minecraft/util/math/BlockPos;)Z");
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "playerEntities", "Ljava/util/List;");
+			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "loadedEntityList", "Ljava/util/List;");
 		}
 
 
@@ -1551,8 +1568,6 @@ struct StrayCache {
 
 			//chunk_getBlock = Java::Env->GetMethodID(StrayCache::chunk_class, "getBlock", "(III)Lnet/minecraft/block/Block;");
 		}
-
-
 
 		{
 			Java::AssignClass("net.minecraft.util.Timer", timer_class);
@@ -1564,7 +1579,7 @@ struct StrayCache {
 		}
 
 		{
-			Java::AssignClass("net.minecraft.util.AxisAlignedBB", axisAlignedBB_class);
+			Java::AssignClass("net.minecraft.util.math.AxisAlignedBB", axisAlignedBB_class);
 			axisAlignedBB_class = (jclass)Java::Env->NewGlobalRef(axisAlignedBB_class);
 
 			axisAlignedBB_minX = Java::Env->GetFieldID(axisAlignedBB_class, "minX", "D");
@@ -1576,17 +1591,17 @@ struct StrayCache {
 		}
 
 		{
-			Java::AssignClass("net.minecraft.util.MovingObjectPosition", movingObjectPosition_class);
+			Java::AssignClass("net.minecraft.util.math.RayTraceResult", movingObjectPosition_class);
 			movingObjectPosition_class = (jclass)Java::Env->NewGlobalRef(movingObjectPosition_class);
 
-			movingObjectPosition_hitVec = Java::Env->GetFieldID(movingObjectPosition_class, "hitVec", "Lnet/minecraft/util/Vec3;");
-			movingObjectPosition_typeOfHit = Java::Env->GetFieldID(movingObjectPosition_class, "typeOfHit", "Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;");
-			movingObjectPosition_blockPos = Java::Env->GetFieldID(movingObjectPosition_class, "blockPos", "Lnet/minecraft/util/BlockPos;");
+			movingObjectPosition_hitVec = Java::Env->GetFieldID(movingObjectPosition_class, "hitVec", "Lnet/minecraft/util/math/Vec3d;");
+			movingObjectPosition_typeOfHit = Java::Env->GetFieldID(movingObjectPosition_class, "typeOfHit", "Lnet/minecraft/util/math/RayTraceResult$Type;");
+			movingObjectPosition_blockPos = Java::Env->GetFieldID(movingObjectPosition_class, "blockPos", "Lnet/minecraft/util/math/BlockPos;");
 		}
 
 
 		{
-			Java::AssignClass("net.minecraft.util.Vec3", vec3_class);
+			Java::AssignClass("net.minecraft.util.math.Vec3d", vec3_class);
 			vec3_class = (jclass)Java::Env->NewGlobalRef(vec3_class);
 
 			vec3_xCoord = Java::Env->GetFieldID(vec3_class, "xCoord", "D");
@@ -1638,7 +1653,7 @@ struct StrayCache {
 
 
 		{
-			Java::AssignClass("net.minecraft.util.BlockPos", blockPos_class);
+			Java::AssignClass("net.minecraft.util.math.BlockPos", blockPos_class);
 			blockPos_constructor = Java::Env->GetMethodID(blockPos_class, "<init>", "(DDD)V");
 			blockPos_constructorI = Java::Env->GetMethodID(blockPos_class, "<init>", "(III)V");
 			blockPos_x = Java::Env->GetFieldID(blockPos_class, "x", "I");
@@ -1654,7 +1669,7 @@ struct StrayCache {
 		}
 
 		{
-			Java::AssignClass("net.minecraft.block.state.BlockState", blockState_class);
+			Java::AssignClass("net.minecraft.block.state.BlockStateContainer", blockState_class);
 			blockState_class = (jclass)Java::Env->NewGlobalRef(blockState_class);
 
 			blockState_block = Java::Env->GetFieldID(blockState_class, "block", "Lnet/minecraft/block/Block;");
@@ -1673,7 +1688,13 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.block.BlockAir", blockAir_class);
 			blockAir_class = (jclass)Java::Env->NewGlobalRef(blockAir_class);
 		}
+
+		{
+			Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
+			entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
+		}
 	}
+
 	static void Load112ForgeMap() {
 		std::cout << "1.12.2 Forge" << std::endl;
 		{
@@ -1846,6 +1867,7 @@ struct StrayCache {
 			entity_isDead = Java::Env->GetFieldID(entity_class, "field_70128_L", "Z");
 
 		}
+
 		{
 			Java::AssignClass("net.minecraft.client.multiplayer.PlayerControllerMP", playerControllerMP_class);
 			playerControllerMP_attackEntity = Java::Env->GetMethodID(playerControllerMP_class, "func_78764_a", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/entity/Entity;)V");
@@ -1923,6 +1945,7 @@ struct StrayCache {
 			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "func_72964_e", "(II)Lnet/minecraft/world/chunk/Chunk;");
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "field_73010_i", "Ljava/util/List;");
+			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "field_72996_f", "Ljava/util/List;");
 		}
 
 		/*
@@ -2066,6 +2089,8 @@ struct StrayCache {
 			nonNullList_List = Java::Env->GetFieldID(nonNullList_class, "field_191198_a", "Ljava/util/List;");
 		}
 
+		Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
+		entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
 	}
 
 	static void Load1710ForgeMap() {
@@ -2328,6 +2353,7 @@ struct StrayCache {
 			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "func_72964_e", "(II)Lnet/minecraft/world/chunk/Chunk;");
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "field_73010_i", "Ljava/util/List;");
+			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "field_72996_f", "Ljava/util/List;");
 		}
 
 		{
@@ -2462,15 +2488,19 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.block.BlockAir", blockAir_class);
 			blockAir_class = (jclass)Java::Env->NewGlobalRef(blockAir_class);
 		}
+		Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
+		entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
 	}
- static void Initialize() {
+
+	static void Initialize() {
 		IsLunar = false;
 		if (Base::version == FORGE_1_12_2) {
+			std::cout << "FORGE_1_12_2" << std::endl;
 			Load112ForgeMap();
 			goto End;
 		}
- 		if (Base::version == LUNAR_1_8_9) {
-			std::cout << "Lunar" << std::endl;
+		if (Base::version == LUNAR_1_8_9) {
+			std::cout << "LUNAR_1_8_9" << std::endl;
 			IsLunar = true;
 			//Lunar
 			Load189MCPMap();
@@ -2478,20 +2508,37 @@ struct StrayCache {
 		}
 
 		if (Base::version == VANILLA_1_8_9) {
-			std::cout << "Vanilla" << std::endl;
+			std::cout << "VANILLA_1_8_9" << std::endl;
+			Load189VanillaMap();
+			goto End;
+		}
+		if (Base::version == BADLION) {
+			std::cout << "BADLION" << std::endl;
 			Load189VanillaMap();
 			goto End;
 		}
 
 
-
 		if (Base::version == FORGE_1_8_9) {
-			std::cout << "Forge" << std::endl;
- 			Load189ForgeMap();
+			std::cout << "FORGE_1_8_9" << std::endl;
+			Load189ForgeMap();
 			//Load1710ForgeMap();懒得写判断,有点问题
 			goto End;
 		}
 
+		if (Base::version == FORGE_1_7_10) {
+			std::cout << "FORGE_1_7_10" << std::endl;
+			Load1710ForgeMap();
+			goto End;
+		}
+
+		if (Base::version == LUNAR_1_12_2) {
+			std::cout << "Lunar 1.12.2" << std::endl;
+			IsLunar = true;
+			//Lunar
+			Load112MCPMap();
+			goto End;
+		}
 
 		//Load112MCPMap();
 	End:

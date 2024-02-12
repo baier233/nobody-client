@@ -130,6 +130,7 @@
     <ClCompile Include="src\base\menu\hooks\GameHook.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\Packet.cpp" />
+    <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -263,9 +264,6 @@
     </ClInclude>
     <ClInclude Include="src\base\eventManager\AbstractEvent.h">
       <Filter>Event</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\eventManager\events\EventChams.hpp">
-      <Filter>Event\events</Filter>
     </ClInclude>
     <ClInclude Include="src\base\eventManager\events\EventKey.hpp">
       <Filter>Event\events</Filter>
@@ -607,6 +605,8 @@
     <ClInclude Include="src\base\util\module\Module.hpp" />
     <ClInclude Include="src\base\sdk\net\minecraft\client\network\NetworkManger.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\client\network\Packet.h" />
+    <ClInclude Include="src\base\moduleManager\modules\visual\ItemESP.h" />
+    <ClInclude Include="src\base\sdk\net\minecraft\entity\item\EntityItem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -461,8 +461,10 @@
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
     <ClInclude Include="ext\imgui\main.h" />
     <ClInclude Include="ext\json\json.hpp" />
+    <ClInclude Include="src\base\moduleManager\modules\visual\ItemESP.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\client\network\NetworkManger.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\client\network\Packet.h" />
+    <ClInclude Include="src\base\sdk\net\minecraft\entity\item\EntityItem.h" />
     <ClInclude Include="src\base\util\module\Module.hpp" />
     <ClInclude Include="src\base\jvm\hook\JavaHook.h" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
@@ -602,6 +604,7 @@
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\base\menu\hooks\GameHook.cpp" />
+    <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\Packet.cpp" />
     <ClCompile Include="src\base\util\module\Module.cpp" />

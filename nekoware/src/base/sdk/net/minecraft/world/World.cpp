@@ -10,12 +10,17 @@
 
 
 
-List CWorld::GetPlayerList(JNIEnv* env )
+List CWorld::GetPlayerList(JNIEnv* env)
 {
 	return List(env->GetObjectField(instance, StrayCache::world_playerEntities));
 }
 
-Vector3 CWorld::rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock, JNIEnv* env )
+List CWorld::GetLoadedEntityList(JNIEnv* env)
+{
+	return List(env->GetObjectField(instance, StrayCache::world_loadedEntityList));
+}
+
+Vector3 CWorld::rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock, JNIEnv* env)
 {
 	jclass cls = StrayCache::vec3_class;
 	jmethodID init = env->GetMethodID(cls, "<init>", "(DDD)V");
@@ -48,16 +53,16 @@ Vector3 CWorld::rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool
 	return blockPos;
 }
 
-CChunk CWorld::getChunkFromChunkCoords(jint chunkX, jint chunkZ, JNIEnv* env )
+CChunk CWorld::getChunkFromChunkCoords(jint chunkX, jint chunkZ, JNIEnv* env)
 {
 	return CChunk(env->CallObjectMethod(this->getInstance(), StrayCache::world_getChunkFromChunkCoords));
 }
 
-CIBlockState CWorld::getBlockState(BlockPos pos, JNIEnv* env ) {
+CIBlockState CWorld::getBlockState(BlockPos pos, JNIEnv* env) {
 	return CIBlockState(env->CallObjectMethod(this->getInstance(), StrayCache::world_getBlockState, pos.getInstance()));
 }
 
-bool CWorld::isAirBlock(double x, double y, double z, JNIEnv* env )
+bool CWorld::isAirBlock(double x, double y, double z, JNIEnv* env)
 {
 	if (JNIHelper::IsForge()) {
 		jclass blockPosClass = StrayCache::blockPos_class;
@@ -74,7 +79,7 @@ bool CWorld::isAirBlock(double x, double y, double z, JNIEnv* env )
 	return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
 }
 
-bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env )
+bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env)
 {
 
 	if (JNIHelper::IsForge()) {
@@ -84,7 +89,7 @@ bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env )
 	return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, pos.getInstance());
 }
 
-int CWorld::getBlock(double x, double y, double z, JNIEnv* env )
+int CWorld::getBlock(double x, double y, double z, JNIEnv* env)
 {
 	if (this->getInstance() == NULL)return 0;
 	if (Base::version == FORGE_1_7_10) {

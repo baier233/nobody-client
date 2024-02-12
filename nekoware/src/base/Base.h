@@ -10,6 +10,7 @@ enum Version
 	VANILLA_1_8_9,
 	BADLION,//√ª≤‚ ‘
 	LUNAR_1_8_9,
+	LUNAR_1_12_2,
 	UNKNOWN
 };
 

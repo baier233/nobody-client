@@ -19,6 +19,7 @@
 #include "moduleManager/modules/visual/fullbright.h"
 #include "moduleManager/modules/visual/BlockESP.h"
 #include "moduleManager/modules/visual/ChestESP.h"
+#include "moduleManager/modules/visual/ItemESP.h"
 #include <cmath>
 #include "moduleManager/modules/player/blink.h"
 //#include "extension/scripting.hpp"
@@ -52,6 +53,7 @@ void Base::RenderLoop(HDC hdc) // Runs every frame
 	HUD::getInstance()->RenderUpdate();
 	NotificationManager::getInstance().render();
 	ChestESP::getInstance()->RenderUpdate();
+	ItemESP::getInstance()->RenderUpdate();
 	BlockESP::getInstance()->render(hdc);
 	//EventManager::getInstance().call(EventRender());
 	//Blink::getInstance()->RenderUpdate();
