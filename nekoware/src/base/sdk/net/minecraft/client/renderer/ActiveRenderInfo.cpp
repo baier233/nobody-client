@@ -8,6 +8,10 @@
 Matrix CActiveRenderInfo::ProjectionMatrix(JNIEnv* env )
 {
 	jobject projection = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_PROJECTION);
+	if (!projection)
+	{
+		return Matrix{};
+	}
 	Matrix m = FloatBuffer(projection).GetMatrix();
 	return m;
 }
@@ -15,6 +19,10 @@ Matrix CActiveRenderInfo::ProjectionMatrix(JNIEnv* env )
 Matrix CActiveRenderInfo::ModelViewMatrix(JNIEnv* env )
 {
 	jobject modelView = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_MODELVIEW);
+	if (!modelView)
+	{
+		return Matrix{};
+	}
 	Matrix m = FloatBuffer::FloatBuffer(modelView).GetMatrix();
 	return m;
 }

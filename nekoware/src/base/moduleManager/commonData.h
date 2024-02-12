@@ -112,9 +112,14 @@ public:
 
 	bool SanityCheck() {
 
+		if (Java::Env->IsSameObject(SDK::Minecraft->getInstance(),NULL))
+		{
+			return false;
+		}
 
 		if (Java::Env->IsSameObject(SDK::Minecraft->getTheWorld().getInstance(), NULL) ||
-			Java::Env->IsSameObject(SDK::Minecraft->getThePlayer().getInstance(), NULL))
+			Java::Env->IsSameObject(SDK::Minecraft->getThePlayer().getInstance(), NULL) ||
+			Java::Env->IsSameObject(SDK::Minecraft->GetRenderManager().getInstance(), NULL))
 		{
 			CommonData::dataUpdated = false;
 			return false;

@@ -127,7 +127,7 @@ void Base::Init()
 	InitUpdateMessge();
 	ResourceManager::getInstance().LoadAllResource();
 	Base::Running = true;
-	SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
+	//SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
 	WebServerManager::getInstance().Start(8080);
 	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 	while (Base::Running)
