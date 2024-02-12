@@ -41,7 +41,7 @@ bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )
 
 	jfieldID block;
 
-	if (Base::version == 1)
+	if (Base::version == FORGE_1_12_2 || Base::version == LUNAR_1_12_2)
 	{
 		block = env->GetStaticFieldID(movingObjectType, "BLOCK", "Lnet/minecraft/util/math/RayTraceResult$Type;");
 	}
@@ -64,7 +64,7 @@ bool CMovingObjectPosition::IsTypeOfEntity(JNIEnv* env )
 	jclass movingObjectType = env->GetObjectClass(typeOfHit);
 	if (!movingObjectType) return false;
 	jfieldID block;
-	if (Base::version == 1)
+	if (Base::version == FORGE_1_12_2 || Base::version == LUNAR_1_12_2)
 	{
 		block = env->GetStaticFieldID(movingObjectType, "ENTITY", "Lnet/minecraft/util/math/RayTraceResult$Type;");
 	}

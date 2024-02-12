@@ -56,7 +56,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 
 
 		CBlock block{};
-		if (Base::version != 1)
+		if (Base::version != FORGE_1_12_2 && Base::version != LUNAR_1_12_2)
 		{
 			block = blockstate.getBlock();
 
@@ -75,7 +75,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 			if (!item || item.isNULL()) continue;
 			
 			float speed;
-			if (Base::version == 1)
+			if (Base::version == FORGE_1_12_2 || Base::version == LUNAR_1_12_2)
 			{
 				speed = item.GetStrVsBlock(blockstate);
 			} else {

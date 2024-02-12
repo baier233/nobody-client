@@ -55,7 +55,7 @@ CItemStack CInventoryPlayer::GetArmorItem(int index, JNIEnv* env )
 		return CItemStack{};
 	}
 	jobjectArray array;
-	if (Base::version == 1)
+	if (Base::version == FORGE_1_12_2 || Base::version == LUNAR_1_12_2)
 	{
 		array = CNonNullList(env->GetObjectField(this->getInstance(), StrayCache::inventoryPlayer_armorInv)).getList().toArray();
 	}
