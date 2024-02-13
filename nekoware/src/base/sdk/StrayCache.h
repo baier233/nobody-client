@@ -286,23 +286,25 @@ struct StrayCache {
 			minecraft_class = (jclass)Java::Env->NewGlobalRef(minecraft_class);
 			Logger::Init();
 
-			jint count;
-			jfieldID* fields;
+			//jint count;
+			//jfieldID* fields;
 
-			Java::Jvmti->GetClassFields(minecraft_class, &count, &fields);
-			for (int i = 0; i < count; i++)
-			{
-				char* sign;
-				char* name;
-				Java::Jvmti->GetFieldName(minecraft_class, fields[i], &name, &sign, 0);
+			//Java::Jvmti->GetClassFields(minecraft_class, &count, &fields);
+			//for (int i = 0; i < count; i++)
+			//{
+			//	char* sign;
+			//	char* name;
+			//	Java::Jvmti->GetFieldName(minecraft_class, fields[i], &name, &sign, 0);
 
-				std::cout << "Desc:" << sign << " Name:" << name << std::endl;
-				if (std::string(sign).find("avh") != -1)
-				{
-					std::cout << "find1" << std::endl;
-					minecraft_gameSettings = fields[i];
-				}
-			}
+			//	//std::cout << "Desc:" << sign << " Name:" << name << std::endl;
+			//	if (std::string(sign).find("avh") != -1)
+			//	{
+			//		std::cout << "find1" << std::endl;
+			//		minecraft_gameSettings = fields[i];
+			//	}
+			//}
+
+			minecraft_gameSettings = Java::Env->GetFieldID(minecraft_class, "t", "Lavh;");
 			minecraft_getMinecraft = Java::Env->GetStaticMethodID(minecraft_class, "A", "()Lave;");
 			minecraft_getRenderViewEntity = Java::Env->GetMethodID(minecraft_class, "ac", "()Lpk;");
 			minecraft_clickMouse = Java::Env->GetMethodID(minecraft_class, "aw", "()V");
@@ -2525,7 +2527,7 @@ struct StrayCache {
 		}
 		if (Base::version == BADLION) {
 			std::cout << "BADLION" << std::endl;
-			Java::SetUpBlcClassLoader();
+			//Java::SetUpBlcClassLoader();
 			Load189VanillaMap();
 			goto End;
 		}
@@ -2596,7 +2598,7 @@ struct StrayCache {
 		initialized = true;
 	}
 	static void DeleteRefs() {
-		if (IsLunar)
+		if (IsLunar || Base::version == BADLION)
 			return;
 		Java::Env->DeleteGlobalRef(set_class);
 		Java::Env->DeleteGlobalRef(system_class);

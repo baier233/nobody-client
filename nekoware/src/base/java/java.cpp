@@ -164,12 +164,49 @@ void Java::Kill()
 
 bool Java::AssignClass(std::string name, jclass& out)
 {
+
+	if (Base::version == BADLION)
+	{
+		jclass* loaded_classes = nullptr;
+		jint loaded_classes_count = 0;
+		jclass found_class = nullptr;
+		jobject minecraft_classloader = nullptr;
+		jvmtiEnv* tienv = Java::Jvmti;
+		tienv->GetLoadedClasses(&loaded_classes_count, &loaded_classes);
+		for (jint i = 0; i < loaded_classes_count; ++i)
+		{
+			char* signature_buffer = nullptr;
+			tienv->GetClassSignature(loaded_classes[i], &signature_buffer, nullptr);
+			std::string signature = signature_buffer;
+			tienv->Deallocate((unsigned char*)signature_buffer);
+			signature = signature.substr(1);
+			signature.pop_back();
+			size_t pos = signature.find("/");
+			while (pos != std::string::npos) { 
+				signature.replace(pos, 1, ".");
+				pos = signature.find("/", pos + 1);
+			}
+			//std::cout << signature << std::endl;
+			if (signature == name )
+			{
+				out = (jclass)Java::Env->NewLocalRef(loaded_classes[i]);
+				break;
+			}
+		}
+		for (jint i = 0; i < loaded_classes_count; ++i)
+		{
+			Java::Env->DeleteLocalRef(loaded_classes[i]);
+		}
+		tienv->Deallocate((unsigned char*)loaded_classes);
+		return true;
+	}
+
 	if (JNIHelper::IsForge()) {
 		out = JNIHelper::ForgeFindClass(name.c_str());
 		return true;
 	}
 
-	if (JNIHelper::IsVanilla() && Base::version != BADLION) {
+	if (JNIHelper::IsVanilla()) {
 		out = Java::Env->FindClass(name.c_str());
 		return true;
 	}
