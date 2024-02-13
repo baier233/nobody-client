@@ -34,29 +34,39 @@ void AutoTool::onUpdate(const EventUpdate e)
 		float bestSpeed = 1.f;
 		int bestSlot = -1;
 		CMovingObjectPosition mouseover = SDK::Minecraft->GetMouseOver();
+		
 		if (!mouseover.isValid() || mouseover.isNULL())
 		{
 			return;
 		}
-		BlockPos blockpos = mouseover.getBlockPos();
-
-		if (!blockpos.isValid())
-		{
-			return;
-		}
-
-		if (SDK::Minecraft->theWorld->isAirBlock(blockpos))
-		{
-			return;
-		}
-
-		CIBlockState blockstate = SDK::Minecraft->theWorld->getBlockState(blockpos);
-
-		if (!blockstate.isValid()) return;
-
-
+		CIBlockState blockstate{};
 		CBlock block{};
-		if (Base::version != FORGE_1_12_2 && Base::version != LUNAR_1_12_2)
+		if (Base::version == FORGE_1_7_10)
+		{
+			block = mouseover.GetBlock();
+			if (!block.isValid()) return;
+		}
+		else {
+			BlockPos blockpos = mouseover.getBlockPos();
+
+			if (!blockpos.isValid())
+			{
+				return;
+			}
+
+			if (SDK::Minecraft->theWorld->isAirBlock(blockpos))
+			{
+				return;
+			}
+
+			blockstate = SDK::Minecraft->theWorld->getBlockState(blockpos);
+
+			if (!blockstate.isValid()) return;
+		}
+		
+
+
+		if (Base::version != FORGE_1_12_2 && Base::version != LUNAR_1_12_2 && Base::version != FORGE_1_7_10)
 		{
 			block = blockstate.getBlock();
 

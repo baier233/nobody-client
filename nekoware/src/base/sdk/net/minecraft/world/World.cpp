@@ -20,6 +20,11 @@ List CWorld::GetLoadedEntityList(JNIEnv* env)
 	return List(env->GetObjectField(instance, StrayCache::world_loadedEntityList));
 }
 
+CBlock CWorld::GetBlock(int x, int y, int z, JNIEnv* env)
+{
+	return CBlock(Java::Env->CallObjectMethod(this->instance, StrayCache::world_getBlock, x, y, z));
+}
+
 Vector3 CWorld::rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock, JNIEnv* env)
 {
 	jclass cls = StrayCache::vec3_class;
@@ -64,13 +69,9 @@ CIBlockState CWorld::getBlockState(BlockPos pos, JNIEnv* env) {
 
 bool CWorld::isAirBlock(double x, double y, double z, JNIEnv* env)
 {
-	if (JNIHelper::IsForge()) {
-		jclass blockPosClass = StrayCache::blockPos_class;
-		jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
-		jobject blockpos = env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
-
-		return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
-
+	if (Base::version == FORGE_1_7_10)
+	{
+		return env->CallBooleanMethod(this->instance, StrayCache::world_isAirBlock, (int)x, (int)y, (int)z);
 	}
 	jclass blockPosClass = StrayCache::blockPos_class;
 	jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
@@ -88,6 +89,8 @@ bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env)
 	}
 	return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, pos.getInstance());
 }
+
+
 
 int CWorld::getBlock(double x, double y, double z, JNIEnv* env)
 {

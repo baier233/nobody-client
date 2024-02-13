@@ -30,6 +30,22 @@ void Eagle::onUpdate(const EventUpdate e)
 	if (Menu::Open) return;
 	
 	if (!CommonData::getInstance()->SanityCheck()) return;
+	if (Base::version == FORGE_1_7_10)
+	{
+		auto pos = SDK::Minecraft->thePlayer->GetPos();
+		auto block = SDK::Minecraft->getTheWorld().GetBlock(pos.x, pos.y, pos.z);
+		if (Java::Env->IsInstanceOf(block.getInstance(), StrayCache::blockAir_class))
+		{
+
+			SDK::Minecraft->thePlayer->setSneak(true);
+		}
+		else {
+
+			SDK::Minecraft->thePlayer->setSneak(false);
+		}
+		return;
+	}
+
 
 	if (SDK::Minecraft->theWorld->isAirBlock(SDK::Minecraft->thePlayer->GetPos().x, SDK::Minecraft->thePlayer->GetPos().y - 1, SDK::Minecraft->thePlayer->GetPos().z)) {
 		SDK::Minecraft->thePlayer->setSneak(true);

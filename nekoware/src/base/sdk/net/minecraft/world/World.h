@@ -15,6 +15,7 @@ public:
 	using Object::Object;
 	List GetPlayerList(JNIEnv* env = Java::Env);
 	List GetLoadedEntityList(JNIEnv* env = Java::Env);
+	CBlock GetBlock(int x, int y, int z, JNIEnv* env = Java::Env);
 
 	Vector3 rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock, JNIEnv* env = Java::Env);
 

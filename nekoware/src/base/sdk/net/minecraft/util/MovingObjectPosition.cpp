@@ -2,6 +2,7 @@
 
 #include "../../../../java/java.h"
 #include "../../../strayCache.h"
+#include "../../../SDK.h"
 
 //CMovingObjectPosition::CMovingObjectPosition()
 //{
@@ -24,9 +25,20 @@
 //	return this->Instance;
 //}
 
+
+
 CVec3 CMovingObjectPosition::GetBlockPosition(JNIEnv* env )
 {
 	return CVec3(env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_hitVec));
+}
+
+CBlock CMovingObjectPosition::GetBlock(JNIEnv* env)
+{
+	int x, y, z{};
+	x = Java::Env->GetIntField(this->instance, StrayCache::movingObjectPosition_blockX);
+	y = Java::Env->GetIntField(this->instance, StrayCache::movingObjectPosition_blockY);
+	z = Java::Env->GetIntField(this->instance, StrayCache::movingObjectPosition_blockZ);
+	return SDK::Minecraft->theWorld->GetBlock(x,y,z);
 }
 
 bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )

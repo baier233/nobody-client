@@ -148,6 +148,7 @@ struct StrayCache {
 
 	//RenderManager
 	inline static jclass renderManager_class;
+	inline static jfieldID renderManager_Instance;//1,7.10 forge only
 	inline static jfieldID renderManager_renderPosX;
 	inline static jfieldID renderManager_renderPosY;
 	inline static jfieldID renderManager_renderPosZ;
@@ -166,6 +167,7 @@ struct StrayCache {
 	//World
 	inline static jclass world_class;
 	inline static jmethodID world_getBlockState;
+	inline static jmethodID world_getBlock; //for 1.7.10
 	inline static jmethodID world_rayTraceBlocks;
 	inline static jmethodID world_getChunkFromChunkCoords;
 	inline static jmethodID world_isAirBlock;
@@ -216,6 +218,9 @@ struct StrayCache {
 
 	// MOVING OBJECT POSITION CLASS
 	inline static jclass movingObjectPosition_class;
+	inline static jfieldID movingObjectPosition_blockX;//3 fields below is for 1.7.10
+	inline static jfieldID movingObjectPosition_blockY;
+	inline static jfieldID movingObjectPosition_blockZ;
 	inline static jfieldID movingObjectPosition_hitVec;
 	inline static jfieldID movingObjectPosition_typeOfHit;
 	inline static jfieldID movingObjectPosition_blockPos;
@@ -2317,6 +2322,7 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.client.renderer.entity.RenderManager", renderManager_class);
 			renderManager_class = (jclass)Java::Env->NewGlobalRef(renderManager_class);
 
+			renderManager_Instance = Java::Env->GetStaticFieldID(renderManager_class, "field_78727_a", "Lnet/minecraft/client/renderer/entity/RenderManager;");
 			renderManager_renderPosX = Java::Env->GetFieldID(renderManager_class, "field_78725_b", "D");
 			renderManager_renderPosY = Java::Env->GetFieldID(renderManager_class, "field_78726_c", "D");
 			renderManager_renderPosZ = Java::Env->GetFieldID(renderManager_class, "field_78723_d", "D");
@@ -2337,10 +2343,10 @@ struct StrayCache {
 		{
 			Java::AssignClass("net.minecraft.world.World", world_class);
 			world_class = (jclass)Java::Env->NewGlobalRef(world_class);
-
+			world_getBlock = Java::Env->GetMethodID(world_class, "func_147439_a","(III)Lnet/minecraft/block/Block;");
 			world_rayTraceBlocks = Java::Env->GetMethodID(StrayCache::world_class, "func_147447_a", "(Lnet/minecraft/util/Vec3;Lnet/minecraft/util/Vec3;ZZZ)Lnet/minecraft/util/MovingObjectPosition;");
 			world_getBlockState = Java::Env->GetMethodID(StrayCache::world_class, "func_180495_p", "(Lnet/minecraft/util/BlockPos;)Lnet/minecraft/block/state/IBlockState;"); //nullptr
-			world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "func_175623_d", "(Lnet/minecraft/util/BlockPos;)Z"); //nullptr
+			world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "func_147437_c", "(III)Z"); //nullptr
 			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "func_72964_e", "(II)Lnet/minecraft/world/chunk/Chunk;");
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "field_73010_i", "Ljava/util/List;");
@@ -2381,7 +2387,10 @@ struct StrayCache {
 		{
 			Java::AssignClass("net.minecraft.util.MovingObjectPosition", movingObjectPosition_class);
 			movingObjectPosition_class = (jclass)Java::Env->NewGlobalRef(movingObjectPosition_class);
-
+			
+			movingObjectPosition_blockX = Java::Env->GetFieldID(movingObjectPosition_class, "field_72311_b", "I");
+			movingObjectPosition_blockY = Java::Env->GetFieldID(movingObjectPosition_class, "field_72312_c", "I");
+			movingObjectPosition_blockZ = Java::Env->GetFieldID(movingObjectPosition_class, "field_72309_d", "I");
 			movingObjectPosition_hitVec = Java::Env->GetFieldID(movingObjectPosition_class, "field_72307_f", "Lnet/minecraft/util/Vec3;");
 			movingObjectPosition_typeOfHit = Java::Env->GetFieldID(movingObjectPosition_class, "field_72313_a", "Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;");
 			movingObjectPosition_blockPos = Java::Env->GetFieldID(movingObjectPosition_class, "field_178783_e", "Lnet/minecraft/util/BlockPos;");
