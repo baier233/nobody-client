@@ -2525,6 +2525,7 @@ struct StrayCache {
 		}
 		if (Base::version == BADLION) {
 			std::cout << "BADLION" << std::endl;
+			Java::SetUpBlcClassLoader();
 			Load189VanillaMap();
 			goto End;
 		}

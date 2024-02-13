@@ -9,6 +9,7 @@ struct Java
 {
 	static void InitFromEnv(JNIEnv* env);
 	static void Init();
+	static void SetUpBlcClassLoader();
 	static void Kill();
 
 	static bool AssignClass(std::string name, jclass& out);
