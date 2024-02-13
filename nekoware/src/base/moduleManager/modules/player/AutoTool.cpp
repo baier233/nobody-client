@@ -34,13 +34,13 @@ void AutoTool::onUpdate(const EventUpdate e)
 		float bestSpeed = 1.f;
 		int bestSlot = -1;
 		CMovingObjectPosition mouseover = SDK::Minecraft->GetMouseOver();
-		if (!mouseover)
+		if (!mouseover.isValid() || mouseover.isNULL())
 		{
 			return;
 		}
 		BlockPos blockpos = mouseover.getBlockPos();
 
-		if (!blockpos)
+		if (!blockpos.isValid())
 		{
 			return;
 		}
@@ -52,7 +52,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 
 		CIBlockState blockstate = SDK::Minecraft->theWorld->getBlockState(blockpos);
 
-		if (!blockstate) return;
+		if (!blockstate.isValid()) return;
 
 
 		CBlock block{};
@@ -60,7 +60,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 		{
 			block = blockstate.getBlock();
 
-			if (!block) return;
+			if (!block.isValid()) return;
 			
 		}
 		

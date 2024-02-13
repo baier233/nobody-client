@@ -92,14 +92,14 @@ bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env)
 int CWorld::getBlock(double x, double y, double z, JNIEnv* env)
 {
 	if (this->getInstance() == NULL)return 0;
-	if (Base::version == FORGE_1_7_10) {
+	if (Base::version == FORGE_1_7_10 || Base::version == LUNAR_1_12_2) {
 		//TODO: Make this work for 1.7.10
 		return 0;
 	}
 	jclass blockPosClass = StrayCache::blockPos_class;
 	jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
 	jobject blockpos = env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
-
+		
 	jboolean isAir = env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
 	if (isAir) {
 		env->DeleteLocalRef(blockpos);

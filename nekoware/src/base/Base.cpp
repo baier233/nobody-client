@@ -116,7 +116,7 @@ int Base::InitUpdateMessge() {
 void Base::Init()
 {
 	MH_Initialize();
-	BuildVersion = "Build 20240212 - f563a08";//动态获取？
+	BuildVersion = "Build 20240213 - f5c3a08";//动态获取？
 	Java::Init();
 	Base::isObfuscate = false;
 	checkVersion();
@@ -244,24 +244,8 @@ void Base::checkVersion() {
 		if (name.find("1.8.9") != -1)
 			version = FORGE_1_8_9;
 
-		jint count;
-		jfieldID* fields;
 
-		Java::Jvmti->GetClassFields(JNIHelper::ForgeFindClass("net.minecraft.client.Minecraft"), &count, &fields);
-		for (int i = 0; i < count; i++)
-		{
-			char* sign;
-			char* name;
-			Java::Jvmti->GetFieldName(JNIHelper::ForgeFindClass("net.minecraft.client.Minecraft"), fields[i], &name, &sign, 0);
-			if (std::string(name).find("thePlayer") != -1) {
-				isObfuscate = false;
-			}
-			else if (std::string(name).find("player") != -1)
-			{
-				isObfuscate = false;
-			}
-			isObfuscate = true;
-		}
+		isObfuscate = true;
 		return;
 	}
 	if (JNIHelper::IsVanilla()) {

@@ -66,8 +66,6 @@ public:
 		*SDK::Minecraft->thePlayer = SDK::Minecraft->getThePlayer();
 		*SDK::Minecraft->theWorld = SDK::Minecraft->getTheWorld();
 		*SDK::Minecraft->activeRenderInfo = CActiveRenderInfo();
-		//*SDK::Minecraft->netHandler = SDK::Minecraft->getNetHandler();
-		//*SDK::Minecraft->ingameGUI = SDK::Minecraft->getIngameGUI();
 		modelView = SDK::Minecraft->activeRenderInfo->ModelViewMatrix();
 		projection = SDK::Minecraft->activeRenderInfo->ProjectionMatrix();
 		fov = SDK::Minecraft->gameSettings->GetFOV();

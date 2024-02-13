@@ -9,6 +9,17 @@ struct StrayCache {
 
 	inline static bool initialized;
 
+	void helper() {
+		//这个方法不会被调用，只是用来方便跳转到指定的方法
+		Load112ForgeMap();
+		Load189ForgeMap();
+		Load189MCPMap();
+		Load189VanillaMap();
+		Load1710ForgeMap();
+		Load112MCPMap();
+	}
+
+
 	//Minecraft Class
 	inline static jclass minecraft_class;
 	inline static jmethodID minecraft_getMinecraft;
@@ -267,15 +278,7 @@ struct StrayCache {
 	//EntityItem Class
 	inline static jclass entityItem_class;
 
-	void helper() {
-		//这个方法不会被调用，只是用来方便跳转到指定的方法
-		Load112ForgeMap();
-		Load189ForgeMap();
-		Load189MCPMap();
-		Load189VanillaMap();
-		Load1710ForgeMap();
-		Load112MCPMap();
-	}
+	
 
 	static void Load189VanillaMap() {
 		{
@@ -1383,7 +1386,7 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.client.Minecraft", minecraft_class);
 			minecraft_class = (jclass)Java::Env->NewGlobalRef(minecraft_class);
 
-			minecraft_getNetHandler = Java::Env->GetMethodID(minecraft_class, "getNetHandler", "()Lnet/minecraft/client/network/NetHandlerPlayClient;");
+			minecraft_getNetHandler = Java::Env->GetMethodID(minecraft_class, "getConnection", "()Lnet/minecraft/client/network/NetHandlerPlayClient;");
 			minecraft_getMinecraft = Java::Env->GetStaticMethodID(minecraft_class, "getMinecraft", "()Lnet/minecraft/client/Minecraft;");
 			minecraft_getRenderViewEntity = Java::Env->GetMethodID(minecraft_class, "getRenderViewEntity", "()Lnet/minecraft/entity/Entity;");
 			minecraft_clickMouse = Java::Env->GetMethodID(minecraft_class, "clickMouse", "()V");
@@ -1395,12 +1398,9 @@ struct StrayCache {
 			minecraft_renderManager = Java::Env->GetFieldID(minecraft_class, "renderManager", "Lnet/minecraft/client/renderer/entity/RenderManager;");
 			minecraft_timer = Java::Env->GetFieldID(minecraft_class, "timer", "Lnet/minecraft/util/Timer;");
 			minecraft_gameSettings = Java::Env->GetFieldID(minecraft_class, "gameSettings", "Lnet/minecraft/client/settings/GameSettings;");
-			if (minecraft_ingameGUI == nullptr)
-			{
-				minecraft_ingameGUI = Java::Env->GetFieldID(minecraft_class, "ingameGUI", "Lnet/minecraft/client/gui/GuiIngame;");
-			}
+			minecraft_ingameGUI = Java::Env->GetFieldID(minecraft_class, "ingameGUI", "Lnet/minecraft/client/gui/GuiIngame;");
 			minecraft_currentScreen = Java::Env->GetFieldID(minecraft_class, "currentScreen", "Lnet/minecraft/client/gui/GuiScreen;");
-			minecraft_objectMouseOver = Java::Env->GetFieldID(minecraft_class, "objectMouseOver", "Lnet/minecraft/util/MovingObjectPosition;");
+			minecraft_objectMouseOver = Java::Env->GetFieldID(minecraft_class, "objectMouseOver", "Lnet/minecraft/util/math/RayTraceResult;");
 			minecraft_rightClickDelayTimer = Java::Env->GetFieldID(minecraft_class, "rightClickDelayTimer", "I");
 
 		}
@@ -1453,7 +1453,7 @@ struct StrayCache {
 			entity_setPosition = Java::Env->GetMethodID(entity_class, "setPosition", "(DDD)V");
 			entity_setSneaking = Java::Env->GetMethodID(entity_class, "setSneaking", "(Z)V");
 			entity_isInvisible = Java::Env->GetMethodID(entity_class, "isInvisible", "()Z");
-			entity_inWater = Java::Env->GetMethodID(entity_class, "inWater", "()Z");
+			entity_inWater = Java::Env->GetMethodID(entity_class, "isInWater", "()Z");
 			entity_getUniqueID = Java::Env->GetMethodID(entity_class, "getUniqueID", "()Ljava/util/UUID;");
 
 			entity_posX = Java::Env->GetFieldID(entity_class, "posX", "D");
@@ -1477,14 +1477,14 @@ struct StrayCache {
 			entity_onGround = Java::Env->GetFieldID(entity_class, "onGround", "Z");
 			entity_fallDistance = Java::Env->GetFieldID(entity_class, "fallDistance", "F");
 			entity_isDead = Java::Env->GetFieldID(entity_class, "isDead", "Z");
-			entity_ticksExisted = Java::Env->GetFieldID(entity_class, "ticksExisted", "F");
+			entity_ticksExisted = Java::Env->GetFieldID(entity_class, "ticksExisted", "I");//nullptr
 
 		}
 
 		{
 			Java::AssignClass("net.minecraft.client.multiplayer.PlayerControllerMP", playerControllerMP_class);
 			playerControllerMP_attackEntity = Java::Env->GetMethodID(playerControllerMP_class, "attackEntity", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/entity/Entity;)V");
-			playerControllerMP_sendUseItem = Java::Env->GetMethodID(playerControllerMP_class, "sendUseItem", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;)Z");
+			playerControllerMP_sendUseItem = Java::Env->GetMethodID(playerControllerMP_class, "sendUseItem", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;)Z");//nullptr
 		}
 
 		{
@@ -1496,9 +1496,9 @@ struct StrayCache {
 			entityLivingBase_canEntityBeSeen = Java::Env->GetMethodID(entityLivingBase_class, "canEntityBeSeen", "(Lnet/minecraft/entity/Entity;)Z");
 			entityLivingBase_isPlayerSleeping = Java::Env->GetMethodID(entityLivingBase_class, "isPlayerSleeping", "()Z");
 			entityLivingBase_hurttime = Java::Env->GetFieldID(entityLivingBase_class, "hurtTime", "I");
-			entityLivingBase_moveForward = Java::Env->GetFieldID(entityLivingBase_class, "moveForward", "I");
-			entityLivingBase_moveStrafe = Java::Env->GetFieldID(entityLivingBase_class, "moveStrafing", "I");
-			entityLivingBase_swingItem = Java::Env->GetMethodID(entityLivingBase_class, "swingItem", "()V");
+			entityLivingBase_moveForward = Java::Env->GetFieldID(entityLivingBase_class, "moveForward", "F"); 
+			entityLivingBase_moveStrafe = Java::Env->GetFieldID(entityLivingBase_class, "moveStrafing", "F");
+			entityLivingBase_swingItem = Java::Env->GetMethodID(entityLivingBase_class, "swingItem", "()V");//nullptr
 			entityLivingBase_jump = Java::Env->GetMethodID(entityLivingBase_class, "jump", "()V");
 		}
 
@@ -1508,7 +1508,7 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.entity.player.EntityPlayer", entityPlayer_class);
 			entityPlayer_class = (jclass)Java::Env->NewGlobalRef(entityPlayer_class);
 
-			entityPlayer_isBlocking = Java::Env->GetMethodID(entityPlayer_class, "isBlocking", "()Z");
+			entityPlayer_isBlocking = Java::Env->GetMethodID(entityPlayer_class, "getItemInUseCount", "()I");//nullptr
 
 			entityPlayer_inventory = Java::Env->GetFieldID(StrayCache::entityPlayer_class, "inventory", "Lnet/minecraft/entity/player/InventoryPlayer;");
 		}
@@ -1553,7 +1553,7 @@ struct StrayCache {
 			world_class = (jclass)Java::Env->NewGlobalRef(world_class);
 
 			world_rayTraceBlocks = Java::Env->GetMethodID(StrayCache::world_class, "rayTraceBlocks", "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;ZZZ)Lnet/minecraft/util/math/RayTraceResult;");
-			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "getChunkFromChunkCoords", "(II)Lnet/minecraft/world/chunk/Chunk;");
+			world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "getChunkFromChunkCoords", "(II)Lnet/minecraft/world/chunk/Chunk;");//nullptr
 			world_getBlockState = Java::Env->GetMethodID(StrayCache::world_class, "getBlockState", "(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/state/IBlockState;");
 			world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "isAirBlock", "(Lnet/minecraft/util/math/BlockPos;)Z");
 
@@ -1604,6 +1604,7 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.util.math.Vec3d", vec3_class);
 			vec3_class = (jclass)Java::Env->NewGlobalRef(vec3_class);
 
+			//nullptr below 3 fields
 			vec3_xCoord = Java::Env->GetFieldID(vec3_class, "xCoord", "D");
 			vec3_yCoord = Java::Env->GetFieldID(vec3_class, "yCoord", "D");
 			vec3_zCoord = Java::Env->GetFieldID(vec3_class, "zCoord", "D");
@@ -1617,8 +1618,9 @@ struct StrayCache {
 			inventoryPlayer_getCurrentItem = Java::Env->GetMethodID(inventoryPlayer_class, "getCurrentItem", "()Lnet/minecraft/item/ItemStack;");
 			inventoryPlayer_getStackInSlot = Java::Env->GetMethodID(inventoryPlayer_class, "getStackInSlot", "(I)Lnet/minecraft/item/ItemStack;");
 
-			inventoryPlayer_mainInv = Java::Env->GetFieldID(inventoryPlayer_class, "mainInventory", "[Lnet/minecraft/item/ItemStack;");
-			inventoryPlayer_armorInv = Java::Env->GetFieldID(inventoryPlayer_class, "armorInventory", "[Lnet/minecraft/item/ItemStack;");
+			inventoryPlayer_mainInv = Java::Env->GetFieldID(inventoryPlayer_class, "mainInventory", "Lnet/minecraft/util/NonNullList;");
+
+			inventoryPlayer_armorInv = Java::Env->GetFieldID(inventoryPlayer_class, "armorInventory", "Lnet/minecraft/util/NonNullList;");
 			inventoryPlayer_currentItem = Java::Env->GetFieldID(inventoryPlayer_class, "currentItem", "I");
 
 		}
@@ -1628,13 +1630,13 @@ struct StrayCache {
 			itemStack_class = (jclass)Java::Env->NewGlobalRef(itemStack_class);
 
 			itemStack_getItem = Java::Env->GetMethodID(itemStack_class, "getItem", "()Lnet/minecraft/item/Item;");
-			//itemStack_getStrVsBlock = Java::Env->GetMethodID(itemStack_class, "getStrVsBlock", "(Lnet/minecraft/block/Block;)F");
+			itemStack_getStrVsBlock = Java::Env->GetMethodID(itemStack_class, "getDestroySpeed", "(Lnet/minecraft/block/state/IBlockState;)F");
 		}
 		{
 			Java::AssignClass("net.minecraft.item.Item", item_class);
 			item_class = (jclass)Java::Env->NewGlobalRef(item_class);
 
-			item_getIdFromItem = Java::Env->GetMethodID(item_class, "getIdFromItem", "(Lnet/minecraft/item/Item;)I");
+			item_getIdFromItem = Java::Env->GetMethodID(item_class, "getIdFromItem", "(Lnet/minecraft/item/Item;)I"); // nullptr
 		}
 
 		{
@@ -1648,7 +1650,7 @@ struct StrayCache {
 			Java::AssignClass("net.minecraft.item.ItemTool", itemTool_class);
 			itemTool_class = (jclass)Java::Env->NewGlobalRef(itemTool_class);
 
-			itemTool_getStrVsBlock = Java::Env->GetMethodID(itemTool_class, "getStrVsBlock", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/block/Block;)F");
+			itemTool_getStrVsBlock = Java::Env->GetMethodID(itemTool_class, "getDestroySpeed", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/block/state/IBlockState;)F");
 		}
 
 
@@ -1692,6 +1694,15 @@ struct StrayCache {
 		{
 			Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
 			entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
+		}
+
+
+		{
+			Java::AssignClass("net.minecraft.util.NonNullList", nonNullList_class);
+			nonNullList_class = (jclass)Java::Env->NewGlobalRef(nonNullList_class);
+
+			nonNullList_List = Java::Env->GetFieldID(nonNullList_class, "delegate", "Ljava/util/List;");
+
 		}
 	}
 
