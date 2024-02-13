@@ -44,7 +44,7 @@
 #include "../moduleManager/ModuleManager.h";
 #include "Notification/NotificationManager.h"
 #include "../../../ext/imgui/main.h"
-#include "../util/render/SimpleAnimation.h"
+
 inline static int style = 3;
 inline static const char* styleList[4]{ "Dark", "Light", "Classic", "Gold" };
 
@@ -227,7 +227,6 @@ int currentTab4 = 0;
 #include "../moduleManager/modules/visual/Chams.h"
 void Menu::RenderMenu()
 {
-
 	ImGuiContext& g = *GImGui;
 	const ImGuiStyle& style = g.Style;
 
@@ -236,6 +235,83 @@ void Menu::RenderMenu()
 	ImGui::SetNextWindowSize(ImVec2(802, 560));
 	ImGui::PushFont(Manrope_Semmi_Font);
 	ImGui::Begin(Menu::Title.c_str(), nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground);
+
+	static const int numParticles = 115;
+	static ImVec2 particlePositions[numParticles];
+	static ImVec2 particleDistance;
+	static ImVec2 particleVelocities[numParticles];
+	static bool initialized = false;
+
+	if (!initialized)
+	{
+		for (int i = 0; i < numParticles; ++i)
+		{
+			particlePositions[i] = ImVec2(
+				ImGui::GetIO().DisplaySize.x * static_cast<float>(rand()) / RAND_MAX,
+				ImGui::GetIO().DisplaySize.y * static_cast<float>(rand()) / RAND_MAX
+			);
+
+			particleVelocities[i] = ImVec2(
+				static_cast<float>((rand() % 11) - 5),
+				static_cast<float>((rand() % 11) - 5)
+			);
+
+		}
+
+		initialized = true;
+	}
+
+	ImVec2 cursorPos = ImGui::GetIO().MousePos;
+	for (int i = 0; i < numParticles; ++i)
+	{
+		// draw lines to particles
+		for (int j = i + 1; j < numParticles; ++j)
+		{
+			float distance = std::hypotf(particlePositions[j].x - particlePositions[i].x, particlePositions[j].y - particlePositions[i].y);
+			float opacity = 1.0f - (distance / 55.0f);  // opacity change
+
+			if (opacity > 0.0f)
+			{
+				ImU32 lineColor = ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, opacity));
+				ImGui::GetBackgroundDrawList()->AddLine(particlePositions[i], particlePositions[j], lineColor, 2.0f);  // 设置线条粗细为2.0f
+			}
+		}
+
+		// draw lines to cursor
+		float distanceToCursor = std::hypotf(cursorPos.x - particlePositions[i].x, cursorPos.y - particlePositions[i].y);
+		float opacityToCursor = 1.0f - (distanceToCursor / 52.0f);  // Adjust the divisor to control the opacity change
+
+		if (opacityToCursor > 0.0f)
+		{
+			ImU32 lineColorToCursor = ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, opacityToCursor));
+			ImGui::GetBackgroundDrawList()->AddLine(cursorPos, particlePositions[i], lineColorToCursor, 2.0f);  // 设置线条粗细为2.0f
+		}
+	}
+
+	// update and render particles
+	float deltaTime = ImGui::GetIO().DeltaTime;
+	for (int i = 0; i < numParticles; ++i)
+	{
+		particlePositions[i].x += particleVelocities[i].x * deltaTime;
+		particlePositions[i].y += particleVelocities[i].y * deltaTime;
+
+		// Stay in window
+		if (particlePositions[i].x < 0)
+			particlePositions[i].x = ImGui::GetIO().DisplaySize.x;
+		else if (particlePositions[i].x > ImGui::GetIO().DisplaySize.x)
+			particlePositions[i].x = 0;
+
+		if (particlePositions[i].y < 0)
+			particlePositions[i].y = ImGui::GetIO().DisplaySize.y;
+		else if (particlePositions[i].y > ImGui::GetIO().DisplaySize.y)
+			particlePositions[i].y = 0;
+
+		ImU32 particleColour = ImGui::ColorConvertFloat4ToU32(ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+
+		// render particles on the background
+		ImGui::GetBackgroundDrawList()->AddCircleFilled(particlePositions[i], 3.0f, particleColour);  // 设置粒子的半径为3.0f
+	}
+
 	{
 		const auto& p = ImGui::GetWindowPos();
 
