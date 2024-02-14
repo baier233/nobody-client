@@ -231,21 +231,42 @@ std::string getWindowName(HWND hwnd)
 	return std::string(str);
 }
 
+
 void Base::checkVersion() {
+	auto cmd = std::string(GetCommandLineA());
 	auto window = getCurrentWindow();
 	auto name = getWindowName(window);
 
-	if (JNIHelper::IsForge())
+	if (JNIHelper::IsForge() || cmd.find("minecraftforge") != std::string::npos)
 	{
-		if (name.find("1.12.2") != -1 || name.find("花雨庭") != -1)
-			version = FORGE_1_12_2;
-		if (name.find("1.7.10") != -1)
-			version = FORGE_1_7_10;
-		if (name.find("1.8.9") != -1)
-			version = FORGE_1_8_9;
-
 
 		isObfuscate = true;
+		if (name.find("1.12.2") != -1 || name.find("花雨庭") != -1 ) {
+			version = FORGE_1_12_2;
+			return;
+		}
+		if (name.find("1.7.10") != -1) {
+			version = FORGE_1_7_10;
+			return;
+		}
+		if (name.find("1.8.9") != -1) {
+			version = FORGE_1_8_9;
+			return;
+		}
+		if (cmd.find("1.12.2") != -1) {
+			version = FORGE_1_12_2;
+			return;
+		}
+		if (cmd.find("1.7.10") != -1) {
+			version = FORGE_1_7_10;
+			return;
+		}
+		if (cmd.find("1.8.9") != -1) {
+			version = FORGE_1_8_9;
+			return;
+		}
+		
+
 		return;
 	}
 	if (JNIHelper::IsVanilla()) {
