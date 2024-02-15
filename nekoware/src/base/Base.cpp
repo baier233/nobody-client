@@ -113,6 +113,7 @@ int Base::InitUpdateMessge() {
 #include "moduleManager/modules/visual/BlockESP.h"
 #include "moduleManager/modules/visual/Chams.h"
 #include "moduleManager/modules/visual/ItemESP.h"
+#include "moduleManager/modules/visual/BedESP.h"
 void Base::Init()
 {
 	MH_Initialize();
@@ -190,6 +191,7 @@ void Base::initModule() {
 		ModuleManager::getInstance().addModule<BlockESP>(BlockESP::getInstance());
 		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
 		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
+		if (version == FORGE_1_12_2 or version == LUNAR_1_12_2)ModuleManager::getInstance().addModule<BedESP>(BedESP::getInstance());
 	}
 }
 

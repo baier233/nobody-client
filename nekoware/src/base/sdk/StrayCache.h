@@ -172,7 +172,15 @@ struct StrayCache {
 	inline static jmethodID world_getChunkFromChunkCoords;
 	inline static jmethodID world_isAirBlock;
 	inline static jfieldID world_playerEntities;
-	inline static jfieldID world_loadedEntityList;//TODO:ÆäËû°æ±¾
+	inline static jfieldID world_loadedEntityList;
+	inline static jfieldID world_loadedTileEntityList;//TODO:only 1.12.2
+
+	//tileEntity
+	inline static jclass tileEntity_class;
+	inline static jmethodID tileEntity_getPos;
+
+	//TileEntityBed
+	inline static jclass tileEntityBed_class;
 
 	//Chunk
 	inline static jclass chunk_class;
@@ -1566,6 +1574,7 @@ struct StrayCache {
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "playerEntities", "Ljava/util/List;");
 			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "loadedEntityList", "Ljava/util/List;");
+			world_loadedTileEntityList = Java::Env->GetFieldID(StrayCache::world_class, "loadedTileEntityList", "Ljava/util/List;");
 		}
 
 
@@ -1710,6 +1719,19 @@ struct StrayCache {
 
 			nonNullList_List = Java::Env->GetFieldID(nonNullList_class, "delegate", "Ljava/util/List;");
 
+		}
+
+		{
+			Java::AssignClass("net.minecraft.tileentity.TileEntity", tileEntity_class);
+			tileEntity_class = (jclass)Java::Env->NewGlobalRef(tileEntity_class);
+
+			tileEntity_getPos = Java::Env->GetMethodID(tileEntity_class, "getPos", "()Lnet/minecraft/util/math/BlockPos;");
+
+		}
+
+		{
+			Java::AssignClass("net.minecraft.tileentity.TileEntityBed", tileEntityBed_class);
+			tileEntityBed_class = (jclass)Java::Env->NewGlobalRef(tileEntityBed_class);
 		}
 	}
 
@@ -1964,6 +1986,7 @@ struct StrayCache {
 
 			world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "field_73010_i", "Ljava/util/List;");
 			world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "field_72996_f", "Ljava/util/List;");
+			world_loadedTileEntityList = Java::Env->GetFieldID(StrayCache::world_class, "field_147482_g", "Ljava/util/List;");
 		}
 
 		/*
@@ -2067,9 +2090,9 @@ struct StrayCache {
 			blockPos_class = (jclass)Java::Env->NewGlobalRef(blockPos_class);
 			blockPos_constructor = Java::Env->GetMethodID(blockPos_class, "<init>", "(DDD)V");
 			blockPos_constructorI = Java::Env->GetMethodID(blockPos_class, "<init>", "(III)V");
-			blockPos_x = Java::Env->GetFieldID(blockPos_class, "field_177994_h", "I");
-			blockPos_y = Java::Env->GetFieldID(blockPos_class, "field_177995_i", "I");
-			blockPos_z = Java::Env->GetFieldID(blockPos_class, "field_177993_j", "I");
+			blockPos_x = Java::Env->GetFieldID(blockPos_class, "field_177962_a", "I");
+			blockPos_y = Java::Env->GetFieldID(blockPos_class, "field_177960_b", "I");
+			blockPos_z = Java::Env->GetFieldID(blockPos_class, "field_177961_c", "I");
 		}
 
 		{
@@ -2107,8 +2130,23 @@ struct StrayCache {
 			nonNullList_List = Java::Env->GetFieldID(nonNullList_class, "field_191198_a", "Ljava/util/List;");
 		}
 
-		Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
-		entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
+		{
+			Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
+			entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
+		}
+
+		{
+			Java::AssignClass("net.minecraft.tileentity.TileEntity", tileEntity_class);
+			tileEntity_class = (jclass)Java::Env->NewGlobalRef(tileEntity_class);
+
+			tileEntity_getPos = Java::Env->GetMethodID(tileEntity_class, "func_174877_v", "()Lnet/minecraft/util/math/BlockPos;");
+
+		}
+
+		{
+			Java::AssignClass("net.minecraft.tileentity.TileEntityBed", tileEntityBed_class);
+			tileEntityBed_class = (jclass)Java::Env->NewGlobalRef(tileEntityBed_class);
+		}
 	}
 
 	static void Load1710ForgeMap() {
@@ -2493,7 +2531,7 @@ struct StrayCache {
 		entityItem_class = (jclass)Java::Env->NewGlobalRef(entityItem_class);
 	}
 
-	static void Load1181ForeMap() {
+	static void Load1181ForgeMap() {
 		std::cout << "1.18.1 Forge" << std::endl;
 		{
 			Java::AssignClass("net.minecraft.client.Minecraft", minecraft_class);
@@ -3024,6 +3062,8 @@ struct StrayCache {
 		Java::Env->DeleteGlobalRef(itemTool_class);
 		Java::Env->DeleteGlobalRef(nonNullList_class);
 		Java::Env->DeleteGlobalRef(networkManager_class);
+		Java::Env->DeleteGlobalRef(tileEntity_class);
+		Java::Env->DeleteGlobalRef(tileEntityBed_class);
 
 	}
 

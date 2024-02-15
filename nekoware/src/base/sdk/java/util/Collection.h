@@ -20,7 +20,10 @@ inline std::vector<T> Collection::toVector()
 	if (size == 0) return {};
 	std::vector<T> vector(size);
 	for (jsize i = 0; i < size; ++i) {
-		vector.push_back(T(Java::Env->GetObjectArrayElement(array, i)));
+		auto obj = Java::Env->GetObjectArrayElement(array, i);
+		if (!obj) continue;
+		if (Java::Env->IsSameObject(obj, NULL)) continue;
+		vector.push_back(T(obj));
 	}
 	Java::Env->DeleteGlobalRef(array);
 	return vector;

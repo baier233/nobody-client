@@ -23,15 +23,16 @@
 //    return this->Instance;
 //}
 
-Vector3 BlockPos::getPos(JNIEnv* env )
+Vector3 BlockPos::getPos(JNIEnv* env)
 {
 	if (this->getInstance() == NULL) {
 		return Vector3(NULL, NULL, NULL);
 	}
 	Logger::Log("getPos");
-	jint x = env->GetIntField(this->getInstance(), StrayCache::blockPos_x);
-	jint y = env->GetIntField(this->getInstance(), StrayCache::blockPos_y);
-	jint z = env->GetIntField(this->getInstance(), StrayCache::blockPos_z);
+	jint x{}, y{}, z{};
+	x = env->GetIntField(this->instance, StrayCache::blockPos_x);
+	y = env->GetIntField(this->getInstance(), StrayCache::blockPos_y);
+	z = env->GetIntField(this->getInstance(), StrayCache::blockPos_z);
 	return Vector3(x, y, z);
 }
 

@@ -14,7 +14,7 @@
 #include "../../moduleManager/modules/visual/Xray.h"
 #include "../../moduleManager/modules/visual/BlockESP.h"
 #include "../../base.h"
-
+#include "../Console/Console.h"
 std::once_flag setupFlag;
 std::atomic_flag clipCursor = ATOMIC_FLAG_INIT;
 RECT originalClip;
@@ -50,6 +50,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 		//ClipCursor(NULL);
 		Menu::RenderMenu();
+		//Console::getInstance().Render();
 	}
 	else
 	{

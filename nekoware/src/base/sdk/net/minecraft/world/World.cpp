@@ -20,6 +20,11 @@ List CWorld::GetLoadedEntityList(JNIEnv* env)
 	return List(env->GetObjectField(instance, StrayCache::world_loadedEntityList));
 }
 
+List CWorld::GetLoadedTileEntityList(JNIEnv* env)
+{
+	return List(env->GetObjectField(instance, StrayCache::world_loadedTileEntityList));
+}
+
 CBlock CWorld::GetBlock(int x, int y, int z, JNIEnv* env)
 {
 	return CBlock(Java::Env->CallObjectMethod(this->instance, StrayCache::world_getBlock, x, y, z));
@@ -102,7 +107,7 @@ int CWorld::getBlock(double x, double y, double z, JNIEnv* env)
 	jclass blockPosClass = StrayCache::blockPos_class;
 	jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
 	jobject blockpos = env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
-		
+
 	jboolean isAir = env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
 	if (isAir) {
 		env->DeleteLocalRef(blockpos);

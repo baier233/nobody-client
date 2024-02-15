@@ -58,6 +58,7 @@ public:
 	};
 
 	List playerEntities{};
+	List loadedTitleEntities{};
 	//List loadedEntities{};
 
 	void UpdateData(const EventUpdate e)
@@ -71,6 +72,7 @@ public:
 		fov = SDK::Minecraft->gameSettings->GetFOV();
 		thirdPersonView = SDK::Minecraft->gameSettings->GetThirdPersonView();
 		playerEntities = SDK::Minecraft->theWorld->GetPlayerList();
+		loadedTitleEntities = SDK::Minecraft->theWorld->GetLoadedTileEntityList();
 		//loadedEntities = SDK::Minecraft->theWorld->GetLoadedEntityList();
 		float ySubtractValue = 3.4;
 		if (SDK::Minecraft->thePlayer->IsSneaking())
@@ -110,7 +112,7 @@ public:
 
 	bool SanityCheck() {
 
-		if (Java::Env->IsSameObject(SDK::Minecraft->getInstance(),NULL))
+		if (Java::Env->IsSameObject(SDK::Minecraft->getInstance(), NULL))
 		{
 			return false;
 		}

@@ -131,6 +131,9 @@
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\Packet.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
+    <ClCompile Include="src\base\menu\Console\Console.cpp" />
+    <ClCompile Include="src\base\moduleManager\modules\visual\BedESP.cpp" />
+    <ClCompile Include="src\base\sdk\net\minecraft\tileentity\TileEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -607,6 +610,10 @@
     <ClInclude Include="src\base\sdk\net\minecraft\client\network\Packet.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\ItemESP.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\entity\item\EntityItem.h" />
+    <ClInclude Include="src\base\menu\Console\Console.h" />
+    <ClInclude Include="src\base\moduleManager\modules\visual\BedESP.h" />
+    <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntity.h" />
+    <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntityBed.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
