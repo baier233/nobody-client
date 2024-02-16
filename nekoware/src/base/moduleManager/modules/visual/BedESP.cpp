@@ -33,7 +33,7 @@ void BedESP::onUpdate(EventUpdate e)
 			auto blockPos = bed.getPos();
 			auto pos = blockPos.getPos();
 			double x = pos.x - CommonData::getInstance()->renderPos.x;
-			double y = pos.y - CommonData::getInstance()->renderPos.y;
+			double y = pos.y - CommonData::getInstance()->renderPos.y + 3.4f;
 			double z = pos.z - CommonData::getInstance()->renderPos.z;
 			temp.push_back(Vector3(x, y, z));
 		}
@@ -77,49 +77,64 @@ void BedESP::drawSelectionBoundingBox(BoundingBox boundingBox)
 void BedESP::drawColorBox(BoundingBox axisalignedbb)
 {
 	glBegin(GL_QUADS);
-
-	// Front face
-	glColor3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ);
-	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ);
-
-	// Back face
-	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ);
-	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ);
-
-	// Left face
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ);
-
-	// Right face
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ);
-	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ);
-
-	// Top face
-	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ);
-
-	// Bottom face
-	glColor3f(1.0f, 0.0f, 1.0f);
-	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glEnd();
+	glBegin(GL_QUADS);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
-
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ);
+	glEnd();
+	glBegin(GL_QUADS);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ);
+	glVertex3f(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
 	glEnd();
 }
 
@@ -166,38 +181,39 @@ std::vector<float> BedESP::structToVector(const Matrix& matrix)
 }
 void BedESP::RenderUpdate()
 {
-	return;
-	if (!this->getToggle()) return;
-	if (this->data.empty())return;
+	if (!this->getToggle() || !CommonData::getInstance()->dataUpdated) return;
 	glPushMatrix();
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->projection).data());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->modelView).data());
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glLineWidth(2.0f);
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
+	glEnable(GL_LINE_SMOOTH);
+
 	for (Vector3 d : this->data)
 	{
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_BLEND);
-		glLineWidth(1.0f);
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_DEPTH_TEST);
-		glDepthMask(GL_FALSE);
-		glEnable(GL_LINE_SMOOTH);
-		glColor4d(2.0, 0.0, 0.0, 0.5);
-		// Call BedESP::drawColorBox with the appropriate arguments
-		// BedESP::drawColorBox(new AxisAlignedBB(x, y, z, x + length2, y + 0.5, z + length));
-		this->drawColorBox(BoundingBox{ d.x, d.y, d.z, d.x + 1.f, d.y + 0.5, d.z + 1.f });
+		glPushMatrix();
+
+		/*	glColor4d(2.0, 0.0, 0.0, 0.5);
+			this->drawColorBox(BoundingBox(d.x, d.y, d.z, d.x + 1.f, d.y + 0.5, d.z + 1.f));*/
+
 		glColor4d(102.0, 0.0, 153.0, 0.5);
-		this->drawSelectionBoundingBox(BoundingBox{ d.x, d.y, d.z, d.x + 1.f, d.y + 0.5, d.z + 1.f });
-		// Call BedESP::drawSelectionBoundingBox with the appropriate arguments
-		// BedESP::drawSelectionBoundingBox(new AxisAlignedBB(x, y, z, x + length2, y + 0.5, z + length));
-		glDisable(GL_LINE_SMOOTH);
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_DEPTH_TEST);
-		glDepthMask(GL_TRUE);
-		glDisable(GL_BLEND);
+		this->drawSelectionBoundingBox(BoundingBox(d.x, d.y, d.z, d.x + 1.f, d.y + 0.5, d.z + 1.f));
+
+		glPopMatrix();
 	}
+
+	glDisable(GL_LINE_SMOOTH);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
+
 	glPopMatrix();
-	glPopAttrib();
 }

@@ -39,15 +39,6 @@ void Base::RenderLoop(HDC hdc) // Runs every frame
 {
 	if (!Base::Running) return;
 	const char* watermark = "Nekoware";
-	// goofy ahh css
-	float margin = 3;
-	float font_size = 24;
-	int m_iOffset = 0;
-
-	ImVec2 screenSize = ImGui::GetWindowSize();
-	ImVec2 textSize = Menu::Font->CalcTextSizeA(font_size, FLT_MAX, 0.0f, watermark);
-	float posX = screenSize.x - textSize.x - margin;
-	float posY = screenSize.y - textSize.y - margin;
 
 	Esp::getInstance()->RenderUpdate();
 	AimAssist::getInstance()->RenderUpdate();
