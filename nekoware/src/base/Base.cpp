@@ -239,7 +239,7 @@ void Base::checkVersion() {
 	auto window = getCurrentWindow();
 	auto name = getWindowName(window);
 
-	if (JNIHelper::IsForge() || cmd.find("minecraftforge") != std::string::npos)
+	if (JNIHelper::IsForge())
 	{
 
 		isObfuscate = true;
@@ -272,7 +272,6 @@ void Base::checkVersion() {
 		return;
 	}
 	if (JNIHelper::IsVanilla()) {
-
 		version = VANILLA_1_8_9;
 		return;
 	}

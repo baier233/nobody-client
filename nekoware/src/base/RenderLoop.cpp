@@ -32,6 +32,7 @@
 #include "moduleManager/modules/player/autotool.h"
 
 #include "menu/Notification/NotificationManager.h"
+#include "moduleManager/modules/visual/BedESP.h"
 extern ImVec4 clear_col;
 static int y;
 void Base::RenderLoop(HDC hdc) // Runs every frame
@@ -55,6 +56,7 @@ void Base::RenderLoop(HDC hdc) // Runs every frame
 	ChestESP::getInstance()->RenderUpdate();
 	ItemESP::getInstance()->RenderUpdate();
 	BlockESP::getInstance()->render(hdc);
+	BedESP::getInstance()->RenderUpdate();
 	//EventManager::getInstance().call(EventRender());
 	//Blink::getInstance()->RenderUpdate();
 

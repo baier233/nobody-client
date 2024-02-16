@@ -28,7 +28,6 @@ Vector3 BlockPos::getPos(JNIEnv* env)
 	if (this->getInstance() == NULL) {
 		return Vector3(NULL, NULL, NULL);
 	}
-	Logger::Log("getPos");
 	jint x{}, y{}, z{};
 	x = env->GetIntField(this->instance, StrayCache::blockPos_x);
 	y = env->GetIntField(this->getInstance(), StrayCache::blockPos_y);

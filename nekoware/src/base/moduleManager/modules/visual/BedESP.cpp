@@ -170,13 +170,13 @@ void BedESP::RenderUpdate()
 	if (!this->getToggle()) return;
 	if (this->data.empty())return;
 	glPushMatrix();
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->projection).data());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->modelView).data());
 	for (Vector3 d : this->data)
 	{
-		glPushMatrix();
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
 		glLineWidth(1.0f);
@@ -197,7 +197,7 @@ void BedESP::RenderUpdate()
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
 		glDisable(GL_BLEND);
-		glPopMatrix();
 	}
 	glPopMatrix();
+	glPopAttrib();
 }
