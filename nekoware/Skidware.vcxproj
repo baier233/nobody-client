@@ -24,7 +24,7 @@
     <ProjectGuid>{19b103f4-7249-4c81-a369-ac8c2f035fb8}</ProjectGuid>
     <RootNamespace>Skidware</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>nekoware</ProjectName>
+    <ProjectName>nobody</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

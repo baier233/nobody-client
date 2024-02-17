@@ -31,6 +31,13 @@ static float modNameOffsetX = 5;
 static float modNameOffsetY = 4;
 static float modNameFontSize = 20;
 
+struct Block {
+	float x;
+	float y;
+	float width;
+	float height;
+};
+
 void HUD::RenderUpdate()
 {
 	if (!this->getToggle()) return;
@@ -49,8 +56,6 @@ void HUD::RenderUpdate()
 	for (HMOD _Mod : this->enabledMods) {
 		AbstractModule* curMod = ToBaseModule(_Mod);
 
-		// 使用ImGui的接口获取字符串在当前字体下的宽度
-		//float modNameWidth = ImGui::CalcTextSize(curMod->getName().c_str()).x;
 		float modNameWidth = Menu::Font->CalcTextSizeA(modNameFontSize, FLT_MAX, 0.0f, curMod->getName().c_str()).x + 10;
 		if (modNameWidth + enabledModBgSideWidth > enabledListBlock.width) enabledListBlock.width = modNameWidth + enabledModBgSideWidth;
 
@@ -67,6 +72,20 @@ void HUD::RenderUpdate()
 
 void HUD::RenderMenu()
 {
+	ImGui::BeginChild("HUD", ImVec2(320, 426), true);
+	{
+		Menu::DoToggleButtonStuff(696969, "Toggle HUD", this);
+	}
+	ImGui::EndChild();
+
+	ImGui::SameLine(0, 20);
+
+	ImGui::BeginChild("HUD2", ImVec2(320, 426), true);
+	{
+		int mode{};
+		ImGui::Keybind("Click To Bind", image::keybind, &this->getKey(), &mode);
+	}
+	ImGui::EndChild();
 }
 
 bool EnabledListSorter::operator()(HMOD m1, HMOD m2)

@@ -719,7 +719,7 @@ void Menu::RenderMenu()
 				for (HMOD h : ModuleManager::getInstance().getMods())
 				{
 					auto mod = ToBaseModule(h);
-					if (mod->getCategory() == Category::VISUAL && mod->getName().c_str() != "HUD")
+					if (mod->getCategory() == Category::VISUAL )
 					{
 						visibleModules++;
 					}
@@ -754,7 +754,7 @@ void Menu::RenderMenu()
 				for (HMOD h : ModuleManager::getInstance().getMods())
 				{
 					auto mod = ToBaseModule(h);
-					if (mod->getCategory() == Category::VISUAL && mod->getName().c_str() != "HUD")
+					if (mod->getCategory() == Category::VISUAL )
 					{
 						if (scrollOffset > currentModule * subTabWidth)
 						{
@@ -783,7 +783,7 @@ void Menu::RenderMenu()
 					auto mod = ToBaseModule(h);
 					if (mod->getCategory() == Category::VISUAL)
 					{
-						if (currentModule == sub_tabs && mod->getName() != "HUD")
+						if (currentModule == sub_tabs )
 						{
 							mod->RenderMenu();
 							break;

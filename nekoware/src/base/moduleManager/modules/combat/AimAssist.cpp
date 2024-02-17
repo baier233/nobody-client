@@ -217,7 +217,6 @@ void AimAssist::onUpdate(const EventUpdate e)
 
 void AimAssist::RenderUpdate()
 {
-	
 	auto fov = FovValue->getValue();
 	auto fovCircle = FovCircleValue->getValue();
 

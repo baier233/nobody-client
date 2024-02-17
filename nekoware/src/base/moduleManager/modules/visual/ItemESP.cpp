@@ -163,8 +163,7 @@ void ItemESP::GLRenderBox(GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat maxX
 
 	glColor4f(red, green, blue, alpha);
 
-	glBegin(GL_QUADS);//tell opengl your beginning to draw verticies
-
+	glBegin(GL_QUADS);
 
 	glVertex3f(minX, minY, minZ);
 	glVertex3f(maxX, minY, minZ);
@@ -196,8 +195,7 @@ void ItemESP::GLRenderBox(GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat maxX
 	glVertex3f(maxX, maxY, maxZ);
 	glVertex3f(minX, maxY, maxZ);
 
+	glEnd();
 
-	glEnd();//tell opengl your done drawing verticies
-
-	glDisable(GL_BLEND);//turn the blending off 
+	glDisable(GL_BLEND);
 }

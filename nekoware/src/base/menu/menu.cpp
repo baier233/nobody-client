@@ -56,8 +56,8 @@ void Menu::PlaceHooks()
 
 void Menu::RemoveHooks()
 {
-	Menu::Unhook_wndProc();
+	//Menu::Unhook_wndProc();
 	Menu::Unhook_wglSwapBuffers();
-	Menu::RemoveAllGameHook();
+//	Menu::RemoveAllGameHook();
 	//Menu::UnhookUpdate();
 }

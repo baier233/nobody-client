@@ -66,7 +66,7 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg
 static void handleUpdate(JNIEnv* env)
 {
 	MSG msg;
-	while (PeekMessage(
+	while (PeekMessageA(
 		&msg,     // message information
 		NULL,     // handle to window
 		0,        // first message
@@ -173,23 +173,25 @@ void Base::initModule() {
 	}
 
 	{
+		ModuleManager::getInstance().addModule<HUD>(HUD::getInstance());
+		ModuleManager::getInstance().addModule<Esp>(Esp::getInstance());
+
+		ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
+		ModuleManager::getInstance().addModule<Xray>(Xray::getInstance());
+		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
+		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
+		if (version == FORGE_1_12_2 or version == LUNAR_1_12_2)ModuleManager::getInstance().addModule<BedESP>(BedESP::getInstance());
+		if (version != FORGE_1_12_2 and version != LUNAR_1_12_2)ModuleManager::getInstance().addModule<BlockESP>(BlockESP::getInstance());
+	}
+
+	{
 		ModuleManager::getInstance().addModule<Eagle>(Eagle::getInstance());
 		ModuleManager::getInstance().addModule<Fastplace>(Fastplace::getInstance());
 		ModuleManager::getInstance().addModule<AutoTool>(AutoTool::getInstance());
 		ModuleManager::getInstance().addModule<Blink>(Blink::getInstance());
 	}
 
-	{
-		ModuleManager::getInstance().addModule<Esp>(Esp::getInstance());
-		ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
-		ModuleManager::getInstance().addModule<Xray>(Xray::getInstance());
-		ModuleManager::getInstance().addModule<HUD>(HUD::getInstance());
-		//ModuleManager::getInstance().addModule<Chams>(Chams::getInstance());
-		ModuleManager::getInstance().addModule<BlockESP>(BlockESP::getInstance());
-		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
-		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
-		if (version == FORGE_1_12_2 or version == LUNAR_1_12_2)ModuleManager::getInstance().addModule<BedESP>(BedESP::getInstance());
-	}
+	
 }
 
 struct Process

@@ -11,7 +11,8 @@ DWORD Main::Init(HANDLE _)
 void Main::Kill()
 {
 	Base::Kill();
-	FreeLibraryAndExitThread(Main::HModule, 0);
+	ExitThread(0);
+	//FreeLibraryAndExitThread(Main::HModule, 0);
 }
 
 BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)

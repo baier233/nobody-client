@@ -16,12 +16,7 @@ public:
 private:
 	HUD();
 	std::vector<HMOD> enabledMods;
-	struct Block {
-		float x;
-		float y;
-		float width;
-		float height;
-	};
+	
 };
 
 class EnabledListSorter {
