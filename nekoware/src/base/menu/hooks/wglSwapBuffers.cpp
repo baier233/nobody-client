@@ -5,7 +5,6 @@
 #include <GL/glext.h>
 #include <mutex>
 #include <Shlobj.h>
-#include "../../../../ext/minhook/minhook.h"
 #include "../../../../ext/imgui/imgui.h"
 #include "../../../../ext/imgui/imgui_impl_win32.h"
 #include "../../../../ext/imgui/imgui_impl_opengl3.h"
@@ -19,8 +18,12 @@ std::once_flag setupFlag;
 std::atomic_flag clipCursor = ATOMIC_FLAG_INIT;
 RECT originalClip;
 
+#include "../../util/TitanHook.h"
+
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
-template_wglSwapBuffers original_wglSwapBuffers;
+TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
+
+
 bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 {
 	glPushMatrix();
@@ -85,21 +88,20 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::OriginalGLContext);
 	glPopMatrix();
-	return original_wglSwapBuffers(hdc);
+	return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 }
 
 void Menu::Hook_wglSwapBuffers()
 {
 	LPVOID wglSwapBuffers = (LPVOID)GetProcAddress(GetModuleHandle("opengl32.dll"), "wglSwapBuffers");
-	MH_CreateHook(wglSwapBuffers, (LPVOID)hook_wglSwapBuffers, (LPVOID*)&original_wglSwapBuffers);
-	MH_EnableHook(wglSwapBuffers);
+	wglSwapBuffersHook.InitHook(wglSwapBuffers, hook_wglSwapBuffers);
+	wglSwapBuffersHook.SetHook();
 
 }
 
 void Menu::Unhook_wglSwapBuffers()
 {
-	MH_DisableHook(MH_ALL_HOOKS);
-	MH_RemoveHook(MH_ALL_HOOKS);
+	wglSwapBuffersHook.RemoveHook();
 }
 
 #include "../../../../ext/imgui/main.h"

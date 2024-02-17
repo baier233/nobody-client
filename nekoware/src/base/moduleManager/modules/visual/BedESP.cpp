@@ -155,7 +155,7 @@ void BedESP::onDisable()
 std::vector<float> BedESP::structToVector(const Matrix& matrix)
 {
 	std::vector<float> result;
-	result.reserve(16); // 预留足够的空间以容纳结构体的成员
+	result.reserve(16); 
 
 	result.push_back(matrix.m00);
 	result.push_back(matrix.m01);

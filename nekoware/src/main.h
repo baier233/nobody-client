@@ -6,7 +6,7 @@
 class Main
 {
 public:
-	static void Init();
+	static DWORD Init(HANDLE _);
 	static void Kill();
 
 	static inline HMODULE HModule;

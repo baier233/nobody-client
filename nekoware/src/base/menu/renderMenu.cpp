@@ -224,7 +224,6 @@ int currentTab3 = 0;
 int currentTab4 = 0;
 
 #include "Image.h"
-#include "../moduleManager/modules/visual/Chams.h"
 void Menu::RenderMenu()
 {
 	ImGuiContext& g = *GImGui;

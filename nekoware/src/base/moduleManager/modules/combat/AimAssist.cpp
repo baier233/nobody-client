@@ -41,25 +41,6 @@ void AimAssist::onEnable() {
 }
 
 
-/* 
-How this Aim Assist works :
-
-Essentially its a basic aim assist with smoothing, except that there are 2 aim angles caluclated, one at the feet and one at the head.
-The reason why this is done is because if you notice while using fusions aim assist, you're free to move your pitch up and down when targetting a player,
-however it does not allow you to exceed the players head or feet, meaning you would always be aiming at the player, however freely be able to look at any part of the players body.
-
-Although this can bypass some servers, it does not bypass all of them.
-This is because some anticheats don't really give a damn where you are aiming, they mostly want to see how you rotate when you move, and that is where they catch you.
-
-I (deadshell) can create a bypass for it in the future.
-
-For now, if you want to use fusion, just use it with weak settings.
-
-Suggested settings:
-30-40 FOV
-15-30 Smooth
-3.5 - 4 Locking Distance
-*/
 void AimAssist::onUpdate(const EventUpdate e)
 {
 	auto aimDistance = AimDistanceValue->getValue();
@@ -96,9 +77,6 @@ void AimAssist::onUpdate(const EventUpdate e)
 
 	float realAimDistance = aimDistance;
 
-	// The code from here and below is kind of dog water, however it does the job.
-	// The real math for the aim angles if you're interested is located in Math::getAngles()
-	// fusion/src/base/util/math/Math.cpp
 	auto randomFloat = [](float min, float max)
 	{
 		float f = (float)rand() / RAND_MAX;

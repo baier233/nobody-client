@@ -1,5 +1,5 @@
 #include "ChestESP.h"
-#include "../../../../../ext/minhook/minhook.h"
+#include "../../../util/TitanHook.h"
 struct Object
 {
 	enum Type
@@ -22,10 +22,8 @@ struct Object
 };
 
 std::list<Object> objects;
-
-// Pointers to original functions
-decltype(&glOrtho) fn_glOrtho = glOrtho;
-decltype(&glTranslatef) fn_glTranslatef = glTranslatef;
+TitanHook<decltype(&glOrtho)> glOrthoHook;
+TitanHook<decltype(&glTranslatef)> glTranslatefHook;
 
 void drawBox(glm::vec4 color)
 {
@@ -140,7 +138,7 @@ void WINAPI hk_glOrtho(double left, double right, double bottom, double top, dou
 
 	if (ChestESP::getInstance()->bypassObsValue->getValue())
 	{
-		return fn_glOrtho(left, right, bottom, top, zNear, zFar);
+		return glOrthoHook.GetOrignalFunc()(left, right, bottom, top, zNear, zFar);
 
 	}
 	// Probably game preparing to draw inventory
@@ -152,7 +150,7 @@ void WINAPI hk_glOrtho(double left, double right, double bottom, double top, dou
 	}
 
 	// Calling the original function
-	fn_glOrtho(left, right, bottom, top, zNear, zFar);
+	return glOrthoHook.GetOrignalFunc()(left, right, bottom, top, zNear, zFar);
 }
 // Hooked glTranslatef function
 void WINAPI hk_glTranslatef(float x, float y, float z)
@@ -167,13 +165,12 @@ void WINAPI hk_glTranslatef(float x, float y, float z)
 		objects.push_back(Object::LargeChest);
 
 	// Calling the original function
-	fn_glTranslatef(x, y, z);
+	glTranslatefHook.GetOrignalFunc()(x, y, z);
 }
 ChestESP::ChestESP() : AbstractModule("ChestESP", Category::VISUAL, "show all Chest.") {
 	this->addValue(BoolType,this->bypassObsValue);
-	MH_CreateHook(glOrtho, hk_glOrtho, reinterpret_cast<void**>(&fn_glOrtho));
-	//MH_CreateHook(glScalef, hk_glScalef, reinterpret_cast<void**>(&fn_glScalef));
-	MH_CreateHook(glTranslatef, hk_glTranslatef, reinterpret_cast<void**>(&fn_glTranslatef));
+	glOrthoHook.InitHook(glOrtho, hk_glOrtho);
+	glTranslatefHook.InitHook(glTranslatef, hk_glTranslatef);
 }
 ChestESP* ChestESP::getInstance()
 {
@@ -183,14 +180,17 @@ ChestESP* ChestESP::getInstance()
 
 void ChestESP::onEnable()
 {
-	MH_EnableHook(glOrtho);
-	MH_EnableHook(glTranslatef);
+	glOrthoHook.SetHook();
+	if (!this->bypassObsValue->getValue())
+	{
+		glTranslatefHook.SetHook();
+	}
 }
 
 void ChestESP::onDisable()
 {
-	MH_DisableHook(glOrtho);
-	MH_DisableHook(glTranslatef);
+	glOrthoHook.RemoveHook();
+	glTranslatefHook.RemoveHook();
 }
 
 void ChestESP::RenderUpdate()

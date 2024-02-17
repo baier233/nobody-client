@@ -10,15 +10,7 @@
 #include "../sdk/java/util/Set.h"
 #include "Value.h"
 
-//#include <curl/curl.h>
-#define M_PI 3.1415926
-
-/*
-This file is mainly for optimization purposes, instead of loading the data inside each module, we just load them here and then pass the data onto
-the modules that will eventually use them.
-
-The modules that write data will still need to access required java objects to do so.
-*/
+constexpr auto M_PI = 3.1415926;
 
 class CommonData
 {
@@ -42,16 +34,6 @@ public:
 
 	bool isCombat = false;
 
-	//struct PlayerData{
-	//	CEntityPlayer obj;
-	//	Vector3 pos;
-	//	Vector3 lastPos;
-	//	BoundingBox boundingBox;
-	//	std::string name;
-	//	float height;
-	//	float health;
-	//	float maxHealth;
-	//};
 
 	enum Direction {
 		NONE, LEFT, RIGHT, BACKWARDS, FORWARDS
@@ -59,7 +41,6 @@ public:
 
 	List playerEntities{};
 	List loadedTitleEntities{};
-	//List loadedEntities{};
 
 	void UpdateData(const EventUpdate e)
 	{
@@ -73,7 +54,6 @@ public:
 		thirdPersonView = SDK::Minecraft->gameSettings->GetThirdPersonView();
 		playerEntities = SDK::Minecraft->theWorld->GetPlayerList();
 		loadedTitleEntities = SDK::Minecraft->theWorld->GetLoadedTileEntityList();
-		//loadedEntities = SDK::Minecraft->theWorld->GetLoadedEntityList();
 		float ySubtractValue = 3.4;
 		if (SDK::Minecraft->thePlayer->IsSneaking())
 			ySubtractValue -= .175f;
@@ -82,30 +62,7 @@ public:
 		renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
 
 
-
-		// Storing all the required data that will be used within modules here just to have one for loop for gathering data
-		// the rest of the for loops inside modules will be for actually doing what they need to do
-
-
-		//std::vector<PlayerData> newData;
-		//List playerList = SDK::Minecraft->theWorld->GetPlayerList();
-		//for (CEntityPlayer player : playerList.toVector<CEntityPlayer>()) {
-		//	newData.push_back(PlayerData{
-		//			player,
-		//			player.GetPos(),
-		//			player.GetLastTickPos(),
-		//			player.GetBB().GetNativeBoundingBox(),
-		//			player.GetName(),
-		//			player.GetHeight(),
-		//			player.GetHealth(),
-		//			player.GetMaxHealth()
-		//		});
-		//}
-		//nativePlayerList = newData;
-
-		dataUpdated = true; // This entire function is stopped, and this is flipped once the world and or player object appears to be null
-		// Mainly for sanity checks for rendering functions, it prevents crashing whenever the user is not in a game because some data
-		// might be needed from within the render functions.
+		dataUpdated = true;
 	}
 
 	// Return false if sanity check failed

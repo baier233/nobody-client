@@ -4,7 +4,6 @@
     <ClCompile Include="src\base\moduleManager\modules\player\Scaffold.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\item\ItemArmor.cpp" />
     <ClCompile Include="src\base\eventManager\events\EventUpdate.hpp" />
-    <ClCompile Include="src\base\menu\hooks\WalkingUpdate.cpp" />
     <ClCompile Include="src\base\moduleManager\AbstractModule.cpp" />
     <ClCompile Include="src\base\moduleManager\ModuleManager.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\combat\KillAura.cpp" />
@@ -43,11 +42,6 @@
     <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="ext\minhook\buffer.cpp" />
-    <ClCompile Include="ext\minhook\hde\hde32.cpp" />
-    <ClCompile Include="ext\minhook\hde\hde64.cpp" />
-    <ClCompile Include="ext\minhook\hook.cpp" />
-    <ClCompile Include="ext\minhook\trampoline.cpp" />
     <ClCompile Include="src\base\menu\hooks\wglSwapBuffers.cpp" />
     <ClCompile Include="src\base\menu\hooks\wndProc.cpp" />
     <ClCompile Include="src\base\menu\renderMenu.cpp" />
@@ -76,7 +70,6 @@
     <ClCompile Include="src\base\moduleManager\modules\player\AutoTool.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\item\ItemTool.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\block\state\IBlockState.cpp" />
-    <ClCompile Include="src\base\util\Chronometer.cpp" />
     <ClCompile Include="src\base\moduleManager\AbstractModule.cpp">
       <Filter>Module</Filter>
     </ClCompile>
@@ -123,17 +116,22 @@
     <ClCompile Include="src\base\moduleManager\modules\visual\ChestESP.cpp" />
     <ClCompile Include="ext\glm\detail\glm.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\BlockESP.cpp" />
-    <ClCompile Include="src\base\moduleManager\modules\visual\Chams.cpp" />
     <ClCompile Include="src\base\jvm\JVM.cpp" />
     <ClCompile Include="src\base\jvm\hook\JavaHook.cpp" />
     <ClCompile Include="src\base\util\module\Module.cpp" />
-    <ClCompile Include="src\base\menu\hooks\GameHook.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\Packet.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
     <ClCompile Include="src\base\menu\Console\Console.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\BedESP.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\tileentity\TileEntity.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\Forge112.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\Forge189.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\MCP189.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\MCP112.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\Forge1710.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\Vanllia189.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\Forge1181.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -203,14 +201,6 @@
     <ClInclude Include="ext\jni\jni_md.h" />
     <ClInclude Include="ext\jni\jvmti.h" />
     <ClInclude Include="ext\jni\jvmticmlr.h" />
-    <ClInclude Include="ext\minhook\buffer.h" />
-    <ClInclude Include="ext\minhook\hde\hde32.h" />
-    <ClInclude Include="ext\minhook\hde\hde64.h" />
-    <ClInclude Include="ext\minhook\hde\pstdint.h" />
-    <ClInclude Include="ext\minhook\hde\table32.h" />
-    <ClInclude Include="ext\minhook\hde\table64.h" />
-    <ClInclude Include="ext\minhook\minhook.h" />
-    <ClInclude Include="ext\minhook\trampoline.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\client\Minecraft.h" />
     <ClInclude Include="src\base\menu\menu.h" />
     <ClInclude Include="src\base\util\Logger.h" />
@@ -602,7 +592,6 @@
     <ClInclude Include="ext\glm\detail\type_vec4.hpp" />
     <ClInclude Include="src\base\util\render\SimpleAnimation.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\BlockESP.h" />
-    <ClInclude Include="src\base\moduleManager\modules\visual\Chams.h" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
     <ClInclude Include="src\base\jvm\hook\JavaHook.h" />
     <ClInclude Include="src\base\util\module\Module.hpp" />
@@ -614,6 +603,7 @@
     <ClInclude Include="src\base\moduleManager\modules\visual\BedESP.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntity.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntityBed.h" />
+    <ClInclude Include="src\base\util\TitanHook.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

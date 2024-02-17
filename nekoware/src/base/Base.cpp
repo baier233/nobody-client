@@ -11,7 +11,6 @@
 #include "security/security.hpp"
 #include "eventManager/events/EventKey.hpp"
 
-#include "../../ext/minhook/minhook.h"
 
 #include "moduleManager/modules/clicker/LClick.h"
 #include "moduleManager/modules/clicker/RClick.h"
@@ -111,18 +110,16 @@ int Base::InitUpdateMessge() {
 #include<Windows.h>
 #include "moduleManager/modules/visual/ChestESP.h"
 #include "moduleManager/modules/visual/BlockESP.h"
-#include "moduleManager/modules/visual/Chams.h"
 #include "moduleManager/modules/visual/ItemESP.h"
 #include "moduleManager/modules/visual/BedESP.h"
 void Base::Init()
 {
-	MH_Initialize();
 	BuildVersion = "Build 20240213 - f5c3a08";//动态获取？
 	Java::Init();
 	Base::isObfuscate = false;
 	checkVersion();
 	SDK::Init();
-	JavaHook::init();
+	//JavaHook::init();
 	Menu::Init();
 	initModule();
 	InitUpdateMessge();
@@ -187,7 +184,7 @@ void Base::initModule() {
 		ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
 		ModuleManager::getInstance().addModule<Xray>(Xray::getInstance());
 		ModuleManager::getInstance().addModule<HUD>(HUD::getInstance());
-		ModuleManager::getInstance().addModule<Chams>(Chams::getInstance());
+		//ModuleManager::getInstance().addModule<Chams>(Chams::getInstance());
 		ModuleManager::getInstance().addModule<BlockESP>(BlockESP::getInstance());
 		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
 		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
@@ -339,6 +336,4 @@ void Base::Kill()
 	Logger::Kill();
 	ModuleManager::getInstance().clean();
 	WebServerManager::getInstance().detach();
-	MH_RemoveHook(MH_ALL_HOOKS);
-	MH_Uninitialize();
 }

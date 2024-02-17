@@ -67,9 +67,6 @@ void Killaura::onUpdate(const EventUpdate e) {
 
 	float realAimDistance = rangeValue->getValue();
 
-	// The code from here and below is kind of dog water, however it does the job.
-	// The real math for the aim angles if you're interested is located in Math::getAngles()
-	// fusion/src/base/util/math/Math.cpp
 	auto list = playerList.toVector<CEntityPlayer>();
 	for (CEntityPlayer player : list)
 	{
@@ -181,13 +178,10 @@ void Killaura::onUpdate(const EventUpdate e) {
 				targetPitch = targetPitchFoot;
 				data = renderPos - Vector3(0, 0.23, 0) - eLastPos + (eLastPos - ePos) * renderPartialTicks;
 			}
-			//pitchInfluenced = true;
-			//targetPitch += randomFloat(-this->randomPitch, this->randomPitch);
 			thePlayer.SetAngles(Vector2(targetYaw, targetPitch));
 		}
 		else {
 			data = renderPos - eLastPos + (eLastPos - ePos) * renderPartialTicks;
-			//pitchInfluenced = false;
 			thePlayer.SetAngles(Vector2(targetYaw, currentLookAngles.y + 0));
 		}
 	}
