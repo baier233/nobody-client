@@ -175,7 +175,6 @@ void Base::initModule() {
 	{
 		ModuleManager::getInstance().addModule<HUD>(HUD::getInstance());
 		ModuleManager::getInstance().addModule<Esp>(Esp::getInstance());
-
 		ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
 		ModuleManager::getInstance().addModule<Xray>(Xray::getInstance());
 		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
