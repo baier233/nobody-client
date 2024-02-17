@@ -243,7 +243,7 @@ void Base::checkVersion() {
 	{
 
 		isObfuscate = true;
-		if (name.find("1.12.2") != -1 || name.find("花雨庭") != -1 ) {
+		if (name.find("1.12.2") != -1 || name.find("花雨庭") != -1 ) {	
 			version = FORGE_1_12_2;
 			return;
 		}
@@ -300,6 +300,13 @@ void Base::handleEventKey(int key) {
 
 void Base::Kill()
 {
+	for (HMOD mod : ModuleManager::getInstance().getMods()) {
+		if (auto module = ToBaseModule(mod);module->getToggle())
+		{
+			module->setToggle(false);
+		}
+	}
+
 	SDK::Minecraft->gameSettings->RestoreFullscreenKey();
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);

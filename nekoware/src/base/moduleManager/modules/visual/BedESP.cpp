@@ -176,7 +176,7 @@ std::vector<float> BedESP::structToVector(const Matrix& matrix)
 	result.push_back(matrix.m31);
 	result.push_back(matrix.m32);
 	result.push_back(matrix.m33);
-
+	
 	return result;
 }
 void BedESP::RenderUpdate()
@@ -192,6 +192,7 @@ void BedESP::RenderUpdate()
 	glEnable(GL_BLEND);
 	glLineWidth(2.0f);
 	glDisable(GL_TEXTURE_2D);
+
 	glDisable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
 	glEnable(GL_LINE_SMOOTH);
