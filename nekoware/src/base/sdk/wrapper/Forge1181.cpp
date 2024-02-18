@@ -81,39 +81,20 @@ void StrayCache::Load1181ForgeMap() {
 	}
 
 	{
-		Java::AssignClass("net.minecraft.entity.Entity", entity_class);
+		Java::AssignClass("net.minecraft.world.entity.Entity", entity_class);
 		entity_class = (jclass)Java::Env->NewGlobalRef(entity_class);
 
-		{
-			jint count;
-			jfieldID* fields;
-
-			Java::Jvmti->GetClassFields(entity_class, &count, &fields);
-
-			for (int i = 0; i < count; i++)
-			{
-				char* sign;
-				char* name;
-				Java::Jvmti->GetFieldName(entity_class, fields[i], &name, &sign, 0);
-
-				//std::cout << "Desc:" << sign << " Name:" << name << std::endl;
-				if (std::string(name).find("NaC") != -1)
-				{
-					//std::cout << "find" << std::endl;
-					//entity_ticksExisted = fields[i];
-				}
-			}
-		}
+		
 
 		entity_getBBHeight = Java::Env->GetMethodID(entity_class, "m_20206_", "()F");
 		//entity_getName = Java::Env->GetMethodID(entity_class, "func_70005_c_", "()Ljava/lang/String;");
-		entity_isSneaking = Java::Env->GetMethodID(entity_class, "func_70093_af", "()Z");
-		entity_setSneaking = Java::Env->GetMethodID(entity_class, "func_70095_a", "(Z)V");
-		entity_setPosition = Java::Env->GetMethodID(entity_class, "func_70107_b", "(DDD)V");
-		entity_setSprint = Java::Env->GetMethodID(entity_class, "func_70031_b", "(Z)V");
-		entity_isInvisible = Java::Env->GetMethodID(entity_class, "func_82150_aj", "()Z");
-		entity_inWater = Java::Env->GetMethodID(entity_class, "func_70090_H", "()Z");
-		entity_getUniqueID = Java::Env->GetMethodID(entity_class, "func_110124_au", "()Ljava/core/UUID;");
+		entity_isSneaking = Java::Env->GetMethodID(entity_class, "m_6144_", "()Z");
+		entity_setSneaking = Java::Env->GetMethodID(entity_class, "m_20260_", "(Z)V");
+		entity_setPosition = Java::Env->GetMethodID(entity_class, "m_20343_", "(DDD)V"); //setPosRaw 
+		entity_setSprint = Java::Env->GetMethodID(entity_class, "m_6858_", "(Z)V");
+		entity_isInvisible = Java::Env->GetMethodID(entity_class, "m_20145_", "()Z");
+		entity_inWater = Java::Env->GetMethodID(entity_class, "m_20069_", "()Z");
+		//entity_getUniqueID = Java::Env->GetMethodID(entity_class, "func_110124_au", "()Ljava/core/UUID;");
 
 		entity_posX = Java::Env->GetFieldID(entity_class, "f_19790_", "D");
 		entity_posY = Java::Env->GetFieldID(entity_class, "f_19791_", "D");
@@ -122,11 +103,11 @@ void StrayCache::Load1181ForgeMap() {
 		entity_lastTickPosY = Java::Env->GetFieldID(entity_class, "f_19791_", "F");
 		entity_lastTickPosZ = Java::Env->GetFieldID(entity_class, "f_19792_", "F");
 		//entity_width = Java::Env->GetFieldID(entity_class, "field_70130_N", "F");
-		entity_height = Java::Env->GetFieldID(entity_class, "field_70131_O", "F");
-		entity_distanceWalkedModified = Java::Env->GetFieldID(entity_class, "field_70140_Q", "F");
-		entity_prevDistanceWalkedModified = Java::Env->GetFieldID(entity_class, "field_70141_P", "F");
-		entity_rotationYaw = Java::Env->GetFieldID(entity_class, "field_70177_z", "F");
-		entity_rotationPitch = Java::Env->GetFieldID(entity_class, "field_70125_A", "F");
+		///entity_height = Java::Env->GetFieldID(entity_class, "field_70131_O", "F");
+		//entity_distanceWalkedModified = Java::Env->GetFieldID(entity_class, "field_70140_Q", "F");
+		//entity_prevDistanceWalkedModified = Java::Env->GetFieldID(entity_class, "field_70141_P", "F");
+		entity_rotationYaw = Java::Env->GetFieldID(entity_class, "f_19857_", "F");
+		entity_rotationPitch = Java::Env->GetFieldID(entity_class, "f_19858_", "F");
 		entity_prevRotationYaw = Java::Env->GetFieldID(entity_class, "field_70126_B", "F");
 		entity_prevRotationPitch = Java::Env->GetFieldID(entity_class, "field_70127_C", "F");
 		entity_boundingBox = Java::Env->GetFieldID(entity_class, "field_70121_D", "Lnet/minecraft/core/math/AxisAlignedBB;");
