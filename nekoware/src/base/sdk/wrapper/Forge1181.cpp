@@ -11,49 +11,18 @@ void StrayCache::Load1181ForgeMap() {
 		if (!Logger::Initialized)
 			Logger::Init();
 
-		jint count;
-		jfieldID* fields;
+		minecraft_getMinecraft = Java::Env->GetStaticMethodID(minecraft_class, "m_91087_", "()Lnet/minecraft/client/Minecraft;"); //getInstance
+		//minecraft_getRenderViewEntity = Java::Env->GetMethodID(minecraft_class, "func_175606_aa", "()Lnet/minecraft/entity/Entity;");
+		//minecraft_clickMouse = Java::Env->GetMethodID(minecraft_class, "func_147116_af", "()V");
+		//minecraft_getDebugFPS = Java::Env->GetMethodID(minecraft_class, "func_175610_ah", "()I");
 
-		Java::Jvmti->GetClassFields(minecraft_class, &count, &fields);
-		for (int i = 0; i < count; i++)
-		{
-			char* sign;
-			char* name;
-			Java::Jvmti->GetFieldName(minecraft_class, fields[i], &name, &sign, 0);
+		minecraft_thePlayer = Java::Env->GetFieldID(minecraft_class, "f_91074_", "Lnet/minecraft/client/player/LocalPlayer;"); //player
+		minecraft_theWorld = Java::Env->GetFieldID(minecraft_class, "f_91073_", "Lnet/minecraft/client/multiplayer/ClientLevel;"); // level
+		//minecraft_playerController = Java::Env->GetFieldID(minecraft_class, "field_71442_b", "Lnet/minecraft/client/multiplayer/PlayerControllerMP;");
+		//minecraft_renderManager = Java::Env->GetFieldID(minecraft_class, "field_175616_W", "Lnet/minecraft/client/renderer/entity/RenderManager;");
+		minecraft_timer = Java::Env->GetFieldID(minecraft_class, "f_90991_", "Lnet/minecraft/client/Timer;");
 
-			//std::cout << "Desc:" << sign << " Name:" << name << std::endl;
-			if (std::string(sign).find("GameSettings") != -1)
-			{
-				std::cout << "GameSettings" << std::endl;
-				minecraft_gameSettings = fields[i];
-			}
-
-			if (std::string(sign).find("GuiIngame") != -1)
-			{
-				std::cout << "GuiIngame" << std::endl;
-				minecraft_ingameGUI = fields[i];
-			}
-
-			//if (std::string(sign).find("net/minecraft/client/network/NetHandlerPlayClient") != -1)
-			//{
-			//	std::cout << "NetworkManager: " << name << std::endl;
-			//	//minecraft_netManager = fields[i];
-			//}
-
-		}
-		minecraft_getNetHandler = Java::Env->GetMethodID(minecraft_class, "func_147114_u", "()Lnet/minecraft/client/network/NetHandlerPlayClient;");
-		minecraft_getMinecraft = Java::Env->GetStaticMethodID(minecraft_class, "func_71410_x", "()Lnet/minecraft/client/Minecraft;");
-		minecraft_getRenderViewEntity = Java::Env->GetMethodID(minecraft_class, "func_175606_aa", "()Lnet/minecraft/entity/Entity;");
-		minecraft_clickMouse = Java::Env->GetMethodID(minecraft_class, "func_147116_af", "()V");
-		minecraft_getDebugFPS = Java::Env->GetMethodID(minecraft_class, "func_175610_ah", "()I");
-
-		minecraft_thePlayer = Java::Env->GetFieldID(minecraft_class, "field_71439_g", "Lnet/minecraft/client/entity/EntityPlayerSP;");
-		minecraft_theWorld = Java::Env->GetFieldID(minecraft_class, "field_71441_e", "Lnet/minecraft/client/multiplayer/WorldClient;");
-		minecraft_playerController = Java::Env->GetFieldID(minecraft_class, "field_71442_b", "Lnet/minecraft/client/multiplayer/PlayerControllerMP;");
-		minecraft_renderManager = Java::Env->GetFieldID(minecraft_class, "field_175616_W", "Lnet/minecraft/client/renderer/entity/RenderManager;");
-		minecraft_timer = Java::Env->GetFieldID(minecraft_class, "field_71428_T", "Lnet/minecraft/util/Timer;");
-
-		if (minecraft_gameSettings == nullptr)
+		/*if (minecraft_gameSettings == nullptr)
 		{
 			minecraft_gameSettings = Java::Env->GetFieldID(minecraft_class, "field_71474_y", "Lnet/minecraft/client/settings/GameSettings;");
 		}
@@ -61,10 +30,10 @@ void StrayCache::Load1181ForgeMap() {
 		if (minecraft_ingameGUI == nullptr)
 		{
 			minecraft_ingameGUI = Java::Env->GetFieldID(minecraft_class, "field_71456_v", "Lnet/minecraft/client/gui/GuiIngame;");
-		}
+		}*/
 
-		minecraft_currentScreen = Java::Env->GetFieldID(minecraft_class, "field_71462_r", "Lnet/minecraft/client/gui/GuiScreen;");
-		minecraft_objectMouseOver = Java::Env->GetFieldID(minecraft_class, "field_71476_x", "Lnet/minecraft/util/math/RayTraceResult;");
+		minecraft_currentScreen = Java::Env->GetFieldID(minecraft_class, "f_91080_", "Lnet/minecraft/client/gui/screens/Screen;");
+		minecraft_objectMouseOver = Java::Env->GetFieldID(minecraft_class, "f_91077_", "Lnet/minecraft/world/phys/HitResult;");
 		minecraft_rightClickDelayTimer = Java::Env->GetFieldID(minecraft_class, "field_71467_ac", "I");
 
 	}
@@ -91,7 +60,7 @@ void StrayCache::Load1181ForgeMap() {
 		Java::AssignClass("net.minecraft.client.network.NetHandlerPlayClient", netHandlerPlayClient_class);
 		netHandlerPlayClient_class = (jclass)Java::Env->NewGlobalRef(netHandlerPlayClient_class);
 
-		netHandlerPlayClient_getPlayerInfo = Java::Env->GetMethodID(netHandlerPlayClient_class, "func_175102_a", "(Ljava/util/UUID;)Lnet/minecraft/client/network/NetworkPlayerInfo;");
+		netHandlerPlayClient_getPlayerInfo = Java::Env->GetMethodID(netHandlerPlayClient_class, "func_175102_a", "(Ljava/core/UUID;)Lnet/minecraft/client/network/NetworkPlayerInfo;");
 
 		netHandlerPlayClient_addToSendQueue = Java::Env->GetMethodID(netHandlerPlayClient_class, "addToSendQueue", "(Lnet/minecraft/network/Packet;)V");
 
@@ -136,23 +105,23 @@ void StrayCache::Load1181ForgeMap() {
 			}
 		}
 
-
-		entity_getName = Java::Env->GetMethodID(entity_class, "func_70005_c_", "()Ljava/lang/String;");
+		entity_getBBHeight = Java::Env->GetMethodID(entity_class, "m_20206_", "()F");
+		//entity_getName = Java::Env->GetMethodID(entity_class, "func_70005_c_", "()Ljava/lang/String;");
 		entity_isSneaking = Java::Env->GetMethodID(entity_class, "func_70093_af", "()Z");
 		entity_setSneaking = Java::Env->GetMethodID(entity_class, "func_70095_a", "(Z)V");
 		entity_setPosition = Java::Env->GetMethodID(entity_class, "func_70107_b", "(DDD)V");
 		entity_setSprint = Java::Env->GetMethodID(entity_class, "func_70031_b", "(Z)V");
 		entity_isInvisible = Java::Env->GetMethodID(entity_class, "func_82150_aj", "()Z");
 		entity_inWater = Java::Env->GetMethodID(entity_class, "func_70090_H", "()Z");
-		entity_getUniqueID = Java::Env->GetMethodID(entity_class, "func_110124_au", "()Ljava/util/UUID;");
+		entity_getUniqueID = Java::Env->GetMethodID(entity_class, "func_110124_au", "()Ljava/core/UUID;");
 
-		entity_posX = Java::Env->GetFieldID(entity_class, "field_70165_t", "D");
-		entity_posY = Java::Env->GetFieldID(entity_class, "field_70163_u", "D");
-		entity_posZ = Java::Env->GetFieldID(entity_class, "field_70161_v", "D");
-		entity_lastTickPosX = Java::Env->GetFieldID(entity_class, "field_70142_S", "D");
-		entity_lastTickPosY = Java::Env->GetFieldID(entity_class, "field_70137_T", "D");
-		entity_lastTickPosZ = Java::Env->GetFieldID(entity_class, "field_70136_U", "D");
-		entity_width = Java::Env->GetFieldID(entity_class, "field_70130_N", "F");
+		entity_posX = Java::Env->GetFieldID(entity_class, "f_19790_", "D");
+		entity_posY = Java::Env->GetFieldID(entity_class, "f_19791_", "D");
+		entity_posZ = Java::Env->GetFieldID(entity_class, "f_19792_", "D");
+		entity_lastTickPosX = Java::Env->GetFieldID(entity_class, "f_19790_", "F");
+		entity_lastTickPosY = Java::Env->GetFieldID(entity_class, "f_19791_", "F");
+		entity_lastTickPosZ = Java::Env->GetFieldID(entity_class, "f_19792_", "F");
+		//entity_width = Java::Env->GetFieldID(entity_class, "field_70130_N", "F");
 		entity_height = Java::Env->GetFieldID(entity_class, "field_70131_O", "F");
 		entity_distanceWalkedModified = Java::Env->GetFieldID(entity_class, "field_70140_Q", "F");
 		entity_prevDistanceWalkedModified = Java::Env->GetFieldID(entity_class, "field_70141_P", "F");
@@ -160,7 +129,7 @@ void StrayCache::Load1181ForgeMap() {
 		entity_rotationPitch = Java::Env->GetFieldID(entity_class, "field_70125_A", "F");
 		entity_prevRotationYaw = Java::Env->GetFieldID(entity_class, "field_70126_B", "F");
 		entity_prevRotationPitch = Java::Env->GetFieldID(entity_class, "field_70127_C", "F");
-		entity_boundingBox = Java::Env->GetFieldID(entity_class, "field_70121_D", "Lnet/minecraft/util/math/AxisAlignedBB;");
+		entity_boundingBox = Java::Env->GetFieldID(entity_class, "field_70121_D", "Lnet/minecraft/core/math/AxisAlignedBB;");
 		entity_motionX = Java::Env->GetFieldID(entity_class, "field_70159_w", "D");
 		entity_motionY = Java::Env->GetFieldID(entity_class, "field_70181_x", "D");
 		entity_motionZ = Java::Env->GetFieldID(entity_class, "field_70179_y", "D");
@@ -178,7 +147,7 @@ void StrayCache::Load1181ForgeMap() {
 	{
 		Java::AssignClass("net.minecraft.client.multiplayer.PlayerControllerMP", playerControllerMP_class);
 		playerControllerMP_attackEntity = Java::Env->GetMethodID(playerControllerMP_class, "func_78764_a", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/entity/Entity;)V");
-		playerControllerMP_sendUseItem = Java::Env->GetMethodID(playerControllerMP_class, "func_78769_a", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;)Z");
+		playerControllerMP_sendUseItem = Java::Env->GetMethodID(playerControllerMP_class, "func_78769_a", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraf/.world/item/ItemStack;)Z");
 	}
 
 	{
@@ -234,26 +203,32 @@ void StrayCache::Load1181ForgeMap() {
 		renderManager_viewerPosZ = Java::Env->GetFieldID(renderManager_class, "field_78728_n", "D");
 	}
 
+	//{
+	//	Java::AssignClass("net.minecraft.client.multiplayer.WorldClient", worldClient_class);
+	//	worldClient_class = (jclass)Java::Env->NewGlobalRef(worldClient_class);
+	//	//worldClient_entityList = Java::Env->GetFieldID(worldClient_class, "field_73032_d", "Ljava/core/Set;");
+	//}
+
 	{
-		Java::AssignClass("net.minecraft.client.multiplayer.WorldClient", worldClient_class);
-		worldClient_class = (jclass)Java::Env->NewGlobalRef(worldClient_class);
-
-		worldClient_entityList = Java::Env->GetFieldID(worldClient_class, "field_73032_d", "Ljava/util/Set;");
-
+		Java::AssignClass("net.minecraft.client.multiplayer.ClientLevel", clientLevel_class);
+		clientLevel_class = (jclass)Java::Env->NewGlobalRef(clientLevel_class);
+		clientLevel_players = Java::Env->GetFieldID(clientLevel_class, "f_104566_","Ljava/utils/List");
+		clientLevel_entitiesForRendering = Java::Env->GetMethodID(clientLevel_class, "m_104735_", "()Ljava/lang/Iterable;");
 	}
 
 	{
-		Java::AssignClass("net.minecraft.world.World", world_class);
+		Java::AssignClass("net.minecraft.world.level.Level", world_class);
 		world_class = (jclass)Java::Env->NewGlobalRef(world_class);
 
-		world_rayTraceBlocks = Java::Env->GetMethodID(StrayCache::world_class, "func_147447_a", "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;ZZZ)Lnet/minecraft/util/math/RayTraceResult;");
-		world_getBlockState = Java::Env->GetMethodID(StrayCache::world_class, "func_180495_p", "(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/state/IBlockState;");
-		world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "func_175623_d", "(Lnet/minecraft/util/math/BlockPos;)Z");
-		world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "func_72964_e", "(II)Lnet/minecraft/world/chunk/Chunk;");
+		//world_rayTraceBlocks = Java::Env->GetMethodID(StrayCache::world_class, "func_147447_a", "(Lnet/minecraft/core/math/Vec3d;Lnet/minecraft/core/math/Vec3d;ZZZ)Lnet/minecraft/core/math/RayTraceResult;");
+		world_getBlockState = Java::Env->GetMethodID(StrayCache::world_class, "m_8055_", "(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;");
+		//world_isAirBlock = Java::Env->GetMethodID(StrayCache::world_class, "func_175623_d", "(Lnet/minecraft/core/math/BlockPos;)Z");
+		//world_getChunkFromChunkCoords = Java::Env->GetMethodID(StrayCache::world_class, "func_72964_e", "(II)Lnet/minecraft/world/chunk/Chunk;");
 
-		world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "field_73010_i", "Ljava/util/List;");
+		world_playerEntities = Java::Env->GetFieldID(StrayCache::world_class, "field_73010_i", "Ljava/utils/List;");
 		world_loadedEntityList = Java::Env->GetFieldID(StrayCache::world_class, "field_72996_f", "Ljava/util/List;");
 	}
+
 
 	/*
 	不存在
@@ -268,7 +243,7 @@ void StrayCache::Load1181ForgeMap() {
 
 
 	{
-		Java::AssignClass("net.minecraft.util.Timer", timer_class);
+		Java::AssignClass("net.minecraft.core.Timer", timer_class);
 		timer_class = (jclass)Java::Env->NewGlobalRef(timer_class);
 
 		timer_timerSpeed = Java::Env->GetFieldID(StrayCache::timer_class, "field_194149_e", "F");//猜的
@@ -277,7 +252,7 @@ void StrayCache::Load1181ForgeMap() {
 	}
 
 	{
-		Java::AssignClass("net.minecraft.util.math.AxisAlignedBB", axisAlignedBB_class);
+		Java::AssignClass("net.minecraft.core.math.AxisAlignedBB", axisAlignedBB_class);
 		axisAlignedBB_class = (jclass)Java::Env->NewGlobalRef(axisAlignedBB_class);
 
 		axisAlignedBB_minX = Java::Env->GetFieldID(axisAlignedBB_class, "field_72340_a", "D");
@@ -288,16 +263,16 @@ void StrayCache::Load1181ForgeMap() {
 		axisAlignedBB_maxZ = Java::Env->GetFieldID(axisAlignedBB_class, "field_72334_f", "D");
 	}
 	{
-		Java::AssignClass("net.minecraft.util.math.RayTraceResult", movingObjectPosition_class);
+		Java::AssignClass("net.minecraft.core.math.RayTraceResult", movingObjectPosition_class);
 		movingObjectPosition_class = (jclass)Java::Env->NewGlobalRef(movingObjectPosition_class);
 
-		movingObjectPosition_hitVec = Java::Env->GetFieldID(movingObjectPosition_class, "field_72307_f", "Lnet/minecraft/util/math/Vec3d;");
-		movingObjectPosition_typeOfHit = Java::Env->GetFieldID(movingObjectPosition_class, "field_72313_a", "Lnet/minecraft/util/math/RayTraceResult$Type;");
-		movingObjectPosition_blockPos = Java::Env->GetFieldID(movingObjectPosition_class, "field_178783_e", "Lnet/minecraft/util/math/BlockPos;");
+		movingObjectPosition_hitVec = Java::Env->GetFieldID(movingObjectPosition_class, "field_72307_f", "Lnet/minecraft/core/math/Vec3d;");
+		hitResult_getType = Java::Env->GetMethodID(movingObjectPosition_class, "m_6662_", "Lnet/minecraft/world/phys/HitResult$Type;");
+		movingObjectPosition_blockPos = Java::Env->GetFieldID(movingObjectPosition_class, "field_178783_e", "Lnet/minecraft/core/math/BlockPos;");
 	}
 
 	{
-		Java::AssignClass("net.minecraft.util.math.Vec3d", vec3_class);
+		Java::AssignClass("net.minecraft.core.math.Vec3d", vec3_class);
 		vec3_class = (jclass)Java::Env->NewGlobalRef(vec3_class);
 
 		vec3_xCoord = Java::Env->GetFieldID(vec3_class, "field_72450_a", "D");
@@ -306,83 +281,78 @@ void StrayCache::Load1181ForgeMap() {
 	}
 
 	{
-		Java::AssignClass("net.minecraft.entity.player.InventoryPlayer", inventoryPlayer_class);
+		Java::AssignClass("net.minecraft.entity.player.Inventory", inventoryPlayer_class);
 		inventoryPlayer_class = (jclass)Java::Env->NewGlobalRef(inventoryPlayer_class);
 
-		inventoryPlayer_getCurrentItem = Java::Env->GetMethodID(inventoryPlayer_class, "func_70448_g", "()Lnet/minecraft/item/ItemStack;");
-		inventoryPlayer_getStackInSlot = Java::Env->GetMethodID(inventoryPlayer_class, "func_70301_a", "(I)Lnet/minecraft/item/ItemStack;");
+		inventoryPlayer_getCurrentItem = Java::Env->GetMethodID(inventoryPlayer_class, "m_36056_", "()Lnet/minecraf/.world/item/ItemStack;");
+		inventoryPlayer_getStackInSlot = Java::Env->GetMethodID(inventoryPlayer_class, "m_8020_", "(I)Lnet/minecraf/.world/item/ItemStack;");
 
 
-		inventoryPlayer_mainInv = Java::Env->GetFieldID(inventoryPlayer_class, "field_70462_a", "Lnet/minecraft/util/NonNullList;");
-		inventoryPlayer_armorInv = Java::Env->GetFieldID(inventoryPlayer_class, "field_70460_b", "Lnet/minecraft/util/NonNullList;");
-		inventoryPlayer_currentItem = Java::Env->GetFieldID(inventoryPlayer_class, "field_70461_c", "I");
+		inventoryPlayer_mainInv = Java::Env->GetFieldID(inventoryPlayer_class, "f_35974_", "Lnet/minecraft/core/NonNullList;");
+		inventoryPlayer_armorInv = Java::Env->GetFieldID(inventoryPlayer_class, "f_35975_", "Lnet/minecraft/core/NonNullList;");
+		inventoryPlayer_currentItem = Java::Env->GetFieldID(inventoryPlayer_class, "f_35977_", "I");
 	}
 
 	{
-		Java::AssignClass("net.minecraft.item.ItemStack", itemStack_class);
+		Java::AssignClass("net.minecraft.world.item.ItemStack", itemStack_class);
 		itemStack_class = (jclass)Java::Env->NewGlobalRef(itemStack_class);
 
-		itemStack_getItem = Java::Env->GetMethodID(itemStack_class, "func_77973_b", "()Lnet/minecraft/item/Item;");
-		itemStack_getStrVsBlock = Java::Env->GetMethodID(itemStack_class, "func_150997_a", "(Lnet/minecraft/block/state/IBlockState;)F");
+		itemStack_getItem = Java::Env->GetMethodID(itemStack_class, "m_41720_", "()Lnet/minecraft/world/item/Item;");
+		itemStack_getStrVsBlock = Java::Env->GetMethodID(itemStack_class, "m_41691_", "(Lnet/minecraft/world/level/block/state/BlockState;)F");
 	}
 
 	{
-		Java::AssignClass("net.minecraft.item.Item", item_class);
+		Java::AssignClass("net.minecraft.world.item.Item", item_class);
 
 		item_class = (jclass)Java::Env->NewGlobalRef(item_class);
-		item_getIdFromItem = Java::Env->GetMethodID(item_class, "func_150891_b", "(Lnet/minecraft/item/Item;)I");
+		//item_getIdFromItem = Java::Env->GetMethodID(item_class, "func_150891_b", "(Lnet/minecraft/item/Item;)I");
 	}
 
 	{
-		Java::AssignClass("net.minecraft.item.ItemArmor", itemArmor_Class);
+		Java::AssignClass("net.minecraft.world.item.ArmorItem", itemArmor_Class);
 		itemArmor_Class = (jclass)Java::Env->NewGlobalRef(itemArmor_Class);
 
-		itemArmor_getColor = Java::Env->GetMethodID(itemArmor_Class, "func_82814_b", "(Lnet/minecraft/item/ItemStack;)I");
-	}
-
-	/*
-	* 找不到
-	*/
-	{
-		Java::AssignClass("net.minecraft.item.ItemTool", itemTool_class);
-		itemTool_class = (jclass)Java::Env->NewGlobalRef(itemTool_class);
-
-		//itemTool_getStrVsBlock = Java::Env->GetMethodID(itemTool_class, "func_150893_a", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/block/Block;)F");
+		//itemArmor_getColor = Java::Env->GetMethodID(itemArmor_Class, "func_82814_b", "(Lnet/minecraf/.world/item/ItemStack;)I");
 	}
 
 	{
 		//引用
-		Java::AssignClass("net.minecraft.util.math.BlockPos", blockPos_class);
+		Java::AssignClass("net.minecraft.core.BlockPos", blockPos_class);
 		blockPos_class = (jclass)Java::Env->NewGlobalRef(blockPos_class);
 		blockPos_constructor = Java::Env->GetMethodID(blockPos_class, "<init>", "(DDD)V");
 		blockPos_constructorI = Java::Env->GetMethodID(blockPos_class, "<init>", "(III)V");
-		blockPos_x = Java::Env->GetFieldID(blockPos_class, "field_177994_h", "I");
-		blockPos_y = Java::Env->GetFieldID(blockPos_class, "field_177995_i", "I");
-		blockPos_z = Java::Env->GetFieldID(blockPos_class, "field_177993_j", "I");
+		blockPos_x = Java::Env->GetFieldID(blockPos_class, "f_123285_", "I");
+		blockPos_y = Java::Env->GetFieldID(blockPos_class, "f_123286_", "I");
+		blockPos_z = Java::Env->GetFieldID(blockPos_class, "f_123289_", "I");
 	}
 
 	{
-		Java::AssignClass("net.minecraft.block.Block", block_class);
+		Java::AssignClass("net.minecraft.world.level.block.Block", block_class);
 		block_class = (jclass)Java::Env->NewGlobalRef(block_class);
 
-		block_getIdFromBlock = Java::Env->GetStaticMethodID(block_class, "func_149682_b", "(Lnet/minecraft/block/Block;)I");
+		//block_getIdFromBlock = Java::Env->GetStaticMethodID(block_class, "func_149682_b", "(Lnet/minecraft/block/Block;)I");
+	}
+	{
+		Java::AssignClass("net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase", blockStateBase_class);
+		blockStateBase_class = (jclass)Java::Env->NewGlobalRef(blockStateBase_class);
+
+		blockStateBase_getBlock = Java::Env->GetMethodID(blockStateBase_class, "m_60734_", "()Lnet/minecraft/world/level/block/Block;");
 	}
 
+
+
 	{
-		Java::AssignClass("net.minecraft.block.state.BlockStateContainer", blockState_class);
+		Java::AssignClass("net.minecraft.world.level.block.state.BlockState", blockState_class);
 		blockState_class = (jclass)Java::Env->NewGlobalRef(blockState_class);
-
-		blockState_block = Java::Env->GetFieldID(blockState_class, "field_177627_c", "Lnet/minecraft/block/Block;");
-
 	}
 
-	{
-		Java::AssignClass("net.minecraft.block.state.IBlockState", iBlockState_class);
-		iBlockState_class = (jclass)Java::Env->NewGlobalRef(iBlockState_class);
+	//{
+	//	Java::AssignClass("net.minecraft.block.state.IBlockState", iBlockState_class);
+	//	iBlockState_class = (jclass)Java::Env->NewGlobalRef(iBlockState_class);
 
-		iBlockState_getBlock = Java::Env->GetMethodID(iBlockState_class, "func_177230_c", "()Lnet/minecraft/block/Block;");
+	//	iBlockState_getBlock = Java::Env->GetMethodID(iBlockState_class, "func_177230_c", "()Lnet/minecraft/block/Block;");
 
-	}
+	//}
 
 	{
 		Java::AssignClass("net.minecraft.block.BlockAir", blockAir_class);
@@ -390,10 +360,10 @@ void StrayCache::Load1181ForgeMap() {
 	}
 
 	{
-		Java::AssignClass("net.minecraft.util.NonNullList", nonNullList_class);
+		Java::AssignClass("net.minecraft.core.NonNullList", nonNullList_class);
 		nonNullList_class = (jclass)Java::Env->NewGlobalRef(nonNullList_class);
 
-		nonNullList_List = Java::Env->GetFieldID(nonNullList_class, "field_191198_a", "Ljava/util/List;");
+		nonNullList_List = Java::Env->GetFieldID(nonNullList_class, "f_122773_", "Ljava/core/List;");
 	}
 
 	Java::AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);

@@ -87,7 +87,7 @@ static void handleUpdate(JNIEnv* env)
 		}
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-	}
+	} 
 }
 
 int Base::InitUpdateMessge() {

@@ -4,31 +4,13 @@
 #include "../../../strayCache.h"
 #include "../../../SDK.h"
 
-//CMovingObjectPosition::CMovingObjectPosition()
-//{
-//	if (!StrayCache::initialized) StrayCache::Initialize();
-//	this->Class = StrayCache::movingObjectPosition_class;
-//}
-//
-//CMovingObjectPosition::CMovingObjectPosition(jobject instance) : CMovingObjectPosition()
-//{
-//	this->Instance = instance;
-//}
-//
-//jclass CMovingObjectPosition::getClass()
-//{
-//	return this->Class;
-//}
-//
-//jobject CMovingObjectPosition::getInstance()
-//{
-//	return this->Instance;
-//}
-
-
 
 CVec3 CMovingObjectPosition::GetBlockPosition(JNIEnv* env )
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		return CVec3{};
+	}
 	return CVec3(env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_hitVec));
 }
 
@@ -44,6 +26,24 @@ CBlock CMovingObjectPosition::GetBlock(JNIEnv* env)
 bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )
 {
 	if (!this->getInstance()) return true;
+
+	if (Base::version == FORGE_1_18_1)
+	{
+		jobject typeOfHit = env->CallObjectMethod(this->instance, StrayCache::hitResult_getType);
+		if (!typeOfHit) return false;
+
+		jclass movingObjectType = env->GetObjectClass(typeOfHit);
+		if (!movingObjectType) return false;
+
+		auto block = env->GetStaticFieldID(movingObjectType, "BLOCK", "Lnet/minecraft/world/phys/HitResult$Type;");
+		if (!block) return false;
+		jobject object = env->GetStaticObjectField(movingObjectType, block);
+		if (!object) return false;
+
+		return env->IsSameObject(object, typeOfHit);
+	}
+
+
 
 	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
 	if (!typeOfHit) return false;
@@ -70,6 +70,25 @@ bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )
 
 bool CMovingObjectPosition::IsTypeOfEntity(JNIEnv* env )
 {
+
+
+	if (Base::version == FORGE_1_18_1)
+	{
+		jobject typeOfHit = env->CallObjectMethod(this->instance, StrayCache::hitResult_getType);
+		if (!typeOfHit) return false;
+
+		jclass movingObjectType = env->GetObjectClass(typeOfHit);
+		if (!movingObjectType) return false;
+
+		auto block = env->GetStaticFieldID(movingObjectType, "ENTITY", "Lnet/minecraft/world/phys/HitResult$Type;");
+		if (!block) return false;
+		jobject object = env->GetStaticObjectField(movingObjectType, block);
+		if (!object) return false;
+
+		return env->IsSameObject(object, typeOfHit);
+	}
+
+
 	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
 	if (!typeOfHit) return false;
 
@@ -92,5 +111,12 @@ bool CMovingObjectPosition::IsTypeOfEntity(JNIEnv* env )
 
 BlockPos CMovingObjectPosition::getBlockPos(JNIEnv* env )
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		if (this->IsTypeOfBlock())
+		{
+
+		}
+	}
 	return BlockPos(env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_blockPos));
 }

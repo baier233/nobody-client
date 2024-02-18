@@ -89,6 +89,11 @@ struct StrayCache {
 
 	// ENTITY CLASS
 	inline static jclass entity_class;
+	//ONLY FOR 1.18.1 BEGIN
+	inline static jmethodID entity_getX;
+	inline static jmethodID entity_getY;
+	inline static jmethodID entity_getZ;
+	//END
 	inline static jmethodID entity_getName;
 	inline static jmethodID entity_isSneaking;
 	inline static jmethodID entity_setSneaking;
@@ -97,6 +102,7 @@ struct StrayCache {
 	inline static jmethodID entity_isInvisible;
 	inline static jmethodID entity_inWater;
 	inline static jmethodID entity_getUniqueID;
+	inline static jmethodID entity_getBBHeight;//this is for 1.18.1
 	inline static jfieldID entity_posX;
 	inline static jfieldID entity_posY;
 	inline static jfieldID entity_posZ;
@@ -176,6 +182,14 @@ struct StrayCache {
 	inline static jfieldID world_loadedEntityList;
 	inline static jfieldID world_loadedTileEntityList;//TODO:only 1.12.2
 
+
+	//ClientLevel Class(this is for 1.18.1)
+	inline static jclass clientLevel_class;
+	inline static jfieldID clientLevel_players;
+	inline static jmethodID clientLevel_entitiesForRendering;
+
+
+
 	//tileEntity
 	inline static jclass tileEntity_class;
 	inline static jmethodID tileEntity_getPos;
@@ -232,6 +246,7 @@ struct StrayCache {
 	inline static jfieldID movingObjectPosition_blockZ;
 	inline static jfieldID movingObjectPosition_hitVec;
 	inline static jfieldID movingObjectPosition_typeOfHit;
+	inline static jmethodID hitResult_getType; // this is for 1.18.1
 	inline static jfieldID movingObjectPosition_blockPos;
 
 	inline static jclass vec3_class;
@@ -260,10 +275,16 @@ struct StrayCache {
 	//Block Class
 	inline static jclass block_class;
 	inline static jmethodID block_getIdFromBlock;
+	inline static jmethodID block_isAir;  // this is for 1.18.1
 
 	//BlockState Class
 	inline static jclass blockState_class;
 	inline static jfieldID blockState_block;
+	//inline static jmethodID blockState_getBlock; // this is for 1.18.1
+
+	//blockStateBase Class(PS:this is for 1.18.1)
+	inline static jclass blockStateBase_class;
+	inline static jmethodID blockStateBase_getBlock;
 
 	//IBlockState Class
 	inline static jclass iBlockState_class;
@@ -285,12 +306,20 @@ struct StrayCache {
 	inline static jclass itemTool_class;
 	inline static jmethodID itemTool_getStrVsBlock;
 
+	//DyeableLeatherItem Class(this is for 1.18.1)
+	inline static jclass dyeableLeatherItem_class;
+	inline static jmethodID dyeableLeatherItem_getColor;
+
 	//NonNullList Class
 	inline static jclass nonNullList_class;
 	inline static jfieldID nonNullList_List;
 
 	//EntityItem Class
 	inline static jclass entityItem_class;
+
+	inline static jclass hitResult_class;
+
+
 
 	static void Load112ForgeMap();
 	static void Load189ForgeMap();

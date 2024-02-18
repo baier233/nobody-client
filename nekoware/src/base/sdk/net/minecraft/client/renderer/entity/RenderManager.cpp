@@ -5,6 +5,7 @@
 
 Vector3 CRenderManager::RenderPos(JNIEnv* env)
 {
+
 	return Vector3{
 		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_renderPosX),
 		(float)(double)env->GetDoubleField(instance, StrayCache::renderManager_renderPosY),

@@ -63,6 +63,14 @@ Vector3 CEntity::GetEyePos(JNIEnv* env)
 
 Vector3 CEntity::GetLastTickPos(JNIEnv* env)
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		return Vector3{
+		env->GetFloatField(this->getInstance(), StrayCache::entity_lastTickPosX),
+		env->GetFloatField(this->getInstance(), StrayCache::entity_lastTickPosY),
+		env->GetFloatField(this->getInstance(), StrayCache::entity_lastTickPosZ)
+		};
+	}
 	return Vector3{
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosX),
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosY),
@@ -167,6 +175,10 @@ void CEntity::setSneaking(bool state, JNIEnv* env)
 float CEntity::GetHeight(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return NULL;
+	if (Base::version == FORGE_1_18_1)
+	{
+		return env->CallFloatMethod(this->instance, StrayCache::entity_getBBHeight);
+	}
 	return env->GetFloatField(this->getInstance(), StrayCache::entity_height);
 }
 

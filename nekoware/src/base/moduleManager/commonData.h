@@ -58,9 +58,18 @@ public:
 		if (SDK::Minecraft->thePlayer->IsSneaking())
 			ySubtractValue -= .175f;
 		isCombat = false;
-		renderPos = SDK::Minecraft->renderManager->RenderPos() + Vector3{ 0, ySubtractValue, 0 };
+		
 		renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
+		if (Base::version == FORGE_1_18_1)
+		{
+			auto pos = SDK::Minecraft->thePlayer->GetPos();
+			auto listTickPos = SDK::Minecraft->thePlayer->GetLastTickPos();
 
+		}
+		else {
+
+			renderPos = SDK::Minecraft->renderManager->RenderPos() + Vector3{ 0, ySubtractValue, 0 };
+		}
 
 		dataUpdated = true;
 	}

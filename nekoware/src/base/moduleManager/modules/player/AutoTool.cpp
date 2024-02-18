@@ -85,7 +85,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 			if (!item || item.isNULL()) continue;
 			
 			float speed;
-			if (Base::version == FORGE_1_12_2 || Base::version == LUNAR_1_12_2)
+			if (Base::version == FORGE_1_12_2 || Base::version == LUNAR_1_12_2 || Base::version == FORGE_1_18_1)
 			{
 				speed = item.GetStrVsBlock(blockstate);
 			} else {
