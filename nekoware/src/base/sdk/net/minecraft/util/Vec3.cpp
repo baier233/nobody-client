@@ -4,26 +4,6 @@
 #include "../../../../util/logger.h"
 #include "../../../strayCache.h"
 
-//CVec3::CVec3()
-//{
-//	if (!StrayCache::initialized) StrayCache::Initialize();
-//	this->Class = StrayCache::movingObjectPosition_class;
-//}
-//
-//CVec3::CVec3(jobject instance) : CVec3()
-//{
-//	this->Instance = instance;
-//}
-//
-//jclass CVec3::getClass()
-//{
-//	return this->Class;
-//}
-//
-//jobject CVec3::getInstance()
-//{
-//	return this->Instance;
-//}
 
 Vector3 CVec3::GetNativeVector3(JNIEnv* env )
 {

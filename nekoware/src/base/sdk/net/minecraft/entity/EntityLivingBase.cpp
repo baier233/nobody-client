@@ -43,6 +43,10 @@ float CEntityLivingBase::getMoveForward(JNIEnv* env )
 
 bool CEntityLivingBase::CanEntityBeSeen(jobject entity, JNIEnv* env )
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		if (!Java::Env->IsInstanceOf(entity, StrayCache::entityLivingBase_class)) return false;
+	}
 	return env->CallBooleanMethod(this->getInstance(), StrayCache::entityLivingBase_canEntityBeSeen, entity);
 }
 

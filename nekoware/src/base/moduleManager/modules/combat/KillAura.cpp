@@ -204,8 +204,8 @@ void Killaura::onUpdate(const EventUpdate e) {
 		SendMessage(Menu::HandleWindow, WM_LBUTTONUP, 0, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 	}
 	else if (this->killauraMode->getValue() == Normal) {
-		thePlayer.swingItem();
-		CommonData::getInstance()->isCombat = true;
+		//thePlayer.swingItem();
+		//CommonData::getInstance()->isCombat = true;
 		thePlayer.attackEntity(&thePlayer, target.getInstance());
 	}
 	if (autoblockValue->getValue() == true && this->killauraMode->getValue() == Legit) {

@@ -46,15 +46,32 @@ struct StrayCache {
 	inline static jfieldID activeRenderInfo_MODELVIEW;
 	inline static jfieldID activeRenderInfo_PROJECTION;
 
+	//Render System Class (1.18.1
+	inline static jclass renderSystem_class;
+	inline static jfieldID renderSystem_shader;
+
+	//ShaderInstance Class (1.18.1
+	inline static jclass shaderInstance_class;
+	inline static jfieldID shaderInstance_MODEL_VIEW_MATRIX;
+	inline static jfieldID shaderInstance_PROJECTION_MATRIX;
+
+	//Uniform Class (1.18.1
+	inline static jclass uniform_class;
+	inline static jfieldID uniform_floatValues;
 
 	//Game Settings
 	inline static jclass gamesettings_class;
 	inline static jmethodID gamesettings_setOptionKeyBinding;
+	inline static jfieldID gamesettings_cameraType;//this is for 1.18.1
 	inline static jfieldID gamesettings_thirdPersonView;
 	inline static jfieldID gamesettings_fovSetting;
 	inline static jfieldID gamesettings_gammaSetting;
 	inline static jfieldID gamesettings_keyBindFullscreen;
 	inline static jfieldID gamesettings_keyBindSneak;
+
+	//CameraType Class (1.18.1
+	inline static jclass cameraType_class;
+	inline static jmethodID cameraType_isFirstPerson;
 
 	//CPacketPlayr Class
 	inline static jclass cpacketPlayer_class;
@@ -118,6 +135,7 @@ struct StrayCache {
 	inline static jfieldID entity_prevRotationYaw;
 	inline static jfieldID entity_prevRotationPitch;
 	inline static jfieldID entity_boundingBox;
+	inline static jfieldID entity_deltaMovement;
 	inline static jfieldID entity_motionX;
 	inline static jfieldID entity_motionY;
 	inline static jfieldID entity_motionZ;
@@ -141,6 +159,7 @@ struct StrayCache {
 	//Entity Player
 	inline static jclass entityPlayer_class;
 	inline static jmethodID entityPlayer_isBlocking;
+	inline static jmethodID entityPlayer_getInventory; // this is for 1.18.1
 	inline static jfieldID entityPlayer_inventory;
 
 

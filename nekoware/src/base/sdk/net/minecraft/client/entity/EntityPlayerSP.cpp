@@ -9,6 +9,11 @@
 
 void CEntityPlayerSP::setSneak(bool state, JNIEnv* env )
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		this->setSneaking(true,env);
+;		return;
+	}
 	CGameSettings* settings = SDK::Minecraft->gameSettings;
 	jobject sneakObj = env->GetObjectField(settings->getInstance(), StrayCache::gamesettings_keyBindSneak);
 	jclass keybind_class = env->GetObjectClass(sneakObj);

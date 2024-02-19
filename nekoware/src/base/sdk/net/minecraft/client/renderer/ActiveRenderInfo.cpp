@@ -7,6 +7,20 @@
 
 Matrix CActiveRenderInfo::ProjectionMatrix(JNIEnv* env )
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		auto shaderInstance = Java::Env->GetStaticObjectField(StrayCache::renderSystem_class, StrayCache::renderSystem_shader);
+		if (!shaderInstance) return Matrix{};
+		auto projectionUniform = Java::Env->GetObjectField(shaderInstance, StrayCache::shaderInstance_PROJECTION_MATRIX);
+		if (!projectionUniform) return Matrix{};
+		auto floatValues = Java::Env->GetObjectField(projectionUniform, StrayCache::uniform_floatValues);
+		if (!floatValues) return Matrix{};
+		Matrix m = FloatBuffer(floatValues).GetMatrix();
+		return m;
+	}
+
+
+
 	jobject projection = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_PROJECTION);
 	if (!projection)
 	{
@@ -18,6 +32,19 @@ Matrix CActiveRenderInfo::ProjectionMatrix(JNIEnv* env )
 
 Matrix CActiveRenderInfo::ModelViewMatrix(JNIEnv* env )
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		auto shaderInstance = Java::Env->GetStaticObjectField(StrayCache::renderSystem_class, StrayCache::renderSystem_shader);
+		if (!shaderInstance) return Matrix{};
+		auto modleViewUniform = Java::Env->GetObjectField(shaderInstance, StrayCache::shaderInstance_MODEL_VIEW_MATRIX);
+		if (!modleViewUniform) return Matrix{};
+		auto floatValues = Java::Env->GetObjectField(modleViewUniform, StrayCache::uniform_floatValues);
+		if (!floatValues) return Matrix{};
+		Matrix m = FloatBuffer(floatValues).GetMatrix();
+		return m;
+	}
+
+
 	jobject modelView = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_MODELVIEW);
 	if (!modelView)
 	{

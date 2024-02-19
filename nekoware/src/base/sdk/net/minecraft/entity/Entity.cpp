@@ -4,9 +4,15 @@
 #include "../../../strayCache.h"
 
 #include "../../../../util/logger.h"
+#include "../util/Vec3.h"
+#include "EntityLivingBase.h"
 
 std::string CEntity::GetName(JNIEnv* env)
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		return "UnImplement";
+	}
 	return "";
 	if (!this->check())
 	{
@@ -79,6 +85,20 @@ Vector3 CEntity::GetLastTickPos(JNIEnv* env)
 }
 
 void CEntity::setMotion(Vector3 motion, JNIEnv* env) {
+	if (Base::version == FORGE_1_18_1)
+	{
+
+		auto vec3 = CVec3(Java::Env->GetObjectField(this->instance, StrayCache::entity_deltaMovement));
+		if (motion.x != 100000000000) {
+			env->SetDoubleField(vec3.getInstance(), StrayCache::vec3_xCoord, motion.x);
+		}
+		if (motion.y != 100000000000) {
+			env->SetDoubleField(vec3.getInstance(), StrayCache::vec3_yCoord, motion.y);
+		}
+		if (motion.z != 100000000000) {
+			env->SetDoubleField(vec3.getInstance(), StrayCache::vec3_zCoord, motion.z);
+		}
+	}
 	if (motion.x != 100000000000) {
 		env->SetDoubleField(this->getInstance(), StrayCache::entity_motionX, motion.x);
 	}
@@ -96,6 +116,10 @@ void CEntity::setSprint(bool state, JNIEnv* env)
 }
 
 Vector3 CEntity::getMotion(JNIEnv* env) {
+	if (Base::version == FORGE_1_18_1)
+	{
+		return CVec3(Java::Env->GetObjectField(this->instance,StrayCache::entity_deltaMovement)).GetNativeVector3();
+	}
 	return Vector3{
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_motionX),
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_motionY),
@@ -119,6 +143,10 @@ bool CEntity::inWater(JNIEnv* env)
 bool CEntity::isDead(JNIEnv* env)
 {
 	if (!this->isValid() || this->isNULL()) return true;
+	if (Base::version == FORGE_1_18_1)
+	{
+		return CEntityLivingBase(this->getInstance()).GetHealth() <= 0;
+	}
 	return env->GetBooleanField(this->getInstance(), StrayCache::entity_isDead);
 }
 
