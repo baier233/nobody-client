@@ -165,7 +165,7 @@ void Java::Kill()
 bool Java::AssignClass(std::string name, jclass& out)
 {
 
-	if (Base::version == BADLION)
+	if (Base::version == BADLION or Base::version == FORGE_1_18_1)
 	{
 		jclass* loaded_classes = nullptr;
 		jint loaded_classes_count = 0;

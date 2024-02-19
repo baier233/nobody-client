@@ -49,7 +49,7 @@ void StrayCache::Load1181ForgeMap() {
 		//gamesettings_setOptionKeyBinding = Java::Env->GetMethodID(gamesettings_class, "func_151440_a", "(Lnet/minecraft/client/settings/KeyBinding;I)V");
 		//gamesettings_thirdPersonView = Java::Env->GetFieldID(StrayCache::gamesettings_class, "field_74320_O", "I");
 		gamesettings_cameraType = Java::Env->GetFieldID(gamesettings_class, "f_92111_", "Lnet/minecraft/client/CameraType;");
-		gamesettings_fovSetting = Java::Env->GetFieldID(StrayCache::gamesettings_class, "f_92068_", "F");
+		gamesettings_fovSetting = Java::Env->GetFieldID(StrayCache::gamesettings_class, "f_92068_", "D");
 		gamesettings_gammaSetting = Java::Env->GetFieldID(StrayCache::gamesettings_class, "f_92071_", "D");
 		//gamesettings_keyBindFullscreen = Java::Env->GetFieldID(StrayCache::gamesettings_class, "field_152395_am", "Lnet/minecraft/client/settings/KeyBinding;");
 		//gamesettings_keyBindSneak = Java::Env->GetFieldID(gamesettings_class, "field_74311_E", "Lnet/minecraft/client/settings/KeyBinding;");
@@ -267,7 +267,7 @@ void StrayCache::Load1181ForgeMap() {
 	}
 
 	{
-		Java::AssignClass("net.minecraft.entity.player.Inventory", inventoryPlayer_class);
+		Java::AssignClass("net.minecraft.world.entity.player.Inventory", inventoryPlayer_class);
 		inventoryPlayer_class = (jclass)Java::Env->NewGlobalRef(inventoryPlayer_class);
 
 		inventoryPlayer_getCurrentItem = Java::Env->GetMethodID(inventoryPlayer_class, "m_36056_", "()Lnet/minecraf/.world/item/ItemStack;");

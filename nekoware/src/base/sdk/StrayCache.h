@@ -396,6 +396,12 @@ struct StrayCache {
 			Load112MCPMap();
 			goto End;
 		}
+		if (Base::version == FORGE_1_18_1)
+		{
+			std::cout << "Forge 1.18.1" << std::endl;
+			Load1181ForgeMap();
+			goto End;
+		}
 
 		//Load112MCPMap();
 	End:

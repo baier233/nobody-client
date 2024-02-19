@@ -236,7 +236,11 @@ void Base::checkVersion() {
 	auto cmd = std::string(GetCommandLineA());
 	auto window = getCurrentWindow();
 	auto name = getWindowName(window);
-
+	if (name.find("1.18.1") != -1)
+	{
+		version = FORGE_1_18_1;
+		return;
+	}
 	if (JNIHelper::IsForge())
 	{
 
@@ -245,6 +249,8 @@ void Base::checkVersion() {
 			version = FORGE_1_12_2;
 			return;
 		}
+
+		
 		if (name.find("1.7.10") != -1) {
 			version = FORGE_1_7_10;
 			return;
@@ -263,6 +269,12 @@ void Base::checkVersion() {
 		}
 		if (cmd.find("1.8.9") != -1) {
 			version = FORGE_1_8_9;
+			return;
+		}
+
+		if (cmd.find("1.18.1") != -1)
+		{
+			version = FORGE_1_18_1;
 			return;
 		}
 		

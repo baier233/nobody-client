@@ -4,7 +4,7 @@
 
 float CGameSettings::GetFOV(JNIEnv* env )
 {
-	return env->GetFloatField(this->getInstance(), StrayCache::gamesettings_fovSetting);
+	return env->GetDoubleField(this->getInstance(), StrayCache::gamesettings_fovSetting);
 }
 
 void CGameSettings::SetGamma(float gamma, JNIEnv* env )
