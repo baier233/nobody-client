@@ -23,7 +23,7 @@ float CGameSettings::GetGamma(JNIEnv* env )
 	if (Base::version == FORGE_1_18_1)
 	{
 		env->GetDoubleField(this->getInstance(), StrayCache::gamesettings_gammaSetting);
-		return;
+		return 0.f;
 	}
 	return env->GetFloatField(this->getInstance(), StrayCache::gamesettings_gammaSetting);
 }
@@ -49,6 +49,21 @@ void CGameSettings::RestoreFullscreenKey(JNIEnv* env )
 
 int CGameSettings::GetThirdPersonView(JNIEnv* env )
 {
+	if (Base::version == FORGE_1_18_1)
+	{
+		auto cameraType = Java::Env->GetObjectField(SDK::Minecraft->gameSettings->getInstance(),StrayCache::gamesettings_cameraType);
+		if (!cameraType) return 0;
+		bool isFirstPerson = Java::Env->CallBooleanMethod(cameraType, StrayCache::cameraType_isFirstPerson);
+		if (isFirstPerson)
+		{
+			return 0;
+		}
+		else {
+			return 2;
+		}
+		
+		
+	}
 	return env->GetIntField(this->getInstance(), StrayCache::gamesettings_thirdPersonView);
 }
 
