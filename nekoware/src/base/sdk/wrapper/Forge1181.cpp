@@ -34,13 +34,13 @@ void StrayCache::Load1181ForgeMap() {
 		minecraft_rightClickDelayTimer = Java::Env->GetFieldID(minecraft_class, "f_91011_", "I");
 
 	}
+
 	{
 		Java::AssignClass("net.minecraft.client.CameraType", cameraType_class);
 		cameraType_class = (jclass)Java::Env->NewGlobalRef(cameraType_class);
 
 		cameraType_isFirstPerson = Java::Env->GetMethodID(cameraType_class, "m_90612_", "()Z");
 	}
-
 
 	{
 		Java::AssignClass("net.minecraft.client.Options", gamesettings_class);
@@ -89,7 +89,7 @@ void StrayCache::Load1181ForgeMap() {
 		Java::AssignClass("net.minecraft.world.entity.Entity", entity_class);
 		entity_class = (jclass)Java::Env->NewGlobalRef(entity_class);
 
-		
+
 
 		entity_getBBHeight = Java::Env->GetMethodID(entity_class, "m_20206_", "()F");
 		//entity_getName = Java::Env->GetMethodID(entity_class, "func_70005_c_", "()Ljava/lang/String;");
@@ -167,15 +167,15 @@ void StrayCache::Load1181ForgeMap() {
 	{
 		Java::AssignClass("com.mojang.blaze3d.systems.RenderSystem", renderSystem_class);
 		renderSystem_class = (jclass)Java::Env->NewGlobalRef(renderSystem_class);
-		renderSystem_shader = Java::Env->GetStaticFieldID(renderSystem_class, "f_157144_", "Lnet/minecraft/client/renderer/ShaderInstance;");	
+		renderSystem_shader = Java::Env->GetStaticFieldID(renderSystem_class, "f_157144_", "Lnet/minecraft/client/renderer/ShaderInstance;");
 
 	}
 
 	{
 		Java::AssignClass("net.minecraft.client.renderer.ShaderInstance", shaderInstance_class);
 		shaderInstance_class = (jclass)Java::Env->NewGlobalRef(shaderInstance_class);
-		shaderInstance_MODEL_VIEW_MATRIX  =  Java::Env->GetFieldID(shaderInstance_class, "f_173308_", "Lcom/mojang/blaze3d/shaders/Uniform;");
-		shaderInstance_PROJECTION_MATRIX  =  Java::Env->GetFieldID(shaderInstance_class, "f_173309_", "Lcom/mojang/blaze3d/shaders/Uniform;");
+		shaderInstance_MODEL_VIEW_MATRIX = Java::Env->GetFieldID(shaderInstance_class, "f_173308_", "Lcom/mojang/blaze3d/shaders/Uniform;");
+		shaderInstance_PROJECTION_MATRIX = Java::Env->GetFieldID(shaderInstance_class, "f_173309_", "Lcom/mojang/blaze3d/shaders/Uniform;");
 	}
 
 
@@ -210,7 +210,7 @@ void StrayCache::Load1181ForgeMap() {
 	{
 		Java::AssignClass("net.minecraft.client.multiplayer.ClientLevel", clientLevel_class);
 		clientLevel_class = (jclass)Java::Env->NewGlobalRef(clientLevel_class);
-		clientLevel_players = Java::Env->GetFieldID(clientLevel_class, "f_104566_","Ljava/utils/List");
+		clientLevel_players = Java::Env->GetFieldID(clientLevel_class, "f_104566_", "Ljava/utils/List");
 		clientLevel_entitiesForRendering = Java::Env->GetMethodID(clientLevel_class, "m_104735_", "()Ljava/lang/Iterable;");
 	}
 
@@ -225,7 +225,7 @@ void StrayCache::Load1181ForgeMap() {
 	}
 
 
-	
+
 
 
 

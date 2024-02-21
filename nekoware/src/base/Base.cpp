@@ -87,14 +87,48 @@ static void handleUpdate(JNIEnv* env)
 		}
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-	} 
+	}
 }
 
 int Base::InitUpdateMessge() {
 	JNINativeMethod native[] = {
-	{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(handleUpdate)} };
+		{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(handleUpdate)} };
 	jclass clazz{};
-	Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
+
+	jint classCount;
+	jclass* classes;
+	int error = Java::Jvmti->GetLoadedClasses(&classCount, &classes);
+	if (error != JVMTI_ERROR_NONE) {
+		return -1;
+	}
+	for (int i = 0; i < classCount; i++) {
+		jclass cls = classes[i];
+
+		char* className;
+		error = Java::Jvmti->GetClassSignature(cls, &className, NULL);
+		if (error == JVMTI_ERROR_NONE) {
+			if (version != FORGE_1_18_1) {
+				if (std::string(className).find("Lorg/lwjgl/opengl/WindowsDisplay;") != -1) {
+					clazz = classes[i];
+				}
+			}
+			else
+			{
+				if (strstr(className, "windowDisply") != NULL) {
+					// 类名包含 "windowDisply"
+					printf("Class: %s\n", className);
+				}
+			}
+			Java::Jvmti->Deallocate((unsigned char*)className);
+		}
+	}
+
+	Java::Jvmti->Deallocate((unsigned char*)classes);
+
+
+	////org.lwjgl.opengl.WindowsDisplay 
+	if (!clazz)
+		Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 	if (!clazz)
 	{
 		Java::Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
@@ -122,7 +156,8 @@ void Base::Init()
 	//JavaHook::init();
 	Menu::Init();
 	initModule();
-	InitUpdateMessge();
+	if (version != FORGE_1_18_1)
+		InitUpdateMessge();
 	ResourceManager::getInstance().LoadAllResource();
 	Base::Running = true;
 	//SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
@@ -190,7 +225,7 @@ void Base::initModule() {
 		ModuleManager::getInstance().addModule<Blink>(Blink::getInstance());
 	}
 
-	
+
 }
 
 struct Process
@@ -245,12 +280,12 @@ void Base::checkVersion() {
 	{
 
 		isObfuscate = true;
-		if (name.find("1.12.2") != -1 || name.find("花雨庭") != -1 ) {	
+		if (name.find("1.12.2") != -1 || name.find("花雨庭") != -1) {
 			version = FORGE_1_12_2;
 			return;
 		}
 
-		
+
 		if (name.find("1.7.10") != -1) {
 			version = FORGE_1_7_10;
 			return;
@@ -277,7 +312,7 @@ void Base::checkVersion() {
 			version = FORGE_1_18_1;
 			return;
 		}
-		
+
 
 		return;
 	}
@@ -311,7 +346,7 @@ void Base::handleEventKey(int key) {
 void Base::Kill()
 {
 	for (HMOD mod : ModuleManager::getInstance().getMods()) {
-		if (auto module = ToBaseModule(mod);module->getToggle())
+		if (auto module = ToBaseModule(mod); module->getToggle())
 		{
 			module->setToggle(false);
 		}
@@ -330,10 +365,42 @@ void Base::Kill()
 	if (og != nullptr)
 	{
 		jclass clazz{};
-		Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
+		jint classCount;
+		jclass* classes;
+		int error = Java::Jvmti->GetLoadedClasses(&classCount, &classes);
+		if (error != JVMTI_ERROR_NONE) {
+			return;
+		}
+		for (int i = 0; i < classCount; i++) {
+			jclass cls = classes[i];
+
+			char* className;
+			error = Java::Jvmti->GetClassSignature(cls, &className, NULL);
+			if (error == JVMTI_ERROR_NONE) {
+				if (version != FORGE_1_18_1) {
+					if (std::string(className).find("Lorg/lwjgl/opengl/WindowsDisplay;") != -1) {
+						clazz = classes[i];
+					}
+					else
+					{
+						if (strstr(className, "windowDisply") != NULL) {
+							// 类名包含 "windowDisply"
+							printf("Class: %s\n", className);
+						}
+					}
+
+				}
+				Java::Jvmti->Deallocate((unsigned char*)className);
+			}
+		}
+
+		Java::Jvmti->Deallocate((unsigned char*)classes);
+		if (!clazz)
+			Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 		if (!clazz)
 		{
 			std::cout << "Unable to find windowsDisplay Class" << std::endl;
+			std::cout << "try env->FindClass" << std::endl;
 			Java::Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
 		}
 		if (clazz)

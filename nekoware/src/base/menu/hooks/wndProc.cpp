@@ -13,12 +13,24 @@ typedef LRESULT(CALLBACK* template_WndProc) (HWND, UINT, WPARAM, LPARAM);
 template_WndProc original_wndProc;
 LRESULT CALLBACK hook_WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (Base::version == FORGE_1_18_1 and Menu::Initialized) {
+		if (msg == WM_KEYDOWN)
+		{
+			Base::justPressed = true;
+			if (wParam == Menu::Keybind)
+				Menu::Open = !Menu::Open;
+			if (wParam == VK_ESCAPE and Menu::Open)
+				Menu::Open = false;
+
+			ModuleManager::getInstance().ProcessKeyEvent(wParam);
+		}
+	}
+
 	if (Menu::Open && Menu::Initialized)
 	{
 		ImGui_ImplWin32_WndProcHandler(hwnd, msg, wParam, lParam);
 		return true;
 	}
-
 	return CallWindowProc(original_wndProc, hwnd, msg, wParam, lParam);
 }
 

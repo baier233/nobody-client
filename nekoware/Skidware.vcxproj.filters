@@ -132,6 +132,7 @@
     <ClCompile Include="src\base\sdk\wrapper\Forge1710.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Vanllia189.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Forge1181.cpp" />
+    <ClCompile Include="src\base\util\render\Framebuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -604,6 +605,7 @@
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntity.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntityBed.h" />
     <ClInclude Include="src\base\util\TitanHook.h" />
+    <ClInclude Include="src\base\util\render\Framebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -749,5 +751,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ext\glm\copying.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="glew32s.lib" />
   </ItemGroup>
 </Project>
