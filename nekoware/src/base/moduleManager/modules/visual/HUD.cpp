@@ -181,10 +181,8 @@ void HUD::RenderUpdate()
 	ModuleManager::getInstance().getModule(true, &(this->enabledMods));
 	std::stable_sort(this->enabledMods.begin(), this->enabledMods.end(), EnabledListSorter());
 	ImDrawList* dl = ImGui::GetForegroundDrawList();
-
-	switch (this->ArrayListMode->getValue())
-	{
-	case 1:
+	switch (this->ArrayListMode->getValue()) {
+	case Old:
 	{
 		Block enabledListBlock{};
 		enabledListBlock.x = enabledListX;
@@ -208,9 +206,9 @@ void HUD::RenderUpdate()
 			enabledListBlock.height += enabledModBgHeight;
 			curYOffset += enabledModBgHeight;
 		}
+		break;
 	}
-
-	default:
+	case New:
 	{
 
 		std::string watermark = " | " + getCurrentTimeFormatted() + " | " + std::to_string(static_cast<int>(std::round(ImGui::GetIO().Framerate)));
@@ -234,9 +232,10 @@ void HUD::RenderUpdate()
 			float curModY = curYOffset;
 			float currentTime = ImGui::GetTime();
 			dl->AddRectFilled(ImVec2(curModX, curModY), ImVec2(curModX + modNameWidth, curModY + enabledModBgHeight), IM_COL32(0, 0, 0, 150));
-			dl->AddText(Menu::Font, modNameFontSize, ImVec2(curModX + modNameOffsetX, curModY + modNameOffsetY), this->rainbow(50, 100 * i), curMod->getName().c_str());
+			dl->AddText(Menu::Font, modNameFontSize, ImVec2(curModX + modNameOffsetX, curModY + modNameOffsetY), this->rainbow(100, 100 * i), curMod->getName().c_str());
 			curYOffset += enabledModBgHeight;
 		}
+		break;
 	}
 	}
 }
