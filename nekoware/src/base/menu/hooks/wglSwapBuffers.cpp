@@ -129,6 +129,8 @@ inline ImTextureID glLoadTextureFromMemory(const unsigned char* buffer, int size
 }
 
 #include "../HarmonyOS_Sans_Regular.h"
+#include "../neverlose900.h"
+#include "../neverlose500.h"
 #include "../Dreamscape_Sans.h"
 #include "../../Resource/image/info.h"
 #include "../../Resource/image/error.h"
@@ -162,6 +164,9 @@ void Menu::SetupImgui()
 	//Harmony_Regular_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Regular,HarmonyOS_Sans_Regular_size, 25.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 	//Harmony_Bold_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Bold, HarmonyOS_Sans_Bold_size, 25.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 	Manrope_Semmi_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Regular, HarmonyOS_Sans_Regular_size, 17.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+
+	Menu::nlBold14 = io.Fonts->AddFontFromMemoryTTF(&neverlose900, neverlose900_size, 14.f, NULL);
+	Menu::nl14 = io.Fonts->AddFontFromMemoryTTF(&neverlose500, neverlose500_size, 14.f, NULL);
 	Menu::Font = Manrope_Semmi_Font;
 	//Benzin_Medium_Font = Harmony_Bold_Font;
 	if (image::check == nullptr) image::check = glLoadTextureFromMemory(check_icon, sizeof(check_icon));

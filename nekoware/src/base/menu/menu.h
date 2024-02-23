@@ -23,6 +23,8 @@ struct Menu
 	static inline bool Open;
 	static inline int Keybind;
 	static inline ImFont* Font;
+	static inline ImFont* nl14;
+	static inline ImFont* nlBold14;
 	static inline bool Initialized;
 
 	static void SetupImgui();

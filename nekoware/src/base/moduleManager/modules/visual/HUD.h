@@ -9,7 +9,7 @@
 #include <chrono>
 #include <cmath>
 #include <cstdint>
-
+#include <sys/timeb.h>
 struct Color {
 	float red;
 	float green;
@@ -35,10 +35,22 @@ private:
 		Old
 	};
 	const char* Arraylists[3]{ "New", "Old" };
+	typedef struct {
+		double r;       // a fraction between 0 and 1
+		double g;       // a fraction between 0 and 1
+		double b;       // a fraction between 0 and 1
+	} ColorRGB;
 
-	Color HSBtoRGB(float hue, float saturation, float brightness);
+	typedef struct {
+		double h;       // angle in degrees
+		double s;       // a fraction between 0 and 1
+		double v;       // a fraction between 0 and 1
+	} ColorHSV;
+	ColorHSV RGB2HSV(ColorRGB in);
 
-	Color rainbow(float tick);
+	ColorRGB HSV2RGB(ColorHSV in);
+
+	int rainbow(int delay, long timeOffset);
 };
 
 class EnabledListSorter {

@@ -7,78 +7,130 @@ HUD::HUD() : AbstractModule("HUD", Category::VISUAL, "HUD.") {
 	this->addValue(ListType, this->ArrayListMode);
 }
 
-Color HUD::HSBtoRGB(float hue, float saturation, float brightness) {
-	float red, green, blue;
-	if (saturation == 0) {
-		red = green = blue = brightness;
+HUD::ColorHSV HUD::RGB2HSV(ColorRGB in)
+{
+
+	ColorHSV         out;
+	double      min, max, delta;
+
+	min = in.r < in.g ? in.r : in.g;
+	min = min < in.b ? min : in.b;
+
+	max = in.r > in.g ? in.r : in.g;
+	max = max > in.b ? max : in.b;
+
+	out.v = max;                                // v
+	delta = max - min;
+	if (delta < 0.00001)
+	{
+		out.s = 0;
+		out.h = 0; // undefined, maybe nan?
+		return out;
+	}
+	if (max > 0.0) { // NOTE: if Max is == 0, this divide would cause a crash
+		out.s = (delta / max);                  // s
 	}
 	else {
-		float huePrime = hue * 6;
-		int hueSector = static_cast<int>(huePrime);
-		float hueFraction = huePrime - hueSector;
-		float p = brightness * (1 - saturation);
-		float q = brightness * (1 - saturation * hueFraction);
-		float t = brightness * (1 - saturation * (1 - hueFraction));
-
-		switch (hueSector) {
-		case 0:
-			red = brightness;
-			green = t;
-			blue = p;
-			break;
-		case 1:
-			red = q;
-			green = brightness;
-			blue = p;
-			break;
-		case 2:
-			red = p;
-			green = brightness;
-			blue = t;
-			break;
-		case 3:
-			red = p;
-			green = q;
-			blue = brightness;
-			break;
-		case 4:
-			red = t;
-			green = p;
-			blue = brightness;
-			break;
-		default:
-			red = brightness;
-			green = p;
-			blue = q;
-			break;
-		}
+		// if max is 0, then r = g = b = 0              
+		// s = 0, h is undefined
+		out.s = 0.0;
+		out.h = NAN;                            // its now undefined
+		return out;
 	}
+	if (in.r >= max)                           // > is bogus, just keeps compilor happy
+		out.h = (in.g - in.b) / delta;        // between yellow & magenta
+	else
+		if (in.g >= max)
+			out.h = 2.0 + (in.b - in.r) / delta;  // between cyan & yellow
+		else
+			out.h = 4.0 + (in.r - in.g) / delta;  // between magenta & cyan
 
-	Color result;
-	result.red = red;
-	result.green = green;
-	result.blue = blue;
-	result.alpha = 1.0f;
-	return result;
+	out.h *= 60.0;                              // degrees
+
+	if (out.h < 0.0)
+		out.h += 360.0;
+
+	return out;
 }
 
-Color HUD::rainbow(float tick) {
-	// 定义渐变的颜色值
-	Color blueColor = { 0.0f, 0.0f, 1.0f, 1.0f };
-	Color pinkColor = { 1.0f, 0.0f, 1.0f, 1.0f };
-	Color whiteColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+HUD::ColorRGB HUD::HSV2RGB(ColorHSV in)
+{
 
-	// 计算渐变的权重
-	float weight = std::sin(tick) * 0.5f + 0.5f;
+	double      hh, p, q, t, ff;
+	long        i;
+	ColorRGB    out;
 
-	// 根据权重插值计算当前颜色
-	Color currentColor;
-	currentColor.red = blueColor.red * (1 - weight) + pinkColor.red * weight;
-	currentColor.green = blueColor.green * (1 - weight) + pinkColor.green * weight;
-	currentColor.blue = blueColor.blue * (1 - weight) + pinkColor.blue * weight;
-	currentColor.alpha = blueColor.alpha * (1 - weight) + pinkColor.alpha * weight;
+	if (in.s <= 0.0) {       // < is bogus, just shuts up warnings
+		out.r = in.v;
+		out.g = in.v;
+		out.b = in.v;
+		return out;
+	}
+	hh = in.h;
+	if (hh >= 360.0) hh = 0.0;
+	hh /= 60.0;
+	i = (long)hh;
+	ff = hh - i;
+	p = in.v * (1.0 - in.s);
+	q = in.v * (1.0 - (in.s * ff));
+	t = in.v * (1.0 - (in.s * (1.0 - ff)));
 
-	return currentColor;
+	switch (i) {
+	case 0:
+		out.r = in.v;
+		out.g = t;
+		out.b = p;
+		break;
+	case 1:
+		out.r = q;
+		out.g = in.v;
+		out.b = p;
+		break;
+	case 2:
+		out.r = p;
+		out.g = in.v;
+		out.b = t;
+		break;
+
+	case 3:
+		out.r = p;
+		out.g = q;
+		out.b = in.v;
+		break;
+	case 4:
+		out.r = t;
+		out.g = p;
+		out.b = in.v;
+		break;
+	case 5:
+	default:
+		out.r = in.v;
+		out.g = p;
+		out.b = q;
+		break;
+	}
+	return out;
+}
+
+int HUD::rainbow(int delay, long timeOffset)
+{
+	struct timeb time;
+	ftime(&time);
+
+	double rainbow = ceil(((time.time * 1000 + time.millitm) + timeOffset) / 8 + delay / 20.0);
+
+	ColorHSV rainbowHSV{};
+	rainbowHSV.h = fmod(rainbow, 360.0);
+	rainbowHSV.s = 1;
+	rainbowHSV.v = 1;
+
+	ColorRGB rainbowRGB{};
+	rainbowRGB = HSV2RGB(rainbowHSV);
+	rainbowRGB.r *= 255;
+	rainbowRGB.g *= 255;
+	rainbowRGB.b *= 255;
+
+	return (0xFF << 24) | (static_cast<int>(rainbowRGB.r) << 16) | (static_cast<int>(rainbowRGB.g) << 8) | static_cast<int>(rainbowRGB.b);
 }
 
 HUD* HUD::getInstance()
@@ -105,13 +157,22 @@ static float enabledModBgSideWidth = 6;
 static float modNameOffsetX = 5;
 static float modNameOffsetY = 4;
 static float modNameFontSize = 20;
-static float rainbowTick = 0.0f;
 struct Block {
 	float x;
 	float y;
 	float width;
 	float height;
 };
+std::string getCurrentTimeFormatted() {
+	auto now = std::chrono::system_clock::now();
+	std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+	std::tm* timeinfo = std::localtime(&currentTime);
+	std::ostringstream oss;
+	oss << std::put_time(timeinfo, "%H:%M:%S");
+	return oss.str();
+}
+
+
 
 void HUD::RenderUpdate()
 {
@@ -151,21 +212,29 @@ void HUD::RenderUpdate()
 
 	default:
 	{
+
+		std::string watermark = " | " + getCurrentTimeFormatted() + " | " + std::to_string(static_cast<int>(std::round(ImGui::GetIO().Framerate)));
+		dl->AddRectFilled(ImVec2(3, 4), ImVec2(Menu::nl14->CalcTextSizeA(20, FLT_MAX, 0.0f, watermark.c_str()).x + 81, Menu::nl14->CalcTextSizeA(20, FLT_MAX, 0.0f, watermark.c_str()).y + 12), ImColor(0.f, 0.f, 0.f, 180 / 255.f), 2.f);
+		dl->AddText(Menu::nl14, 20.f, ImVec2(73, 8.5), -1, watermark.c_str());
+		dl->AddText(Menu::nlBold14, 20.f, ImVec2(5.7F, 8), ImColor(3, 167, 243, 255), "NoBody");
+		dl->AddText(Menu::nlBold14, 20.f, ImVec2(6.0F, 8.4f), -1, "NoBody");
+
 		Block enabledListBlock{};
 		enabledListBlock.x = enabledListX;
 		enabledListBlock.y = enabledListY;
 		enabledListBlock.width = 0;
 		enabledListBlock.height = 0;
-
+		int i = 0;
 		float curYOffset = 0;
 		for (HMOD _Mod : this->enabledMods) {
 			AbstractModule* curMod = ToBaseModule(_Mod);
+			++i;
 			float modNameWidth = Menu::Font->CalcTextSizeA(modNameFontSize, FLT_MAX, 0.0f, curMod->getName().c_str()).x + 10;
 			float curModX = ImGui::GetIO().DisplaySize.x - modNameWidth;
 			float curModY = curYOffset;
 			float currentTime = ImGui::GetTime();
-			Color col = rainbow(currentTime);
-			dl->AddText(Menu::Font, modNameFontSize, ImVec2(curModX + modNameOffsetX, curModY + modNameOffsetY), IM_COL32(col.red * 255, col.green * 255, col.blue * 255, 255), curMod->getName().c_str());
+			dl->AddRectFilled(ImVec2(curModX, curModY), ImVec2(curModX + modNameWidth, curModY + enabledModBgHeight), IM_COL32(0, 0, 0, 150));
+			dl->AddText(Menu::Font, modNameFontSize, ImVec2(curModX + modNameOffsetX, curModY + modNameOffsetY), this->rainbow(50, 100 * i), curMod->getName().c_str());
 			curYOffset += enabledModBgHeight;
 		}
 	}
