@@ -146,6 +146,31 @@ int Base::InitUpdateMessge() {
 #include "moduleManager/modules/visual/BlockESP.h"
 #include "moduleManager/modules/visual/ItemESP.h"
 #include "moduleManager/modules/visual/BedESP.h"
+
+void ShowAllClass() {
+	jint classCount;
+	jclass* classes;
+	int error = Java::Jvmti->GetLoadedClasses(&classCount, &classes);
+	if (error != JVMTI_ERROR_NONE) {
+		return;
+	}
+	for (int i = 0; i < classCount; i++) {
+		jclass cls = classes[i];
+
+		char* className;
+		error = Java::Jvmti->GetClassSignature(cls, &className, NULL);
+		if (error == JVMTI_ERROR_NONE) {
+
+			if (strstr(className, "net") != NULL) {
+				// 类名包含 "windowDisply"
+				printf("Class: %s\n", className);
+			}
+
+			Java::Jvmti->Deallocate((unsigned char*)className);
+		}
+	}
+}
+
 void Base::Init()
 {
 	BuildVersion = "Build 20240213 - f5c3a08";//动态获取？
@@ -271,7 +296,7 @@ void Base::checkVersion() {
 	auto cmd = std::string(GetCommandLineA());
 	auto window = getCurrentWindow();
 	auto name = getWindowName(window);
-	if (name.find("1.18.1") != -1)
+	if (name.find("1.18.1") != -1 || name.find("布吉岛") != -1)
 	{
 		version = FORGE_1_18_1;
 		return;

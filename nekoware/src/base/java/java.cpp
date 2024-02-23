@@ -182,12 +182,12 @@ bool Java::AssignClass(std::string name, jclass& out)
 			signature = signature.substr(1);
 			signature.pop_back();
 			size_t pos = signature.find("/");
-			while (pos != std::string::npos) { 
+			while (pos != std::string::npos) {
 				signature.replace(pos, 1, ".");
 				pos = signature.find("/", pos + 1);
 			}
 			//std::cout << signature << std::endl;
-			if (signature == name )
+			if (signature == name)
 			{
 				out = (jclass)Java::Env->NewLocalRef(loaded_classes[i]);
 				break;

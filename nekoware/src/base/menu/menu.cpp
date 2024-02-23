@@ -7,7 +7,7 @@
 
 void Menu::Init()
 {
-	Menu::Title = "Skidware internal | rip lunar";
+	Menu::Title = "NoBoay internal | rip lunar";
 	Menu::Initialized = false;
 	Menu::Open = false;
 	Menu::Keybind = VK_INSERT;
@@ -58,6 +58,6 @@ void Menu::RemoveHooks()
 {
 	//Menu::Unhook_wndProc();
 	Menu::Unhook_wglSwapBuffers();
-//	Menu::RemoveAllGameHook();
-	//Menu::UnhookUpdate();
+	//	Menu::RemoveAllGameHook();
+		//Menu::UnhookUpdate();
 }

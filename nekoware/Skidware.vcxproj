@@ -463,7 +463,8 @@
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
     <ClInclude Include="ext\imgui\main.h" />
     <ClInclude Include="ext\json\json.hpp" />
-    <ClInclude Include="src\base\menu\Console\Console.h" />
+    <ClInclude Include="src\base\menu\neverlose500.h" />
+    <ClInclude Include="src\base\menu\neverlose900.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\BedESP.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\ItemESP.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\client\network\NetworkManger.h" />
@@ -550,7 +551,6 @@
     <ClInclude Include="src\base\security\Security.hpp" />
     <ClInclude Include="src\base\util\math\TimerUtil.h" />
     <ClInclude Include="src\base\util\render\Animation.h" />
-    <ClInclude Include="src\base\util\render\Framebuffer.h" />
     <ClInclude Include="src\base\util\render\renderqolf.h" />
     <ClInclude Include="src\base\util\render\SimpleAnimation.h" />
     <ClInclude Include="src\base\util\stb_image.h" />
@@ -602,7 +602,6 @@
     <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\base\menu\Console\Console.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\BedESP.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
@@ -675,7 +674,6 @@
     <ClCompile Include="src\base\sdk\net\minecraft\world\chunk\Chunk.cpp" />
     <ClCompile Include="src\base\util\math\TimerUtil.cpp" />
     <ClCompile Include="src\base\util\render\Animation.cpp" />
-    <ClCompile Include="src\base\util\render\Framebuffer.cpp" />
     <ClCompile Include="src\base\util\window\Borderless.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\renderer\entity\RenderManager.cpp" />
     <ClCompile Include="src\base\sdk\java\nio\FloatBuffer.cpp" />
@@ -850,9 +848,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ext\glm\copying.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="glew32s.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

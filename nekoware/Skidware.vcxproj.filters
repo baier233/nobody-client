@@ -122,7 +122,6 @@
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\Packet.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
-    <ClCompile Include="src\base\menu\Console\Console.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\BedESP.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\tileentity\TileEntity.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Forge112.cpp" />
@@ -132,7 +131,6 @@
     <ClCompile Include="src\base\sdk\wrapper\Forge1710.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Vanllia189.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Forge1181.cpp" />
-    <ClCompile Include="src\base\util\render\Framebuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -600,12 +598,12 @@
     <ClInclude Include="src\base\sdk\net\minecraft\client\network\Packet.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\ItemESP.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\entity\item\EntityItem.h" />
-    <ClInclude Include="src\base\menu\Console\Console.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\BedESP.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntity.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntityBed.h" />
     <ClInclude Include="src\base\util\TitanHook.h" />
-    <ClInclude Include="src\base\util\render\Framebuffer.h" />
+    <ClInclude Include="src\base\menu\neverlose500.h" />
+    <ClInclude Include="src\base\menu\neverlose900.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -751,8 +749,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ext\glm\copying.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="glew32s.lib" />
   </ItemGroup>
 </Project>

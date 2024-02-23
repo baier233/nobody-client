@@ -29,7 +29,7 @@ struct Menu
 	static void RenderMenu();
 
 	static void DoSliderStuff(int id, const char* text, float* bruh, float min, float max);
-	static void DoToggleButtonStuff(int id ,  const char* text, bool* bruh);
+	static void DoToggleButtonStuff(int id, const char* text, bool* bruh);
 	static void DoToggleButtonStuff(int id, const char* text, AbstractModule* module);
 
 	static inline HWND HandleWindow;
