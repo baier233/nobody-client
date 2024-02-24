@@ -101,12 +101,14 @@ void StrayCache::Load1181ForgeMap() {
 		entity_inWater = Java::Env->GetMethodID(entity_class, "m_20069_", "()Z");
 		//entity_getUniqueID = Java::Env->GetMethodID(entity_class, "func_110124_au", "()Ljava/core/UUID;");
 
-		entity_posX = Java::Env->GetFieldID(entity_class, "f_19790_", "D");
-		entity_posY = Java::Env->GetFieldID(entity_class, "f_19791_", "D");
-		entity_posZ = Java::Env->GetFieldID(entity_class, "f_19792_", "D");
-		entity_lastTickPosX = Java::Env->GetFieldID(entity_class, "f_19790_", "F");
-		entity_lastTickPosY = Java::Env->GetFieldID(entity_class, "f_19791_", "F");
-		entity_lastTickPosZ = Java::Env->GetFieldID(entity_class, "f_19792_", "F");
+		entity_position = Java::Env->GetFieldID(entity_class, "f_19825_", "Lnet/minecraft/world/phys/Vec3;");
+
+		entity_posX = Java::Env->GetFieldID(entity_class, "f_19854_", "D");
+		entity_posY = Java::Env->GetFieldID(entity_class, "f_19854_", "D");
+		entity_posZ = Java::Env->GetFieldID(entity_class, "f_19854_", "D");
+		entity_lastTickPosX = Java::Env->GetFieldID(entity_class, "f_19790_", "D");
+		entity_lastTickPosY = Java::Env->GetFieldID(entity_class, "f_19791_", "D");
+		entity_lastTickPosZ = Java::Env->GetFieldID(entity_class, "f_19792_", "D");
 		//entity_width = Java::Env->GetFieldID(entity_class, "field_70130_N", "F");
 		///entity_height = Java::Env->GetFieldID(entity_class, "field_70131_O", "F");
 		//entity_distanceWalkedModified = Java::Env->GetFieldID(entity_class, "field_70140_Q", "F");
@@ -182,7 +184,7 @@ void StrayCache::Load1181ForgeMap() {
 	{
 		Java::AssignClass("com.mojang.blaze3d.shaders.Uniform", uniform_class);
 		uniform_class = (jclass)Java::Env->NewGlobalRef(uniform_class);
-		uniform_floatValues = Java::Env->GetFieldID(uniform_class, "f_85589_", "Ljava/nio/IntBuffer;");
+		uniform_floatValues = Java::Env->GetFieldID(uniform_class, "f_85589_", "Ljava/nio/FloatBuffer;");
 	}
 
 
@@ -248,14 +250,14 @@ void StrayCache::Load1181ForgeMap() {
 		axisAlignedBB_maxY = Java::Env->GetFieldID(axisAlignedBB_class, "f_82292_", "D");
 		axisAlignedBB_maxZ = Java::Env->GetFieldID(axisAlignedBB_class, "f_82293_", "D");
 	}
-	/*{
-		Java::AssignClass("net.minecraft.core.math.RayTraceResult", movingObjectPosition_class);
+	{
+		Java::AssignClass("net.minecraft.world.phys.HitResult", movingObjectPosition_class);
 		movingObjectPosition_class = (jclass)Java::Env->NewGlobalRef(movingObjectPosition_class);
 
-		movingObjectPosition_hitVec = Java::Env->GetFieldID(movingObjectPosition_class, "field_72307_f", "Lnet/minecraft/core/math/Vec3d;");
-		hitResult_getType = Java::Env->GetMethodID(movingObjectPosition_class, "m_6662_", "Lnet/minecraft/world/phys/HitResult$Type;");
-		movingObjectPosition_blockPos = Java::Env->GetFieldID(movingObjectPosition_class, "field_178783_e", "Lnet/minecraft/core/math/BlockPos;");
-	}*/
+		//movingObjectPosition_hitVec = Java::Env->GetFieldID(movingObjectPosition_class, "field_72307_f", "Lnet/minecraft/core/math/Vec3d;");
+		hitResult_getType = Java::Env->GetMethodID(movingObjectPosition_class, "m_6662_", "()Lnet/minecraft/world/phys/HitResult$Type;");
+		//movingObjectPosition_blockPos = Java::Env->GetFieldID(movingObjectPosition_class, "field_178783_e", "Lnet/minecraft/core/math/BlockPos;");
+	}
 
 	{
 		Java::AssignClass("net.minecraft.world.phys.Vec3", vec3_class);

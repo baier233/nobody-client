@@ -20,10 +20,7 @@ void SDK::Init()
 	{
 		SDK::Minecraft->renderManager = new CRenderManager(Java::Env->GetObjectField(SDK::Minecraft->getInstance(), StrayCache::minecraft_renderManager));
 	}
-	if (Base::version != FORGE_1_18_1)
-	{
-		SDK::Minecraft->gameSettings = new CGameSettings(Java::Env->GetObjectField(Minecraft->getInstance(), StrayCache::minecraft_gameSettings));
-	}
+	SDK::Minecraft->gameSettings = new CGameSettings(Java::Env->GetObjectField(Minecraft->getInstance(), StrayCache::minecraft_gameSettings));
 	////SDK::Minecraft->ingameGUI = new CGuiIngame(Java::Env->GetObjectField(Minecraft->getInstance(), StrayCache::minecraft_ingameGUI));
 	SDK::Minecraft->timer = new CTimer(Java::Env->GetObjectField(Minecraft->getInstance(), StrayCache::minecraft_timer));
 }

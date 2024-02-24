@@ -46,6 +46,11 @@ Vector3 CEntity::GetPos(JNIEnv* env) const
 		return Vector3{ 0,0,0 };
 	}
 
+	if (Base::version == FORGE_1_18_1)
+	{
+		return CVec3(env->GetObjectField(this->getInstance(), StrayCache::entity_position)).GetNativeVector3();
+	}
+
 	return Vector3{
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_posX),
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_posY),
@@ -69,14 +74,6 @@ Vector3 CEntity::GetEyePos(JNIEnv* env)
 
 Vector3 CEntity::GetLastTickPos(JNIEnv* env)
 {
-	if (Base::version == FORGE_1_18_1)
-	{
-		return Vector3{
-		env->GetFloatField(this->getInstance(), StrayCache::entity_lastTickPosX),
-		env->GetFloatField(this->getInstance(), StrayCache::entity_lastTickPosY),
-		env->GetFloatField(this->getInstance(), StrayCache::entity_lastTickPosZ)
-		};
-	}
 	return Vector3{
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosX),
 		(float)(double)env->GetDoubleField(this->getInstance(), StrayCache::entity_lastTickPosY),
