@@ -249,6 +249,13 @@ float CEntity::GetPrevRotationPitch(JNIEnv* env)
 	return env->GetFloatField(this->getInstance(), StrayCache::entity_prevRotationPitch);
 }
 
+float CEntity::GetEyeHeight(JNIEnv* env)
+{
+	if (!this->isValid() || this->isNULL()) return NULL;
+
+	return env->GetFloatField(this->instance,StrayCache::entity_eyeHeight);
+}
+
 jobject CEntity::getUniqueID(JNIEnv* env)
 {
 	return env->CallObjectMethod(this->getInstance(), StrayCache::entity_getUniqueID);

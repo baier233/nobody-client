@@ -102,6 +102,7 @@ void StrayCache::Load1181ForgeMap() {
 		//entity_getUniqueID = Java::Env->GetMethodID(entity_class, "func_110124_au", "()Ljava/core/UUID;");
 
 		entity_position = Java::Env->GetFieldID(entity_class, "f_19825_", "Lnet/minecraft/world/phys/Vec3;");
+		entity_eyeHeight = Java::Env->GetFieldID(entity_class, "f_19816_", "F");
 
 		entity_posX = Java::Env->GetFieldID(entity_class, "f_19854_", "D");
 		entity_posY = Java::Env->GetFieldID(entity_class, "f_19854_", "D");
@@ -212,19 +213,7 @@ void StrayCache::Load1181ForgeMap() {
 	{
 		Java::AssignClass("net.minecraft.client.multiplayer.ClientLevel", clientLevel_class);
 		clientLevel_class = (jclass)Java::Env->NewGlobalRef(clientLevel_class);
-		jint count;
-		jfieldID* fields;
-
-		Java::Jvmti->GetClassFields(minecraft_class, &count, &fields);
-		for (int i = 0; i < count; i++)
-		{
-			char* sign;
-			char* name;
-			Java::Jvmti->GetFieldName(minecraft_class, fields[i], &name, &sign, 0);
-
-			std::cout << "Desc:" << sign << " Name:" << name << std::endl;
-		}
-		clientLevel_players = Java::Env->GetFieldID(clientLevel_class, "f_104566_", "Ljava/utils/List;");
+		clientLevel_players = Java::Env->GetFieldID(clientLevel_class, "f_104566_", "Ljava/util/List;");
 		clientLevel_entitiesForRendering = Java::Env->GetMethodID(clientLevel_class, "m_104735_", "()Ljava/lang/Iterable;");
 	}
 
@@ -275,9 +264,9 @@ void StrayCache::Load1181ForgeMap() {
 		Java::AssignClass("net.minecraft.world.phys.Vec3", vec3_class);
 		vec3_class = (jclass)Java::Env->NewGlobalRef(vec3_class);
 
-		vec3_xCoord = Java::Env->GetFieldID(vec3_class, "m_7096_", "D");
-		vec3_yCoord = Java::Env->GetFieldID(vec3_class, "m_7098_", "D");
-		vec3_zCoord = Java::Env->GetFieldID(vec3_class, "m_7094_", "D");
+		vec3_xCoord = Java::Env->GetFieldID(vec3_class, "f_82479_", "D");
+		vec3_yCoord = Java::Env->GetFieldID(vec3_class, "f_82480_", "D");
+		vec3_zCoord = Java::Env->GetFieldID(vec3_class, "f_82481_", "D");
 	}
 
 	{

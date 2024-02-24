@@ -121,6 +121,7 @@ struct StrayCache {
 	inline static jmethodID entity_getUniqueID;
 	inline static jmethodID entity_getBBHeight;//this is for 1.18.1
 	inline static jfieldID entity_position;//this is for 1.18.1
+	inline static jfieldID entity_eyeHeight;//this is for 1.18.1
 	inline static jfieldID entity_posX;
 	inline static jfieldID entity_posY;
 	inline static jfieldID entity_posZ;

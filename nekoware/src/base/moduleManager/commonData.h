@@ -63,14 +63,16 @@ public:
 		isCombat = false;
 		
 		renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
+		renderPartialTicks = 1;
 		if (Base::version == FORGE_1_18_1)
 		{
+			auto eyeHeight = SDK::Minecraft->thePlayer->GetEyeHeight();
 			auto pos = SDK::Minecraft->thePlayer->GetPos();
 			auto lastTickPos = SDK::Minecraft->thePlayer->GetLastTickPos();
 			double d3 = lastTickPos.x + (pos.x - lastTickPos.x) * (double)renderPartialTicks;
 			double d4 = lastTickPos.y + (pos.y - lastTickPos.y) * (double)renderPartialTicks;
 			double d5 = lastTickPos.z + (pos.z - lastTickPos.z) * (double)renderPartialTicks;
-			renderPos = Vector3(d3,d4,d5 ) + Vector3{ 0, ySubtractValue, 0 };
+			renderPos = Vector3(d3,d4,d5 ) + Vector3{ 0, ySubtractValue - eyeHeight, 0 };
 		}
 		else {
 

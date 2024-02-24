@@ -47,6 +47,8 @@ public:
 	float GetPrevRotationYaw(JNIEnv* env = Java::Env);
 	float GetPrevRotationPitch(JNIEnv* env = Java::Env);
 
+	float GetEyeHeight(JNIEnv* env = Java::Env);
+
 	jobject getUniqueID(JNIEnv* env = Java::Env);
 
 	Vector2 GetAngles(JNIEnv* env = Java::Env);
