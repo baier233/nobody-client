@@ -69,9 +69,9 @@ public:
 			auto eyeHeight = SDK::Minecraft->thePlayer->GetEyeHeight();
 			auto pos = SDK::Minecraft->thePlayer->GetPos();
 			auto lastTickPos = SDK::Minecraft->thePlayer->GetLastTickPos();
-			double d3 = lastTickPos.x + (pos.x - lastTickPos.x) * (double)renderPartialTicks;
-			double d4 = lastTickPos.y + (pos.y - lastTickPos.y) * (double)renderPartialTicks;
-			double d5 = lastTickPos.z + (pos.z - lastTickPos.z) * (double)renderPartialTicks;
+			double d3 = (double)lastTickPos.x + ((double)pos.x - (double)lastTickPos.x) * (double)renderPartialTicks;
+			double d4 = (double)lastTickPos.y + ((double)pos.y - (double)lastTickPos.y) * (double)renderPartialTicks;
+			double d5 = (double)lastTickPos.z + ((double)pos.z - (double)lastTickPos.z) * (double)renderPartialTicks;
 			renderPos = Vector3(d3,d4,d5 ) + Vector3{ 0, ySubtractValue - eyeHeight, 0 };
 		}
 		else {
