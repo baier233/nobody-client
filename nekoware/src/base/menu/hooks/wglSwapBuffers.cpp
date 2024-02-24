@@ -25,7 +25,8 @@ TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
 
 bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 {
-	glPushMatrix();
+	if (Base::version != FORGE_1_18_1) glPushMatrix();
+
 	Menu::HandleDeviceContext = hdc;
 	Menu::HandleWindow = WindowFromDC(hdc);
 	Menu::OriginalGLContext = wglGetCurrentContext();
@@ -86,7 +87,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::OriginalGLContext);
-	glPopMatrix();
+	if (Base::version != FORGE_1_18_1) glPopMatrix();
 	return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 }
 

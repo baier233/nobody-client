@@ -763,13 +763,13 @@ void BlockESP::render(HDC hdc)
 			glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
 			glEnd();
 		};
-	glPushMatrix();
+	if (Base::version != FORGE_1_18_1) glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->projection).data());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->modelView).data());
 
-	glPushMatrix();
+	if (Base::version != FORGE_1_18_1) glPushMatrix();
 	glEnable(GL_LINE_SMOOTH);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_TEXTURE_2D);
@@ -819,9 +819,9 @@ void BlockESP::render(HDC hdc)
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_LINE_SMOOTH);
-	glPopMatrix();
+	if (Base::version != FORGE_1_18_1) glPopMatrix();
 
-	glPopMatrix();
+	if (Base::version != FORGE_1_18_1) glPopMatrix();
 	/*RECT rcCli;
 	GetClientRect(WindowFromDC(hdc), &rcCli);
 	long nWidth = rcCli.right - rcCli.left;

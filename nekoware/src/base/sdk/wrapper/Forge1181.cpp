@@ -131,7 +131,7 @@ void StrayCache::Load1181ForgeMap() {
 	/*{
 		Java::AssignClass("net.minecraft.client.multiplayer.PlayerControllerMP", playerControllerMP_class);
 		playerControllerMP_attackEntity = Java::Env->GetMethodID(playerControllerMP_class, "func_78764_a", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/entity/Entity;)V");
-		playerControllerMP_sendUseItem = Java::Env->GetMethodID(playerControllerMP_class, "func_78769_a", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraf/.world/item/ItemStack;)Z");
+		playerControllerMP_sendUseItem = Java::Env->GetMethodID(playerControllerMP_class, "func_78769_a", "(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/world/item/ItemStack;)Z");
 	}*/
 
 	{
@@ -212,7 +212,19 @@ void StrayCache::Load1181ForgeMap() {
 	{
 		Java::AssignClass("net.minecraft.client.multiplayer.ClientLevel", clientLevel_class);
 		clientLevel_class = (jclass)Java::Env->NewGlobalRef(clientLevel_class);
-		clientLevel_players = Java::Env->GetFieldID(clientLevel_class, "f_104566_", "Ljava/utils/List");
+		jint count;
+		jfieldID* fields;
+
+		Java::Jvmti->GetClassFields(minecraft_class, &count, &fields);
+		for (int i = 0; i < count; i++)
+		{
+			char* sign;
+			char* name;
+			Java::Jvmti->GetFieldName(minecraft_class, fields[i], &name, &sign, 0);
+
+			std::cout << "Desc:" << sign << " Name:" << name << std::endl;
+		}
+		clientLevel_players = Java::Env->GetFieldID(clientLevel_class, "f_104566_", "Ljava/utils/List;");
 		clientLevel_entitiesForRendering = Java::Env->GetMethodID(clientLevel_class, "m_104735_", "()Ljava/lang/Iterable;");
 	}
 
@@ -272,8 +284,8 @@ void StrayCache::Load1181ForgeMap() {
 		Java::AssignClass("net.minecraft.world.entity.player.Inventory", inventoryPlayer_class);
 		inventoryPlayer_class = (jclass)Java::Env->NewGlobalRef(inventoryPlayer_class);
 
-		inventoryPlayer_getCurrentItem = Java::Env->GetMethodID(inventoryPlayer_class, "m_36056_", "()Lnet/minecraf/.world/item/ItemStack;");
-		inventoryPlayer_getStackInSlot = Java::Env->GetMethodID(inventoryPlayer_class, "m_8020_", "(I)Lnet/minecraf/.world/item/ItemStack;");
+		inventoryPlayer_getCurrentItem = Java::Env->GetMethodID(inventoryPlayer_class, "m_36056_", "()Lnet/minecraft/world/item/ItemStack;");
+		inventoryPlayer_getStackInSlot = Java::Env->GetMethodID(inventoryPlayer_class, "m_8020_", "(I)Lnet/minecraft/world/item/ItemStack;");
 
 
 		inventoryPlayer_mainInv = Java::Env->GetFieldID(inventoryPlayer_class, "f_35974_", "Lnet/minecraft/core/NonNullList;");
@@ -300,7 +312,11 @@ void StrayCache::Load1181ForgeMap() {
 		Java::AssignClass("net.minecraft.world.item.ArmorItem", itemArmor_Class);
 		itemArmor_Class = (jclass)Java::Env->NewGlobalRef(itemArmor_Class);
 
-		//itemArmor_getColor = Java::Env->GetMethodID(itemArmor_Class, "func_82814_b", "(Lnet/minecraf/.world/item/ItemStack;)I");
+		//itemArmor_getColor = Java::Env->GetMethodID(itemArmor_Class, "func_82814_b", "(Lnet/minecraft/world/item/ItemStack;)I");
+	}
+	{
+		Java::AssignClass("net.minecraft.world.item.BlockItem", itemBlock_class);
+		itemBlock_class = (jclass)Java::Env->NewGlobalRef(itemBlock_class);
 	}
 
 	{

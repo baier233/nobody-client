@@ -1,5 +1,6 @@
 #include "ChestESP.h"
 #include "../../../util/TitanHook.h"
+#include "../../../Base.h"
 struct Object
 {
 	enum Type
@@ -72,7 +73,7 @@ void drawBox(glm::vec4 color)
 
 void doRender() {
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
-	glPushMatrix();
+	if (Base::version != FORGE_1_18_1) glPushMatrix();
 
 	// Setting up the context
 	glDisable(GL_TEXTURE_2D);
@@ -129,7 +130,7 @@ void doRender() {
 
 	// Restoring settings (context and matrix)
 	glPopAttrib();
-	glPopMatrix();
+	if (Base::version != FORGE_1_18_1) glPopMatrix();
 }
 
 // Hooked glOrtho function

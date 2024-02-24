@@ -13,6 +13,8 @@ typedef LRESULT(CALLBACK* template_WndProc) (HWND, UINT, WPARAM, LPARAM);
 template_WndProc original_wndProc;
 LRESULT CALLBACK hook_WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+
+	//Menu::HandleWindow = hwnd;
 	if (Base::version == FORGE_1_18_1 and Menu::Initialized) {
 		if (msg == WM_KEYDOWN)
 		{

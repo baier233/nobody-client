@@ -182,7 +182,7 @@ std::vector<float> BedESP::structToVector(const Matrix& matrix)
 void BedESP::RenderUpdate()
 {
 	if (!this->getToggle() || !CommonData::getInstance()->dataUpdated) return;
-	glPushMatrix();
+	if (Base::version != FORGE_1_18_1) glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->projection).data());
 	glMatrixMode(GL_MODELVIEW);
@@ -199,7 +199,7 @@ void BedESP::RenderUpdate()
 
 	for (Vector3 d : this->data)
 	{
-		glPushMatrix();
+		if (Base::version != FORGE_1_18_1) glPushMatrix();
 
 		/*	glColor4d(2.0, 0.0, 0.0, 0.5);
 			this->drawColorBox(BoundingBox(d.x, d.y, d.z, d.x + 1.f, d.y + 0.5, d.z + 1.f));*/
@@ -207,7 +207,7 @@ void BedESP::RenderUpdate()
 		glColor4d(102.0, 0.0, 153.0, 0.5);
 		this->drawSelectionBoundingBox(BoundingBox(d.x, d.y, d.z, d.x + 1.f, d.y + 0.5, d.z + 1.f));
 
-		glPopMatrix();
+		if (Base::version != FORGE_1_18_1) glPopMatrix();
 	}
 
 	glDisable(GL_LINE_SMOOTH);
@@ -216,5 +216,5 @@ void BedESP::RenderUpdate()
 	glDepthMask(GL_TRUE);
 	glDisable(GL_BLEND);
 
-	glPopMatrix();
+	if (Base::version != FORGE_1_18_1) glPopMatrix();
 }

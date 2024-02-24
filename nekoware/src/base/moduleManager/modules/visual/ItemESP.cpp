@@ -51,14 +51,14 @@ void ItemESP::RenderUpdate()
 			glEnd();
 		};
 
-	glPushMatrix();
+	if (Base::version != FORGE_1_18_1) glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->projection).data());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(this->structToVector(CommonData::getInstance()->modelView).data());
 	//drawOutlinedBox(BoundingBox{ d.x - .2, d.y - 0.05, d.z - .2, d.x + .2, d.y - 0.45, d.z + .2 });
 
-	glPushMatrix();
+	if (Base::version != FORGE_1_18_1) glPushMatrix();
 	glEnable(GL_BLEND);
 	glLineWidth(2.0f);
 	glColor4f(1.0f, 1.0f, 1.0f, 0.75f);
@@ -79,10 +79,10 @@ void ItemESP::RenderUpdate()
 	glDepthMask(GL_TRUE);
 	glDisable(GL_BLEND);
 
-	glPopMatrix();
+	if (Base::version != FORGE_1_18_1) glPopMatrix();
 
 
-	glPopMatrix();
+	if (Base::version != FORGE_1_18_1) glPopMatrix();
 }
 
 void ItemESP::RenderMenu()

@@ -326,6 +326,8 @@ struct StrayCache {
 	inline static jclass itemTool_class;
 	inline static jmethodID itemTool_getStrVsBlock;
 
+	inline static jclass itemBlock_class;
+
 	//DyeableLeatherItem Class(this is for 1.18.1)
 	inline static jclass dyeableLeatherItem_class;
 	inline static jmethodID dyeableLeatherItem_getColor;

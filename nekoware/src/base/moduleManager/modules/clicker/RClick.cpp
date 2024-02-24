@@ -36,8 +36,14 @@ void RClick::onUpdate(const EventUpdate e)
 	if (Menu::Open) return;
 	if (SDK::Minecraft->IsInGuiState()) return;
 
-	jclass blockClass;
-	Java::AssignClass("net.minecraft.item.ItemBlock", blockClass);
+	jclass blockClass{};
+	if (Base::version == FORGE_1_18_1)
+	{
+		blockClass = StrayCache::itemBlock_class;
+	}
+	else {
+		Java::AssignClass("net.minecraft.item.ItemBlock", blockClass);
+	}
 	if (SDK::Minecraft->thePlayer->GetInventory().GetCurrentItem().getInstance() == NULL) return;
 	if (this->blocksOnlyValue->getValue() && !Java::Env->IsInstanceOf(SDK::Minecraft->thePlayer->GetInventory().GetCurrentItem().GetItem().getInstance(), blockClass)) return;
 
@@ -49,8 +55,8 @@ void RClick::onUpdate(const EventUpdate e)
 		POINT pos_cursor;
 
 		GetCursorPos(&pos_cursor);
-		SendMessage(Menu::HandleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-		SendMessage(Menu::HandleWindow, WM_RBUTTONUP, 0, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		PostMessageA(Menu::HandleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		PostMessageA(Menu::HandleWindow, WM_RBUTTONUP, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 
 		rightLastClickTime = milli;
 
