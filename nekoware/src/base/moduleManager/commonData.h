@@ -63,7 +63,7 @@ public:
 		isCombat = false;
 		
 		renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
-		renderPartialTicks = 1;
+		//renderPartialTicks = 1;
 		if (Base::version == FORGE_1_18_1)
 		{
 			auto eyeHeight = SDK::Minecraft->thePlayer->GetEyeHeight();
