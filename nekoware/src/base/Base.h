@@ -1,4 +1,8 @@
 #pragma once
+
+#define LOLOLOL
+#define LOLOLOL2
+
 #include "eventManager/events/EventKey.hpp"
 #include <chrono>
 #include "java/java.h"

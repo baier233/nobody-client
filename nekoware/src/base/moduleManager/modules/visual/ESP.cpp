@@ -201,7 +201,7 @@ void Esp::onUpdate(const EventUpdate e)
 	if (this->espMode->getValue() == ESP3D) {
 		List playerList = CommonData::getInstance()->playerEntities;
 		auto list = playerList.toVector<CEntityPlayer>();
-		float renderPartialTicks = CommonData::getInstance()->renderPartialTicks;
+		float renderPartialTicks = 1;
 		std::vector<AxisAlignedBB_t> newData;
 		for (CEntityPlayer entity : list)
 		{
@@ -286,7 +286,7 @@ void Esp::onUpdate(const EventUpdate e)
 		float entityHeight;
 		if (Base::version == FORGE_1_18_1)
 		{
-			entityHeight = (float)entity.GetEyeHeight() ;
+			entityHeight = (float)(entity.GetEyeHeight() / 2) + 0.2f;
 		}
 		else {
 			entityHeight = (float)(entity.GetHeight() / 2) + 0.2f;
@@ -354,7 +354,6 @@ void Esp::onUpdate(const EventUpdate e)
 	renderData = newData;
 }
 
-
 void Esp::RenderUpdate()
 {
 	if (!this->getToggle() || !CommonData::getInstance()->dataUpdated) return;
@@ -378,8 +377,11 @@ void Esp::RenderUpdate()
 
 		for (AxisAlignedBB_t &bb : renderData3D)
 		{
-			bb.maxY += 3.4;
-			bb.minY += 3.4;
+			if (Base::version != FORGE_1_18_1)
+			{
+				bb.maxY += 3.5;
+				bb.minY += 3.5;
+			}
 			if (this->esp3DMode->getValue() == FILLED)
 			{
 				
