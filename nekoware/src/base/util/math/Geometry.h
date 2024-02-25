@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <cmath>
+#include <vector>
 class Vector3
 {
 public:
@@ -89,3 +90,35 @@ struct BoundingBox {
 	double maxY;
 	double maxZ;
 };
+
+struct AxisAlignedBB_t {
+	float minX, minY, minZ, maxX, maxY, maxZ;
+};
+
+std::vector<float> structToVector(const Matrix& matrix)
+{
+	std::vector<float> result;
+	result.reserve(16);
+
+	result.push_back(matrix.m00);
+	result.push_back(matrix.m01);
+	result.push_back(matrix.m02);
+	result.push_back(matrix.m03);
+
+	result.push_back(matrix.m10);
+	result.push_back(matrix.m11);
+	result.push_back(matrix.m12);
+	result.push_back(matrix.m13);
+
+	result.push_back(matrix.m20);
+	result.push_back(matrix.m21);
+	result.push_back(matrix.m22);
+	result.push_back(matrix.m23);
+
+	result.push_back(matrix.m30);
+	result.push_back(matrix.m31);
+	result.push_back(matrix.m32);
+	result.push_back(matrix.m33);
+
+	return result;
+}

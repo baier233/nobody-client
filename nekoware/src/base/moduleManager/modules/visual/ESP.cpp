@@ -9,6 +9,143 @@
 #include "../../../menu/menu.h"
 #include "../combat/antibot.h"
 #include <gl/GL.h>
+
+
+
+static void drawFilledBox(AxisAlignedBB_t boundingBox)
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4f(255, 255, 255, 0.15f);
+	glBegin(7);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glEnd();
+	glBegin(7);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glEnd();
+	glBegin(7);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glEnd();
+	glBegin(7);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glEnd();
+	glBegin(7);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glEnd();
+	glBegin(7);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glEnd();
+	glBegin(7);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glEnd();
+	glDisable(GL_BLEND);//turn the blending off 
+	glColor4f(255, 255, 255, 1);
+}
+
+static void drawOutlinedBox2(AxisAlignedBB_t boundingBox)
+{
+	glBegin(3);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glEnd();
+
+	glBegin(3);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glEnd();
+
+	glBegin(1);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glEnd();
+}
+static void drawSelectionBoundingBox(AxisAlignedBB_t boundingBox)
+{
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glEnd();
+
+	glBegin(GL_LINE_LOOP);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+	glVertex3f(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+	glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+	glEnd();
+}
+
+
+
 Esp::Esp() : AbstractModule("ESP", Category::VISUAL,"Entity perspective.") {
 	this->addValue(FloatType, TextSizeValue);
 	this->addValue(FloatType, FadeDistanceValue);
@@ -47,17 +184,57 @@ void Esp::onUpdate(const EventUpdate e)
 	if (!this->getToggle()) return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
 
-	CEntityPlayerSP* player = SDK::Minecraft->thePlayer;
 
 	//CWorld* world = SDK::Minecraft->theWorld;
 
 	
 
 	Vector3 renderPos = CommonData::getInstance()->renderPos;
+
+
+	CEntityPlayerSP* player = SDK::Minecraft->thePlayer;
+
 	Vector3 pos = player->GetPos();
 
 	// This is to fix the third person issue, there is still one issue with it.
 	// When the camera collides in the wall or the ground, or something like that, the calculation fails entirely because the position is obviously not the same.
+	if (this->espMode->getValue() == ESP3D) {
+		List playerList = CommonData::getInstance()->playerEntities;
+		auto list = playerList.toVector<CEntityPlayer>();
+		float renderPartialTicks = CommonData::getInstance()->renderPartialTicks;
+		std::vector<AxisAlignedBB_t> newData;
+		for (CEntityPlayer entity : list)
+		{
+
+			if (!entity.isValid() || entity.isNULL()) continue;
+
+			if (entity.isEqualTo(player->getInstance())) continue;
+
+			if (Antibot::getInstance()->getToggle() && Antibot::getInstance()->isBot(entity)) {
+				continue;
+			}
+			Vector3 entityPos = entity.GetPos();
+			Vector3 entityLastPos = entity.GetLastTickPos();
+			//std::cout << "entityPos { X:" << entityPos.x << " Y:" << entityPos.y << " Z:" << entityPos.z << " }" << std::endl;
+			//std::cout << "entityLastPos { X:" << entityLastPos.x << " Y:" << entityLastPos.y << " Z:" << entityLastPos.z << " }" << std::endl;
+			if (this->espMode->getValue() == ESP3D)
+			{
+				auto playerBoundingBox = AxisAlignedBB_t(
+					static_cast<float>((entityPos.x - 0.4f) - renderPos.x + -entityPos.x + entityLastPos.x + (entityPos.x - entityLastPos.x) * renderPartialTicks),
+					static_cast<float>((entityPos.y - 0.1f) - renderPos.y + -entityPos.y + entityLastPos.y + (entityPos.y - entityLastPos.y) * renderPartialTicks),
+					static_cast<float>((entityPos.z - 0.4f) - renderPos.z + -entityPos.z + entityLastPos.z + (entityPos.z - entityLastPos.z) * renderPartialTicks),
+					static_cast<float>((entityPos.x + 0.4f) - renderPos.x + -entityPos.x + entityLastPos.x + (entityPos.x - entityLastPos.x) * renderPartialTicks),
+					static_cast<float>((entityPos.y + 1.8f) - renderPos.y + -entityPos.y + entityLastPos.y + (entityPos.y - entityLastPos.y) * renderPartialTicks),
+					static_cast<float>((entityPos.z + 0.4f) - renderPos.z + -entityPos.z + entityLastPos.z + (entityPos.z - entityLastPos.z) * renderPartialTicks)
+				);
+				newData.push_back(playerBoundingBox);
+			}
+		}
+		renderData3D = newData;
+		return;
+	}
+
+
 	if (CommonData::getInstance()->thirdPersonView != 0) {
 		Vector2 angles = player->GetAngles();
 		float distance = 8;
@@ -92,7 +269,10 @@ void Esp::onUpdate(const EventUpdate e)
 
 	for (CEntityPlayer entity : list)
 	{
+
 		if (!entity.isValid() || entity.isNULL()) continue;
+
+		if (entity.isEqualTo(player->getInstance())) continue;
 		
 		if (Antibot::getInstance()->getToggle() && Antibot::getInstance()->isBot(entity)) {
 			continue;
@@ -103,7 +283,14 @@ void Esp::onUpdate(const EventUpdate e)
 		//std::cout << "entityLastPos { X:" << entityLastPos.x << " Y:" << entityLastPos.y << " Z:" << entityLastPos.z << " }" << std::endl;
 
 		float entityWidth = 0.7f;
-		float entityHeight = (float)(entity.GetEyeHeight() / 2) + 0.2f;
+		float entityHeight;
+		if (Base::version == FORGE_1_18_1)
+		{
+			entityHeight = (float)entity.GetEyeHeight() ;
+		}
+		else {
+			entityHeight = (float)(entity.GetHeight() / 2) + 0.2f;
+		}
 
 		Vector3 diff = pos - entityPos;
 		float dist = sqrt(pow(diff.x, 2) + pow(diff.y, 2) + pow(diff.z, 2)); // Sqrt((x2 - x1)^2 + (y2 - y1)^2 + (z2 - z1)^2)
@@ -167,9 +354,54 @@ void Esp::onUpdate(const EventUpdate e)
 	renderData = newData;
 }
 
+
 void Esp::RenderUpdate()
 {
 	if (!this->getToggle() || !CommonData::getInstance()->dataUpdated) return;
+
+	if (this->espMode->getValue() == ESP3D)
+	{
+		if (Base::version != FORGE_1_18_1) glPushMatrix();
+		glMatrixMode(GL_PROJECTION);
+		glLoadMatrixf(structToVector(CommonData::getInstance()->projection).data());
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(structToVector(CommonData::getInstance()->modelView).data());
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glLineWidth(2.0f);
+		glDisable(GL_TEXTURE_2D);
+
+		glDisable(GL_DEPTH_TEST);
+		glDepthMask(GL_FALSE);
+		glEnable(GL_LINE_SMOOTH);
+
+		for (AxisAlignedBB_t &bb : renderData3D)
+		{
+			bb.maxY += 3.4;
+			bb.minY += 3.4;
+			if (this->esp3DMode->getValue() == FILLED)
+			{
+				
+				drawFilledBox(bb);
+			}
+			else if (this->esp3DMode->getValue() == OUTLINE)
+			{
+
+				glColor4d(102.0, 0.0, 153.0, 0.5);
+				drawOutlinedBox2(bb);
+			}
+		}
+		glDisable(GL_LINE_SMOOTH);
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glDisable(GL_BLEND);
+
+		if (Base::version != FORGE_1_18_1) glPopMatrix();
+		return;
+	}
+
 
 	for (Data data : renderData)
 	{
@@ -177,7 +409,7 @@ void Esp::RenderUpdate()
 
 		std::vector<Vector3> bv = data.boxVerticies;
 
-		float left = FLT_MAX;
+		float left = FLT_MAX;	
 		float top = FLT_MAX;
 		float right = FLT_MIN;
 		float bottom = FLT_MIN;
@@ -280,18 +512,22 @@ void Esp::RenderMenu()
 	ImGui::BeginChild("ESP", ImVec2(320, 426), true);
 	{
 		Menu::DoToggleButtonStuff(28374, "Toggle ESP", this);
-		ImGui::Separator();
-		Menu::DoToggleButtonStuff(45678, "Box", this->BoxValue->getValuePtr());
-		Menu::DoToggleButtonStuff(111123, "Fill Box", this->FilledBoxValue->getValuePtr());
-		Menu::DoToggleButtonStuff(7457, "Box Outline", this->OutlineValue->getValuePtr());
-		Menu::DoToggleButtonStuff(23445, "Healthbar", this->HealthBarValue->getValuePtr());
-		Menu::DoToggleButtonStuff(34576, "Distance", this->TextValue->getValuePtr());
-		//Menu::DoToggleButtonStuff(567567, "Test Circles", &this->TestCircles);
-		Menu::DoToggleButtonStuff(1337, "Text Outline", this->TextOutlineValue->getValuePtr());
-		Menu::DoSliderStuff(34875, "Fade Distance", this->FadeDistanceValue->getValuePtr(), 0, 10);
-		Menu::DoSliderStuff(128763, "Distance Size", this->TextSizeValue->getValuePtr(), 12, 24);
-		
-
+		if (this->espMode->getValue() == ESP2D)
+		{
+			ImGui::Separator();
+			Menu::DoToggleButtonStuff(45678, "Box", this->BoxValue->getValuePtr());
+			Menu::DoToggleButtonStuff(111123, "Fill Box", this->FilledBoxValue->getValuePtr());
+			Menu::DoToggleButtonStuff(7457, "Box Outline", this->OutlineValue->getValuePtr());
+			Menu::DoToggleButtonStuff(23445, "Healthbar", this->HealthBarValue->getValuePtr());
+			Menu::DoToggleButtonStuff(34576, "Distance", this->TextValue->getValuePtr());
+			//Menu::DoToggleButtonStuff(567567, "Test Circles", &this->TestCircles);
+			Menu::DoToggleButtonStuff(1337, "Text Outline", this->TextOutlineValue->getValuePtr());
+			Menu::DoSliderStuff(34875, "Fade Distance", this->FadeDistanceValue->getValuePtr(), 0, 10);
+			Menu::DoSliderStuff(128763, "Distance Size", this->TextSizeValue->getValuePtr(), 12, 24);
+		}
+		else {
+			Menu::DoCombo(this->esp3DMode);
+		}
 	}
 	ImGui::EndChild();
 
@@ -299,6 +535,7 @@ void Esp::RenderMenu()
 	
 	ImGui::BeginChild("ESP2", ImVec2(320, 426), true);
 	{
+		ImGui::Combo("ESP Mode", espMode->getValuePtr(), espMode->getDescs(), 2);
 		int mode{};
 		ImGui::Keybind("Click To Bind", image::keybind, &this->getKey(), &mode);
 

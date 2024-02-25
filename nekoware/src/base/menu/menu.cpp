@@ -14,7 +14,9 @@ void Menu::Init()
 
 	Menu::PlaceHooks();
 }
-
+void Menu::DoCombo(ModeValue* value) {
+	ImGui::Combo(value->getName().c_str(), value->getValuePtr(), value->getDescs(), (int)value->getModes().size());
+}
 
 void Menu::DoSliderStuff(int id, const char* text, float* bruh, float min, float max) {
 

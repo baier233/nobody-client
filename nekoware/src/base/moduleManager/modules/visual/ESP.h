@@ -22,9 +22,18 @@ public:
         float health;
         float maxHealth;
     };
+
+
     std::vector<Data> renderData;
+    std::vector<AxisAlignedBB_t> renderData3D;
+
     FloatValue* TextSizeValue = new FloatValue("Text Size", 18, 12, 24);
     FloatValue* FadeDistanceValue = new FloatValue("Fade Distance", 3.0f, 0.f, 10.0f);
+
+    ModeValue* espMode = new ModeValue("ESP Mode",{ESP2D,ESP3D}, modes,ESP2D);
+    ModeValue* esp3DMode = new ModeValue("ESP 3D Mode",{OUTLINE,FILLED}, modes3D,ESP2D);
+    
+
 
     BoolValue* BoxValue = new BoolValue("Box", true);
     ColorValue* BoxColorValue = new ColorValue("Box Color", BoxColor);
@@ -51,6 +60,20 @@ public:
 
 
 private:
+
+    const char* modes[2]{ "ESP2D", "ESP3D" };
+    const char* modes3D[2]{ "Outline Box", "Filled Box" };
+
+    enum ESPMODE
+    {
+        ESP2D,
+        ESP3D
+    };
+
+    enum ESP3DMODE {
+        OUTLINE,
+        FILLED
+    };
 
     float FilledBoxOpacity = 0.15f;
     bool TestCircles = false;
