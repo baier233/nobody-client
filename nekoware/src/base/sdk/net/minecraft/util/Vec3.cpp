@@ -15,3 +15,13 @@ Vector3 CVec3::GetNativeVector3(JNIEnv* env )
 		x,y,z
 	};
 }
+Vector3D CVec3::GetNativeVector3D(JNIEnv* env )
+{
+	// ERROR AFTER THIS LINE
+	auto x = env->GetDoubleField(this->getInstance(), StrayCache::vec3_xCoord);
+	auto y = env->GetDoubleField(this->getInstance(), StrayCache::vec3_yCoord);
+	auto z = env->GetDoubleField(this->getInstance(), StrayCache::vec3_zCoord);
+	return Vector3D{
+		x,y,z
+	};
+}

@@ -87,8 +87,8 @@ void Esp::onUpdate(const EventUpdate e)
 	List playerList = CommonData::getInstance()->playerEntities;
 	auto list = playerList.toVector<CEntityPlayer>();
 	float renderPartialTicks = CommonData::getInstance()->renderPartialTicks;
-	std::cout << "renderPartialTicks :" << renderPartialTicks << std::endl;
-	std::cout << "renderPos { X:" << renderPos.x << " Y:" << renderPos.y << " Z:" << renderPos.z << " }" << std::endl;
+	//std::cout << "renderPartialTicks :" << renderPartialTicks << std::endl;
+	//std::cout << "renderPos { X:" << renderPos.x << " Y:" << renderPos.y << " Z:" << renderPos.z << " }" << std::endl;
 
 	for (CEntityPlayer entity : list)
 	{
@@ -99,11 +99,11 @@ void Esp::onUpdate(const EventUpdate e)
 		}
 		Vector3 entityPos = entity.GetPos();
 		Vector3 entityLastPos = entity.GetLastTickPos();
-		std::cout << "entityPos { X:" << entityPos.x << " Y:" << entityPos.y << " Z:" << entityPos.z << " }" << std::endl;
-		std::cout << "entityLastPos { X:" << entityLastPos.x << " Y:" << entityLastPos.y << " Z:" << entityLastPos.z << " }" << std::endl;
+		//std::cout << "entityPos { X:" << entityPos.x << " Y:" << entityPos.y << " Z:" << entityPos.z << " }" << std::endl;
+		//std::cout << "entityLastPos { X:" << entityLastPos.x << " Y:" << entityLastPos.y << " Z:" << entityLastPos.z << " }" << std::endl;
 
 		float entityWidth = 0.7f;
-		float entityHeight = (float)(entity.GetHeight() / 2) + 0.2f;
+		float entityHeight = (float)(entity.GetEyeHeight() / 2) + 0.2f;
 
 		Vector3 diff = pos - entityPos;
 		float dist = sqrt(pow(diff.x, 2) + pow(diff.y, 2) + pow(diff.z, 2)); // Sqrt((x2 - x1)^2 + (y2 - y1)^2 + (z2 - z1)^2)

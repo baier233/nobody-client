@@ -48,11 +48,11 @@ public:
 		*SDK::Minecraft->thePlayer = SDK::Minecraft->getThePlayer();
 		*SDK::Minecraft->theWorld = SDK::Minecraft->getTheWorld();
 		*SDK::Minecraft->activeRenderInfo = CActiveRenderInfo();
-		modelView = SDK::Minecraft->activeRenderInfo->ModelViewMatrix();
-		projection = SDK::Minecraft->activeRenderInfo->ProjectionMatrix();
 		fov = SDK::Minecraft->gameSettings->GetFOV();
 		thirdPersonView = SDK::Minecraft->gameSettings->GetThirdPersonView();
 		playerEntities = SDK::Minecraft->theWorld->GetPlayerList();
+		modelView = SDK::Minecraft->activeRenderInfo->ModelViewMatrix();
+		projection = SDK::Minecraft->activeRenderInfo->ProjectionMatrix();
 		if (Base::version != FORGE_1_18_1)
 		{
 			loadedTitleEntities = SDK::Minecraft->theWorld->GetLoadedTileEntityList();

@@ -22,9 +22,56 @@ RECT originalClip;
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
 
-
+void UpdateMatrix() {
+	{
+		float arr[16]{};
+		glGetFloatv(GL_PROJECTION_MATRIX, arr);
+		Matrix m{};
+		m.m00 = arr[0];
+		m.m01 = arr[1];
+		m.m02 = arr[2];
+		m.m03 = arr[3];
+		m.m10 = arr[4];
+		m.m11 = arr[5];
+		m.m12 = arr[6];
+		m.m13 = arr[7];
+		m.m20 = arr[8];
+		m.m21 = arr[9];
+		m.m22 = arr[10];
+		m.m23 = arr[11];
+		m.m30 = arr[12];
+		m.m31 = arr[13];
+		m.m32 = arr[14];
+		m.m33 = arr[15];
+		CommonData::getInstance()->projection = m;
+	}
+	{
+		float arr[16]{};
+		glGetFloatv(GL_MODELVIEW_MATRIX, arr);
+		Matrix m{};
+		m.m00 = arr[0];
+		m.m01 = arr[1];
+		m.m02 = arr[2];
+		m.m03 = arr[3];
+		m.m10 = arr[4];
+		m.m11 = arr[5];
+		m.m12 = arr[6];
+		m.m13 = arr[7];
+		m.m20 = arr[8];
+		m.m21 = arr[9];
+		m.m22 = arr[10];
+		m.m23 = arr[11];
+		m.m30 = arr[12];
+		m.m31 = arr[13];
+		m.m32 = arr[14];
+		m.m33 = arr[15];
+		CommonData::getInstance()->modelView = m;
+	}
+}
 bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 {
+
+
 	if (Base::version != FORGE_1_18_1) glPushMatrix();
 
 	Menu::HandleDeviceContext = hdc;
@@ -88,6 +135,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::OriginalGLContext);
 	if (Base::version != FORGE_1_18_1) glPopMatrix();
+	
 	return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 }
 

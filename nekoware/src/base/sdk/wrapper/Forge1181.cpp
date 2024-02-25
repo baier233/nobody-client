@@ -330,6 +330,7 @@ void StrayCache::Load1181ForgeMap() {
 		blockStateBase_class = (jclass)Java::Env->NewGlobalRef(blockStateBase_class);
 
 		blockStateBase_getBlock = Java::Env->GetMethodID(blockStateBase_class, "m_60734_", "()Lnet/minecraft/world/level/block/Block;");
+		blockStateBase_isAir = Java::Env->GetMethodID(blockStateBase_class, "m_60795_", "()Z");
 	}
 
 

@@ -84,7 +84,15 @@ void Killaura::onUpdate(const EventUpdate e) {
 		if (!Java::Env->IsSameObject(thePlayer.getInstance(), player.getInstance())) {
 			if (!thePlayer.CanEntityBeSeen(player.getInstance())) continue;
 
-			float playerHeight = target.GetHeight() - 0.1;
+			
+			float playerHeight{};
+			if (Base::version == FORGE_1_18_1)
+			{
+				playerHeight = target.GetEyeHeight();
+			}
+			else {
+				playerHeight = target.GetHeight() - 0.1;
+			}
 
 			Vector2 difference = Math::vec_wrapAngleTo180(currentLookAngles.Invert() - Math::getAngles(headPos, player.GetPos() + Vector3(0, playerHeight, 0)).Invert());
 			if (difference.x < 0) difference.x = -difference.x;

@@ -13,5 +13,6 @@ class CVec3 : public Object
 public:
 	using Object::Object;
 	Vector3 GetNativeVector3(JNIEnv* env = Java::Env);
+	Vector3D GetNativeVector3D(JNIEnv* env = Java::Env);
 };
 

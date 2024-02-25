@@ -306,6 +306,7 @@ struct StrayCache {
 	//blockStateBase Class(PS:this is for 1.18.1)
 	inline static jclass blockStateBase_class;
 	inline static jmethodID blockStateBase_getBlock;
+	inline static jmethodID blockStateBase_isAir;
 
 	//IBlockState Class
 	inline static jclass iBlockState_class;

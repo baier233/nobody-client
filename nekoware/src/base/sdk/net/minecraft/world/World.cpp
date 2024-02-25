@@ -88,9 +88,13 @@ bool CWorld::isAirBlock(double x, double y, double z, JNIEnv* env)
 	}
 	jclass blockPosClass = StrayCache::blockPos_class;
 	jmethodID blockPosConstructor = env->GetMethodID(blockPosClass, "<init>", "(DDD)V");
-	jobject blockpos = env->NewObject(blockPosClass, blockPosConstructor, x, y, z);
-
-	return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos);
+	auto blockpos = BlockPos(env->NewObject(blockPosClass, blockPosConstructor, x, y, z));
+	if (Base::version == FORGE_1_18_1)
+	{
+		auto blockstate = this->getBlockState(blockpos, env);
+		return env->CallBooleanMethod(blockstate.getInstance(), StrayCache::blockStateBase_isAir);
+	}
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, blockpos.getInstance());
 }
 
 bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env)
@@ -98,7 +102,7 @@ bool CWorld::isAirBlock(BlockPos pos, JNIEnv* env)
 	if (Base::version == FORGE_1_18_1)
 	{
 		auto blockState = this->getBlockState(pos);
-		
+		return env->CallBooleanMethod(blockState.getInstance(), StrayCache::blockStateBase_isAir);
 	}
 	if (JNIHelper::IsForge()) {
 		return env->CallBooleanMethod(this->getInstance(), StrayCache::world_isAirBlock, pos.getInstance());
