@@ -10,7 +10,7 @@ void Menu::Init()
 	Menu::Title = "NoBoay internal | rip lunar";
 	Menu::Initialized = false;
 	Menu::Open = false;
-	Menu::Keybind = VK_INSERT;
+	Menu::Keybind ='L';
 
 	Menu::PlaceHooks();
 }
@@ -58,7 +58,7 @@ void Menu::PlaceHooks()
 
 void Menu::RemoveHooks()
 {
-	//Menu::Unhook_wndProc();
+	Menu::Unhook_wndProc();
 	Menu::Unhook_wglSwapBuffers();
 	//	Menu::RemoveAllGameHook();
 		//Menu::UnhookUpdate();

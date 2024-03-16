@@ -94,39 +94,7 @@ int Base::InitUpdateMessge() {
 	JNINativeMethod native[] = {
 		{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(handleUpdate)} };
 	jclass clazz{};
-
-	jint classCount;
-	jclass* classes;
-	int error = Java::Jvmti->GetLoadedClasses(&classCount, &classes);
-	if (error != JVMTI_ERROR_NONE) {
-		return -1;
-	}
-	for (int i = 0; i < classCount; i++) {
-		jclass cls = classes[i];
-
-		char* className;
-		error = Java::Jvmti->GetClassSignature(cls, &className, NULL);
-		if (error == JVMTI_ERROR_NONE) {
-			if (version != FORGE_1_18_1) {
-				if (std::string(className).find("Lorg/lwjgl/opengl/WindowsDisplay;") != -1) {
-					clazz = classes[i];
-				}
-			}
-			else
-			{
-				if (strstr(className, "windowDisply") != NULL) {
-					// 类名包含 "windowDisply"
-					printf("Class: %s\n", className);
-				}
-			}
-			Java::Jvmti->Deallocate((unsigned char*)className);
-		}
-	}
-
-	Java::Jvmti->Deallocate((unsigned char*)classes);
-
-
-	////org.lwjgl.opengl.WindowsDisplay 
+ 
 	if (!clazz)
 		Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 	if (!clazz)
