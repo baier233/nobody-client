@@ -170,6 +170,10 @@ struct StrayCache {
 	inline static jfieldID entityPlayerSP_sendQueue;
 	inline static jfieldID entityPlayerSP_abilities;
 
+	inline static jfieldID localPlayer_xLast;
+	inline static jfieldID localPlayer_yLast1;
+	inline static jfieldID localPlayer_zLast;
+
 	//World Client
 	inline static jclass worldClient_class;
 	inline static jfieldID worldClient_entityList;

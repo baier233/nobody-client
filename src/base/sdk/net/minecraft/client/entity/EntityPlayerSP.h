@@ -8,6 +8,7 @@ class CEntityPlayerSP : public CEntityPlayer
 public:
 	using CEntityPlayer::CEntityPlayer;
 	void setSneak(bool state, JNIEnv* env = Java::Env);
+	Vector3D GetLastTickPos2(JNIEnv* env = Java::Env);
 	void attackEntity(CEntityPlayerSP* player, jobject entity, JNIEnv* env = Java::Env);
 	bool sendUseItem(CEntityPlayer* player, CWorld* world, CItemStack item, JNIEnv* env = Java::Env);
 

@@ -160,12 +160,15 @@ void StrayCache::Load1181ForgeMap() {
 		entityPlayer_getInventory = Java::Env->GetMethodID(entityPlayer_class, "m_150109_", "()Lnet/minecraft/world/entity/player/Inventory;");
 	}
 
-	/*{
-		Java::AssignClass("net.minecraft.client.entity.EntityPlayerSP", entityPlayerSP_class);
+	{
+		Java::AssignClass("net.minecraft.client.player.LocalPlayer", entityPlayerSP_class);
 		entityPlayerSP_class = (jclass)Java::Env->NewGlobalRef(entityPlayerSP_class);
-
-		entityPlayerSP_sendQueue = Java::Env->GetFieldID(entityPlayerSP_class, "field_71174_a", "Lnet/minecraft/client/network/NetHandlerPlayClient;");
-	}*/
+		localPlayer_xLast = Java::Env->GetFieldID(entityPlayerSP_class, "f_108595_", "D");
+		localPlayer_yLast1 = Java::Env->GetFieldID(entityPlayerSP_class, "f_108596_", "D");
+		localPlayer_zLast = Java::Env->GetFieldID(entityPlayerSP_class, "f_108597_", "D");
+		
+		
+	}
 
 	{
 		Java::AssignClass("com.mojang.blaze3d.systems.RenderSystem", renderSystem_class);

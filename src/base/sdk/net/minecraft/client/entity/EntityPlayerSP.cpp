@@ -22,6 +22,15 @@ void CEntityPlayerSP::setSneak(bool state, JNIEnv* env )
 	env->SetBooleanField(sneakObj, StrayCache::keybind_pressed, state);
 }
 
+Vector3D CEntityPlayerSP::GetLastTickPos2(JNIEnv* env) {
+	return Vector3D{
+		(double)env->GetDoubleField(this->getInstance(), StrayCache::localPlayer_xLast),
+		(double)env->GetDoubleField(this->getInstance(), StrayCache::localPlayer_yLast1),
+		(double)env->GetDoubleField(this->getInstance(), StrayCache::localPlayer_zLast)
+	};
+}
+
+
 void CEntityPlayerSP::attackEntity(CEntityPlayerSP* player, jobject entity, JNIEnv* env )
 {
 

@@ -63,16 +63,15 @@ public:
 		isCombat = false;
 		
 		renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
-		renderPartialTicks = 1;
 		if (Base::version == FORGE_1_18_1)
 		{
 			auto eyeHeight = SDK::Minecraft->thePlayer->GetEyeHeight();
 			auto pos = SDK::Minecraft->thePlayer->GetPos();
-			auto lastTickPos = SDK::Minecraft->thePlayer->GetLastTickPos();
-			double d3 = (double)lastTickPos.x + ((double)pos.x - (double)lastTickPos.x) * (double)renderPartialTicks;
-			double d4 = (double)lastTickPos.y + ((double)pos.y - (double)lastTickPos.y) * (double)renderPartialTicks;
-			double d5 = (double)lastTickPos.z + ((double)pos.z - (double)lastTickPos.z) * (double)renderPartialTicks;
-			renderPos = Vector3(d3,d4,d5 ) + Vector3{ 0, ySubtractValue - eyeHeight, 0 };
+			auto lastTickPos = SDK::Minecraft->thePlayer->GetLastTickPos2();
+			double x = (double)lastTickPos.x + ((double)pos.x - (double)lastTickPos.x) * (double)renderPartialTicks;
+			double y = (double)lastTickPos.y + ((double)pos.y - (double)lastTickPos.y) * (double)renderPartialTicks;
+			double z = (double)lastTickPos.z + ((double)pos.z - (double)lastTickPos.z) * (double)renderPartialTicks;
+			renderPos = Vector3{(float) x,(float)y,(float)z } + Vector3{ 0, ySubtractValue - eyeHeight, 0 };
 		}
 		else {
 
