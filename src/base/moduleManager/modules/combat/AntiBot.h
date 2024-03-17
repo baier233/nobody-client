@@ -20,6 +20,12 @@ public:
 			return true;
 		}
 
+		if (Java::Env->IsInstanceOf(p.getInstance(),StrayCache::entityPlayerSP_class))
+		{
+			return true;
+		}
+
+
 		float height = p.GetHeight();
 
 		if (height <= 0.5f)

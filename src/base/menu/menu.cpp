@@ -10,7 +10,7 @@ void Menu::Init()
 	Menu::Title = "NoBoay internal | rip lunar";
 	Menu::Initialized = false;
 	Menu::Open = false;
-	Menu::Keybind ='L';
+	Menu::Keybind =VK_INSERT;
 
 	Menu::PlaceHooks();
 }

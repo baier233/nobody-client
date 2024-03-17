@@ -453,6 +453,7 @@
     <ClInclude Include="ext\httplib\httplib.h" />
     <ClInclude Include="ext\imgui\imconfig.h" />
     <ClInclude Include="ext\imgui\imgui.h" />
+    <ClInclude Include="ext\imgui\imgui_impl_opengl2.h" />
     <ClInclude Include="ext\imgui\imgui_impl_opengl3.h" />
     <ClInclude Include="ext\imgui\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="ext\imgui\imgui_impl_win32.h" />
@@ -598,6 +599,7 @@
     <ClCompile Include="ext\glm\detail\glm.cpp" />
     <ClCompile Include="ext\imgui\imgui.cpp" />
     <ClCompile Include="ext\imgui\imgui_draw.cpp" />
+    <ClCompile Include="ext\imgui\imgui_impl_opengl2.cpp" />
     <ClCompile Include="ext\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />

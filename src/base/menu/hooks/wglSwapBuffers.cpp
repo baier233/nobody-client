@@ -8,6 +8,7 @@
 #include "../../../../ext/imgui/imgui.h"
 #include "../../../../ext/imgui/imgui_impl_win32.h"
 #include "../../../../ext/imgui/imgui_impl_opengl3.h"
+#include "../../../../ext/imgui/imgui_impl_opengl2.h"
 #include "../../util/logger.h"
 #include "../../util/trimmer.h"
 #include "../../moduleManager/modules/visual/Xray.h"
@@ -19,55 +20,25 @@ RECT originalClip;
 
 #include "../../util/TitanHook.h"
 
+
+struct Context
+{
+	RECT LastWindowRect;
+}currentCtx{ .LastWindowRect = RECT{0,0,0,0} };
+
+
+static void windowResizeHandler(RECT rect,int width, int height) {
+
+	Menu::Kill();
+	Menu::Initialized = false;
+	Menu::PlaceHooks();
+}
+
+
+
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
 
-void UpdateMatrix() {
-	{
-		float arr[16]{};
-		glGetFloatv(GL_PROJECTION_MATRIX, arr);
-		Matrix m{};
-		m.m00 = arr[0];
-		m.m01 = arr[1];
-		m.m02 = arr[2];
-		m.m03 = arr[3];
-		m.m10 = arr[4];
-		m.m11 = arr[5];
-		m.m12 = arr[6];
-		m.m13 = arr[7];
-		m.m20 = arr[8];
-		m.m21 = arr[9];
-		m.m22 = arr[10];
-		m.m23 = arr[11];
-		m.m30 = arr[12];
-		m.m31 = arr[13];
-		m.m32 = arr[14];
-		m.m33 = arr[15];
-		CommonData::getInstance()->projection = m;
-	}
-	{
-		float arr[16]{};
-		glGetFloatv(GL_MODELVIEW_MATRIX, arr);
-		Matrix m{};
-		m.m00 = arr[0];
-		m.m01 = arr[1];
-		m.m02 = arr[2];
-		m.m03 = arr[3];
-		m.m10 = arr[4];
-		m.m11 = arr[5];
-		m.m12 = arr[6];
-		m.m13 = arr[7];
-		m.m20 = arr[8];
-		m.m21 = arr[9];
-		m.m22 = arr[10];
-		m.m23 = arr[11];
-		m.m30 = arr[12];
-		m.m31 = arr[13];
-		m.m32 = arr[14];
-		m.m33 = arr[15];
-		CommonData::getInstance()->modelView = m;
-	}
-}
 bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 {
 
@@ -78,10 +49,35 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 	Menu::HandleWindow = WindowFromDC(hdc);
 	Menu::OriginalGLContext = wglGetCurrentContext();
 
-	std::call_once(setupFlag, [&] {
+	//TODO : Migrate it to WndProc
+	{
+		static bool Init = false;
+		RECT windowRect;
+		GetWindowRect(Menu::HandleWindow, &windowRect);
+
+		int lastWindowWidth = currentCtx.LastWindowRect.right - currentCtx.LastWindowRect.left;
+		int lastWindowHeight = currentCtx.LastWindowRect.bottom - currentCtx.LastWindowRect.top;
+
+		int windowWidth = windowRect.right - windowRect.left;
+		int windowHeight = windowRect.bottom - windowRect.top;
+
+		bool haveResized = (windowWidth != lastWindowWidth || windowHeight != lastWindowHeight) && lastWindowHeight != 0;
+		if (haveResized && Init)
+		{
+			//std::cout << "Handling Resize" << std::endl;
+			windowResizeHandler(windowRect, windowWidth, windowHeight);
+		}
+
+		Init = true;
+		currentCtx.LastWindowRect = windowRect;
+	}
+	
+
+	if (!Menu::Initialized)
+	{
 		Menu::Hook_wndProc();
 		Menu::SetupImgui();
-		});
+	}
 	glDepthFunc(GL_LEQUAL);
 
 	if (Xray::getInstance()->getToggle())
@@ -89,7 +85,13 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::MenuGLContext);
 	//glDepthFunc(GL_LEQUAL);
-	ImGui_ImplOpenGL3_NewFrame();
+	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9)
+	{
+		ImGui_ImplOpenGL3_NewFrame();
+	}
+	else {
+		ImGui_ImplOpenGL2_NewFrame();
+	}
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
@@ -131,7 +133,13 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 	ImGui::EndFrame();
 	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9)
+	{
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
+	else {
+		ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+	}
 
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::OriginalGLContext);
 	if (Base::version != FORGE_1_18_1) glPopMatrix();
@@ -208,46 +216,56 @@ void Menu::SetupImgui()
 
 
 	ImGuiStyle& style = ImGui::GetStyle();
-	//Manrope_Semmi_Font = io.Fonts->AddFontFromMemoryTTF(&Main_Font, sizeof Main_Font, 19.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-	Benzin_Medium_Font = io.Fonts->AddFontFromMemoryTTF(&Dreamscape_Sans, Dreamscape_Sans_size, 17.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-	//Harmony_Regular_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Regular,HarmonyOS_Sans_Regular_size, 25.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-	//Harmony_Bold_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Bold, HarmonyOS_Sans_Bold_size, 25.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-	Manrope_Semmi_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Regular, HarmonyOS_Sans_Regular_size, 17.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+	if (!Menu::Initialized)
+	{
+		Benzin_Medium_Font = io.Fonts->AddFontFromMemoryTTF(&Dreamscape_Sans, Dreamscape_Sans_size, 17.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+		//Harmony_Regular_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Regular,HarmonyOS_Sans_Regular_size, 25.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+		//Harmony_Bold_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Bold, HarmonyOS_Sans_Bold_size, 25.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+		Manrope_Semmi_Font = io.Fonts->AddFontFromMemoryTTF(&HarmonyOS_Sans_Regular, HarmonyOS_Sans_Regular_size, 17.f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 
-	Menu::nlBold14 = io.Fonts->AddFontFromMemoryTTF(&neverlose900, neverlose900_size, 14.f, NULL);
-	Menu::nl14 = io.Fonts->AddFontFromMemoryTTF(&neverlose500, neverlose500_size, 14.f, NULL);
-	Menu::Font = Manrope_Semmi_Font;
-	//Benzin_Medium_Font = Harmony_Bold_Font;
-	if (image::check == nullptr) image::check = glLoadTextureFromMemory(check_icon, sizeof(check_icon));
+		Menu::nlBold14 = io.Fonts->AddFontFromMemoryTTF(&neverlose900, neverlose900_size, 14.f, NULL);
+		Menu::nl14 = io.Fonts->AddFontFromMemoryTTF(&neverlose500, neverlose500_size, 14.f, NULL);
+		Menu::Font = Manrope_Semmi_Font;
+		//Benzin_Medium_Font = Harmony_Bold_Font;
+		if (image::check == nullptr) image::check = glLoadTextureFromMemory(check_icon, sizeof(check_icon));
 
-	if (image::input == nullptr) image::input = glLoadTextureFromMemory(input_icon, sizeof(input_icon));
+		if (image::input == nullptr) image::input = glLoadTextureFromMemory(input_icon, sizeof(input_icon));
 
-	if (image::aimbot == nullptr) image::aimbot = glLoadTextureFromMemory(aimbot_icon, sizeof(aimbot_icon));
+		if (image::aimbot == nullptr) image::aimbot = glLoadTextureFromMemory(aimbot_icon, sizeof(aimbot_icon));
 
-	if (image::no_aimbot == nullptr)image::no_aimbot = glLoadTextureFromMemory(no_aimbot_icon, sizeof(no_aimbot_icon));
+		if (image::no_aimbot == nullptr)image::no_aimbot = glLoadTextureFromMemory(no_aimbot_icon, sizeof(no_aimbot_icon));
 
-	if (image::visuals == nullptr) image::visuals = glLoadTextureFromMemory(visuals_icon, sizeof(visuals_icon));
+		if (image::visuals == nullptr) image::visuals = glLoadTextureFromMemory(visuals_icon, sizeof(visuals_icon));
 
-	if (image::drop == nullptr) image::drop = glLoadTextureFromMemory(drop_icon, sizeof(drop_icon));
+		if (image::drop == nullptr) image::drop = glLoadTextureFromMemory(drop_icon, sizeof(drop_icon));
 
-	if (image::could == nullptr) image::could = glLoadTextureFromMemory(could_icon, sizeof(could_icon));
+		if (image::could == nullptr) image::could = glLoadTextureFromMemory(could_icon, sizeof(could_icon));
 
-	if (image::exploits == nullptr) image::exploits = glLoadTextureFromMemory(exploits_icon, sizeof(exploits_icon));
+		if (image::exploits == nullptr) image::exploits = glLoadTextureFromMemory(exploits_icon, sizeof(exploits_icon));
 
-	if (image::keybind == nullptr)  image::keybind = glLoadTextureFromMemory(keybind_icon, sizeof(keybind_icon));
+		if (image::keybind == nullptr)  image::keybind = glLoadTextureFromMemory(keybind_icon, sizeof(keybind_icon));
 
-	if (image::arrows == nullptr)  image::arrows = glLoadTextureFromMemory(arrows_icon, sizeof(arrows_icon));
+		if (image::arrows == nullptr)  image::arrows = glLoadTextureFromMemory(arrows_icon, sizeof(arrows_icon));
 
-	if (image::iconInfo == nullptr) image::iconInfo = glLoadTextureFromMemory(info, info_size);
-	if (image::iconErr == nullptr) image::iconErr = glLoadTextureFromMemory(error, error_size);
-	if (image::iconSucc == nullptr) image::iconSucc = glLoadTextureFromMemory(success, success_size);
-	if (image::iconWarn == nullptr) image::iconWarn = glLoadTextureFromMemory(waring, waring_size);
+		if (image::iconInfo == nullptr) image::iconInfo = glLoadTextureFromMemory(info, info_size);
+		if (image::iconErr == nullptr) image::iconErr = glLoadTextureFromMemory(error, error_size);
+		if (image::iconSucc == nullptr) image::iconSucc = glLoadTextureFromMemory(success, success_size);
+		if (image::iconWarn == nullptr) image::iconWarn = glLoadTextureFromMemory(waring, waring_size);
 
-	ImGui::GetStyle().ItemSpacing = ImVec2(0, 12);
+		ImGui::GetStyle().ItemSpacing = ImVec2(0, 12);
+	}
+	
 
 	ImGui_ImplWin32_Init(Menu::HandleWindow);
-	ImGui_ImplOpenGL3_Init();
+	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9)
+	{
+		ImGui_ImplOpenGL3_Init();
+	}
+	else {
+		ImGui_ImplOpenGL2_Init();
+	}
 
+	
 
 	Menu::Initialized = true;
 }

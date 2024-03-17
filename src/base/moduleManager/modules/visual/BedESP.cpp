@@ -28,6 +28,8 @@ void BedESP::onUpdate(EventUpdate e)
 	if (entityList.isNULL()) return;
 	auto list = entityList.toVector<CTileEntity>();
 	for (CTileEntity& entity : list) {
+		if (!entity.isValid() || entity.isNULL()) continue;
+		
 		if (Java::Env->IsInstanceOf(entity.getInstance(), StrayCache::tileEntityBed_class)) {
 			CTileEntityBed bed = CTileEntityBed(entity.getInstance());
 			auto blockPos = bed.getPos();
@@ -76,6 +78,7 @@ void BedESP::drawSelectionBoundingBox(BoundingBox boundingBox)
 
 void BedESP::drawColorBox(BoundingBox axisalignedbb)
 {
+	
 	glBegin(GL_QUADS);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ);
 	glVertex3f(axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ);

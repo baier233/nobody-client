@@ -201,24 +201,22 @@ void Esp::onUpdate(const EventUpdate e)
 	if (this->espMode->getValue() == ESP3D) {
 		List playerList = CommonData::getInstance()->playerEntities;
 		auto list = playerList.toVector<CEntityPlayer>();
-		float renderPartialTicks = 1;
 		std::vector<AxisAlignedBB_t> newData;
 		for (CEntityPlayer entity : list)
 		{
 
 			if (!entity.isValid() || entity.isNULL()) continue;
-
-			if (entity.isEqualTo(player->getInstance())) continue;
+			if (Java::Env->IsSameObject(entity.getInstance(),player->getInstance())) continue;
 
 			if (Antibot::getInstance()->getToggle() && Antibot::getInstance()->isBot(entity)) {
 				continue;
 			}
 			Vector3 entityPos = entity.GetPos();
 			Vector3 entityLastPos = entity.GetLastTickPos();
-			//std::cout << "entityPos { X:" << entityPos.x << " Y:" << entityPos.y << " Z:" << entityPos.z << " }" << std::endl;
-			//std::cout << "entityLastPos { X:" << entityLastPos.x << " Y:" << entityLastPos.y << " Z:" << entityLastPos.z << " }" << std::endl;
+
 			if (this->espMode->getValue() == ESP3D)
 			{
+				auto renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
 				auto playerBoundingBox = AxisAlignedBB_t(
 					static_cast<float>((entityPos.x - 0.4f) - renderPos.x + -entityPos.x + entityLastPos.x + (entityPos.x - entityLastPos.x) * renderPartialTicks),
 					static_cast<float>((entityPos.y - 0.1f) - renderPos.y + -entityPos.y + entityLastPos.y + (entityPos.y - entityLastPos.y) * renderPartialTicks),
@@ -272,7 +270,6 @@ void Esp::onUpdate(const EventUpdate e)
 
 		if (!entity.isValid() || entity.isNULL()) continue;
 
-		if (entity.isEqualTo(player->getInstance())) continue;
 		
 		if (Antibot::getInstance()->getToggle() && Antibot::getInstance()->isBot(entity)) {
 			continue;

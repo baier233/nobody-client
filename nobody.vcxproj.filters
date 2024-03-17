@@ -131,6 +131,7 @@
     <ClCompile Include="src\base\sdk\wrapper\Forge1710.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Vanllia189.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Forge1181.cpp" />
+    <ClCompile Include="ext\imgui\imgui_impl_opengl2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -604,6 +605,7 @@
     <ClInclude Include="src\base\util\TitanHook.h" />
     <ClInclude Include="src\base\menu\neverlose500.h" />
     <ClInclude Include="src\base\menu\neverlose900.h" />
+    <ClInclude Include="ext\imgui\imgui_impl_opengl2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

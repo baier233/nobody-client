@@ -45,6 +45,7 @@ public:
 	void UpdateData(const EventUpdate e)
 	{
 		if (!SanityCheck()) return;
+		std::cout << "onUpdateData" << std::endl;
 		*SDK::Minecraft->thePlayer = SDK::Minecraft->getThePlayer();
 		*SDK::Minecraft->theWorld = SDK::Minecraft->getTheWorld();
 		*SDK::Minecraft->activeRenderInfo = CActiveRenderInfo();
@@ -97,14 +98,6 @@ public:
 			CommonData::dataUpdated = false;
 			return false;
 		}
-		/*if (Java::Env->IsSameObject(SDK::Minecraft->thePlayer->getInstance(), NULL))
-		{
-			*SDK::Minecraft->thePlayer = SDK::Minecraft->getThePlayer();
-		}
-		if (Java::Env->IsSameObject(SDK::Minecraft->theWorld->getInstance(), NULL))
-		{
-			*SDK::Minecraft->theWorld = SDK::Minecraft->getTheWorld();
-		}*/
 		return true;
 	}
 };

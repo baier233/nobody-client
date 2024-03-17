@@ -141,7 +141,7 @@ void ShowAllClass() {
 
 void Base::Init()
 {
-	BuildVersion = "Build 20240213 - f5c3a08";//动态获取？
+	BuildVersion = "Build 20240317 - f5c3a08";//动态获取？
 	Java::Init();
 	Base::isObfuscate = false;
 	checkVersion();
