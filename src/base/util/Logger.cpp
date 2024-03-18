@@ -51,6 +51,9 @@ void Logger::Kill()
 {
 	if (Logger::Initialized)
 	{
+		auto window = GetConsoleWindow();
+		if (window)
+			CloseWindow(window);
 		fclose(out);
 		fclose(err);
 		FreeConsole();

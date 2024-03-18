@@ -43,3 +43,4 @@ private:
 	void* targetFunc_;
 	void* myFunc_;
 };
+

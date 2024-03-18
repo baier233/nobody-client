@@ -55,6 +55,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -163,6 +164,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\JvmAcquirer\include\break\break_point_info.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\break\byte_code_info.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\break\jvm_break_points.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\array.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\bytecode.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\const_pool.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\field_info.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\java_thread.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\klass.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\method.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\classes\symbol.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\include_header.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\java_interop.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\magic_enum.hpp" />
+    <ClInclude Include="..\..\JvmAcquirer\include\utility\jvm_internal.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\utility\jvm_static.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\utility\memory_utility.h" />
+    <ClInclude Include="..\..\JvmAcquirer\include\utility\vm_helper.h" />
     <ClInclude Include="ext\glm\common.hpp" />
     <ClInclude Include="ext\glm\detail\compute_common.hpp" />
     <ClInclude Include="ext\glm\detail\compute_vector_relational.hpp" />
@@ -464,6 +483,25 @@
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
     <ClInclude Include="ext\imgui\main.h" />
     <ClInclude Include="ext\json\json.hpp" />
+    <ClInclude Include="hook.h" />
+    <ClInclude Include="src\base\jvm\break\break_point_info.h" />
+    <ClInclude Include="src\base\jvm\break\byte_code_info.h" />
+    <ClInclude Include="src\base\jvm\break\jvm_break_points.h" />
+    <ClInclude Include="src\base\jvm\classes\array.h" />
+    <ClInclude Include="src\base\jvm\classes\bytecode.h" />
+    <ClInclude Include="src\base\jvm\classes\const_pool.h" />
+    <ClInclude Include="src\base\jvm\classes\field_info.h" />
+    <ClInclude Include="src\base\jvm\classes\java_thread.h" />
+    <ClInclude Include="src\base\jvm\classes\klass.h" />
+    <ClInclude Include="src\base\jvm\classes\method.h" />
+    <ClInclude Include="src\base\jvm\classes\symbol.h" />
+    <ClInclude Include="src\base\jvm\include_header.h" />
+    <ClInclude Include="src\base\jvm\java_interop.h" />
+    <ClInclude Include="src\base\jvm\magic_enum.hpp" />
+    <ClInclude Include="src\base\jvm\utility\jvm_internal.h" />
+    <ClInclude Include="src\base\jvm\utility\jvm_static.h" />
+    <ClInclude Include="src\base\jvm\utility\memory_utility.h" />
+    <ClInclude Include="src\base\jvm\utility\vm_helper.h" />
     <ClInclude Include="src\base\menu\neverlose500.h" />
     <ClInclude Include="src\base\menu\neverlose900.h" />
     <ClInclude Include="src\base\moduleManager\modules\visual\BedESP.h" />
@@ -474,8 +512,6 @@
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntity.h" />
     <ClInclude Include="src\base\sdk\net\minecraft\tileentity\TileEntityBed.h" />
     <ClInclude Include="src\base\util\module\Module.hpp" />
-    <ClInclude Include="src\base\jvm\hook\JavaHook.h" />
-    <ClInclude Include="src\base\jvm\JVM.hpp" />
     <ClInclude Include="src\base\eventManager\events\EventRender.hpp" />
     <ClInclude Include="src\base\menu\Dreamscape_Sans.h" />
     <ClInclude Include="src\base\menu\HarmonyOS_Sans_Regular.h" />
@@ -604,6 +640,22 @@
     <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="hook.cpp" />
+    <ClCompile Include="src\base\jvm\break\break_point_info.cpp" />
+    <ClCompile Include="src\base\jvm\break\byte_code_info.cpp" />
+    <ClCompile Include="src\base\jvm\break\jvm_break_points.cpp" />
+    <ClCompile Include="src\base\jvm\classes\array.cpp" />
+    <ClCompile Include="src\base\jvm\classes\bytecode.cpp" />
+    <ClCompile Include="src\base\jvm\classes\const_pool.cpp" />
+    <ClCompile Include="src\base\jvm\classes\field_info.cpp" />
+    <ClCompile Include="src\base\jvm\classes\java_thread.cpp" />
+    <ClCompile Include="src\base\jvm\classes\klass.cpp" />
+    <ClCompile Include="src\base\jvm\classes\method.cpp" />
+    <ClCompile Include="src\base\jvm\classes\symbol.cpp" />
+    <ClCompile Include="src\base\jvm\java_interop.cpp" />
+    <ClCompile Include="src\base\jvm\utility\jvm_internal.cpp" />
+    <ClCompile Include="src\base\jvm\utility\jvm_static.cpp" />
+    <ClCompile Include="src\base\jvm\utility\vm_helper.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\BedESP.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
@@ -617,8 +669,6 @@
     <ClCompile Include="src\base\sdk\wrapper\MCP189.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Vanllia189.cpp" />
     <ClCompile Include="src\base\util\module\Module.cpp" />
-    <ClCompile Include="src\base\jvm\hook\JavaHook.cpp" />
-    <ClCompile Include="src\base\jvm\JVM.cpp" />
     <ClCompile Include="src\base\menu\Notification\Notification.cpp" />
     <ClCompile Include="src\base\menu\Notification\NotificationManager.cpp" />
     <ClCompile Include="src\base\menu\web\WebServerManager.cpp" />
@@ -707,6 +757,7 @@
     <ClCompile Include="src\base\util\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\JvmAcquirer\include\utility\getter.asm" />
     <None Include="cpp.hint" />
     <None Include="ext\glm\detail\func_common.inl" />
     <None Include="ext\glm\detail\func_common_simd.inl" />
@@ -847,11 +898,15 @@
     <None Include="ext\glm\gtx\vector_angle.inl" />
     <None Include="ext\glm\gtx\vector_query.inl" />
     <None Include="ext\glm\gtx\wrap.inl" />
+    <MASM Include="src\base\jvm\utility\getter.asm">
+      <FileType>Document</FileType>
+    </MASM>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ext\glm\copying.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

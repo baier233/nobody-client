@@ -38,7 +38,7 @@
 #include "util/stb_image.h"
 #include "menu/Notification/NotificationManager.h"
 #include "menu/web/WebServerManager.h"
-#include "jvm/hook/JavaHook.h"
+
 
 Version Base::version = UNKNOWN;
 
@@ -354,40 +354,11 @@ void Base::Kill()
 	auto og = GetProcAddress(GetModuleHandle("lwjgl64.dll"), "Java_org_lwjgl_opengl_WindowsDisplay_nUpdate");
 	JNINativeMethod native[] = {
 		{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(og)} };
-	std::cout << "0g: " << std::hex << std::uppercase << og << std::endl;
+	//std::cout << "0g: " << std::hex << std::uppercase << og << std::endl;
 	if (og != nullptr)
 	{
 		jclass clazz{};
-		jint classCount;
-		jclass* classes;
-		int error = Java::Jvmti->GetLoadedClasses(&classCount, &classes);
-		if (error != JVMTI_ERROR_NONE) {
-			return;
-		}
-		for (int i = 0; i < classCount; i++) {
-			jclass cls = classes[i];
-
-			char* className;
-			error = Java::Jvmti->GetClassSignature(cls, &className, NULL);
-			if (error == JVMTI_ERROR_NONE) {
-				if (version != FORGE_1_18_1) {
-					if (std::string(className).find("Lorg/lwjgl/opengl/WindowsDisplay;") != -1) {
-						clazz = classes[i];
-					}
-					else
-					{
-						if (strstr(className, "windowDisply") != NULL) {
-							// 类名包含 "windowDisply"
-							printf("Class: %s\n", className);
-						}
-					}
-
-				}
-				Java::Jvmti->Deallocate((unsigned char*)className);
-			}
-		}
-
-		Java::Jvmti->Deallocate((unsigned char*)classes);
+		
 		if (!clazz)
 			Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 		if (!clazz)
