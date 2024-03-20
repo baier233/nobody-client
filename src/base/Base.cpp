@@ -39,6 +39,8 @@
 #include "menu/Notification/NotificationManager.h"
 #include "menu/web/WebServerManager.h"
 
+#include "jvm/wrapper.hpp"
+
 
 Version Base::version = UNKNOWN;
 
@@ -143,6 +145,7 @@ void Base::Init()
 {
 	BuildVersion = "Build 20240317 - f5c3a08";//动态获取？
 	Java::Init();
+	JavaHook::JVM::Init(Java::Env);
 	Base::isObfuscate = false;
 	checkVersion();
 	SDK::Init();

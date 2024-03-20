@@ -159,3 +159,47 @@ auto java_hotspot::method::remove_break_point(const uintptr_t offset) -> void {
 auto java_hotspot::method::remove_all_break_points() -> void {
     jvm_break_points::remove_all_breakpoints(this);
 }
+
+auto java_hotspot::method::get_access_flags() -> int*
+{
+    if (!this) return nullptr;
+    static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("Method").value().get()["_access_flags"];
+    if (!vm_entry)
+        return nullptr;
+    return (int*)((uint8_t*)this + vm_entry->offset);
+}
+
+auto java_hotspot::method::get_flags() -> unsigned short*
+{
+    if (!this) return nullptr;
+    static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("Method").value().get()["_flags"];
+    if (!vm_entry)
+        return nullptr;
+    return (unsigned short*)((uint8_t*)this + vm_entry->offset);
+}
+
+
+
+auto java_hotspot::method::set_dont_inline(bool enabled) -> void
+{
+    unsigned short* _flags = get_flags();
+    if (!_flags)
+    {
+        static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("Method").value().get()["_intrinsic_id"];
+        if (!vm_entry) return;
+        constexpr uintptr_t relative_offset_from_intrinsic_id = 1;//Maybe should be 5 in jvm 1.8
+        unsigned char* flags = ((uint8_t*)this + vm_entry->offset + relative_offset_from_intrinsic_id);
+        if (enabled)
+            *flags |= (1 << 3);
+        else
+            *flags &= ~(1 << 3);
+        return;
+    }
+
+    if (enabled)
+        *_flags |= _dont_inline;
+    else
+        *_flags &= ~_dont_inline;
+}
+
+

@@ -145,7 +145,7 @@
     <ClCompile Include="src\base\jvm\utility\jvm_static.cpp" />
     <ClCompile Include="src\base\jvm\utility\vm_helper.cpp" />
     <ClCompile Include="src\base\jvm\java_interop.cpp" />
-    <ClCompile Include="hook.cpp" />
+    <ClCompile Include="src\base\jvm\wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -618,24 +618,6 @@
     <ClInclude Include="src\base\menu\neverlose500.h" />
     <ClInclude Include="src\base\menu\neverlose900.h" />
     <ClInclude Include="ext\imgui\imgui_impl_opengl2.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\java_interop.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\magic_enum.hpp" />
-    <ClInclude Include="..\..\JvmAcquirer\include\break\break_point_info.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\break\byte_code_info.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\break\jvm_break_points.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\array.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\bytecode.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\const_pool.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\field_info.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\java_thread.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\klass.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\method.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\symbol.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\jvm_internal.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\jvm_static.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\memory_utility.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\vm_helper.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\include_header.h" />
     <ClInclude Include="src\base\jvm\java_interop.h" />
     <ClInclude Include="src\base\jvm\magic_enum.hpp" />
     <ClInclude Include="src\base\jvm\include_header.h" />
@@ -654,7 +636,7 @@
     <ClInclude Include="src\base\jvm\break\byte_code_info.h" />
     <ClInclude Include="src\base\jvm\break\break_point_info.h" />
     <ClInclude Include="src\base\jvm\utility\vm_helper.h" />
-    <ClInclude Include="hook.h" />
+    <ClInclude Include="src\base\jvm\wrapper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -797,7 +779,6 @@
     <None Include="ext\glm\detail\type_vec3.inl" />
     <None Include="ext\glm\detail\type_vec4.inl" />
     <None Include="ext\glm\detail\type_vec4_simd.inl" />
-    <None Include="..\..\JvmAcquirer\include\utility\getter.asm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ext\glm\copying.txt" />

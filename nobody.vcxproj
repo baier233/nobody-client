@@ -164,24 +164,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\JvmAcquirer\include\break\break_point_info.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\break\byte_code_info.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\break\jvm_break_points.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\array.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\bytecode.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\const_pool.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\field_info.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\java_thread.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\klass.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\method.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\classes\symbol.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\include_header.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\java_interop.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\magic_enum.hpp" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\jvm_internal.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\jvm_static.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\memory_utility.h" />
-    <ClInclude Include="..\..\JvmAcquirer\include\utility\vm_helper.h" />
     <ClInclude Include="ext\glm\common.hpp" />
     <ClInclude Include="ext\glm\detail\compute_common.hpp" />
     <ClInclude Include="ext\glm\detail\compute_vector_relational.hpp" />
@@ -483,7 +465,7 @@
     <ClInclude Include="ext\imgui\imstb_truetype.h" />
     <ClInclude Include="ext\imgui\main.h" />
     <ClInclude Include="ext\json\json.hpp" />
-    <ClInclude Include="hook.h" />
+    <ClInclude Include="src\base\jvm\wrapper.hpp" />
     <ClInclude Include="src\base\jvm\break\break_point_info.h" />
     <ClInclude Include="src\base\jvm\break\byte_code_info.h" />
     <ClInclude Include="src\base\jvm\break\jvm_break_points.h" />
@@ -640,7 +622,7 @@
     <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="ext\imgui\imgui_tables.cpp" />
     <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="hook.cpp" />
+    <ClCompile Include="src\base\jvm\wrapper.cpp" />
     <ClCompile Include="src\base\jvm\break\break_point_info.cpp" />
     <ClCompile Include="src\base\jvm\break\byte_code_info.cpp" />
     <ClCompile Include="src\base\jvm\break\jvm_break_points.cpp" />
@@ -757,7 +739,6 @@
     <ClCompile Include="src\base\util\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\JvmAcquirer\include\utility\getter.asm" />
     <None Include="cpp.hint" />
     <None Include="ext\glm\detail\func_common.inl" />
     <None Include="ext\glm\detail\func_common_simd.inl" />

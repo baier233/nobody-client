@@ -7,6 +7,20 @@
 
 #include "../include_header.h"
 
+
+enum Flags
+{
+    _caller_sensitive = 1 << 0,
+    _force_inline = 1 << 1,
+    _dont_inline = 1 << 2,
+    _hidden = 1 << 3,
+    _has_injected_profile = 1 << 4,
+    _intrinsic_candidate = 1 << 5,
+    _reserved_stack_access = 1 << 6,
+    _scoped = 1 << 7
+};
+
+
 enum {
     JVM_ACC_PUBLIC        = 0x0001,
     JVM_ACC_PRIVATE       = 0x0002,

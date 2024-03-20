@@ -44,7 +44,27 @@ auto vm_helper::find_vm_calls(PVOID start) -> std::vector<PVOID> {
 
     while (vm_call_addr) {
         const uintptr_t vm_call_address = scan(vm_call_address_pattern.c_str(), vm_call_addr, vm_call_addr + 0x64);
-        calls.push_back(*reinterpret_cast<PVOID *>(vm_call_address + 6));
+        switch (const uint8_t type = *reinterpret_cast<uint8_t*>(vm_call_address + 6)){
+            case 0x49:
+            {
+                calls.push_back(*reinterpret_cast<PVOID*>(vm_call_address + 6));
+            }
+            break;
+            case 0xE8:
+            {
+                const auto call_offset_address = reinterpret_cast<uint8_t*>(vm_call_address) + 4;
+                const auto offset_ptr = reinterpret_cast<int32_t*>(static_cast<uint8_t*>(call_offset_address) +     1);
+                const auto offset = *offset_ptr;
+                const auto absolute_addr = static_cast<PVOID>(
+                    static_cast<uint8_t*>(call_offset_address) + offset + 5
+                    );
+            }
+            break;
+            default:
+                std::cout << "Unknown Type : 0x" << std::hex << std::uppercase << type << std::endl;
+                break;
+        }
+
         vm_call_addr = scan(call_pattern, vm_call_addr + 1, end_addr);
     }
 

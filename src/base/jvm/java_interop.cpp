@@ -43,7 +43,11 @@ java_interop::java_interop(JNIEnv* env)
 java_interop::~java_interop() {
     if (!vm)
         return;
+
+#ifdef NeedDetach
     vm->DetachCurrentThread();
+#endif // NeedDetach
+
 }
 
 auto java_interop::find_class(const char *name) const -> jclass {

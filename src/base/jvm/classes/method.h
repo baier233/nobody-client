@@ -81,6 +81,12 @@ namespace java_hotspot {
         auto remove_break_point(uintptr_t offset) -> void;
 
         auto remove_all_break_points() -> void;
+
+        auto get_access_flags() -> int*;
+
+        auto get_flags() -> unsigned short*;
+
+        auto set_dont_inline(bool enabled) -> void;
     };
 
     inline size_t bytecode_start_offset;
