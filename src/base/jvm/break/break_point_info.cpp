@@ -18,6 +18,7 @@ break_point_info::break_point_info(
                                                 reinterpret_cast<uint8_t *>(bytecode_address));
     this->java_thread = java_thread;
     this->parameters = parameters;
+    this->method = method;
 }
 
 break_point_info::~break_point_info() {

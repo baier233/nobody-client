@@ -478,7 +478,6 @@
     <ClInclude Include="src\base\jvm\classes\method.h" />
     <ClInclude Include="src\base\jvm\classes\symbol.h" />
     <ClInclude Include="src\base\jvm\include_header.h" />
-    <ClInclude Include="src\base\jvm\java_interop.h" />
     <ClInclude Include="src\base\jvm\magic_enum.hpp" />
     <ClInclude Include="src\base\jvm\utility\jvm_internal.h" />
     <ClInclude Include="src\base\jvm\utility\jvm_static.h" />
@@ -634,12 +633,12 @@
     <ClCompile Include="src\base\jvm\classes\klass.cpp" />
     <ClCompile Include="src\base\jvm\classes\method.cpp" />
     <ClCompile Include="src\base\jvm\classes\symbol.cpp" />
-    <ClCompile Include="src\base\jvm\java_interop.cpp" />
     <ClCompile Include="src\base\jvm\utility\jvm_internal.cpp" />
     <ClCompile Include="src\base\jvm\utility\jvm_static.cpp" />
     <ClCompile Include="src\base\jvm\utility\vm_helper.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\BedESP.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\ItemESP.cpp" />
+    <ClCompile Include="src\base\resource\ResourceManager.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\NetworkManger.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\client\network\Packet.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\tileentity\TileEntity.cpp" />
@@ -656,7 +655,6 @@
     <ClCompile Include="src\base\menu\web\WebServerManager.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\BlockESP.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\ChestESP.cpp" />
-    <ClCompile Include="src\base\resource\ResourceManager.cpp" />
     <ClCompile Include="src\base\sdk\java\nio\IntBuffer.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\visual\HUD.cpp" />
     <ClCompile Include="src\base\moduleManager\modules\player\Scaffold.cpp" />

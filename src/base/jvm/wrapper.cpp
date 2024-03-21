@@ -1,6 +1,5 @@
 #include "wrapper.hpp"
 #include "utility/jvm_internal.h"
-#include "java_interop.h"
 #include "break/jvm_break_points.h"
 #include "utility/vm_helper.h"
 
@@ -105,14 +104,54 @@ JavaHook::MethodHook::MethodHook()
 {
     this->target_method = 0;
     this->detour = 0;
+    this->isHooked = false;
+}
+
+JavaHook::MethodHook::MethodHook(const jmethodID method, hook_callback_t detour)
+{
+    this->InitHook(method, detour);
 }
 
 JavaHook::MethodHook::~MethodHook()
 {
+    if (this->isHooked)
+    {
+        this->RemoveHook();
+    }
 
+    this->detour = 0;
+    this->target_method = 0;
+    
 }
 
-void JavaHook::MethodHook::InitHook(const jmethodID method,const void* detour)
+
+void JavaHook::MethodHook::RemoveHook()
+{
+    if (!this->isHooked)
+    {
+        return;
+    }
+    hook_map.erase(this->target_method);
+    this->target_method->remove_all_break_points();
+}
+
+void JavaHook::MethodHook::SetHook() {
+   
+    if (this->isHooked)
+    {
+        return;
+    }
+
+    //TODO : use nmethod to know if method has been JITd.
+
+
+    hook_map[this->target_method] = this;
+
+    this->target_method->set_break_point(0x00,
+        breakpoint_callback_handler);
+}
+
+void JavaHook::MethodHook::InitHook(const jmethodID method,hook_callback_t detour)
 {
     if (!method || !detour)
     {
@@ -127,5 +166,5 @@ void JavaHook::MethodHook::InitHook(const jmethodID method,const void* detour)
 
     this->target_method = target;
     this->detour = detour;
-    
+    this->isHooked = false;
 }

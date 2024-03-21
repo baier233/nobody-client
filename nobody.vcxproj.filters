@@ -106,7 +106,6 @@
     <ClCompile Include="src\base\sdk\java\nio\IntBuffer.cpp" />
     <ClCompile Include="src\base\sdk\net\minecraft\util\NonNullList.h" />
     <ClCompile Include="src\base\sdk\net\minecraft\util\NonNullList.cpp" />
-    <ClCompile Include="src\base\resource\ResourceManager.cpp" />
     <ClCompile Include="src\base\menu\Notification\Notification.cpp" />
     <ClCompile Include="src\base\util\render\Animation.cpp" />
     <ClCompile Include="src\base\util\math\TimerUtil.cpp" />
@@ -144,8 +143,8 @@
     <ClCompile Include="src\base\jvm\utility\jvm_internal.cpp" />
     <ClCompile Include="src\base\jvm\utility\jvm_static.cpp" />
     <ClCompile Include="src\base\jvm\utility\vm_helper.cpp" />
-    <ClCompile Include="src\base\jvm\java_interop.cpp" />
     <ClCompile Include="src\base\jvm\wrapper.cpp" />
+    <ClCompile Include="src\base\resource\ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
@@ -618,7 +617,6 @@
     <ClInclude Include="src\base\menu\neverlose500.h" />
     <ClInclude Include="src\base\menu\neverlose900.h" />
     <ClInclude Include="ext\imgui\imgui_impl_opengl2.h" />
-    <ClInclude Include="src\base\jvm\java_interop.h" />
     <ClInclude Include="src\base\jvm\magic_enum.hpp" />
     <ClInclude Include="src\base\jvm\include_header.h" />
     <ClInclude Include="src\base\jvm\utility\memory_utility.h" />

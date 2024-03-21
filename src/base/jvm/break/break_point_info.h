@@ -28,11 +28,13 @@ public:
 
     [[nodiscard]] auto get_bytecode() const -> java_runtime::bytecode *;
 
+    uintptr_t parameters;
+    java_hotspot::java_thread* java_thread;
+    java_hotspot::method* method;
 private:
     uintptr_t bytecode_address;
-    uintptr_t parameters;
     java_runtime::bytecode *bytecode;
-    java_hotspot::java_thread *java_thread;
+    
 };
 
 
