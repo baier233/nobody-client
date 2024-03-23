@@ -20,7 +20,7 @@ double distance(double x1, double y1, double z1, double x2, double y2, double z2
 bool isMove() {
 	if (!CommonData::getInstance()->SanityCheck()) return NULL;
 
-	CEntityPlayerSP* p = SDK::Minecraft->thePlayer;
+	CEntityPlayerSP* p = SDK::GetInstance()->Minecraft->thePlayer;
 
 	return (p->getMoveForward() != 0 || p->getMoveStrafe() != 0);
 }
@@ -52,10 +52,10 @@ void Killaura::onUpdate(const EventUpdate e) {
 	if (!this->getToggle()) return;
 	if (Menu::Open) return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
-	if (SDK::Minecraft->IsInGuiState()) return;
+	if (SDK::GetInstance()->Minecraft->IsInGuiState()) return;
 
 	List playerList = CommonData::getInstance()->playerEntities;
-	CEntityPlayerSP thePlayer = *SDK::Minecraft->thePlayer;
+	CEntityPlayerSP thePlayer = *SDK::GetInstance()->Minecraft->thePlayer;
 
 	Vector3 headPos = thePlayer.GetEyePos();
 	Vector2 currentLookAngles = thePlayer.GetAngles();

@@ -24,7 +24,7 @@ public:
 			return true;
 		}
 
-		CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
+		CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
 
 		if (!thePlayer->GetInventory().isValid()|| p.GetInventory().isNULL())
 		{

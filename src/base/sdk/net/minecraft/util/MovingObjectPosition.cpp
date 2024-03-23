@@ -20,7 +20,7 @@ CBlock CMovingObjectPosition::GetBlock(JNIEnv* env)
 	x = Java::GetInstance()->Env->GetIntField(this->instance, StrayCache::GetInstance()->movingObjectPosition_blockX);
 	y = Java::GetInstance()->Env->GetIntField(this->instance, StrayCache::GetInstance()->movingObjectPosition_blockY);
 	z = Java::GetInstance()->Env->GetIntField(this->instance, StrayCache::GetInstance()->movingObjectPosition_blockZ);
-	return SDK::Minecraft->theWorld->GetBlock(x,y,z);
+	return SDK::GetInstance()->Minecraft->theWorld->GetBlock(x,y,z);
 }
 
 bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )

@@ -40,7 +40,7 @@
 //
 //jobject CWorldClient::getInstance()
 //{
-//	return env->GetObjectField(SDK::Minecraft->getInstance(), SDK::Minecraft->FieldIDs["theWorld"]);
+//	return env->GetObjectField(SDK::GetInstance()->Minecraft->getInstance(), SDK::GetInstance()->Minecraft->FieldIDs["theWorld"]);
 //}
 
 Set CWorldClient::GetEntityList(JNIEnv* env )

@@ -37,9 +37,9 @@ void LClick::onUpdate(const EventUpdate e)
 {
 	if (!this->getToggle()) return;
 	if (Menu::Open) return;
-	if (SDK::Minecraft->IsInGuiState() && !inInventoryValue->getValue()) return;
+	if (SDK::GetInstance()->Minecraft->IsInGuiState() && !inInventoryValue->getValue()) return;
 
-	auto mouseOver = SDK::Minecraft->GetMouseOver();
+	auto mouseOver = SDK::GetInstance()->Minecraft->GetMouseOver();
 	if (ignoreBlocksValue->getValue() &&  mouseOver.IsTypeOfBlock()) return;
 
 	long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();

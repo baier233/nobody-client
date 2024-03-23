@@ -22,9 +22,9 @@ void Scaffold::onEnable()
 {
 	if (CommonData::getInstance()->SanityCheck())
 	{
-		orYaw = SDK::Minecraft->thePlayer->GetRotationYaw();
-		orPitch = SDK::Minecraft->thePlayer->GetRotationPitch();
-		SDK::Minecraft->thePlayer->SetAngles(Vector2(SDK::Minecraft->thePlayer->GetRotationYaw() + 180, SDK::Minecraft->thePlayer->isOnGround() ? 80 : 73));
+		orYaw = SDK::GetInstance()->Minecraft->thePlayer->GetRotationYaw();
+		orPitch = SDK::GetInstance()->Minecraft->thePlayer->GetRotationPitch();
+		SDK::GetInstance()->Minecraft->thePlayer->SetAngles(Vector2(SDK::GetInstance()->Minecraft->thePlayer->GetRotationYaw() + 180, SDK::GetInstance()->Minecraft->thePlayer->isOnGround() ? 80 : 73));
 		count = 0;
 	}
 }
@@ -32,7 +32,7 @@ void Scaffold::onEnable()
 void Scaffold::onDisable()
 {
 	if (CommonData::getInstance()->SanityCheck())
-		SDK::Minecraft->thePlayer->SetAngles(Vector2(orYaw, orPitch));
+		SDK::GetInstance()->Minecraft->thePlayer->SetAngles(Vector2(orYaw, orPitch));
 	
 
 }
@@ -42,29 +42,29 @@ void Scaffold::onUpdate(const EventUpdate e)
 	
 	if (!this->getToggle()) return;
 	if (Menu::Open) return;
-	if (SDK::Minecraft->IsInGuiState()) return;
+	if (SDK::GetInstance()->Minecraft->IsInGuiState()) return;
 	jclass blockClass;
 	Java::GetInstance()->AssignClass("net.minecraft.item.ItemBlock", blockClass);
 
 	//CMinecraft* mc = SDK::Minecraft;
 	count++;
-	if (SDK::Minecraft->theWorld->isAirBlock(SDK::Minecraft->thePlayer->GetPos().x, SDK::Minecraft->thePlayer->GetPos().y - 1, SDK::Minecraft->thePlayer->GetPos().z)) {
-		SDK::Minecraft->thePlayer->setSneak(true);
-		//SDK::Minecraft->thePlayer->setMotion(Vector3(0, 100000000000, 0));
+	if (SDK::GetInstance()->Minecraft->theWorld->isAirBlock(SDK::GetInstance()->Minecraft->thePlayer->GetPos().x, SDK::GetInstance()->Minecraft->thePlayer->GetPos().y - 1, SDK::GetInstance()->Minecraft->thePlayer->GetPos().z)) {
+		SDK::GetInstance()->Minecraft->thePlayer->setSneak(true);
+		//SDK::GetInstance()->Minecraft->thePlayer->setMotion(Vector3(0, 100000000000, 0));
 	}
 	else {
-		SDK::Minecraft->thePlayer->setSneak(false);
+		SDK::GetInstance()->Minecraft->thePlayer->setSneak(false);
 	}
 
-	if (this->TowerValue->getValue() && !SDK::Minecraft->theWorld->isAirBlock(SDK::Minecraft->thePlayer->GetPos().x, SDK::Minecraft->thePlayer->GetPos().y - 1.5, SDK::Minecraft->thePlayer->GetPos().z) && GetAsyncKeyState(VK_SPACE) & 0x8000) {
+	if (this->TowerValue->getValue() && !SDK::GetInstance()->Minecraft->theWorld->isAirBlock(SDK::GetInstance()->Minecraft->thePlayer->GetPos().x, SDK::GetInstance()->Minecraft->thePlayer->GetPos().y - 1.5, SDK::GetInstance()->Minecraft->thePlayer->GetPos().z) && GetAsyncKeyState(VK_SPACE) & 0x8000) {
 
-		SDK::Minecraft->thePlayer->setMotion(Vector3(0, count % 2 == 0 ? 0.1 : 0.32, 0));
-		SDK::Minecraft->thePlayer->setOnGround(true);
+		SDK::GetInstance()->Minecraft->thePlayer->setMotion(Vector3(0, count % 2 == 0 ? 0.1 : 0.32, 0));
+		SDK::GetInstance()->Minecraft->thePlayer->setOnGround(true);
 
-		SDK::Minecraft->thePlayer->SetAngles(Vector2(SDK::Minecraft->thePlayer->GetRotationYaw(), 90));
+		SDK::GetInstance()->Minecraft->thePlayer->SetAngles(Vector2(SDK::GetInstance()->Minecraft->thePlayer->GetRotationYaw(), 90));
 	}
 	else {
-		SDK::Minecraft->thePlayer->SetAngles(Vector2(SDK::Minecraft->thePlayer->GetRotationYaw(), SDK::Minecraft->thePlayer->isOnGround() ? 80 : 75));
+		SDK::GetInstance()->Minecraft->thePlayer->SetAngles(Vector2(SDK::GetInstance()->Minecraft->thePlayer->GetRotationYaw(), SDK::GetInstance()->Minecraft->thePlayer->isOnGround() ? 80 : 75));
 	}
 
 	long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();

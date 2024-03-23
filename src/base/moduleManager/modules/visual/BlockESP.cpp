@@ -51,7 +51,7 @@ BlockESP::BlockESP() : AbstractModule("BlockESP", Category::VISUAL, "BlockESP") 
 //	//for (int x = xCoord; x < xCoord + 16; x++) {
 //	//	for (int z = zCoord; z < zCoord + 16; z++) {
 //	//		for (int y = 0; y < 255; y++) {
-//	//			int block = SDK::Minecraft->theWorld->getBlock(x, y, z);
+//	//			int block = SDK::GetInstance()->Minecraft->theWorld->getBlock(x, y, z);
 //	//			if (blocksToFind.count(block) > 0) {
 //	//				r_block b;
 //	//				b.posX = x;
@@ -890,18 +890,18 @@ void BlockESP::onUpdate(EventUpdate e)
 		{
 			for (int z = -radius; z < radius; z++)
 			{
-				if ((SDK::Minecraft->thePlayer->GetPos().y + y) < 0 || (SDK::Minecraft->thePlayer->GetPos().y + y) > 255)
+				if ((SDK::GetInstance()->Minecraft->thePlayer->GetPos().y + y) < 0 || (SDK::GetInstance()->Minecraft->thePlayer->GetPos().y + y) > 255)
 					continue;
 
-				const int newX = SDK::Minecraft->thePlayer->GetPos().x + x;
-				const int newY = SDK::Minecraft->thePlayer->GetPos().y + y;
-				const int newZ = SDK::Minecraft->thePlayer->GetPos().z + z;
-				const auto blockId = SDK::Minecraft->theWorld->getBlock((double)newX, (double)newY, (double)newZ);
+				const int newX = SDK::GetInstance()->Minecraft->thePlayer->GetPos().x + x;
+				const int newY = SDK::GetInstance()->Minecraft->thePlayer->GetPos().y + y;
+				const int newZ = SDK::GetInstance()->Minecraft->thePlayer->GetPos().z + z;
+				const auto blockId = SDK::GetInstance()->Minecraft->theWorld->getBlock((double)newX, (double)newY, (double)newZ);
 				if (blockId == 0)
 					continue;
 
 				if (IsValidBlock(blockId, this->blockList)) {
-					tmpList.push_back(std::make_pair(blockId, Vector3D{ SDK::Minecraft->thePlayer->GetPos().x + x, SDK::Minecraft->thePlayer->GetPos().y + y, SDK::Minecraft->thePlayer->GetPos().z + z }));
+					tmpList.push_back(std::make_pair(blockId, Vector3D{ SDK::GetInstance()->Minecraft->thePlayer->GetPos().x + x, SDK::GetInstance()->Minecraft->thePlayer->GetPos().y + y, SDK::GetInstance()->Minecraft->thePlayer->GetPos().z + z }));
 				}
 			}
 		}

@@ -33,7 +33,7 @@ float CTimer::GetRenderPartialTicks(JNIEnv* env )
 //
 //jobject CTimer::getInstance()
 //{
-//	return Java::GetInstance()->Env->GetObjectField(SDK::Minecraft->getInstance(), SDK::Minecraft->FieldIDs["timer"]);
+//	return Java::GetInstance()->Env->GetObjectField(SDK::GetInstance()->Minecraft->getInstance(), SDK::GetInstance()->Minecraft->FieldIDs["timer"]);
 //}
 
 float CTimer::GetTimerSpeed(JNIEnv* env )

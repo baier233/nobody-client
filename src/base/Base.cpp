@@ -128,7 +128,7 @@ void Base::Init()
 	JavaHook::JVM::Init(Java::GetInstance()->Env);
 	Base::isObfuscate = false;
 	checkVersion();
-	SDK::Init();
+	SDK::GetInstance()->Init();
 	//JavaHook::init();
 	Menu::Init();
 	initModule();
@@ -136,7 +136,7 @@ void Base::Init()
 		InitUpdateMessge();
 	ResourceManager::getInstance().LoadAllResource();
 	Base::Running = true;
-	//SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
+	//SDK::GetInstance()->Minecraft->gameSettings->SetFullscreenKeyToNull();
 	WebServerManager::getInstance().Start(8080);
 	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 	while (Base::Running)
@@ -186,7 +186,7 @@ void Base::initModule() {
 	{
 		ModuleManager::getInstance().addModule<HUD>(HUD::getInstance());
 		ModuleManager::getInstance().addModule<Esp>(Esp::getInstance());
-		ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
+		if (version != FORGE_1_18_1) ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
 		ModuleManager::getInstance().addModule<Xray>(Xray::getInstance());
 		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
 		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
@@ -328,11 +328,11 @@ void Base::Kill()
 		}
 	}
 
-	SDK::Minecraft->gameSettings->RestoreFullscreenKey();
+	SDK::GetInstance()->Minecraft->gameSettings->RestoreFullscreenKey();
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
 	//JavaHook::clean();
-	SDK::Clean();
+	SDK::GetInstance()->Clean();
 	StrayCache::GetInstance()->DeleteRefs();
 	auto lwjgl = GetModuleHandle("lwjgl64.dll");
 	if (!lwjgl) 	lwjgl = GetModuleHandleA("lwjgl.dll");
@@ -372,4 +372,5 @@ void Base::Kill()
 	WebServerManager::getInstance().detach();
 	CacheMap.clear();
 	JavaMap.clear();
+	SDKMap.clear();
 }

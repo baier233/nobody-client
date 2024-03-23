@@ -51,7 +51,7 @@ int CGameSettings::GetThirdPersonView(JNIEnv* env )
 {
 	if (Base::version == FORGE_1_18_1)
 	{
-		auto cameraType = Java::GetInstance()->Env->GetObjectField(SDK::Minecraft->gameSettings->getInstance(),StrayCache::GetInstance()->gamesettings_cameraType);
+		auto cameraType = Java::GetInstance()->Env->GetObjectField(SDK::GetInstance()->Minecraft->gameSettings->getInstance(),StrayCache::GetInstance()->gamesettings_cameraType);
 		if (!cameraType) return 0;
 		bool isFirstPerson = Java::GetInstance()->Env->CallBooleanMethod(cameraType, StrayCache::GetInstance()->cameraType_isFirstPerson);
 		if (isFirstPerson)

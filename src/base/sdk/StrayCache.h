@@ -24,18 +24,7 @@ public:
 	bool initialized;
 	static StrayCache* GetInstance()
 	{
-		
-		
-		auto threadID = GetCurrentThreadId();
-		
-		
-		if (auto it = CacheMap.find(threadID);it != CacheMap.end())
-		{
-			return it->second.get();
-		}
-
-		auto shared = std::make_shared<StrayCache>();
-		CacheMap[threadID] = shared;
+		static auto shared = std::make_shared<StrayCache>();
 
 		return shared.get();
 	}
@@ -393,6 +382,7 @@ public:
 
 
 	void Initialize() {
+		if (this->initialized) return;
 		IsLunar = false;
 		if (Base::version == FORGE_1_12_2) {
 			std::cout << "FORGE_1_12_2" << std::endl;

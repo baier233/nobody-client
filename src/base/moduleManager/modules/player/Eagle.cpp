@@ -16,7 +16,7 @@ Eagle* Eagle::getInstance() {
 void Eagle::onDisable() {
 	if (!CommonData::getInstance()->SanityCheck())
 		return;
-	SDK::Minecraft->thePlayer->setSneak(false);
+	SDK::GetInstance()->Minecraft->thePlayer->setSneak(false);
 
 }
 
@@ -32,26 +32,26 @@ void Eagle::onUpdate(const EventUpdate e)
 	if (!CommonData::getInstance()->SanityCheck()) return;
 	if (Base::version == FORGE_1_7_10)
 	{
-		auto pos = SDK::Minecraft->thePlayer->GetPos();
-		auto block = SDK::Minecraft->getTheWorld().GetBlock(pos.x, pos.y -1, pos.z);
+		auto pos = SDK::GetInstance()->Minecraft->thePlayer->GetPos();
+		auto block = SDK::GetInstance()->Minecraft->getTheWorld().GetBlock(pos.x, pos.y -1, pos.z);
 		if (Java::GetInstance()->Env->IsInstanceOf(block.getInstance(), StrayCache::GetInstance()->blockAir_class))
 		{
 
-			SDK::Minecraft->thePlayer->setSneak(true);
+			SDK::GetInstance()->Minecraft->thePlayer->setSneak(true);
 		}
 		else {
 
-			SDK::Minecraft->thePlayer->setSneak(false);
+			SDK::GetInstance()->Minecraft->thePlayer->setSneak(false);
 		}
 		return;
 	}
 
-	auto pos = SDK::Minecraft->thePlayer->GetPos();
-	if (SDK::Minecraft->theWorld->isAirBlock(pos.x, pos.y - 1,pos.z)) {
-		SDK::Minecraft->thePlayer->setSneak(true);
+	auto pos = SDK::GetInstance()->Minecraft->thePlayer->GetPos();
+	if (SDK::GetInstance()->Minecraft->theWorld->isAirBlock(pos.x, pos.y - 1,pos.z)) {
+		SDK::GetInstance()->Minecraft->thePlayer->setSneak(true);
 	}
 	else {
-		SDK::Minecraft->thePlayer->setSneak(false);
+		SDK::GetInstance()->Minecraft->thePlayer->setSneak(false);
 	}
 }
 

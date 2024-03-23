@@ -14,7 +14,7 @@ void CEntityPlayerSP::setSneak(bool state, JNIEnv* env )
 		this->setSneaking(true,env);
 ;		return;
 	}
-	CGameSettings* settings = SDK::Minecraft->gameSettings;
+	CGameSettings* settings = SDK::GetInstance()->Minecraft->gameSettings;
 	jobject sneakObj = env->GetObjectField(settings->getInstance(), StrayCache::GetInstance()->gamesettings_keyBindSneak);
 	jclass keybind_class = env->GetObjectClass(sneakObj);
 	jfieldID pressed;
@@ -34,13 +34,13 @@ Vector3D CEntityPlayerSP::GetLastTickPos2(JNIEnv* env) {
 void CEntityPlayerSP::attackEntity(CEntityPlayerSP* player, jobject entity, JNIEnv* env )
 {
 
-	Object playerControllerObj = SDK::Minecraft->getPlayerController();
+	Object playerControllerObj = SDK::GetInstance()->Minecraft->getPlayerController();
 	return env->CallVoidMethod(playerControllerObj.getInstance(), StrayCache::GetInstance()->playerControllerMP_attackEntity, player->getInstance(), entity);
 }
 
 bool CEntityPlayerSP::sendUseItem(CEntityPlayer* player, CWorld* world, CItemStack item, JNIEnv* env )
 {
-	Object playerControllerObj = SDK::Minecraft->getPlayerController();
+	Object playerControllerObj = SDK::GetInstance()->Minecraft->getPlayerController();
 
 	return env->CallBooleanMethod(playerControllerObj.getInstance(), StrayCache::GetInstance()->playerControllerMP_sendUseItem, player->getInstance(), world, item.getInstance());
 }
@@ -83,28 +83,28 @@ double CEntityPlayerSP::toRadians(float degrees, JNIEnv* env ) {
 
 float CEntityPlayerSP::get_direction(JNIEnv* env )
 {
-	float yaw = SDK::Minecraft->thePlayer->GetRotationYaw();
+	float yaw = SDK::GetInstance()->Minecraft->thePlayer->GetRotationYaw();
 	float strafe = 45;
 	// add 180 to the yaw to strafe backwards
-	if (SDK::Minecraft->thePlayer->getMoveForward() < 0) {
+	if (SDK::GetInstance()->Minecraft->thePlayer->getMoveForward() < 0) {
 		// invert our strafe to -45
 		strafe = -45;
 		yaw += 180;
 	}
-	if (SDK::Minecraft->thePlayer->getMoveStrafe() > 0) {
+	if (SDK::GetInstance()->Minecraft->thePlayer->getMoveStrafe() > 0) {
 		// subtract 45 to strafe left forward
 
 		yaw -= strafe;
 		// subtract an additional 45 if we do not press W in order to get to -90
-		if (SDK::Minecraft->thePlayer->getMoveForward() == 0) {
+		if (SDK::GetInstance()->Minecraft->thePlayer->getMoveForward() == 0) {
 			yaw -= 45;
 		}
 	}
-	else if (SDK::Minecraft->thePlayer->getMoveStrafe() < 0) {
+	else if (SDK::GetInstance()->Minecraft->thePlayer->getMoveStrafe() < 0) {
 		// add 45 to strafe right forward
 		yaw += strafe;
 		// add 45 if we do not press W in order to get to 90
-		if (SDK::Minecraft->thePlayer->getMoveForward() == 0) {
+		if (SDK::GetInstance()->Minecraft->thePlayer->getMoveForward() == 0) {
 			yaw += 45;
 		}
 	}
@@ -113,28 +113,28 @@ float CEntityPlayerSP::get_direction(JNIEnv* env )
 
 float CEntityPlayerSP::get_speed(JNIEnv* env )
 {
-	Vector3 velocity_vector = SDK::Minecraft->thePlayer->getMotion();
+	Vector3 velocity_vector = SDK::GetInstance()->Minecraft->thePlayer->getMotion();
 
 	return sqrt(velocity_vector.x * velocity_vector.x + velocity_vector.z * velocity_vector.z);
 }
 
 bool CEntityPlayerSP::isStrafing(JNIEnv* env ) {
-	return SDK::Minecraft->thePlayer->getMoveStrafe() != 0;
+	return SDK::GetInstance()->Minecraft->thePlayer->getMoveStrafe() != 0;
 }
 
 bool CEntityPlayerSP::isMovingForwardsOrBackwards(JNIEnv* env ) {
-	return SDK::Minecraft->thePlayer->getMoveForward() != 0;
+	return SDK::GetInstance()->Minecraft->thePlayer->getMoveForward() != 0;
 }
 
 bool CEntityPlayerSP::isMovingForwards(JNIEnv* env )
 {
-	return SDK::Minecraft->thePlayer->getMoveForward() > 0;
+	return SDK::GetInstance()->Minecraft->thePlayer->getMoveForward() > 0;
 
 }
 
 bool CEntityPlayerSP::isMovingBackwards(JNIEnv* env )
 {
-	return SDK::Minecraft->thePlayer->getMoveForward() < 0;
+	return SDK::GetInstance()->Minecraft->thePlayer->getMoveForward() < 0;
 
 }
 
@@ -142,16 +142,16 @@ void CEntityPlayerSP::set_speed(const float speed, JNIEnv* env )
 {
 	if (getMotion().x != 0 && getMotion().y != 0) {
 		double yaw = toRadians(get_direction());
-		float y = SDK::Minecraft->thePlayer->getMotion().y;
+		float y = SDK::GetInstance()->Minecraft->thePlayer->getMotion().y;
 		float x = -sin(yaw) * speed;
 		float z = cos(yaw) * speed;
-		SDK::Minecraft->thePlayer->setMotion(Vector3(x, 100000000000, z));
+		SDK::GetInstance()->Minecraft->thePlayer->setMotion(Vector3(x, 100000000000, z));
 	}
 }
 
 void CEntityPlayerSP::sendGroundPacket(Object Packet, JNIEnv* env )
 {
-	auto queueObject = SDK::Minecraft->getNetHandler();
+	auto queueObject = SDK::GetInstance()->Minecraft->getNetHandler();
 
 	env->CallVoidMethod(queueObject.getInstance(), StrayCache::GetInstance()->netHandlerPlayClient_addToSendQueue, Packet.getInstance());
 

@@ -29,8 +29,8 @@ void Velocity::onUpdate(const EventUpdate e)
 	auto mode = this->VelocityModeValue->getValue();
 	if (!this->getToggle()) return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
-	if (SDK::Minecraft->IsInGuiState()) return;
-	CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
+	if (SDK::GetInstance()->Minecraft->IsInGuiState()) return;
+	CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
 
 	Vector3 pos = thePlayer->GetPos();
 	Vector2 rot = Vector2(thePlayer->GetRotationYaw(), thePlayer->GetRotationPitch());

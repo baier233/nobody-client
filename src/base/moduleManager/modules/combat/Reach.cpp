@@ -51,7 +51,7 @@ void Reach::onUpdate(const EventUpdate e)
 	else
 		lastUpdate = nanoTime;
 
-	CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
+	CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
 	List playerList = CommonData::getInstance()->playerEntities;
 
 	Vector2 playerAngles = thePlayer->GetAngles();

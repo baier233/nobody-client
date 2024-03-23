@@ -25,7 +25,7 @@ void Fastplace::onUpdate(const EventUpdate e)
 	if (!this->getToggle()) return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
 
-	SDK::Minecraft->setRightClickDelayTimer((int)DelayValue->getValue());
+	SDK::GetInstance()->Minecraft->setRightClickDelayTimer((int)DelayValue->getValue());
 }
 
 void Fastplace::RenderMenu()

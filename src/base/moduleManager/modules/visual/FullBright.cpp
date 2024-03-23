@@ -12,18 +12,18 @@ Fulbright* Fulbright::getInstance() {
 }
 
 void Fulbright::onDisable() {
-	SDK::Minecraft->gameSettings->SetGamma(this->currentGamma);
+	SDK::GetInstance()->Minecraft->gameSettings->SetGamma(this->currentGamma);
 }
 
 void Fulbright::onEnable() {
-	this->currentGamma = SDK::Minecraft->gameSettings->GetGamma();
+	this->currentGamma = SDK::GetInstance()->Minecraft->gameSettings->GetGamma();
 }
 
 void Fulbright::onUpdate(const EventUpdate e)
 {
 	if (!this->getToggle()) return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
-	SDK::Minecraft->gameSettings->SetGamma(100.f);
+	SDK::GetInstance()->Minecraft->gameSettings->SetGamma(100.f);
 }
 
 void Fulbright::RenderMenu()

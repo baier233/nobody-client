@@ -110,7 +110,7 @@ void ItemESP::onUpdate(EventUpdate e)
 		return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
 	std::vector<Vector3D> temp;
-	List entitylist = SDK::Minecraft->getTheWorld().GetLoadedEntityList();
+	List entitylist = SDK::GetInstance()->Minecraft->getTheWorld().GetLoadedEntityList();
 	auto list = entitylist.toVector<CEntity>();
 	for (CEntity entitys : list) {
 		if (Java::GetInstance()->Env->IsInstanceOf(entitys.getInstance(), StrayCache::GetInstance()->entityItem_class)) {

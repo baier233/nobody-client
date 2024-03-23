@@ -61,7 +61,7 @@ void AimAssist::onUpdate(const EventUpdate e)
 		return;
 	}
 
-	CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
+	CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
 
 	Vector3 pos = thePlayer->GetPos();
 	Vector3 headPos = thePlayer->GetEyePos();

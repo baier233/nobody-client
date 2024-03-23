@@ -59,7 +59,7 @@ Object CMinecraft::getPlayerController(JNIEnv* env)
 }
 CRenderManager CMinecraft::GetRenderManager(JNIEnv* env) {
 	if (!this->instance) return GetRenderManager();
-	return CRenderManager(env->GetObjectField(SDK::Minecraft->getInstance(), StrayCache::GetInstance()->minecraft_renderManager));
+	return CRenderManager(env->GetObjectField(SDK::GetInstance()->Minecraft->getInstance(), StrayCache::GetInstance()->minecraft_renderManager));
 }
 
 CNetHandlerPlayClient CMinecraft::getNetHandler(JNIEnv* env)

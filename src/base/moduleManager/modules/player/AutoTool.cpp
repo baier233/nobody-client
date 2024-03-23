@@ -33,7 +33,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 	if (IsKeyBeingDown(VK_LBUTTON)) {
 		float bestSpeed = 1.f;
 		int bestSlot = -1;
-		CMovingObjectPosition mouseover = SDK::Minecraft->GetMouseOver();
+		CMovingObjectPosition mouseover = SDK::GetInstance()->Minecraft->GetMouseOver();
 		
 		if (!mouseover.isValid() || mouseover.isNULL())
 		{
@@ -54,12 +54,12 @@ void AutoTool::onUpdate(const EventUpdate e)
 				return;
 			}
 
-			if (SDK::Minecraft->theWorld->isAirBlock(blockpos))
+			if (SDK::GetInstance()->Minecraft->theWorld->isAirBlock(blockpos))
 			{
 				return;
 			}
 
-			blockstate = SDK::Minecraft->theWorld->getBlockState(blockpos);
+			blockstate = SDK::GetInstance()->Minecraft->theWorld->getBlockState(blockpos);
 
 			if (!blockstate.isValid()) return;
 		}
@@ -76,7 +76,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 		
 
 	
-		auto inventory = SDK::Minecraft->thePlayer->GetInventory();
+		auto inventory = SDK::GetInstance()->Minecraft->thePlayer->GetInventory();
 
 		for (int i = 0; i <= 8; i++)
 		{

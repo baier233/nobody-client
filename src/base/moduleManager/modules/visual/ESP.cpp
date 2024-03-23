@@ -185,14 +185,14 @@ void Esp::onUpdate(const EventUpdate e)
 	if (!CommonData::getInstance()->SanityCheck()) return;
 
 
-	//CWorld* world = SDK::Minecraft->theWorld;
+	//CWorld* world = SDK::GetInstance()->Minecraft->theWorld;
 
 	
 
 	Vector3 renderPos = CommonData::getInstance()->renderPos;
 
 
-	CEntityPlayerSP* player = SDK::Minecraft->thePlayer;
+	CEntityPlayerSP* player = SDK::GetInstance()->Minecraft->thePlayer;
 
 	Vector3 pos = player->GetPos();
 
@@ -216,7 +216,7 @@ void Esp::onUpdate(const EventUpdate e)
 
 			if (this->espMode->getValue() == ESP3D)
 			{
-				auto renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
+				auto renderPartialTicks = SDK::GetInstance()->Minecraft->timer->GetRenderPartialTicks();
 				auto playerBoundingBox = AxisAlignedBB_t(
 					static_cast<float>((entityPos.x - 0.4f) - renderPos.x + -entityPos.x + entityLastPos.x + (entityPos.x - entityLastPos.x) * renderPartialTicks),
 					static_cast<float>((entityPos.y - 0.1f) - renderPos.y + -entityPos.y + entityLastPos.y + (entityPos.y - entityLastPos.y) * renderPartialTicks),
