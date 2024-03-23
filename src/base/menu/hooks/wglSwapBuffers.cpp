@@ -31,6 +31,9 @@ static void windowResizeHandler(RECT rect,int width, int height) {
 
 	Menu::Kill();
 	Menu::Initialized = false;
+	bg = nullptr;
+	bg_cs = nullptr;
+	Logotip = nullptr;
 	Menu::PlaceHooks();
 }
 
@@ -227,30 +230,33 @@ void Menu::SetupImgui()
 		Menu::nl14 = io.Fonts->AddFontFromMemoryTTF(&neverlose500, neverlose500_size, 14.f, NULL);
 		Menu::Font = Manrope_Semmi_Font;
 		//Benzin_Medium_Font = Harmony_Bold_Font;
-		if (image::check == nullptr) image::check = glLoadTextureFromMemory(check_icon, sizeof(check_icon));
+		image::check = glLoadTextureFromMemory(check_icon, sizeof(check_icon));
 
-		if (image::input == nullptr) image::input = glLoadTextureFromMemory(input_icon, sizeof(input_icon));
+		image::input = glLoadTextureFromMemory(input_icon, sizeof(input_icon));
 
-		if (image::aimbot == nullptr) image::aimbot = glLoadTextureFromMemory(aimbot_icon, sizeof(aimbot_icon));
+		image::aimbot = glLoadTextureFromMemory(aimbot_icon, sizeof(aimbot_icon));
 
-		if (image::no_aimbot == nullptr)image::no_aimbot = glLoadTextureFromMemory(no_aimbot_icon, sizeof(no_aimbot_icon));
+		image::no_aimbot = glLoadTextureFromMemory(no_aimbot_icon, sizeof(no_aimbot_icon));
 
-		if (image::visuals == nullptr) image::visuals = glLoadTextureFromMemory(visuals_icon, sizeof(visuals_icon));
+		image::visuals = glLoadTextureFromMemory(visuals_icon, sizeof(visuals_icon));
 
-		if (image::drop == nullptr) image::drop = glLoadTextureFromMemory(drop_icon, sizeof(drop_icon));
+		image::drop = glLoadTextureFromMemory(drop_icon, sizeof(drop_icon));
 
-		if (image::could == nullptr) image::could = glLoadTextureFromMemory(could_icon, sizeof(could_icon));
+		image::could = glLoadTextureFromMemory(could_icon, sizeof(could_icon));
 
-		if (image::exploits == nullptr) image::exploits = glLoadTextureFromMemory(exploits_icon, sizeof(exploits_icon));
+		image::exploits = glLoadTextureFromMemory(exploits_icon, sizeof(exploits_icon));
 
-		if (image::keybind == nullptr)  image::keybind = glLoadTextureFromMemory(keybind_icon, sizeof(keybind_icon));
+		image::keybind = glLoadTextureFromMemory(keybind_icon, sizeof(keybind_icon));
 
-		if (image::arrows == nullptr)  image::arrows = glLoadTextureFromMemory(arrows_icon, sizeof(arrows_icon));
+		image::arrows = glLoadTextureFromMemory(arrows_icon, sizeof(arrows_icon));
 
-		if (image::iconInfo == nullptr) image::iconInfo = glLoadTextureFromMemory(info, info_size);
-		if (image::iconErr == nullptr) image::iconErr = glLoadTextureFromMemory(error, error_size);
-		if (image::iconSucc == nullptr) image::iconSucc = glLoadTextureFromMemory(success, success_size);
-		if (image::iconWarn == nullptr) image::iconWarn = glLoadTextureFromMemory(waring, waring_size);
+		image::iconInfo = glLoadTextureFromMemory(info, info_size);
+		image::iconErr = glLoadTextureFromMemory(error, error_size);
+		image::iconSucc = glLoadTextureFromMemory(success, success_size);
+		image::iconWarn = glLoadTextureFromMemory(waring, waring_size);
+
+		
+		
 
 		ImGui::GetStyle().ItemSpacing = ImVec2(0, 12);
 	}
