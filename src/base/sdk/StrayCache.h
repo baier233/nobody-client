@@ -20,8 +20,7 @@ public:
 	bool initialized;
 	static StrayCache* GetInstance()
 	{
-		static auto shared = std::make_shared<StrayCache>();
-
+		static auto shared = std::make_unique<StrayCache>();
 		return shared.get();
 	}
 	

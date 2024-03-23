@@ -39,7 +39,13 @@ void RClick::onUpdate(const EventUpdate e)
 	jclass blockClass{};
 	if (Base::version == FORGE_1_18_1)
 	{
-		blockClass = StrayCache::GetInstance()->itemBlock_class;
+		if (CacheInstance->itemBlock_class)
+		{
+			blockClass = CacheInstance->itemBlock_class;
+		}
+		else {
+			Java::GetInstance()->AssignClass("net.minecraft.world.item.BlockItem", blockClass);
+		}
 	}
 	else {
 		Java::GetInstance()->AssignClass("net.minecraft.item.ItemBlock", blockClass);

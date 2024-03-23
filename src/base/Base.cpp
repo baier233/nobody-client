@@ -42,6 +42,54 @@
 
 #include "jvm/wrapper.hpp"
 
+
+
+class KeyBoard {
+public:
+
+	static void StartListen()
+	{
+		auto& moduleManager = ModuleManager::getInstance();
+		while (true)
+		{
+			if (IsKeyPressed(Menu::Keybind))
+				Menu::Open = !Menu::Open;
+			
+			if (IsKeyPressed(VK_ESCAPE) and Menu::Open)
+				Menu::Open = !Menu::Open;
+			
+
+			for (auto& mod : moduleManager.getMods())
+			{
+				auto* crtMod = ToBaseModule(mod);
+				if (crtMod == nullptr)
+				{
+					continue;
+				}
+
+				if (crtMod->getKey() == 0)
+					continue;
+
+				if (IsKeyPressed(crtMod->getKey()))
+				{
+					crtMod->setToggle(!crtMod->getToggle());
+				}
+			}
+			Sleep(100);
+		}
+	}
+
+	static bool IsKeyPressed(int key)
+	{
+		return (GetAsyncKeyState(key) & 1);
+	}
+	static bool IsKeyHold(int key)
+	{
+		return (GetAsyncKeyState(key) & 0x8000);
+	}
+};
+
+
   
 Version Base::version = UNKNOWN;
 
@@ -132,6 +180,7 @@ void Base::Init()
 	//JavaHook::init();
 	Menu::Init();
 	initModule();
+	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)KeyBoard::StartListen, 0, 0, 0);
 	if (version != FORGE_1_18_1)
 		InitUpdateMessge();
 	ResourceManager::getInstance().LoadAllResource();
@@ -141,12 +190,12 @@ void Base::Init()
 	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 	while (Base::Running)
 	{
-		if (IsKeyReleased(VK_F11)) {
+		/*if (IsKeyReleased(VK_F11)) {
 			if (Borderless::Enabled)
 				Borderless::Restore(Menu::HandleWindow);
 			else
 				Borderless::Enable(Menu::HandleWindow);
-		}
+		}*/
 
 		EventManager::getInstance().call(EventUpdate());
 
@@ -328,7 +377,7 @@ void Base::Kill()
 		}
 	}
 
-	if (SDKInstance)
+	if (Java::GetInstance()->Initialized)
 	{
 		SDK::GetInstance()->Minecraft->gameSettings->RestoreFullscreenKey();
 	}
@@ -336,8 +385,8 @@ void Base::Kill()
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
 	//JavaHook::clean();
-	SDK::GetInstance()->Clean();
-	StrayCache::GetInstance()->DeleteRefs();
+	if (Java::GetInstance()->Initialized) SDK::GetInstance()->Clean();
+	if (Java::GetInstance()->Initialized) StrayCache::GetInstance()->DeleteRefs();
 	auto lwjgl = GetModuleHandle("lwjgl64.dll");
 	if (!lwjgl) 	lwjgl = GetModuleHandleA("lwjgl.dll");
 	if (!lwjgl) 	lwjgl = GetModuleHandleA("lwjgl32.dll");
@@ -353,16 +402,16 @@ void Base::Kill()
 		jclass clazz{};
 		
 		if (!clazz)
-			Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
+			if (Java::GetInstance()->Initialized) Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 		if (!clazz)
 		{
 			std::cout << "Unable to find windowsDisplay Class" << std::endl;
 			std::cout << "try env->FindClass" << std::endl;
-			Java::GetInstance()->Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
+			if (Java::GetInstance()->Initialized) Java::GetInstance()->Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
 		}
 		if (clazz)
 		{
-			Java::GetInstance()->Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
+			if (Java::GetInstance()->Initialized) Java::GetInstance()->Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
 		}
 		else {
 			std::cout << "Unable to find windowsDisplay Class 2" << std::endl;

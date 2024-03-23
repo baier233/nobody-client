@@ -47,6 +47,7 @@ void ModuleManager::ProcessKeyEvent(int key) {
 //TODO
     for (auto iter = this->modules.cbegin(); iter < this->modules.cend(); iter++) {
         ToBaseModule(*iter)->onKeyEvent(key);
+        
     }
 }
 

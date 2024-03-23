@@ -9,7 +9,7 @@ class SDK
 {
 public:
 	static SDK* GetInstance() {
-		static auto shared = std::make_shared<SDK>();
+		static auto shared = std::make_unique<SDK>();
 		return shared.get();
 		  
 	}

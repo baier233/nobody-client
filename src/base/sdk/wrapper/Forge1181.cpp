@@ -316,6 +316,7 @@ void StrayCache::Load1181ForgeMap() {
 	{
 		Java::GetInstance()->AssignClass("net.minecraft.world.item.BlockItem", itemBlock_class);
 		itemBlock_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(itemBlock_class);
+		std::cout << "ItemBlock Klass :" << itemBlock_class << std::endl;
 	}
 
 	{

@@ -14,7 +14,7 @@ template_WndProc original_wndProc;
 LRESULT CALLBACK hook_WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	//Menu::HandleWindow = hwnd;
-	if (Base::version == FORGE_1_18_1 and Menu::Initialized) {
+	/*if (Base::version == FORGE_1_18_1 and Menu::Initialized) {
 		if (msg == WM_KEYDOWN)
 		{
 			Base::justPressed = true;
@@ -25,7 +25,7 @@ LRESULT CALLBACK hook_WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 			ModuleManager::getInstance().ProcessKeyEvent(wParam);
 		}
-	}
+	}*/
 
 	if (Menu::Open && Menu::Initialized)
 	{
