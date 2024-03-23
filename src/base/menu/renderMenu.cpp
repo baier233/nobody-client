@@ -384,6 +384,7 @@ void Menu::RenderMenu()
 				DetachBlock.width = 90;
 				DetachBlock.height = 34;
 				if (ImGui::Button("Detach", DetachBlock.x, DetachBlock.y, DetachBlock.width, DetachBlock.height)) {
+					Menu::Open = false;
 					Base::Running = false;
 				}
 				//ImGui::SameLine();
