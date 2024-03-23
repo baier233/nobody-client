@@ -45,7 +45,6 @@
   
 Version Base::version = UNKNOWN;
 
-std::map<DWORD, ThreadContext*>ContextMap{};
 
 
 static const char* GetWindowTitle(HWND hWnd)
@@ -335,7 +334,14 @@ void Base::Kill()
 	//JavaHook::clean();
 	SDK::Clean();
 	StrayCache::GetInstance()->DeleteRefs();
-	auto og = GetProcAddress(GetModuleHandle("lwjgl64.dll"), "Java_org_lwjgl_opengl_WindowsDisplay_nUpdate");
+	auto lwjgl = GetModuleHandle("lwjgl64.dll");
+	if (!lwjgl) 	lwjgl = GetModuleHandleA("lwjgl.dll");
+	if (!lwjgl) 	lwjgl = GetModuleHandleA("lwjgl32.dll");
+	FARPROC og{};
+	if (lwjgl)
+	{
+		og = GetProcAddress(lwjgl, "Java_org_lwjgl_opengl_WindowsDisplay_nUpdate");
+	}
 	JNINativeMethod native[] = {
 		{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(og)} };
 	//std::cout << "0g: " << std::hex << std::uppercase << og << std::endl;
@@ -359,9 +365,11 @@ void Base::Kill()
 			std::cout << "Unable to find windowsDisplay Class 2" << std::endl;
 		}
 	}
-	Java::GetInstance()->Kill();
+	Java::Kill();
 	Menu::Kill();
 	Logger::Kill();
 	ModuleManager::getInstance().clean();
 	WebServerManager::getInstance().detach();
+	CacheMap.clear();
+	JavaMap.clear();
 }

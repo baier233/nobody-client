@@ -15,7 +15,7 @@ inline bool IsLunar = false;
 
 class StrayCache;
 
-std::map<DWORD, StrayCache*> CacheMap{};
+std::map<DWORD, std::shared_ptr<StrayCache>> CacheMap{};
 
 class StrayCache {
 
@@ -26,14 +26,18 @@ public:
 	{
 		
 		
-		auto threadOop = GetCurrentThreadId();
+		auto threadID = GetCurrentThreadId();
 		
-		auto instance = CacheMap.find(threadOop);
-		if (instance == CacheMap.end())
+		
+		if (auto it = CacheMap.find(threadID);it != CacheMap.end())
 		{
-			CacheMap[threadOop] = new StrayCache;
+			return it->second.get();
 		}
-		return CacheMap[threadOop];
+
+		auto shared = std::make_shared<StrayCache>();
+		CacheMap[threadID] = shared;
+
+		return shared.get();
 	}
 	
 	
@@ -463,7 +467,6 @@ public:
 		intBuffer_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/nio/IntBuffer"));
 		intBuffer_get = Java::GetInstance()->Env->GetMethodID(intBuffer_class, "get", "(I)I");
 		auto thread = GetCurrentThreadId();
-		CacheMap[thread] = this;
 		
 		initialized = true;
 	}

@@ -24,21 +24,6 @@ enum Version
 };
 
 
-class SDK;
-class Java;
-class StrayCache;
-
-struct ThreadContext
-{
-	SDK* currentSDK;
-	Java* currentJava;
-	StrayCache* currentCache;
-};
-
-
-extern std::map<DWORD, ThreadContext*>ContextMap;
-
-
 
 struct Base
 {

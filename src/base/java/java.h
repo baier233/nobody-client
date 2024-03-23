@@ -12,49 +12,33 @@
 #include <Windows.h>
 #include "../Base.h"
 
+class Java;
+std::map<DWORD, std::shared_ptr<Java>> JavaMap;
+
 class Java
 {
 public:
 
 	~Java() {
-		for (auto &pair : ContextMap)
-		{
-			if (pair.second->currentJava == this)
-			{
-				pair.second->currentJava = nullptr;
-				break;
-			}
-		}
+		
 	}
 
 	static Java* GetInstance()
 	{
-		/*auto thread = GetCurrentThreadId() ;
-		if (ContextMap.find(thread) != ContextMap.end() && ContextMap[thread]->currentJava)
+
+		auto threadID = GetCurrentThreadId();
+		if (auto it = JavaMap.find(threadID);it != JavaMap.end())
 		{
-			return ContextMap[thread]->currentJava;
+			return it->second.get();
 		}
-
-		Java instance;
-
-	
-
-		if (auto ctx = ContextMap[thread];ctx)
-		{
-			ctx->currentJava = &instance;
-			return &instance;
-		}
-
-		auto threadCtx = new ThreadContext();
-		threadCtx->currentJava = &instance;
-		ContextMap[thread] = threadCtx;*/
-		static Java instance;
-		return &instance;
+		auto shared = std::make_shared<Java>();
+		JavaMap[threadID] = shared;
+		return shared.get();
 	}
 	void InitFromEnv(JNIEnv* env);
 	void Init();
 	void SetUpBlcClassLoader();
-	void Kill();
+	static void Kill();
 
 	bool AssignClass(std::string name, jclass& out);
 	JNIEnv* Env;

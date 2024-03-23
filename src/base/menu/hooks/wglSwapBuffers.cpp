@@ -68,7 +68,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 		if (haveResized && Init)
 		{
 			//std::cout << "Handling Resize" << std::endl;
-			//windowResizeHandler(windowRect, windowWidth, windowHeight);
+			windowResizeHandler(windowRect, windowWidth, windowHeight);
 		}
 
 		Init = true;
