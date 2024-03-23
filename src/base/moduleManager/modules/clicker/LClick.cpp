@@ -39,14 +39,20 @@ void LClick::onUpdate(const EventUpdate e)
 	if (Menu::Open) return;
 	if (SDK::GetInstance()->Minecraft->IsInGuiState() && !inInventoryValue->getValue()) return;
 
-	auto mouseOver = SDK::GetInstance()->Minecraft->GetMouseOver();
-	if (ignoreBlocksValue->getValue() &&  mouseOver.IsTypeOfBlock()) return;
-
 	long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	if (lastClickTime == 0) lastClickTime = milli;
 	if ((milli - lastClickTime) < (1000 / nextCps)) return;
 
 	if (GetAsyncKeyState(VK_LBUTTON) && 1) {
+
+
+		auto mouseOver = SDK::GetInstance()->Minecraft->GetMouseOver();
+		if (ignoreBlocksValue->getValue() && mouseOver.IsTypeOfBlock()) {
+			POINT pos_cursor;
+			GetCursorPos(&pos_cursor);
+			PostMessageA(Menu::HandleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+			return;
+		}
 
 		POINT pos_cursor;
 		GetCursorPos(&pos_cursor);

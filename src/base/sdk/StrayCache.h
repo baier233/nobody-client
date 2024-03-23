@@ -507,3 +507,5 @@ public:
 	}
 
 };
+
+#define CacheInstance StrayCache::GetInstance()

@@ -328,7 +328,11 @@ void Base::Kill()
 		}
 	}
 
-	SDK::GetInstance()->Minecraft->gameSettings->RestoreFullscreenKey();
+	if (SDKInstance)
+	{
+		SDK::GetInstance()->Minecraft->gameSettings->RestoreFullscreenKey();
+	}
+	
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
 	//JavaHook::clean();

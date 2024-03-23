@@ -17,4 +17,4 @@ public:
 	void Init();
 	void Clean();
 };
-
+#define SDKInstance SDK::GetInstance()

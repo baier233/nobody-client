@@ -29,7 +29,7 @@ BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
 
 	if (dwReason == DLL_PROCESS_DETACH)
 	{
-		JavaMap.clear();
+		Main::Kill();
 	}
 
 	return TRUE;
