@@ -13,7 +13,7 @@ void Main::Kill()
 	Base::Kill();
 	FreeLibraryAndExitThread(Main::HModule, 0);
 }
-
+#include "base/java/java.h"
 BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 
@@ -29,7 +29,7 @@ BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
 
 	if (dwReason == DLL_PROCESS_DETACH)
 	{
-
+		JavaMap.clear();
 	}
 
 	return TRUE;

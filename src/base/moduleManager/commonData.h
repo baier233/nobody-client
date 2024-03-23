@@ -30,6 +30,7 @@ public:
 	Vector3 renderPos;
 	float renderPartialTicks;
 	float fov;
+	float ySubtractValue;
 	int thirdPersonView;
 
 	bool isCombat = false;
@@ -51,30 +52,31 @@ public:
 		fov = SDK::GetInstance()->Minecraft->gameSettings->GetFOV();
 		thirdPersonView = SDK::GetInstance()->Minecraft->gameSettings->GetThirdPersonView();
 		playerEntities = SDK::GetInstance()->Minecraft->theWorld->GetPlayerList();
+
 		modelView = SDK::GetInstance()->Minecraft->activeRenderInfo->ModelViewMatrix();
 		projection = SDK::GetInstance()->Minecraft->activeRenderInfo->ProjectionMatrix();
+
 		if (Base::version != FORGE_1_18_1)
 		{
 			loadedTitleEntities = SDK::GetInstance()->Minecraft->theWorld->GetLoadedTileEntityList();
 		}
-		float ySubtractValue = 3.4;
+		ySubtractValue = 3.4;
 		if (SDK::GetInstance()->Minecraft->thePlayer->IsSneaking())
 			ySubtractValue -= .175f;
 		isCombat = false;
-		
 		renderPartialTicks = SDK::GetInstance()->Minecraft->timer->GetRenderPartialTicks();
+
 		if (Base::version == FORGE_1_18_1)
 		{
-			auto eyeHeight = SDK::GetInstance()->Minecraft->thePlayer->GetEyeHeight();
-			auto pos = SDK::GetInstance()->Minecraft->thePlayer->GetPos();
-			auto lastTickPos = SDK::GetInstance()->Minecraft->thePlayer->GetLastTickPos2();
+			auto eyeHeight = SDK::GetInstance()->Minecraft->getThePlayer().GetEyeHeight();
+			auto pos = SDK::GetInstance()->Minecraft->getThePlayer().GetPos();
+			auto lastTickPos = SDK::GetInstance()->Minecraft->getThePlayer().GetLastTickPos();
 			double x = (double)lastTickPos.x + ((double)pos.x - (double)lastTickPos.x) * (double)renderPartialTicks;
 			double y = (double)lastTickPos.y + ((double)pos.y - (double)lastTickPos.y) * (double)renderPartialTicks;
 			double z = (double)lastTickPos.z + ((double)pos.z - (double)lastTickPos.z) * (double)renderPartialTicks;
-			renderPos = Vector3{(float) x,(float)y,(float)z } + Vector3{ 0, ySubtractValue - eyeHeight, 0 };
+			renderPos = Vector3{ (float)x,(float)y,(float)z } + Vector3{ 0,ySubtractValue - eyeHeight, 0 };
 		}
 		else {
-
 			renderPos = SDK::GetInstance()->Minecraft->renderManager->RenderPos() + Vector3{ 0, ySubtractValue, 0 };
 		}
 
@@ -91,7 +93,7 @@ public:
 			Java::GetInstance()->Init();
 		}
 	
-		if (!!StrayCache::GetInstance()->initialized) {
+		if (!StrayCache::GetInstance()->initialized) {
 			StrayCache::GetInstance()->Initialize();
 		}
 

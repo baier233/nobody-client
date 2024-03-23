@@ -41,10 +41,12 @@ static void windowResizeHandler(RECT rect,int width, int height) {
 
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
-
+#include "../../util/math/TimerUtil.h"
 bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 {
 
+
+	
 
 	if (Base::version != FORGE_1_18_1) glPushMatrix();
 
@@ -146,8 +148,9 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::OriginalGLContext);
 	if (Base::version != FORGE_1_18_1) glPopMatrix();
+	auto result = wglSwapBuffersHook.GetOrignalFunc()(hdc);
 	
-	return wglSwapBuffersHook.GetOrignalFunc()(hdc);
+	return result;
 }
 
 void Menu::Hook_wglSwapBuffers()

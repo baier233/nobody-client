@@ -13,10 +13,6 @@
 
 inline bool IsLunar = false;
 
-class StrayCache;
-
-std::map<DWORD, std::shared_ptr<StrayCache>> CacheMap{};
-
 class StrayCache {
 
 public:

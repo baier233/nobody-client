@@ -3,8 +3,8 @@
 #include "../sdk/JNIHelper.h"
 #include "../util/logger.h"
 
-jobject classLoader;
-jmethodID mid_findClass;
+jobject classLoader{};
+jmethodID mid_findClass{};
 void Java::SetUpBlcClassLoader() {
 	jclass c_Thread = Java::GetInstance()->Env->FindClass("java/lang/Thread");
 	jclass c_Map = Java::GetInstance()->Env->FindClass("java/util/Map");
@@ -57,7 +57,7 @@ void Java::SetUpBlcClassLoader() {
 
 }
 
-void setupClassLoader()
+static void setupClassLoader()
 {
 	//Client Thread
 	if (!JNIHelper::IsForge() && !JNIHelper::IsVanilla())
@@ -130,31 +130,32 @@ void Java::InitFromEnv(JNIEnv* env) {;
 void Java::Init()
 {
 	if (this->Initialized) return;
+
 	// Check if there is any Java VMs in the injected thread
-	jsize count;
+	jsize count{};
 	if (JNI_GetCreatedJavaVMs(&jvm, 1, &count) != JNI_OK || count == 0)
 		return;
 
 
-	jint res = jvm->GetEnv((void**)&Java::GetInstance()->Env, JNI_VERSION_1_8);
+	jint res = jvm->GetEnv((void**)&this->Env, JNI_VERSION_1_8);
 
 	if (res == JNI_EDETACHED)
-		res = jvm->AttachCurrentThreadAsDaemon((void**)&Java::GetInstance()->Env, nullptr); //守护线程
+		res = jvm->AttachCurrentThreadAsDaemon((void**)&this->Env, nullptr); //守护线程
 
 	if (res != JNI_OK)
 		return;
 
 	jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
-	if (Java::Jvmti == nullptr)
-	{
-		MessageBox(0, "?", 0, 0);
-	}
-	if (Java::GetInstance()->Env == nullptr) {
+	if (this->Env == nullptr) {
 		jvm->DetachCurrentThread();
 		jvm->DestroyJavaVM();
 	}
+	
 	Logger::Init();
-	setupClassLoader();
+	if (!classLoader)
+	{
+		setupClassLoader();
+	}
 
 	//JavaMap.insert(std::make_pair(GetCurrentThreadId(), this));
 

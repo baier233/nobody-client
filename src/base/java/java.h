@@ -20,7 +20,6 @@ class Java
 public:
 
 	~Java() {
-		
 	}
 
 	static Java* GetInstance()
@@ -46,3 +45,5 @@ public:
 	static inline JavaVM* jvm;
 	bool Initialized;
 };
+
+#define JavaInstance Java::GetInstance()

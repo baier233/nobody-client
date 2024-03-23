@@ -186,7 +186,7 @@ void Base::initModule() {
 	{
 		ModuleManager::getInstance().addModule<HUD>(HUD::getInstance());
 		ModuleManager::getInstance().addModule<Esp>(Esp::getInstance());
-		if (version != FORGE_1_18_1) ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
+		ModuleManager::getInstance().addModule<Fulbright>(Fulbright::getInstance());
 		ModuleManager::getInstance().addModule<Xray>(Xray::getInstance());
 		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
 		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
@@ -344,7 +344,6 @@ void Base::Kill()
 	}
 	JNINativeMethod native[] = {
 		{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(og)} };
-	//std::cout << "0g: " << std::hex << std::uppercase << og << std::endl;
 	if (og != nullptr)
 	{
 		jclass clazz{};
@@ -370,7 +369,5 @@ void Base::Kill()
 	Logger::Kill();
 	ModuleManager::getInstance().clean();
 	WebServerManager::getInstance().detach();
-	CacheMap.clear();
 	JavaMap.clear();
-	SDKMap.clear();
 }

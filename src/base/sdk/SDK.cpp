@@ -29,5 +29,14 @@ void SDK::Init()
 void SDK::Clean()
 {
 
+	delete Minecraft->thePlayer;
+	delete Minecraft->gameSettings;
+	delete Minecraft->timer;
+	if (Base::version != FORGE_1_18_1)
+	{
+		delete Minecraft->renderManager;
+	}
+	delete Minecraft->theWorld;
+	delete Minecraft->activeRenderInfo;
 	delete Minecraft;
 }

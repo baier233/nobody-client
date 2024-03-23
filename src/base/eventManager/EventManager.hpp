@@ -25,11 +25,19 @@ public:
 
     template <class EventType>
     void call(const EventType& event) {
-        if (EventType::getType() >= this->handlers.size())
-            this->handlers.resize(EventType::getType() + 1);
-        for (auto& handler : this->handlers[event.getType()]) {
-            handler(event);
+        try
+        {
+            if (EventType::getType() >= this->handlers.size())
+                this->handlers.resize(EventType::getType() + 1);
+            for (auto& handler : this->handlers[event.getType()]) {
+                handler(event);
+            }
         }
+        catch (const std::exception& e)
+        {
+            std::cout << e.what() << std::endl;
+        }
+      
     }
 
     template <class EventType>

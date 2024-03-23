@@ -214,8 +214,8 @@ void HUD::RenderUpdate()
 		std::string watermark = " | " + getCurrentTimeFormatted() + " | " + std::to_string(static_cast<int>(std::round(ImGui::GetIO().Framerate)));
 		dl->AddRectFilled(ImVec2(3, 4), ImVec2(Menu::nl14->CalcTextSizeA(20, FLT_MAX, 0.0f, watermark.c_str()).x + 81, Menu::nl14->CalcTextSizeA(20, FLT_MAX, 0.0f, watermark.c_str()).y + 12), ImColor(0.f, 0.f, 0.f, 180 / 255.f), 2.f);
 		dl->AddText(Menu::nl14, 20.f, ImVec2(73, 8.5), -1, watermark.c_str());
-		dl->AddText(Menu::nlBold14, 20.f, ImVec2(5.7F, 8), ImColor(3, 167, 243, 255), "NoBody");
-		dl->AddText(Menu::nlBold14, 20.f, ImVec2(6.0F, 8.4f), -1, "NoBody");
+		dl->AddText(Menu::nlBold14, 20.f, ImVec2(5.7F, 8), ImColor(3, 167, 243, 255), "Hysteria");
+		dl->AddText(Menu::nlBold14, 20.f, ImVec2(6.0F, 8.4f), -1, "Hysteria");
 
 		Block enabledListBlock{};
 		enabledListBlock.x = enabledListX;

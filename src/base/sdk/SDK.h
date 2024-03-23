@@ -3,8 +3,6 @@
 #include "net/minecraft/client/Minecraft.h"
 #include <map>
 #include <memory>
-class SDK;
-std::map<DWORD, std::shared_ptr<SDK>>SDKMap{};
 
 
 class SDK

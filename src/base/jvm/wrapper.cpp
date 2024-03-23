@@ -12,7 +12,7 @@ extern "C" JNIIMPORT VMIntConstantEntry * gHotSpotVMIntConstants;
 extern "C" JNIIMPORT VMLongConstantEntry * gHotSpotVMLongConstants;
 
 
-auto InitGlobalOffsets() -> void {
+static auto InitGlobalOffsets() -> void {
     /* .\hotspot\src\share\vm\classfile\javaClasses.hpp -> class java_lang_Class : AllStatic */
     const auto java_lang_Class = JVMWrappers::find_type_fields("java_lang_Class");
     if (!java_lang_Class.has_value()) {
@@ -26,7 +26,7 @@ auto InitGlobalOffsets() -> void {
 
 
 /* Scan bytecode offset */
-auto ScanByteCodeOffset(JNIEnv* env) -> void {
+static auto ScanByteCodeOffset(JNIEnv* env) -> void {
     /* Any class */
     const auto integer_klass = env->FindClass("java/lang/Integer");
 

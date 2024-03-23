@@ -35,12 +35,12 @@ void AbstractModule::toggle() {
 
 void AbstractModule::onToggled() {
     if (this->i_toggle) {
-        onEnable();
+        this->onEnable();
         NotificationManager::getInstance().makeNotification(this->getName() + std::string(" Enabled."), Type::SUCCESS);
 
     }
     else {
-        onDisable();
+        this->onDisable();
         NotificationManager::getInstance().makeNotification(this->getName() + std::string(" Disabled."), Type::SUCCESS);
     }
 }
@@ -58,7 +58,7 @@ void AbstractModule::setToggle(bool _NEW) {
 void AbstractModule::setToggle(std::string _NEW)
 {
     if (strcmp(_NEW.c_str(), "Enable") == 0) {
-        if (this->i_toggle == true)return;
+        if (this->i_toggle == true) return;
         this->i_toggle = true;
         this->onToggled();
     }else if (strcmp(_NEW.c_str(), "Disable") == 0) {
