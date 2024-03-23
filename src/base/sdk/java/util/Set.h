@@ -6,6 +6,6 @@ class Set : public Collection
 {
 public:
 	using Collection::Collection;
-	jobjectArray toArray(JNIEnv* env = Java::Env);
+	jobjectArray toArray(JNIEnv* env = Java::GetInstance()->Env);
 };
 

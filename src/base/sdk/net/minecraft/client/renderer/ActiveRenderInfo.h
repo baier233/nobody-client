@@ -7,8 +7,8 @@
 class CActiveRenderInfo
 {
 public:
-	static Matrix ProjectionMatrix(JNIEnv* env = Java::Env);
-	static Matrix ModelViewMatrix(JNIEnv* env = Java::Env);
-	static int Get_VIEWPORT(JNIEnv* env = Java::Env);
+	static Matrix ProjectionMatrix(JNIEnv* env = Java::GetInstance()->Env);
+	static Matrix ModelViewMatrix(JNIEnv* env = Java::GetInstance()->Env);
+	static int Get_VIEWPORT(JNIEnv* env = Java::GetInstance()->Env);
 };
 

@@ -7,6 +7,6 @@
 class System
 {
 public:
-	static void gc(JNIEnv* env = Java::Env);
+	static void gc(JNIEnv* env = Java::GetInstance()->Env);
 };
 

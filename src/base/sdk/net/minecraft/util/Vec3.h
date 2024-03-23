@@ -12,7 +12,7 @@ class CVec3 : public Object
 	//jobject getInstance();
 public:
 	using Object::Object;
-	Vector3 GetNativeVector3(JNIEnv* env = Java::Env);
-	Vector3D GetNativeVector3D(JNIEnv* env = Java::Env);
+	Vector3 GetNativeVector3(JNIEnv* env = Java::GetInstance()->Env);
+	Vector3D GetNativeVector3D(JNIEnv* env = Java::GetInstance()->Env);
 };
 

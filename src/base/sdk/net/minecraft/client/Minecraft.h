@@ -14,18 +14,18 @@ class CMinecraft : public Object
 {
 public:
 	using Object::Object;
-	CWorldClient getTheWorld(JNIEnv* env = Java::Env);
-	CEntityPlayerSP getThePlayer(JNIEnv* env = Java::Env);
-	CEntity GetRenderViewEntity(JNIEnv* env = Java::Env);
-	bool IsInGuiState(JNIEnv* env = Java::Env);
-	int getDebugFPS(JNIEnv* env = Java::Env);
-	void ClickMouse(JNIEnv* env = Java::Env);
-	void setRightClickDelayTimer(jint delay, JNIEnv* env = Java::Env);
-	Object getPlayerController(JNIEnv* env = Java::Env);
-	CMovingObjectPosition GetMouseOver(JNIEnv* env = Java::Env);
-	CRenderManager GetRenderManager(JNIEnv* env = Java::Env);
-	CNetHandlerPlayClient getNetHandler(JNIEnv* env = Java::Env);
-	CGuiIngame getIngameGUI(JNIEnv* env = Java::Env);
+	CWorldClient getTheWorld(JNIEnv* env = Java::GetInstance()->Env);
+	CEntityPlayerSP getThePlayer(JNIEnv* env = Java::GetInstance()->Env);
+	CEntity GetRenderViewEntity(JNIEnv* env = Java::GetInstance()->Env);
+	bool IsInGuiState(JNIEnv* env = Java::GetInstance()->Env);
+	int getDebugFPS(JNIEnv* env = Java::GetInstance()->Env);
+	void ClickMouse(JNIEnv* env = Java::GetInstance()->Env);
+	void setRightClickDelayTimer(jint delay, JNIEnv* env = Java::GetInstance()->Env);
+	Object getPlayerController(JNIEnv* env = Java::GetInstance()->Env);
+	CMovingObjectPosition GetMouseOver(JNIEnv* env = Java::GetInstance()->Env);
+	CRenderManager GetRenderManager(JNIEnv* env = Java::GetInstance()->Env);
+	CNetHandlerPlayClient getNetHandler(JNIEnv* env = Java::GetInstance()->Env);
+	CGuiIngame getIngameGUI(JNIEnv* env = Java::GetInstance()->Env);
 
 
 	CEntityPlayerSP* thePlayer;

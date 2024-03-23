@@ -11,12 +11,12 @@ public:
 		{
 			return false;
 		}
-		return Java::Env->IsSameObject(getInstance(), other.getInstance());
+		return Java::GetInstance()->Env->IsSameObject(getInstance(), other.getInstance());
 	}
 
 	using CEntityLivingBase::CEntityLivingBase;
-	CInventoryPlayer GetInventory(JNIEnv* env = Java::Env);
-	bool isBlocking(JNIEnv* env = Java::Env);
+	CInventoryPlayer GetInventory(JNIEnv* env = Java::GetInstance()->Env);
+	bool isBlocking(JNIEnv* env = Java::GetInstance()->Env);
 };
 
 namespace std {

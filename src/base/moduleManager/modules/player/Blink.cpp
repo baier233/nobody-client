@@ -18,7 +18,7 @@ Blink* Blink::getInstance() {
 }
 
 void Blink::onDisable() {
-	sendPackets(Java::Env);
+	sendPackets(Java::GetInstance()->Env);
 }
 
 void Blink::onEnable() {

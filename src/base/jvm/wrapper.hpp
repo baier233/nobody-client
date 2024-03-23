@@ -37,7 +37,7 @@ namespace JavaHook {
 	class MethodHook;
 	class hook_callbak_info;
 
-	std::unordered_map<java_hotspot::method*, MethodHook*> hook_map;
+	
 
 	using hook_callback_t = std::function<void(JavaHook::hook_callback_info*)>;
 
@@ -55,15 +55,16 @@ namespace JavaHook {
 		void InitHook(const jmethodID method, hook_callback_t detour);
 
 	private:
+		static std::unordered_map<java_hotspot::method*, MethodHook*> hook_map;
 		java_hotspot::method* target_method;
 		hook_callback_t detour;
 		bool isHooked;
 	};
 
 
-	inline hook_callback_info::hook_callback_info(break_point_info* info)
+	inline hook_callback_info::hook_callback_info(break_point_info* info) : hook_callback_info(info->method, info->java_thread, info->parameters)
 	{
-		hook_callback_info(info->method, info->java_thread, info->parameters);
+		
 	}
 
 	hook_callback_info::~hook_callback_info()

@@ -30,7 +30,7 @@ void BedESP::onUpdate(EventUpdate e)
 	for (CTileEntity& entity : list) {
 		if (!entity.isValid() || entity.isNULL()) continue;
 		
-		if (Java::Env->IsInstanceOf(entity.getInstance(), StrayCache::tileEntityBed_class)) {
+		if (Java::GetInstance()->Env->IsInstanceOf(entity.getInstance(), StrayCache::GetInstance()->tileEntityBed_class)) {
 			CTileEntityBed bed = CTileEntityBed(entity.getInstance());
 			auto blockPos = bed.getPos();
 			auto pos = blockPos.getPos();

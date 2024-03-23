@@ -2,8 +2,8 @@
 #include "../../../../util/logger.h"
 //BlockPos::BlockPos()
 //{
-//    if (!StrayCache::initialized) StrayCache::Initialize();
-//    this->Class = StrayCache::axisAlignedBB_class;
+//    if (!StrayCache::GetInstance()->initialized) StrayCache::GetInstance()->Initialize();
+//    this->Class = StrayCache::GetInstance()->axisAlignedBB_class;
 //
 //}
 //
@@ -29,9 +29,9 @@ Vector3 BlockPos::getPos(JNIEnv* env)
 		return Vector3(NULL, NULL, NULL);
 	}
 	jint x{}, y{}, z{};
-	x = env->GetIntField(this->instance, StrayCache::blockPos_x);
-	y = env->GetIntField(this->getInstance(), StrayCache::blockPos_y);
-	z = env->GetIntField(this->getInstance(), StrayCache::blockPos_z);
+	x = env->GetIntField(this->instance, StrayCache::GetInstance()->blockPos_x);
+	y = env->GetIntField(this->getInstance(), StrayCache::GetInstance()->blockPos_y);
+	z = env->GetIntField(this->getInstance(), StrayCache::GetInstance()->blockPos_z);
 	return Vector3(x, y, z);
 }
 

@@ -44,7 +44,7 @@ void Scaffold::onUpdate(const EventUpdate e)
 	if (Menu::Open) return;
 	if (SDK::Minecraft->IsInGuiState()) return;
 	jclass blockClass;
-	Java::AssignClass("net.minecraft.item.ItemBlock", blockClass);
+	Java::GetInstance()->AssignClass("net.minecraft.item.ItemBlock", blockClass);
 
 	//CMinecraft* mc = SDK::Minecraft;
 	count++;
