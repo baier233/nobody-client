@@ -292,6 +292,10 @@ public:
 	jmethodID hitResult_getType; // this is for 1.18.1
 	jfieldID movingObjectPosition_blockPos;
 
+	jclass blockHitResult_class;
+	jfieldID blockHitResult_blockPos;
+	jfieldID blockHitResult_miss;
+
 	jclass vec3_class;
 	jfieldID vec3_xCoord;
 	jfieldID vec3_yCoord;

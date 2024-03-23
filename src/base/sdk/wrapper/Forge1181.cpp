@@ -264,6 +264,13 @@ void StrayCache::Load1181ForgeMap() {
 	}
 
 	{
+		Java::GetInstance()->AssignClass("net.minecraft.world.phys.BlockHitResult", blockHitResult_class);
+		blockHitResult_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(blockHitResult_class);
+		blockHitResult_blockPos = Java::GetInstance()->Env->GetFieldID(blockHitResult_class, "f_82411_", "Lnet/minecraft/core/BlockPos;");
+		blockHitResult_miss = Java::GetInstance()->Env->GetFieldID(blockHitResult_class, "f_82412_", "Z");
+	}
+
+	{
 		Java::GetInstance()->AssignClass("net.minecraft.world.phys.Vec3", vec3_class);
 		vec3_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(vec3_class);
 

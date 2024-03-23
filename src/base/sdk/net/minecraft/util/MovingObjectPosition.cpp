@@ -115,8 +115,10 @@ BlockPos CMovingObjectPosition::getBlockPos(JNIEnv* env )
 	{
 		if (this->IsTypeOfBlock())
 		{
-
+			return BlockPos(env->GetObjectField(this->getInstance(), StrayCache::GetInstance()->blockHitResult_blockPos));
 		}
+
+		return BlockPos{};
 	}
 	return BlockPos(env->GetObjectField(this->getInstance(), StrayCache::GetInstance()->movingObjectPosition_blockPos));
 }

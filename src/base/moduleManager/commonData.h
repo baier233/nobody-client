@@ -107,11 +107,17 @@ public:
 		}
 
 		if (Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->getTheWorld().getInstance(), NULL) ||
-			Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->getThePlayer().getInstance(), NULL) ||
-			Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->GetRenderManager().getInstance(), NULL))
+			Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->getThePlayer().getInstance(), NULL))
 		{
 			CommonData::dataUpdated = false;
 			return false;
+		}
+		if (Base::version != FORGE_1_18_1 && Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->GetRenderManager().getInstance(), NULL))
+		{
+
+			CommonData::dataUpdated = false;
+			return false;
+
 		}
 		return true;
 	}

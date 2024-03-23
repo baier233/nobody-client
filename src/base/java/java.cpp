@@ -92,9 +92,11 @@ static void setupClassLoader()
 
 				if (minecraftClass)
 				{
-					classLoader = classLoaderObj;
+					classLoader = Java::GetInstance()->Env->NewGlobalRef(classLoaderObj);
+
 
 					Java::GetInstance()->Env->DeleteLocalRef(minecraftClass);
+					Java::GetInstance()->Env->DeleteLocalRef(classLoaderObj);
 
 					break;
 				}

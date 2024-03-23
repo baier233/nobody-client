@@ -54,10 +54,6 @@ void AutoTool::onUpdate(const EventUpdate e)
 				return;
 			}
 
-			if (SDK::GetInstance()->Minecraft->theWorld->isAirBlock(blockpos))
-			{
-				return;
-			}
 
 			blockstate = SDK::GetInstance()->Minecraft->theWorld->getBlockState(blockpos);
 
@@ -66,7 +62,7 @@ void AutoTool::onUpdate(const EventUpdate e)
 		
 
 
-		if (Base::version != FORGE_1_12_2 && Base::version != LUNAR_1_12_2 && Base::version != FORGE_1_7_10)
+		if (Base::version != FORGE_1_12_2 && Base::version != LUNAR_1_12_2 && Base::version != FORGE_1_7_10 && Base::version != FORGE_1_18_1)
 		{
 			block = blockstate.getBlock();
 
@@ -78,9 +74,10 @@ void AutoTool::onUpdate(const EventUpdate e)
 	
 		auto inventory = SDK::GetInstance()->Minecraft->thePlayer->GetInventory();
 
+		if (!inventory.isValid() || inventory.isNULL()) return;
+
 		for (int i = 0; i <= 8; i++)
 		{
-			if (!inventory.isValid() || inventory.isNULL()) continue;
 			auto item = inventory.GetStackInSlot(i);
 			if (!item || item.isNULL()) continue;
 			
