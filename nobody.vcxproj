@@ -646,6 +646,7 @@
     <ClCompile Include="src\base\sdk\wrapper\Forge1181.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Forge1710.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Forge189.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\FPSMaster112.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\MCP112.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\MCP189.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Vanllia189.cpp" />
