@@ -145,6 +145,7 @@
     <ClCompile Include="src\base\jvm\utility\vm_helper.cpp" />
     <ClCompile Include="src\base\jvm\wrapper.cpp" />
     <ClCompile Include="src\base\resource\ResourceManager.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\FPSMaster112.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\moduleManager\modules\player\Scaffold.h" />
