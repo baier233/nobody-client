@@ -20,6 +20,7 @@ enum Version
 	LUNAR_1_8_9,
 	LUNAR_1_12_2,
 	FORGE_1_18_1,
+	FPSMASTER_1_12_2,
 	UNKNOWN
 };
 

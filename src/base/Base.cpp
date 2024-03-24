@@ -54,10 +54,10 @@ public:
 		{
 			if (IsKeyPressed(Menu::Keybind))
 				Menu::Open = !Menu::Open;
-			
+
 			if (IsKeyPressed(VK_ESCAPE) and Menu::Open)
 				Menu::Open = !Menu::Open;
-			
+
 
 			for (auto& mod : moduleManager.getMods())
 			{
@@ -90,7 +90,7 @@ public:
 };
 
 
-  
+
 Version Base::version = UNKNOWN;
 
 
@@ -147,7 +147,7 @@ int Base::InitUpdateMessge() {
 	JNINativeMethod native[] = {
 		{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(handleUpdate)} };
 	jclass clazz{};
- 
+
 	if (!clazz)
 		Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 	if (!clazz)
@@ -301,6 +301,11 @@ void Base::checkVersion() {
 		version = FORGE_1_18_1;
 		return;
 	}
+	if (name.find("FPSMaster") != -1)
+	{
+		version = FPSMASTER_1_12_2;
+		return;
+	}
 	if (JNIHelper::IsForge())
 	{
 
@@ -381,7 +386,7 @@ void Base::Kill()
 	{
 		SDK::GetInstance()->Minecraft->gameSettings->RestoreFullscreenKey();
 	}
-	
+
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
 	//JavaHook::clean();
@@ -400,7 +405,7 @@ void Base::Kill()
 	if (og != nullptr)
 	{
 		jclass clazz{};
-		
+
 		if (!clazz)
 			if (Java::GetInstance()->Initialized) Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 		if (!clazz)

@@ -23,9 +23,9 @@ public:
 		static auto shared = std::make_unique<StrayCache>();
 		return shared.get();
 	}
-	
-	
-	
+
+
+
 	void helper() {
 		//这个方法不会被调用，只是用来方便跳转到指定的方法
 		Load112ForgeMap();
@@ -377,12 +377,17 @@ public:
 	void Load189MCPMap();
 	void Load189VanillaMap();
 	void Load1181ForgeMap();
-
+	void LoadFPSMaster112Map();
 
 
 	void Initialize() {
 		if (this->initialized) return;
 		IsLunar = false;
+		if (Base::version == FPSMASTER_1_12_2) {
+			std::cout << "FPSMASTER_1_12_2" << std::endl;
+			LoadFPSMaster112Map();
+			goto End;
+		}
 		if (Base::version == FORGE_1_12_2) {
 			std::cout << "FORGE_1_12_2" << std::endl;
 			Load112ForgeMap();
@@ -456,7 +461,7 @@ public:
 		intBuffer_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/nio/IntBuffer"));
 		intBuffer_get = Java::GetInstance()->Env->GetMethodID(intBuffer_class, "get", "(I)I");
 		auto thread = GetCurrentThreadId();
-		
+
 		initialized = true;
 	}
 	void DeleteRefs() {

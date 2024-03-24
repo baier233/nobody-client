@@ -116,7 +116,8 @@ static void setupClassLoader()
 
 }
 
-void Java::InitFromEnv(JNIEnv* env) {;
+void Java::InitFromEnv(JNIEnv* env) {
+	;
 	env->GetJavaVM(&Java::jvm);
 	jint res = Java::jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
 	if (res == JNI_EDETACHED)
@@ -126,7 +127,7 @@ void Java::InitFromEnv(JNIEnv* env) {;
 
 
 
-	this->Initialized = true; 
+	this->Initialized = true;
 }
 
 void Java::Init()
@@ -152,7 +153,7 @@ void Java::Init()
 		jvm->DetachCurrentThread();
 		jvm->DestroyJavaVM();
 	}
-	
+
 	Logger::Init();
 	if (!classLoader)
 	{
@@ -173,7 +174,7 @@ void Java::Kill()
 bool Java::AssignClass(std::string name, jclass& out)
 {
 
-	if (Base::version == BADLION or Base::version == FORGE_1_18_1)
+	if (Base::version == BADLION or Base::version == FORGE_1_18_1 or Base::version == FPSMASTER_1_12_2)
 	{
 		jclass* loaded_classes = nullptr;
 		jint loaded_classes_count = 0;
