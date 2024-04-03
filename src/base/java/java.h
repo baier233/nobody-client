@@ -19,6 +19,13 @@ class Java
 {
 public:
 
+	Java() {
+		this->jvm = nullptr;
+		this->Jvmti = nullptr;
+		this->Env = nullptr;
+		this->Initialized = false;
+	}
+
 	~Java() {
 	}
 

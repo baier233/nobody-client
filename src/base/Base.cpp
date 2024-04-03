@@ -180,7 +180,7 @@ void Base::Init()
 	//JavaHook::init();
 	Menu::Init();
 	initModule();
-	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)KeyBoard::StartListen, 0, 0, 0);
+	//CreateThread(0, 0, (LPTHREAD_START_ROUTINE)KeyBoard::StartListen, 0, 0, 0);
 	if (version != FORGE_1_18_1)
 		InitUpdateMessge();
 	ResourceManager::getInstance().LoadAllResource();
@@ -190,12 +190,12 @@ void Base::Init()
 	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 	while (Base::Running)
 	{
-		/*if (IsKeyReleased(VK_F11)) {
+		if (IsKeyReleased(VK_F11)) {
 			if (Borderless::Enabled)
 				Borderless::Restore(Menu::HandleWindow);
 			else
 				Borderless::Enable(Menu::HandleWindow);
-		}*/
+		}
 
 		EventManager::getInstance().call(EventUpdate());
 

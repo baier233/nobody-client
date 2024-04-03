@@ -121,7 +121,7 @@ void Java::InitFromEnv(JNIEnv* env) {
 	env->GetJavaVM(&Java::jvm);
 	jint res = Java::jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
 	if (res == JNI_EDETACHED)
-		res = jvm->AttachCurrentThreadAsDaemon((void**)&env, nullptr); //ÊØ»¤Ïß³Ì
+		res = jvm->AttachCurrentThreadAsDaemon((void**)&env, nullptr); //ï¿½Ø»ï¿½ï¿½ß³ï¿½
 	if (res != JNI_OK)
 		std::cout << "Cant Setup Enviornment" << std::endl;
 
@@ -135,26 +135,36 @@ void Java::Init()
 	if (this->Initialized) return;
 
 	// Check if there is any Java VMs in the injected thread
-	jsize count{};
-	if (JNI_GetCreatedJavaVMs(&jvm, 1, &count) != JNI_OK || count == 0)
-		return;
+	if (!this->jvm)
+	{
+		jsize count{};
+		if (JNI_GetCreatedJavaVMs(&jvm, 1, &count) != JNI_OK || count == 0)
+			return;
+	}
 
+	if (!this->Env)
+	{
+		jint res = jvm->GetEnv((void**)&this->Env, JNI_VERSION_1_8);
 
-	jint res = jvm->GetEnv((void**)&this->Env, JNI_VERSION_1_8);
+		if (res == JNI_EDETACHED)
+			res = jvm->AttachCurrentThreadAsDaemon((void**)&this->Env, nullptr); //ï¿½Ø»ï¿½ï¿½ß³ï¿½
 
-	if (res == JNI_EDETACHED)
-		res = jvm->AttachCurrentThreadAsDaemon((void**)&this->Env, nullptr); //ÊØ»¤Ïß³Ì
-
-	if (res != JNI_OK)
-		return;
-
-	jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
+		if (res != JNI_OK)
+			return;
+	}
+	
+	if (!this->Jvmti)
+	{
+		jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
+	}
 	if (this->Env == nullptr) {
 		jvm->DetachCurrentThread();
 		jvm->DestroyJavaVM();
 	}
-
-	Logger::Init();
+	if (!Logger::Initialized)
+	{
+		Logger::Init();
+	}
 	if (!classLoader)
 	{
 		setupClassLoader();
