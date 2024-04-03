@@ -35,6 +35,7 @@ public:
 		Load1710ForgeMap();
 		Load112MCPMap();
 		Load1181ForgeMap();
+		LoadFPSMaster112Map();
 	}
 
 

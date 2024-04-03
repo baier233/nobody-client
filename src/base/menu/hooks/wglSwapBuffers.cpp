@@ -19,6 +19,7 @@ std::atomic_flag clipCursor = ATOMIC_FLAG_INIT;
 RECT originalClip;
 
 #include "../../util/TitanHook.h"
+#include "../../moduleManager/ModuleManager.h"
 
 
 struct Context
@@ -27,7 +28,7 @@ struct Context
 }currentCtx{ .LastWindowRect = RECT{0,0,0,0} };
 
 
-static void windowResizeHandler(RECT rect,int width, int height) {
+static void windowResizeHandler(RECT rect, int width, int height) {
 
 	Menu::Kill();
 	Menu::Initialized = false;
@@ -41,13 +42,26 @@ static void windowResizeHandler(RECT rect,int width, int height) {
 
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
+
+typedef BOOL(WINAPI* template_TranslateMessage)(_In_ CONST MSG* lpMsg);
+TitanHook<template_TranslateMessage> TranslateMessageHook;
+
+BOOL WINAPI hook_TranslateMessage(_In_ CONST MSG* lpMsg) {
+	if (lpMsg->message == WM_KEYDOWN)
+	{
+		Base::justPressed = true;
+		if (lpMsg->wParam == Menu::Keybind)
+			Menu::Open = !Menu::Open;
+		if (lpMsg->wParam == VK_ESCAPE && Menu::Open)
+			Menu::Open = false;
+		ModuleManager::getInstance().ProcessKeyEvent(lpMsg->wParam);
+	}
+	return TranslateMessageHook.GetOrignalFunc()(lpMsg);
+}
+
 #include "../../util/math/TimerUtil.h"
 bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 {
-
-
-	
-
 	if (Base::version != FORGE_1_18_1) glPushMatrix();
 
 	Menu::HandleDeviceContext = hdc;
@@ -76,7 +90,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 		Init = true;
 		currentCtx.LastWindowRect = windowRect;
 	}
-	
+
 
 	if (!Menu::Initialized)
 	{
@@ -90,7 +104,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::MenuGLContext);
 	//glDepthFunc(GL_LEQUAL);
-	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9)
+	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9 || Base::version == FORGE_1_18_1)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 	}
@@ -138,7 +152,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 
 	ImGui::EndFrame();
 	ImGui::Render();
-	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9)
+	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9 || Base::version == FORGE_1_18_1)
 	{
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
@@ -149,7 +163,7 @@ bool __stdcall hook_wglSwapBuffers(_In_ HDC hdc)
 	wglMakeCurrent(Menu::HandleDeviceContext, Menu::OriginalGLContext);
 	if (Base::version != FORGE_1_18_1) glPopMatrix();
 	auto result = wglSwapBuffersHook.GetOrignalFunc()(hdc);
-	
+
 	return result;
 }
 
@@ -158,12 +172,19 @@ void Menu::Hook_wglSwapBuffers()
 	LPVOID wglSwapBuffers = (LPVOID)GetProcAddress(GetModuleHandle("opengl32.dll"), "wglSwapBuffers");
 	wglSwapBuffersHook.InitHook(wglSwapBuffers, hook_wglSwapBuffers);
 	wglSwapBuffersHook.SetHook();
-
+	if (Base::version == FPSMASTER_1_12_2) {
+		LPVOID translateMessages = (LPVOID)GetProcAddress(GetModuleHandle("user32.dll"), "TranslateMessage");
+		TranslateMessageHook.InitHook(translateMessages, hook_TranslateMessage);
+		TranslateMessageHook.SetHook();
+	}
 }
 
 void Menu::Unhook_wglSwapBuffers()
 {
 	wglSwapBuffersHook.RemoveHook();
+	if (Base::version == FPSMASTER_1_12_2) {
+		TranslateMessageHook.RemoveHook();
+	}
 }
 
 #include "../../../../ext/imgui/main.h"
@@ -258,15 +279,15 @@ void Menu::SetupImgui()
 		image::iconSucc = glLoadTextureFromMemory(success, success_size);
 		image::iconWarn = glLoadTextureFromMemory(waring, waring_size);
 
-		
-		
+
+
 
 		ImGui::GetStyle().ItemSpacing = ImVec2(0, 12);
 	}
-	
+
 
 	ImGui_ImplWin32_Init(Menu::HandleWindow);
-	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9)
+	if (Base::version == LUNAR_1_12_2 || Base::version == LUNAR_1_8_9 || Base::version == FORGE_1_18_1 || Base::version == FPSMASTER_1_12_2)
 	{
 		ImGui_ImplOpenGL3_Init();
 	}
@@ -274,7 +295,7 @@ void Menu::SetupImgui()
 		ImGui_ImplOpenGL2_Init();
 	}
 
-	
+
 
 	Menu::Initialized = true;
 }

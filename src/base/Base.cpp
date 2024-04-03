@@ -181,8 +181,9 @@ void Base::Init()
 	Menu::Init();
 	initModule();
 	//CreateThread(0, 0, (LPTHREAD_START_ROUTINE)KeyBoard::StartListen, 0, 0, 0);
-	if (version != FORGE_1_18_1)
+	if (version != FORGE_1_18_1 or version != FPSMASTER_1_12_2)
 		InitUpdateMessge();
+
 	ResourceManager::getInstance().LoadAllResource();
 	Base::Running = true;
 	//SDK::GetInstance()->Minecraft->gameSettings->SetFullscreenKeyToNull();

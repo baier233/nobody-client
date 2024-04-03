@@ -2,30 +2,30 @@
 
 void StrayCache::LoadFPSMaster112Map() {
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.fF", minecraft_class);
+		Java::GetInstance()->AssignClass("fpsmaster.fm", minecraft_class);
 		minecraft_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(minecraft_class);
 
-		minecraft_getNetHandler = Java::GetInstance()->Env->GetMethodID(minecraft_class, "D", "()Lfpsmaster/kr;");
-		minecraft_getMinecraft = Java::GetInstance()->Env->GetStaticMethodID(minecraft_class, "d", "()Lfpsmaster/fF;");
-		minecraft_getRenderViewEntity = Java::GetInstance()->Env->GetMethodID(minecraft_class, "ab", "()Lfpsmaster/uh;");
+		minecraft_getNetHandler = Java::GetInstance()->Env->GetMethodID(minecraft_class, "D", "()Lfpsmaster/jY;");
+		minecraft_getMinecraft = Java::GetInstance()->Env->GetStaticMethodID(minecraft_class, "d", "()Lfpsmaster/fm;");
+		minecraft_getRenderViewEntity = Java::GetInstance()->Env->GetMethodID(minecraft_class, "ab", "()Lfpsmaster/tO;");
 		minecraft_clickMouse = Java::GetInstance()->Env->GetMethodID(minecraft_class, "az", "()V");
 		minecraft_getDebugFPS = Java::GetInstance()->Env->GetMethodID(minecraft_class, "h", "()I");
 
-		minecraft_thePlayer = Java::GetInstance()->Env->GetFieldID(minecraft_class, "m", "Lfpsmaster/gc;");
-		minecraft_theWorld = Java::GetInstance()->Env->GetFieldID(minecraft_class, "k", "Lfpsmaster/kl;");
-		minecraft_playerController = Java::GetInstance()->Env->GetFieldID(minecraft_class, "h", "Lfpsmaster/kg;");
-		minecraft_renderManager = Java::GetInstance()->Env->GetFieldID(minecraft_class, "ap", "Lfpsmaster/og;");
-		minecraft_timer = Java::GetInstance()->Env->GetFieldID(minecraft_class, "f", "Lfpsmaster/ID;");
-		minecraft_gameSettings = Java::GetInstance()->Env->GetFieldID(minecraft_class, "y", "Lfpsmaster/rg;");
-		minecraft_ingameGUI = Java::GetInstance()->Env->GetFieldID(minecraft_class, "v", "Lfpsmaster/gC;");
-		minecraft_currentScreen = Java::GetInstance()->Env->GetFieldID(minecraft_class, "r", "Lfpsmaster/hc;");
-		minecraft_objectMouseOver = Java::GetInstance()->Env->GetFieldID(minecraft_class, "x", "Lfpsmaster/JK;");
+		minecraft_thePlayer = Java::GetInstance()->Env->GetFieldID(minecraft_class, "m", "Lfpsmaster/fJ;");
+		minecraft_theWorld = Java::GetInstance()->Env->GetFieldID(minecraft_class, "k", "Lfpsmaster/jS;");
+		minecraft_playerController = Java::GetInstance()->Env->GetFieldID(minecraft_class, "h", "Lfpsmaster/jN;");
+		minecraft_renderManager = Java::GetInstance()->Env->GetFieldID(minecraft_class, "ar", "Lfpsmaster/nN;");
+		minecraft_timer = Java::GetInstance()->Env->GetFieldID(minecraft_class, "f", "Lfpsmaster/Ik;");
+		minecraft_gameSettings = Java::GetInstance()->Env->GetFieldID(minecraft_class, "y", "Lfpsmaster/qN;");
+		minecraft_ingameGUI = Java::GetInstance()->Env->GetFieldID(minecraft_class, "v", "Lfpsmaster/gj;");
+		minecraft_currentScreen = Java::GetInstance()->Env->GetFieldID(minecraft_class, "r", "Lfpsmaster/gJ;");
+		minecraft_objectMouseOver = Java::GetInstance()->Env->GetFieldID(minecraft_class, "x", "Lfpsmaster/Jr;");
 		minecraft_rightClickDelayTimer = Java::GetInstance()->Env->GetFieldID(minecraft_class, "az", "I");
 
 	}
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.rg", gamesettings_class);
+		Java::GetInstance()->AssignClass("fpsmaster.qN", gamesettings_class);
 		gamesettings_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(gamesettings_class);
 
 		gamesettings_setOptionKeyBinding = Java::GetInstance()->Env->GetMethodID(gamesettings_class, "a", "(Lfpsmaster/ri;I)V");
@@ -41,16 +41,16 @@ void StrayCache::LoadFPSMaster112Map() {
 		keybind_pressed = Java::GetInstance()->Env->GetFieldID(keybind_class, "a", "Z");
 	}
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.kr", netHandlerPlayClient_class);
+		Java::GetInstance()->AssignClass("fpsmaster.jY", netHandlerPlayClient_class);
 		netHandlerPlayClient_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(netHandlerPlayClient_class);
 
-		netHandlerPlayClient_getPlayerInfo = Java::GetInstance()->Env->GetMethodID(netHandlerPlayClient_class, "a", "(Ljava/util/UUID;)Lfpsmaster/kr;");
+		netHandlerPlayClient_getPlayerInfo = Java::GetInstance()->Env->GetMethodID(netHandlerPlayClient_class, "a", "(Ljava/util/UUID;)Lfpsmaster/jY;");
 		//这个好像没用
 		//netHandlerPlayClient_addToSendQueue = Java::GetInstance()->Env->GetMethodID(netHandlerPlayClient_class, "addToSendQueue", "(Lnet/minecraft/network/Packet;)V");
 	}
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.gC", guiIngame_class);
+		Java::GetInstance()->AssignClass("fpsmaster.gj", guiIngame_class);
 		guiIngame_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(guiIngame_class);
 
 		guiIngame_getTabList = Java::GetInstance()->Env->GetMethodID(guiIngame_class, "g", "()Lfpsmaster/gX;");
@@ -64,7 +64,7 @@ void StrayCache::LoadFPSMaster112Map() {
 	}
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.uh", entity_class);
+		Java::GetInstance()->AssignClass("fpsmaster.tO", entity_class);
 		entity_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(entity_class);
 
 		entity_getName = Java::GetInstance()->Env->GetMethodID(entity_class, "h_", "()Ljava/lang/String;");
@@ -101,8 +101,8 @@ void StrayCache::LoadFPSMaster112Map() {
 	}
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.kg", playerControllerMP_class);
-		playerControllerMP_attackEntity = Java::GetInstance()->Env->GetMethodID(playerControllerMP_class, "attackEntity", "(Lfpsmaster/yp;Lfpsmaster/uh;)V");
+		Java::GetInstance()->AssignClass("fpsmaster.jN", playerControllerMP_class);
+		playerControllerMP_attackEntity = Java::GetInstance()->Env->GetMethodID(playerControllerMP_class, "attackEntity", "(Lfpsmaster/yp;Lfpsmaster/tO;)V");
 
 		//草泥马能不能别写没调用的
 		//playerControllerMP_sendUseItem = Java::GetInstance()->Env->GetMethodID(playerControllerMP_class, "sendUseItem", "(Lfpsmaster/yp;Lnet/minecraft/world/World;Lfpsmaster/Bi;)Z");//nullptr
@@ -135,7 +135,7 @@ void StrayCache::LoadFPSMaster112Map() {
 	}
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.gc", entityPlayerSP_class);
+		Java::GetInstance()->AssignClass("fpsmaster.fJ", entityPlayerSP_class);
 		entityPlayerSP_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(entityPlayerSP_class);
 	}
 
@@ -149,7 +149,7 @@ void StrayCache::LoadFPSMaster112Map() {
 
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.og", renderManager_class);
+		Java::GetInstance()->AssignClass("fpsmaster.nN", renderManager_class);
 		renderManager_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(renderManager_class);
 
 
@@ -163,7 +163,7 @@ void StrayCache::LoadFPSMaster112Map() {
 
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.kl", worldClient_class);
+		Java::GetInstance()->AssignClass("fpsmaster.jS", worldClient_class);
 		worldClient_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(worldClient_class);
 
 		worldClient_entityList = Java::GetInstance()->Env->GetFieldID(worldClient_class, "d", "Ljava/util/Set;");
@@ -173,7 +173,7 @@ void StrayCache::LoadFPSMaster112Map() {
 		Java::GetInstance()->AssignClass("fpsmaster.KT", world_class);
 		world_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(world_class);
 
-		world_rayTraceBlocks = Java::GetInstance()->Env->GetMethodID(StrayCache::GetInstance()->world_class, "rayTraceBlocks", "(Lfpsmaster/JN;Lfpsmaster/JN;ZZZ)Lfpsmaster/JK;");
+		world_rayTraceBlocks = Java::GetInstance()->Env->GetMethodID(StrayCache::GetInstance()->world_class, "rayTraceBlocks", "(Lfpsmaster/JN;Lfpsmaster/JN;ZZZ)Lfpsmaster/Jr;");
 		world_getChunkFromChunkCoords = Java::GetInstance()->Env->GetMethodID(StrayCache::GetInstance()->world_class, "getChunkFromChunkCoords", "(II)Lfpsmaster/LQ;");//nullptr
 		world_getBlockState = Java::GetInstance()->Env->GetMethodID(StrayCache::GetInstance()->world_class, "getBlockState", "(Lfpsmaster/JG;)Lfpsmaster/fu;");
 		world_isAirBlock = Java::GetInstance()->Env->GetMethodID(StrayCache::GetInstance()->world_class, "isAirBlock", "(Lfpsmaster/JG;)Z");
@@ -188,7 +188,7 @@ void StrayCache::LoadFPSMaster112Map() {
 		Java::GetInstance()->AssignClass("fpsmaster.LQ", chunk_class);
 		chunk_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(chunk_class);
 
-		//chunk_getBlock = Java::GetInstance()->Env->GetMethodID(StrayCache::GetInstance()->chunk_class, "getBlock", "(III)Lnet/minecraft/block/Block;");
+		//chunk_getBlock = Java::GetInstance()->Env->GetMethodID(StrayCache::GetInstance()->chunk_class, "getBlock", "(III)Lfpsmaster/bF;");
 	}
 
 	{
@@ -213,11 +213,11 @@ void StrayCache::LoadFPSMaster112Map() {
 	}
 
 	{
-		Java::GetInstance()->AssignClass("fpsmaster.JK", movingObjectPosition_class);
+		Java::GetInstance()->AssignClass("fpsmaster.Jr", movingObjectPosition_class);
 		movingObjectPosition_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(movingObjectPosition_class);
 
 		movingObjectPosition_hitVec = Java::GetInstance()->Env->GetFieldID(movingObjectPosition_class, "c", "Lfpsmaster/JN;");
-		movingObjectPosition_typeOfHit = Java::GetInstance()->Env->GetFieldID(movingObjectPosition_class, "a", "Lfpsmaster/JK$a;");
+		movingObjectPosition_typeOfHit = Java::GetInstance()->Env->GetFieldID(movingObjectPosition_class, "a", "Lfpsmaster/Jr$a;");
 		movingObjectPosition_blockPos = Java::GetInstance()->Env->GetFieldID(movingObjectPosition_class, "e", "Lfpsmaster/JG;");
 	}
 
@@ -262,22 +262,22 @@ void StrayCache::LoadFPSMaster112Map() {
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.item.ItemArmor", itemArmor_Class);
+		Java::GetInstance()->AssignClass("fpsmaster.zO", itemArmor_Class);
 		itemArmor_Class = (jclass)Java::GetInstance()->Env->NewGlobalRef(itemArmor_Class);
 
-		itemArmor_getColor = Java::GetInstance()->Env->GetMethodID(itemArmor_Class, "getColor", "(Lfpsmaster/Bi;)I");
+		itemArmor_getColor = Java::GetInstance()->Env->GetMethodID(itemArmor_Class, "j", "(Lfpsmaster/Bi;)I");
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.item.ItemTool", itemTool_class);
+		Java::GetInstance()->AssignClass("fpsmaster.Bl", itemTool_class);
 		itemTool_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(itemTool_class);
 
-		itemTool_getStrVsBlock = Java::GetInstance()->Env->GetMethodID(itemTool_class, "getDestroySpeed", "(Lfpsmaster/Bi;Lfpsmaster/fu;)F");
+		itemTool_getStrVsBlock = Java::GetInstance()->Env->GetMethodID(itemTool_class, "a", "(Lfpsmaster/Bi;Lfpsmaster/fu;)F");
 	}
 
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.util.math.BlockPos", blockPos_class);
+		Java::GetInstance()->AssignClass("fpsmaster.JG", blockPos_class);
 		blockPos_constructor = Java::GetInstance()->Env->GetMethodID(blockPos_class, "<init>", "(DDD)V");
 		blockPos_constructorI = Java::GetInstance()->Env->GetMethodID(blockPos_class, "<init>", "(III)V");
 		blockPos_x = Java::GetInstance()->Env->GetFieldID(blockPos_class, "x", "I");
@@ -286,57 +286,57 @@ void StrayCache::LoadFPSMaster112Map() {
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.block.Block", block_class);
+		Java::GetInstance()->AssignClass("fpsmaster.bF", block_class);
 		block_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(block_class);
 
-		block_getIdFromBlock = Java::GetInstance()->Env->GetStaticMethodID(block_class, "getIdFromBlock", "(Lnet/minecraft/block/Block;)I");
+		block_getIdFromBlock = Java::GetInstance()->Env->GetStaticMethodID(block_class, "a", "(Lfpsmaster/bF;)I");
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.block.state.BlockStateContainer", blockState_class);
+		Java::GetInstance()->AssignClass("fpsmaster.fq", blockState_class);
 		blockState_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(blockState_class);
 
-		blockState_block = Java::GetInstance()->Env->GetFieldID(blockState_class, "block", "Lnet/minecraft/block/Block;");
+		blockState_block = Java::GetInstance()->Env->GetFieldID(blockState_class, "c", "Lfpsmaster/bF;");
 
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.block.state.IBlockState", iBlockState_class);
+		Java::GetInstance()->AssignClass("fpsmaster.fu", iBlockState_class);
 		iBlockState_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(iBlockState_class);
 
-		iBlockState_getBlock = Java::GetInstance()->Env->GetMethodID(iBlockState_class, "getBlock", "()Lnet/minecraft/block/Block;");
+		iBlockState_getBlock = Java::GetInstance()->Env->GetMethodID(iBlockState_class, "h", "()Lfpsmaster/bF;");
 
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.block.BlockAir", blockAir_class);
+		Java::GetInstance()->AssignClass("fpsmaster.bG", blockAir_class);
 		blockAir_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(blockAir_class);
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.entity.item.EntityItem", entityItem_class);
+		Java::GetInstance()->AssignClass("fpsmaster.wM", entityItem_class);
 		entityItem_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(entityItem_class);
 	}
 
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.util.NonNullList", nonNullList_class);
+		Java::GetInstance()->AssignClass("fpsmaster.Ir", nonNullList_class);
 		nonNullList_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(nonNullList_class);
 
-		nonNullList_List = Java::GetInstance()->Env->GetFieldID(nonNullList_class, "delegate", "Ljava/util/List;");
+		nonNullList_List = Java::GetInstance()->Env->GetFieldID(nonNullList_class, "a", "Ljava/util/List;");
 
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.tileentity.TileEntity", tileEntity_class);
+		Java::GetInstance()->AssignClass("fpsmaster.GU", tileEntity_class);
 		tileEntity_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(tileEntity_class);
 
-		tileEntity_getPos = Java::GetInstance()->Env->GetMethodID(tileEntity_class, "getPos", "()Lfpsmaster/JG;");
+		tileEntity_getPos = Java::GetInstance()->Env->GetMethodID(tileEntity_class, "k", "()Lfpsmaster/JG;");
 
 	}
 
 	{
-		Java::GetInstance()->AssignClass("net.minecraft.tileentity.TileEntityBed", tileEntityBed_class);
+		Java::GetInstance()->AssignClass("fpsmaster.GX", tileEntityBed_class);
 		tileEntityBed_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(tileEntityBed_class);
 	}
 }
