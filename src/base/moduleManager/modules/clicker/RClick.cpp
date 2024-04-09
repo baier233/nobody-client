@@ -39,13 +39,13 @@ void RClick::onUpdate(const EventUpdate e)
 	jclass blockClass{};
 	if (Base::version == FORGE_1_18_1)
 	{
-		blockClass = StrayCache::itemBlock_class;
+		blockClass = StrayCache::GetInstance()->itemBlock_class;
 	}
 	else {
-		Java::AssignClass("net.minecraft.item.ItemBlock", blockClass);
+		Java::GetInstance()->AssignClass("net.minecraft.item.ItemBlock", blockClass);
 	}
 	if (SDK::Minecraft->thePlayer->GetInventory().GetCurrentItem().getInstance() == NULL) return;
-	if (this->blocksOnlyValue->getValue() && !Java::Env->IsInstanceOf(SDK::Minecraft->thePlayer->GetInventory().GetCurrentItem().GetItem().getInstance(), blockClass)) return;
+	if (this->blocksOnlyValue->getValue() && !Java::GetInstance()->Env->IsInstanceOf(SDK::Minecraft->thePlayer->GetInventory().GetCurrentItem().GetItem().getInstance(), blockClass)) return;
 
 	long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	if (rightLastClickTime == 0) rightLastClickTime = milli;

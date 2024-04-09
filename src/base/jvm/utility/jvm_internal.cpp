@@ -4,7 +4,7 @@
 
 #include "jvm_internal.h"
 
-// #define DEBUGGER
+//#define DEBUGGER
 
 JVMWrappers::struct_entries_t JVMWrappers::struct_entries;
 JVMWrappers::type_entries_t JVMWrappers::type_entries;

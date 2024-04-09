@@ -81,7 +81,7 @@ void Killaura::onUpdate(const EventUpdate e) {
 		}
 
 		if (player.GetName().length() < 0) return;
-		if (!Java::Env->IsSameObject(thePlayer.getInstance(), player.getInstance())) {
+		if (!Java::GetInstance()->Env->IsSameObject(thePlayer.getInstance(), player.getInstance())) {
 			if (!thePlayer.CanEntityBeSeen(player.getInstance())) continue;
 
 			

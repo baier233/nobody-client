@@ -113,7 +113,7 @@ void ItemESP::onUpdate(EventUpdate e)
 	List entitylist = SDK::Minecraft->getTheWorld().GetLoadedEntityList();
 	auto list = entitylist.toVector<CEntity>();
 	for (CEntity entitys : list) {
-		if (Java::Env->IsInstanceOf(entitys.getInstance(), StrayCache::entityItem_class)) {
+		if (Java::GetInstance()->Env->IsInstanceOf(entitys.getInstance(), StrayCache::GetInstance()->entityItem_class)) {
 			CEntityItem entity = CEntityItem(entitys.getInstance());
 			double x = entity.GetPos().x - CommonData::getInstance()->renderPos.x;
 			double y = entity.GetPos().y + 0.5 - (CommonData::getInstance()->renderPos.y);

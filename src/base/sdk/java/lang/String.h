@@ -7,15 +7,15 @@ class String : public Object
 {
 public:
 	using Object::Object;
-	String(std::string text, JNIEnv* env = Java::Env);
+	String(std::string text, JNIEnv* env = Java::GetInstance()->Env);
 	//bool operator==(const String& other) const {
 	//	if (getInstance() == nullptr || other.getInstance() == nullptr)
 	//	{
 	//		return false;
 	//	}
-	//	return Java::Env->IsSameObject(getInstance(), other.getInstance());
+	//	return Java::GetInstance()->Env->IsSameObject(getInstance(), other.getInstance());
 	//}
-	std::string ToString(JNIEnv* env = Java::Env);
-	bool contains(jstring str, JNIEnv* env = Java::Env);
+	std::string ToString(JNIEnv* env = Java::GetInstance()->Env);
+	bool contains(jstring str, JNIEnv* env = Java::GetInstance()->Env);
 };
 

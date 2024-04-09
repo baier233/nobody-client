@@ -15,18 +15,18 @@ void CEntityPlayerSP::setSneak(bool state, JNIEnv* env )
 ;		return;
 	}
 	CGameSettings* settings = SDK::Minecraft->gameSettings;
-	jobject sneakObj = env->GetObjectField(settings->getInstance(), StrayCache::gamesettings_keyBindSneak);
+	jobject sneakObj = env->GetObjectField(settings->getInstance(), StrayCache::GetInstance()->gamesettings_keyBindSneak);
 	jclass keybind_class = env->GetObjectClass(sneakObj);
 	jfieldID pressed;
 
-	env->SetBooleanField(sneakObj, StrayCache::keybind_pressed, state);
+	env->SetBooleanField(sneakObj, StrayCache::GetInstance()->keybind_pressed, state);
 }
 
 Vector3D CEntityPlayerSP::GetLastTickPos2(JNIEnv* env) {
 	return Vector3D{
-		(double)env->GetDoubleField(this->getInstance(), StrayCache::localPlayer_xLast),
-		(double)env->GetDoubleField(this->getInstance(), StrayCache::localPlayer_yLast1),
-		(double)env->GetDoubleField(this->getInstance(), StrayCache::localPlayer_zLast)
+		(double)env->GetDoubleField(this->getInstance(), StrayCache::GetInstance()->localPlayer_xLast),
+		(double)env->GetDoubleField(this->getInstance(), StrayCache::GetInstance()->localPlayer_yLast1),
+		(double)env->GetDoubleField(this->getInstance(), StrayCache::GetInstance()->localPlayer_zLast)
 	};
 }
 
@@ -35,14 +35,14 @@ void CEntityPlayerSP::attackEntity(CEntityPlayerSP* player, jobject entity, JNIE
 {
 
 	Object playerControllerObj = SDK::Minecraft->getPlayerController();
-	return env->CallVoidMethod(playerControllerObj.getInstance(), StrayCache::playerControllerMP_attackEntity, player->getInstance(), entity);
+	return env->CallVoidMethod(playerControllerObj.getInstance(), StrayCache::GetInstance()->playerControllerMP_attackEntity, player->getInstance(), entity);
 }
 
 bool CEntityPlayerSP::sendUseItem(CEntityPlayer* player, CWorld* world, CItemStack item, JNIEnv* env )
 {
 	Object playerControllerObj = SDK::Minecraft->getPlayerController();
 
-	return env->CallBooleanMethod(playerControllerObj.getInstance(), StrayCache::playerControllerMP_sendUseItem, player->getInstance(), world, item.getInstance());
+	return env->CallBooleanMethod(playerControllerObj.getInstance(), StrayCache::GetInstance()->playerControllerMP_sendUseItem, player->getInstance(), world, item.getInstance());
 }
 
 double CEntityPlayerSP::get_motion_x(JNIEnv* env )
@@ -52,29 +52,29 @@ double CEntityPlayerSP::get_motion_x(JNIEnv* env )
 
 void CEntityPlayerSP::set_motion_x(double x, JNIEnv* env )
 {
-	env->SetDoubleField(getInstance(), StrayCache::entity_motionX, (jdouble)x);
+	env->SetDoubleField(getInstance(), StrayCache::GetInstance()->entity_motionX, (jdouble)x);
 }
 
 double CEntityPlayerSP::get_motion_y(JNIEnv* env )
 {
-	double y = (double)env->GetDoubleField(getInstance(), StrayCache::entity_motionY);
+	double y = (double)env->GetDoubleField(getInstance(), StrayCache::GetInstance()->entity_motionY);
 	return y;
 }
 
 void CEntityPlayerSP::set_motion_y(double y, JNIEnv* env )
 {
-	env->SetDoubleField(getInstance(), StrayCache::entity_motionY, (jdouble)y);
+	env->SetDoubleField(getInstance(), StrayCache::GetInstance()->entity_motionY, (jdouble)y);
 }
 
 double CEntityPlayerSP::get_motion_z(JNIEnv* env )
 {
-	double z = (double)env->GetDoubleField(getInstance(), StrayCache::entity_motionZ);
+	double z = (double)env->GetDoubleField(getInstance(), StrayCache::GetInstance()->entity_motionZ);
 	return z;
 }
 
 void CEntityPlayerSP::set_motion_z(double z, JNIEnv* env )
 {
-	env->SetDoubleField(getInstance(), StrayCache::entity_motionZ, (jdouble)z);
+	env->SetDoubleField(getInstance(), StrayCache::GetInstance()->entity_motionZ, (jdouble)z);
 }
 
 double CEntityPlayerSP::toRadians(float degrees, JNIEnv* env ) {
@@ -153,7 +153,7 @@ void CEntityPlayerSP::sendGroundPacket(Object Packet, JNIEnv* env )
 {
 	auto queueObject = SDK::Minecraft->getNetHandler();
 
-	env->CallVoidMethod(queueObject.getInstance(), StrayCache::netHandlerPlayClient_addToSendQueue, Packet.getInstance());
+	env->CallVoidMethod(queueObject.getInstance(), StrayCache::GetInstance()->netHandlerPlayClient_addToSendQueue, Packet.getInstance());
 
 	return;
 }
@@ -161,7 +161,7 @@ void CEntityPlayerSP::sendGroundPacket(Object Packet, JNIEnv* env )
 Object CEntityPlayerSP::C03PacketPlayer(jboolean ground, float yaw, float pitch, JNIEnv* env )
 {
 	jclass C03;
-	Java::AssignClass("net.minecraft.network.play.client.C03PacketPlayer", C03);
+	Java::GetInstance()->AssignClass("net.minecraft.network.play.client.C03PacketPlayer", C03);
 	jmethodID c03Constructer = env->GetMethodID(C03, "<init>", "(Z)V");
 	jfieldID yawf, pitchf;
 	if (JNIHelper::IsForge()) {

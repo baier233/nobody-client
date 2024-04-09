@@ -34,7 +34,7 @@ void Eagle::onUpdate(const EventUpdate e)
 	{
 		auto pos = SDK::Minecraft->thePlayer->GetPos();
 		auto block = SDK::Minecraft->getTheWorld().GetBlock(pos.x, pos.y -1, pos.z);
-		if (Java::Env->IsInstanceOf(block.getInstance(), StrayCache::blockAir_class))
+		if (Java::GetInstance()->Env->IsInstanceOf(block.getInstance(), StrayCache::GetInstance()->blockAir_class))
 		{
 
 			SDK::Minecraft->thePlayer->setSneak(true);

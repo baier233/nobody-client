@@ -16,11 +16,11 @@ public:
 	void onEnable();
 	void onDisable();
 	bool isBot(CEntityPlayer p) {
-		if (Java::Env->IsSameObject(p.getInstance(), NULL)) {
+		if (Java::GetInstance()->Env->IsSameObject(p.getInstance(), NULL)) {
 			return true;
 		}
 
-		if (Java::Env->IsInstanceOf(p.getInstance(),StrayCache::entityPlayerSP_class))
+		if (Java::GetInstance()->Env->IsInstanceOf(p.getInstance(),StrayCache::GetInstance()->entityPlayerSP_class))
 		{
 			return true;
 		}

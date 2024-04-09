@@ -13,5 +13,5 @@ class BlockPos :public Object
 	//jobject getInstance();
 public:
 	using Object::Object;
-	Vector3 getPos(JNIEnv* env = Java::Env);
+	Vector3 getPos(JNIEnv* env = Java::GetInstance()->Env);
 };

@@ -206,7 +206,7 @@ void Esp::onUpdate(const EventUpdate e)
 		{
 
 			if (!entity.isValid() || entity.isNULL()) continue;
-			if (Java::Env->IsSameObject(entity.getInstance(),player->getInstance())) continue;
+			if (Java::GetInstance()->Env->IsSameObject(entity.getInstance(),player->getInstance())) continue;
 
 			if (Antibot::getInstance()->getToggle() && Antibot::getInstance()->isBot(entity)) {
 				continue;

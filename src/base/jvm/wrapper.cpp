@@ -92,6 +92,10 @@ auto ScanByteCodeOffset(JNIEnv* env) -> void {
 
 bool JavaHook::JVM::Init(JNIEnv* env)
 {
+    if (!env)
+    {
+        throw std::runtime_error("Env is nullptr.");
+    }
 
 	//const auto interop = std::make_unique<java_interop>(env);
 	JVMWrappers::init(gHotSpotVMStructs, gHotSpotVMTypes, gHotSpotVMIntConstants, gHotSpotVMLongConstants);
@@ -107,7 +111,7 @@ JavaHook::MethodHook::MethodHook()
     this->isHooked = false;
 }
 
-JavaHook::MethodHook::MethodHook(const jmethodID method, hook_callback_t detour)
+JavaHook::MethodHook::MethodHook(const jmethodID method, hook_callback_t detour) : MethodHook()
 {
     this->InitHook(method, detour);
 }

@@ -40,7 +40,7 @@ void Velocity::onUpdate(const EventUpdate e)
 
 		if (!p.isValid() || p.isNULL()) continue;
 
-		if (Java::Env->IsSameObject(p.getInstance(), thePlayer->getInstance())) {
+		if (Java::GetInstance()->Env->IsSameObject(p.getInstance(), thePlayer->getInstance())) {
 			continue;
 		}
 

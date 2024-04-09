@@ -15,7 +15,7 @@ public:
 	bool isTeam(CEntityPlayer p) {
 
 
-		if (Java::Env->IsSameObject(p.getInstance(), NULL)) {
+		if (Java::GetInstance()->Env->IsSameObject(p.getInstance(), NULL)) {
 			return true;
 		}
 

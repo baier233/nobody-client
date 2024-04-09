@@ -6,6 +6,6 @@ class CNonNullList : public Object
 {
 public:
 	using Object::Object;
-	List getList(JNIEnv* env = Java::Env);
+	List getList(JNIEnv* env = Java::GetInstance()->Env);
 
 };

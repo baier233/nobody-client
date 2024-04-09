@@ -21,18 +21,18 @@ Object::Object(JNIEnv* env)
 
 Object& Object::operator=(const Object& other_Object)
 {
-	if (this->instance) Java::Env->DeleteGlobalRef(this->instance);
-	if (other_Object.instance) this->instance = Java::Env->NewGlobalRef(other_Object.instance);
+	if (this->instance) Java::GetInstance()->Env->DeleteGlobalRef(this->instance);
+	if (other_Object.instance) this->instance = Java::GetInstance()->Env->NewGlobalRef(other_Object.instance);
 	else this->instance = nullptr;
 	return *this;
 }
 
 Object& Object::operator=(jobject instance)
 {
-	if (this->instance) Java::Env->DeleteGlobalRef(this->instance);
+	if (this->instance) Java::GetInstance()->Env->DeleteGlobalRef(this->instance);
 	if (instance) {
-		this->instance = Java::Env->NewGlobalRef(instance);
-		Java::Env->DeleteLocalRef(instance);
+		this->instance = Java::GetInstance()->Env->NewGlobalRef(instance);
+		Java::GetInstance()->Env->DeleteLocalRef(instance);
 	}
 	else this->instance = nullptr;
 	return *this;
@@ -68,8 +68,8 @@ bool Object::isNULL(JNIEnv* env)
 
 Object::~Object()
 {
-	if (!Java::Env) return;
-	if (instance) Java::Env->DeleteGlobalRef(instance);
+	if (!Java::GetInstance()->Env) return;
+	if (instance) Java::GetInstance()->Env->DeleteGlobalRef(instance);
 }
 
 void Object::clear(JNIEnv* env)

@@ -7,6 +7,6 @@ class CItemArmor : public CItem
 {
 public:
 	using CItem::CItem;
-	CItemArmor(CItem item, JNIEnv* env = Java::Env);
-	int getColor(CItemStack stack, JNIEnv* env = Java::Env);
+	CItemArmor(CItem item, JNIEnv* env = Java::GetInstance()->Env);
+	int getColor(CItemStack stack, JNIEnv* env = Java::GetInstance()->Env);
 };

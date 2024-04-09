@@ -6,6 +6,6 @@
 class CGuiIngame : public Object {
 public:
 	using Object::Object;
-	CGuiPlayerTabOverlay getTabList(JNIEnv* env = Java::Env);
+	CGuiPlayerTabOverlay getTabList(JNIEnv* env = Java::GetInstance()->Env);
 
 };

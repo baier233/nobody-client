@@ -11,15 +11,15 @@ CVec3 CMovingObjectPosition::GetBlockPosition(JNIEnv* env )
 	{
 		return CVec3{};
 	}
-	return CVec3(env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_hitVec));
+	return CVec3(env->GetObjectField(this->getInstance(), StrayCache::GetInstance()->movingObjectPosition_hitVec));
 }
 
 CBlock CMovingObjectPosition::GetBlock(JNIEnv* env)
 {
 	int x, y, z{};
-	x = Java::Env->GetIntField(this->instance, StrayCache::movingObjectPosition_blockX);
-	y = Java::Env->GetIntField(this->instance, StrayCache::movingObjectPosition_blockY);
-	z = Java::Env->GetIntField(this->instance, StrayCache::movingObjectPosition_blockZ);
+	x = Java::GetInstance()->Env->GetIntField(this->instance, StrayCache::GetInstance()->movingObjectPosition_blockX);
+	y = Java::GetInstance()->Env->GetIntField(this->instance, StrayCache::GetInstance()->movingObjectPosition_blockY);
+	z = Java::GetInstance()->Env->GetIntField(this->instance, StrayCache::GetInstance()->movingObjectPosition_blockZ);
 	return SDK::Minecraft->theWorld->GetBlock(x,y,z);
 }
 
@@ -29,7 +29,7 @@ bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )
 
 	if (Base::version == FORGE_1_18_1)
 	{
-		jobject typeOfHit = env->CallObjectMethod(this->instance, StrayCache::hitResult_getType);
+		jobject typeOfHit = env->CallObjectMethod(this->instance, StrayCache::GetInstance()->hitResult_getType);
 		if (!typeOfHit) return false;
 
 		jclass movingObjectType = env->GetObjectClass(typeOfHit);
@@ -45,7 +45,7 @@ bool CMovingObjectPosition::IsTypeOfBlock(JNIEnv* env )
 
 
 
-	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
+	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::GetInstance()->movingObjectPosition_typeOfHit);
 	if (!typeOfHit) return false;
 
 	jclass movingObjectType = env->GetObjectClass(typeOfHit);
@@ -74,7 +74,7 @@ bool CMovingObjectPosition::IsTypeOfEntity(JNIEnv* env )
 
 	if (Base::version == FORGE_1_18_1)
 	{
-		jobject typeOfHit = env->CallObjectMethod(this->instance, StrayCache::hitResult_getType);
+		jobject typeOfHit = env->CallObjectMethod(this->instance, StrayCache::GetInstance()->hitResult_getType);
 		if (!typeOfHit) return false;
 
 		jclass movingObjectType = env->GetObjectClass(typeOfHit);
@@ -89,7 +89,7 @@ bool CMovingObjectPosition::IsTypeOfEntity(JNIEnv* env )
 	}
 
 
-	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_typeOfHit);
+	jobject typeOfHit = env->GetObjectField(this->getInstance(), StrayCache::GetInstance()->movingObjectPosition_typeOfHit);
 	if (!typeOfHit) return false;
 
 	jclass movingObjectType = env->GetObjectClass(typeOfHit);
@@ -118,5 +118,5 @@ BlockPos CMovingObjectPosition::getBlockPos(JNIEnv* env )
 
 		}
 	}
-	return BlockPos(env->GetObjectField(this->getInstance(), StrayCache::movingObjectPosition_blockPos));
+	return BlockPos(env->GetObjectField(this->getInstance(), StrayCache::GetInstance()->movingObjectPosition_blockPos));
 }

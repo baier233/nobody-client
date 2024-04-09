@@ -13,19 +13,19 @@ class CWorld : public Object
 {
 public:
 	using Object::Object;
-	List GetPlayerList(JNIEnv* env = Java::Env);
-	List GetLoadedEntityList(JNIEnv* env = Java::Env);
-	List GetLoadedTileEntityList(JNIEnv* env = Java::Env);
-	CBlock GetBlock(int x, int y, int z, JNIEnv* env = Java::Env);
+	List GetPlayerList(JNIEnv* env = Java::GetInstance()->Env);
+	List GetLoadedEntityList(JNIEnv* env = Java::GetInstance()->Env);
+	List GetLoadedTileEntityList(JNIEnv* env = Java::GetInstance()->Env);
+	CBlock GetBlock(int x, int y, int z, JNIEnv* env = Java::GetInstance()->Env);
 
-	Vector3 rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock, JNIEnv* env = Java::Env);
+	Vector3 rayTraceBlocks(Vector3 from, Vector3 to, bool stopOnLiquid, bool ignoreBlockWithoutBoundingBox, bool returnLastUncollidableBlock, JNIEnv* env = Java::GetInstance()->Env);
 
-	CChunk getChunkFromChunkCoords(jint chunkX, jint chunkZ, JNIEnv* env = Java::Env);
+	CChunk getChunkFromChunkCoords(jint chunkX, jint chunkZ, JNIEnv* env = Java::GetInstance()->Env);
 
-	CIBlockState getBlockState(BlockPos pos, JNIEnv* env = Java::Env);
+	CIBlockState getBlockState(BlockPos pos, JNIEnv* env = Java::GetInstance()->Env);
 
-	bool isAirBlock(double x, double y, double z, JNIEnv* env = Java::Env);
-	bool isAirBlock(BlockPos pos, JNIEnv* env = Java::Env);
-	int getBlock(double x, double y, double z, JNIEnv* env = Java::Env);
+	bool isAirBlock(double x, double y, double z, JNIEnv* env = Java::GetInstance()->Env);
+	bool isAirBlock(BlockPos pos, JNIEnv* env = Java::GetInstance()->Env);
+	int getBlock(double x, double y, double z, JNIEnv* env = Java::GetInstance()->Env);
 };
 

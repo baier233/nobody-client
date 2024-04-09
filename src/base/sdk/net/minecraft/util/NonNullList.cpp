@@ -2,5 +2,5 @@
 
 List CNonNullList::getList(JNIEnv* env )
 {
-	return List(env->GetObjectField(this->instance, StrayCache::nonNullList_List));
+	return List(env->GetObjectField(this->instance, StrayCache::GetInstance()->nonNullList_List));
 }

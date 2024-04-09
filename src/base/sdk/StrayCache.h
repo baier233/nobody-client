@@ -3,12 +3,41 @@
 #include "../util/logger.h"
 #include "../base.h"
 
+#include <unordered_map>
+#include <map>
+
+#include "../jvm/classes/java_thread.h"
+
+
+
+
 inline bool IsLunar = false;
-struct StrayCache {
 
+class StrayCache;
 
-	inline static bool initialized;
+std::map<DWORD, StrayCache*> CacheMap{};
 
+class StrayCache {
+
+public:
+
+	bool initialized;
+	static StrayCache* GetInstance()
+	{
+		
+		
+		auto threadOop = GetCurrentThreadId();
+		
+		auto instance = CacheMap.find(threadOop);
+		if (instance == CacheMap.end())
+		{
+			CacheMap[threadOop] = new StrayCache;
+		}
+		return CacheMap[threadOop];
+	}
+	
+	
+	
 	void helper() {
 		//这个方法不会被调用，只是用来方便跳转到指定的方法
 		Load112ForgeMap();
@@ -22,344 +51,344 @@ struct StrayCache {
 
 
 	//Minecraft Class
-	inline static jclass minecraft_class;
-	inline static jmethodID minecraft_getMinecraft;
-	inline static jmethodID minecraft_getNetHandler;
-	inline static jmethodID minecraft_getRenderViewEntity;
-	inline static jmethodID minecraft_clickMouse;
-	inline static jmethodID minecraft_getDebugFPS;
-	inline static jfieldID minecraft_mc;
-	inline static jfieldID minecraft_thePlayer;
-	inline static jfieldID minecraft_theWorld;
-	inline static jfieldID minecraft_playerController;
-	inline static jfieldID minecraft_renderManager;
-	inline static jfieldID minecraft_timer;
-	inline static jfieldID minecraft_gameSettings;
-	inline static jfieldID minecraft_ingameGUI;
-	inline static jfieldID minecraft_currentScreen;
-	inline static jfieldID minecraft_objectMouseOver;
-	inline static jfieldID minecraft_rightClickDelayTimer;
+	jclass minecraft_class;
+	jmethodID minecraft_getMinecraft;
+	jmethodID minecraft_getNetHandler;
+	jmethodID minecraft_getRenderViewEntity;
+	jmethodID minecraft_clickMouse;
+	jmethodID minecraft_getDebugFPS;
+	jfieldID minecraft_mc;
+	jfieldID minecraft_thePlayer;
+	jfieldID minecraft_theWorld;
+	jfieldID minecraft_playerController;
+	jfieldID minecraft_renderManager;
+	jfieldID minecraft_timer;
+	jfieldID minecraft_gameSettings;
+	jfieldID minecraft_ingameGUI;
+	jfieldID minecraft_currentScreen;
+	jfieldID minecraft_objectMouseOver;
+	jfieldID minecraft_rightClickDelayTimer;
 
 	//ActiveRenderInfo Class
-	inline static jclass activeRenderInfo_class;
-	inline static jfieldID activeRenderInfo_VIEWPORT;
-	inline static jfieldID activeRenderInfo_MODELVIEW;
-	inline static jfieldID activeRenderInfo_PROJECTION;
+	jclass activeRenderInfo_class;
+	jfieldID activeRenderInfo_VIEWPORT;
+	jfieldID activeRenderInfo_MODELVIEW;
+	jfieldID activeRenderInfo_PROJECTION;
 
 	//Render System Class (1.18.1
-	inline static jclass renderSystem_class;
-	inline static jfieldID renderSystem_shader;
+	jclass renderSystem_class;
+	jfieldID renderSystem_shader;
 
 	//ShaderInstance Class (1.18.1
-	inline static jclass shaderInstance_class;
-	inline static jfieldID shaderInstance_MODEL_VIEW_MATRIX;
-	inline static jfieldID shaderInstance_PROJECTION_MATRIX;
+	jclass shaderInstance_class;
+	jfieldID shaderInstance_MODEL_VIEW_MATRIX;
+	jfieldID shaderInstance_PROJECTION_MATRIX;
 
 	//Uniform Class (1.18.1
-	inline static jclass uniform_class;
-	inline static jfieldID uniform_floatValues;
+	jclass uniform_class;
+	jfieldID uniform_floatValues;
 
 	//Game Settings
-	inline static jclass gamesettings_class;
-	inline static jmethodID gamesettings_setOptionKeyBinding;
-	inline static jfieldID gamesettings_cameraType;//this is for 1.18.1
-	inline static jfieldID gamesettings_thirdPersonView;
-	inline static jfieldID gamesettings_fovSetting;
-	inline static jfieldID gamesettings_gammaSetting;
-	inline static jfieldID gamesettings_keyBindFullscreen;
-	inline static jfieldID gamesettings_keyBindSneak;
+	jclass gamesettings_class;
+	jmethodID gamesettings_setOptionKeyBinding;
+	jfieldID gamesettings_cameraType;//this is for 1.18.1
+	jfieldID gamesettings_thirdPersonView;
+	jfieldID gamesettings_fovSetting;
+	jfieldID gamesettings_gammaSetting;
+	jfieldID gamesettings_keyBindFullscreen;
+	jfieldID gamesettings_keyBindSneak;
 
 	//CameraType Class (1.18.1
-	inline static jclass cameraType_class;
-	inline static jmethodID cameraType_isFirstPerson;
+	jclass cameraType_class;
+	jmethodID cameraType_isFirstPerson;
 
 	//CPacketPlayr Class
-	inline static jclass cpacketPlayer_class;
+	jclass cpacketPlayer_class;
 
 	//KeyBind Class
-	inline static jclass keybind_class;
-	inline static jfieldID keybind_pressed;
+	jclass keybind_class;
+	jfieldID keybind_pressed;
 
 	//NetHandlerPlayClient class
-	inline static jclass netHandlerPlayClient_class;
-	inline static jmethodID netHandlerPlayClient_getPlayerInfo;
-	inline static jmethodID netHandlerPlayClient_addToSendQueue;
+	jclass netHandlerPlayClient_class;
+	jmethodID netHandlerPlayClient_getPlayerInfo;
+	jmethodID netHandlerPlayClient_addToSendQueue;
 
 
 	//GuiIngame class
-	inline static jclass guiIngame_class;
-	inline static jmethodID guiIngame_getTabList;
+	jclass guiIngame_class;
+	jmethodID guiIngame_getTabList;
 
 	//GuiPlayerTabOverlay class
-	inline static jclass guiPlayerTabOverlay_class;
-	inline static jmethodID guiPlayerTabOverlay_getPlayerName;
+	jclass guiPlayerTabOverlay_class;
+	jmethodID guiPlayerTabOverlay_getPlayerName;
 
 	//PlayerController Class
-	inline static jclass playerControllerMP_class;
-	inline static jmethodID playerControllerMP_attackEntity;
-	inline static jmethodID playerControllerMP_sendUseItem;
+	jclass playerControllerMP_class;
+	jmethodID playerControllerMP_attackEntity;
+	jmethodID playerControllerMP_sendUseItem;
 
 	//NetworkManager Class
-	inline static jclass networkManager_class;
-	inline static jmethodID networkManager_sendPacket;
-	inline static jmethodID networkManager_channelRead0;
+	jclass networkManager_class;
+	jmethodID networkManager_sendPacket;
+	jmethodID networkManager_channelRead0;
 
 	// ENTITY CLASS
-	inline static jclass entity_class;
+	jclass entity_class;
 	//ONLY FOR 1.18.1 BEGIN
-	inline static jmethodID entity_getX;
-	inline static jmethodID entity_getY;
-	inline static jmethodID entity_getZ;
+	jmethodID entity_getX;
+	jmethodID entity_getY;
+	jmethodID entity_getZ;
 	//END
-	inline static jmethodID entity_getName;
-	inline static jmethodID entity_isSneaking;
-	inline static jmethodID entity_setSneaking;
-	inline static jmethodID entity_setPosition;
-	inline static jmethodID entity_setSprint;
-	inline static jmethodID entity_isInvisible;
-	inline static jmethodID entity_inWater;
-	inline static jmethodID entity_getUniqueID;
-	inline static jmethodID entity_getBBHeight;//this is for 1.18.1
-	inline static jfieldID entity_position;//this is for 1.18.1
-	inline static jfieldID entity_eyeHeight;//this is for 1.18.1
-	inline static jfieldID entity_posX;
-	inline static jfieldID entity_posY;
-	inline static jfieldID entity_posZ;
-	inline static jfieldID entity_lastTickPosX;
-	inline static jfieldID entity_lastTickPosY;
-	inline static jfieldID entity_lastTickPosZ;
-	inline static jfieldID entity_width;
-	inline static jfieldID entity_height;
-	inline static jfieldID entity_distanceWalkedModified;
-	inline static jfieldID entity_prevDistanceWalkedModified;
-	inline static jfieldID entity_rotationYaw;
-	inline static jfieldID entity_rotationPitch;
-	inline static jfieldID entity_prevRotationYaw;
-	inline static jfieldID entity_prevRotationPitch;
-	inline static jfieldID entity_boundingBox;
-	inline static jfieldID entity_deltaMovement;
-	inline static jfieldID entity_motionX;
-	inline static jfieldID entity_motionY;
-	inline static jfieldID entity_motionZ;
-	inline static jfieldID entity_onGround;
-	inline static jfieldID entity_fallDistance;
-	inline static jfieldID entity_ticksExisted;
-	inline static jfieldID entity_isDead;
+	jmethodID entity_getName;
+	jmethodID entity_isSneaking;
+	jmethodID entity_setSneaking;
+	jmethodID entity_setPosition;
+	jmethodID entity_setSprint;
+	jmethodID entity_isInvisible;
+	jmethodID entity_inWater;
+	jmethodID entity_getUniqueID;
+	jmethodID entity_getBBHeight;//this is for 1.18.1
+	jfieldID entity_position;//this is for 1.18.1
+	jfieldID entity_eyeHeight;//this is for 1.18.1
+	jfieldID entity_posX;
+	jfieldID entity_posY;
+	jfieldID entity_posZ;
+	jfieldID entity_lastTickPosX;
+	jfieldID entity_lastTickPosY;
+	jfieldID entity_lastTickPosZ;
+	jfieldID entity_width;
+	jfieldID entity_height;
+	jfieldID entity_distanceWalkedModified;
+	jfieldID entity_prevDistanceWalkedModified;
+	jfieldID entity_rotationYaw;
+	jfieldID entity_rotationPitch;
+	jfieldID entity_prevRotationYaw;
+	jfieldID entity_prevRotationPitch;
+	jfieldID entity_boundingBox;
+	jfieldID entity_deltaMovement;
+	jfieldID entity_motionX;
+	jfieldID entity_motionY;
+	jfieldID entity_motionZ;
+	jfieldID entity_onGround;
+	jfieldID entity_fallDistance;
+	jfieldID entity_ticksExisted;
+	jfieldID entity_isDead;
 
 	// ENTITY LIVING BASE CLASS
-	inline static jclass entityLivingBase_class;
-	inline static jmethodID entityLivingBase_getHealth;
-	inline static jmethodID entityLivingBase_getMaxHealth;
-	inline static jmethodID entityLivingBase_canEntityBeSeen;
-	inline static jmethodID entityLivingBase_isPlayerSleeping;
-	inline static jmethodID entityLivingBase_swingItem;
-	inline static jmethodID entityLivingBase_jump;
-	inline static jfieldID entityLivingBase_hurttime;
-	inline static jfieldID entityLivingBase_moveForward;
-	inline static jfieldID entityLivingBase_moveStrafe;
+	jclass entityLivingBase_class;
+	jmethodID entityLivingBase_getHealth;
+	jmethodID entityLivingBase_getMaxHealth;
+	jmethodID entityLivingBase_canEntityBeSeen;
+	jmethodID entityLivingBase_isPlayerSleeping;
+	jmethodID entityLivingBase_swingItem;
+	jmethodID entityLivingBase_jump;
+	jfieldID entityLivingBase_hurttime;
+	jfieldID entityLivingBase_moveForward;
+	jfieldID entityLivingBase_moveStrafe;
 
 	//Entity Player
-	inline static jclass entityPlayer_class;
-	inline static jmethodID entityPlayer_isBlocking;
-	inline static jmethodID entityPlayer_getInventory; // this is for 1.18.1
-	inline static jfieldID entityPlayer_inventory;
+	jclass entityPlayer_class;
+	jmethodID entityPlayer_isBlocking;
+	jmethodID entityPlayer_getInventory; // this is for 1.18.1
+	jfieldID entityPlayer_inventory;
 
 
 	//Entity Player SP
-	inline static jclass entityPlayerSP_class;
-	inline static jfieldID entityPlayerSP_sendQueue;
-	inline static jfieldID entityPlayerSP_abilities;
+	jclass entityPlayerSP_class;
+	jfieldID entityPlayerSP_sendQueue;
+	jfieldID entityPlayerSP_abilities;
 
-	inline static jfieldID localPlayer_xLast;
-	inline static jfieldID localPlayer_yLast1;
-	inline static jfieldID localPlayer_zLast;
+	jfieldID localPlayer_xLast;
+	jfieldID localPlayer_yLast1;
+	jfieldID localPlayer_zLast;
 
 	//World Client
-	inline static jclass worldClient_class;
-	inline static jfieldID worldClient_entityList;
+	jclass worldClient_class;
+	jfieldID worldClient_entityList;
 
 	//RenderManager
-	inline static jclass renderManager_class;
-	inline static jfieldID renderManager_Instance;//1,7.10 forge only
-	inline static jfieldID renderManager_renderPosX;
-	inline static jfieldID renderManager_renderPosY;
-	inline static jfieldID renderManager_renderPosZ;
-	inline static jfieldID renderManager_viewerPosX;
-	inline static jfieldID renderManager_viewerPosY;
-	inline static jfieldID renderManager_viewerPosZ;
-	inline static jfieldID renderManager_playerViewX;
-	inline static jfieldID renderManager_playerViewY;
+	jclass renderManager_class;
+	jfieldID renderManager_Instance;//1,7.10 forge only
+	jfieldID renderManager_renderPosX;
+	jfieldID renderManager_renderPosY;
+	jfieldID renderManager_renderPosZ;
+	jfieldID renderManager_viewerPosX;
+	jfieldID renderManager_viewerPosY;
+	jfieldID renderManager_viewerPosZ;
+	jfieldID renderManager_playerViewX;
+	jfieldID renderManager_playerViewY;
 
 	//Timer
-	inline static jclass timer_class;
-	inline static jfieldID timer_renderPartialTicks;
-	inline static jfieldID timer_timerSpeed;
+	jclass timer_class;
+	jfieldID timer_renderPartialTicks;
+	jfieldID timer_timerSpeed;
 
 
 	//World
-	inline static jclass world_class;
-	inline static jmethodID world_getBlockState;
-	inline static jmethodID world_getBlock; //for 1.7.10
-	inline static jmethodID world_rayTraceBlocks;
-	inline static jmethodID world_getChunkFromChunkCoords;
-	inline static jmethodID world_isAirBlock;
-	inline static jfieldID world_playerEntities;
-	inline static jfieldID world_loadedEntityList;
-	inline static jfieldID world_loadedTileEntityList;//TODO:only 1.12.2
+	jclass world_class;
+	jmethodID world_getBlockState;
+	jmethodID world_getBlock; //for 1.7.10
+	jmethodID world_rayTraceBlocks;
+	jmethodID world_getChunkFromChunkCoords;
+	jmethodID world_isAirBlock;
+	jfieldID world_playerEntities;
+	jfieldID world_loadedEntityList;
+	jfieldID world_loadedTileEntityList;//TODO:only 1.12.2
 
 
 	//ClientLevel Class(this is for 1.18.1)
-	inline static jclass clientLevel_class;
-	inline static jfieldID clientLevel_players;
-	inline static jmethodID clientLevel_entitiesForRendering;
+	jclass clientLevel_class;
+	jfieldID clientLevel_players;
+	jmethodID clientLevel_entitiesForRendering;
 
 
 
 	//tileEntity
-	inline static jclass tileEntity_class;
-	inline static jmethodID tileEntity_getPos;
+	jclass tileEntity_class;
+	jmethodID tileEntity_getPos;
 
 	//TileEntityBed
-	inline static jclass tileEntityBed_class;
+	jclass tileEntityBed_class;
 
 	//Chunk
-	inline static jclass chunk_class;
-	inline static jmethodID chunk_getBlock;
+	jclass chunk_class;
+	jmethodID chunk_getBlock;
 
 	//collection
-	inline static jclass conllection_class;
-	inline static jmethodID conllection_toArray;
+	jclass conllection_class;
+	jmethodID conllection_toArray;
 
 	//Set
-	inline static jclass set_class;
-	inline static jmethodID set_toArray;
+	jclass set_class;
+	jmethodID set_toArray;
 
 	//List
-	inline static jclass list_class;
-	inline static jmethodID list_toArray;
+	jclass list_class;
+	jmethodID list_toArray;
 
 	//FloatBuffer
-	inline static jclass floatBuffer_class;
-	inline static jmethodID floatBuffer_get;
+	jclass floatBuffer_class;
+	jmethodID floatBuffer_get;
 
 	//IntBuffer
-	inline static jclass intBuffer_class;
-	inline static jmethodID intBuffer_get;
+	jclass intBuffer_class;
+	jmethodID intBuffer_get;
 
 
 	//String class
-	inline static jclass string_class;
-	inline static jmethodID string_contains;
+	jclass string_class;
+	jmethodID string_contains;
 
 	//System class
-	inline static jclass system_class;
-	inline static jmethodID system_gc;
+	jclass system_class;
+	jmethodID system_gc;
 
 	// AXIS ALIGNED BB CLASS
-	inline static jclass axisAlignedBB_class;
-	inline static jfieldID axisAlignedBB_minX;
-	inline static jfieldID axisAlignedBB_minY;
-	inline static jfieldID axisAlignedBB_minZ;
-	inline static jfieldID axisAlignedBB_maxX;
-	inline static jfieldID axisAlignedBB_maxY;
-	inline static jfieldID axisAlignedBB_maxZ;
+	jclass axisAlignedBB_class;
+	jfieldID axisAlignedBB_minX;
+	jfieldID axisAlignedBB_minY;
+	jfieldID axisAlignedBB_minZ;
+	jfieldID axisAlignedBB_maxX;
+	jfieldID axisAlignedBB_maxY;
+	jfieldID axisAlignedBB_maxZ;
 
 	// MOVING OBJECT POSITION CLASS
-	inline static jclass movingObjectPosition_class;
-	inline static jfieldID movingObjectPosition_blockX;//3 fields below is for 1.7.10
-	inline static jfieldID movingObjectPosition_blockY;
-	inline static jfieldID movingObjectPosition_blockZ;
-	inline static jfieldID movingObjectPosition_hitVec;
-	inline static jfieldID movingObjectPosition_typeOfHit;
-	inline static jmethodID hitResult_getType; // this is for 1.18.1
-	inline static jfieldID movingObjectPosition_blockPos;
+	jclass movingObjectPosition_class;
+	jfieldID movingObjectPosition_blockX;//3 fields below is for 1.7.10
+	jfieldID movingObjectPosition_blockY;
+	jfieldID movingObjectPosition_blockZ;
+	jfieldID movingObjectPosition_hitVec;
+	jfieldID movingObjectPosition_typeOfHit;
+	jmethodID hitResult_getType; // this is for 1.18.1
+	jfieldID movingObjectPosition_blockPos;
 
-	inline static jclass vec3_class;
-	inline static jfieldID vec3_xCoord;
-	inline static jfieldID vec3_yCoord;
-	inline static jfieldID vec3_zCoord;
+	jclass vec3_class;
+	jfieldID vec3_xCoord;
+	jfieldID vec3_yCoord;
+	jfieldID vec3_zCoord;
 
-	inline static jclass inventoryPlayer_class;
-	inline static jmethodID inventoryPlayer_getCurrentItem;
-	inline static jmethodID inventoryPlayer_getStackInSlot;
-	inline static jfieldID inventoryPlayer_mainInv;
-	inline static jfieldID inventoryPlayer_armorInv;
-	inline static jfieldID inventoryPlayer_currentItem;
+	jclass inventoryPlayer_class;
+	jmethodID inventoryPlayer_getCurrentItem;
+	jmethodID inventoryPlayer_getStackInSlot;
+	jfieldID inventoryPlayer_mainInv;
+	jfieldID inventoryPlayer_armorInv;
+	jfieldID inventoryPlayer_currentItem;
 
-	inline static jclass itemStack_class;
-	inline static jmethodID itemStack_getItem;
-	inline static jmethodID itemStack_getStrVsBlock;
+	jclass itemStack_class;
+	jmethodID itemStack_getItem;
+	jmethodID itemStack_getStrVsBlock;
 
-	inline static jclass blockPos_class;
-	inline static jfieldID blockPos_x;
-	inline static jfieldID blockPos_y;
-	inline static jfieldID blockPos_z;
-	inline static jmethodID blockPos_constructor;
-	inline static jmethodID blockPos_constructorI;
+	jclass blockPos_class;
+	jfieldID blockPos_x;
+	jfieldID blockPos_y;
+	jfieldID blockPos_z;
+	jmethodID blockPos_constructor;
+	jmethodID blockPos_constructorI;
 
 	//Block Class
-	inline static jclass block_class;
-	inline static jmethodID block_getIdFromBlock;
-	inline static jmethodID block_isAir;  // this is for 1.18.1
+	jclass block_class;
+	jmethodID block_getIdFromBlock;
+	jmethodID block_isAir;  // this is for 1.18.1
 
 	//BlockState Class
-	inline static jclass blockState_class;
-	inline static jfieldID blockState_block;
-	//inline static jmethodID blockState_getBlock; // this is for 1.18.1
+	jclass blockState_class;
+	jfieldID blockState_block;
+	//jmethodID blockState_getBlock; // this is for 1.18.1
 
 	//blockStateBase Class(PS:this is for 1.18.1)
-	inline static jclass blockStateBase_class;
-	inline static jmethodID blockStateBase_getBlock;
-	inline static jmethodID blockStateBase_isAir;
+	jclass blockStateBase_class;
+	jmethodID blockStateBase_getBlock;
+	jmethodID blockStateBase_isAir;
 
 	//IBlockState Class
-	inline static jclass iBlockState_class;
-	inline static jmethodID iBlockState_getBlock;
-	inline static jmethodID iBlockState_getBlockFromBlockState;
+	jclass iBlockState_class;
+	jmethodID iBlockState_getBlock;
+	jmethodID iBlockState_getBlockFromBlockState;
 
 	//BlockAir Clss
-	inline static jclass blockAir_class;
+	jclass blockAir_class;
 
 	//Item Class
-	inline static jclass item_class;
-	inline static jmethodID item_getIdFromItem;
+	jclass item_class;
+	jmethodID item_getIdFromItem;
 
 	//ItemArmor Class
-	inline static jclass itemArmor_Class;
-	inline static jmethodID itemArmor_getColor;
+	jclass itemArmor_Class;
+	jmethodID itemArmor_getColor;
 
 	//ItemTool Class
-	inline static jclass itemTool_class;
-	inline static jmethodID itemTool_getStrVsBlock;
+	jclass itemTool_class;
+	jmethodID itemTool_getStrVsBlock;
 
-	inline static jclass itemBlock_class;
+	jclass itemBlock_class;
 
 	//DyeableLeatherItem Class(this is for 1.18.1)
-	inline static jclass dyeableLeatherItem_class;
-	inline static jmethodID dyeableLeatherItem_getColor;
+	jclass dyeableLeatherItem_class;
+	jmethodID dyeableLeatherItem_getColor;
 
 	//NonNullList Class
-	inline static jclass nonNullList_class;
-	inline static jfieldID nonNullList_List;
+	jclass nonNullList_class;
+	jfieldID nonNullList_List;
 
 	//EntityItem Class
-	inline static jclass entityItem_class;
+	jclass entityItem_class;
 
-	inline static jclass hitResult_class;
-
-
-
-	static void Load112ForgeMap();
-	static void Load189ForgeMap();
-	static void Load1710ForgeMap();
-	static void Load112MCPMap();
-	static void Load189MCPMap();
-	static void Load189VanillaMap();
-	static void Load1181ForgeMap();
+	jclass hitResult_class;
 
 
 
-	static void Initialize() {
+	void Load112ForgeMap();
+	void Load189ForgeMap();
+	void Load1710ForgeMap();
+	void Load112MCPMap();
+	void Load189MCPMap();
+	void Load189VanillaMap();
+	void Load1181ForgeMap();
+
+
+
+	void Initialize() {
 		IsLunar = false;
 		if (Base::version == FORGE_1_12_2) {
 			std::cout << "FORGE_1_12_2" << std::endl;
@@ -415,69 +444,72 @@ struct StrayCache {
 		//Load112MCPMap();
 	End:
 
-		conllection_class = (jclass)Java::Env->NewGlobalRef(Java::Env->FindClass("java/util/Collection"));
-		conllection_toArray = Java::Env->GetMethodID(conllection_class, "toArray", "()[Ljava/lang/Object;");
+		conllection_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/util/Collection"));
+		conllection_toArray = Java::GetInstance()->Env->GetMethodID(conllection_class, "toArray", "()[Ljava/lang/Object;");
 
-		list_class = (jclass)Java::Env->NewGlobalRef(Java::Env->FindClass("java/util/List"));
-		list_toArray = Java::Env->GetMethodID(list_class, "toArray", "()[Ljava/lang/Object;");
-		set_class = (jclass)Java::Env->NewGlobalRef(Java::Env->FindClass("java/util/Set"));
-		set_toArray = Java::Env->GetMethodID(set_class, "toArray", "()[Ljava/lang/Object;");
+		list_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/util/List"));
+		list_toArray = Java::GetInstance()->Env->GetMethodID(list_class, "toArray", "()[Ljava/lang/Object;");
+		set_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/util/Set"));
+		set_toArray = Java::GetInstance()->Env->GetMethodID(set_class, "toArray", "()[Ljava/lang/Object;");
 
-		system_class = (jclass)Java::Env->NewGlobalRef(Java::Env->FindClass("java/lang/System"));
-		system_gc = Java::Env->GetStaticMethodID(system_class, "gc", "()V");
+		system_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/lang/System"));
+		system_gc = Java::GetInstance()->Env->GetStaticMethodID(system_class, "gc", "()V");
 
-		string_class = (jclass)Java::Env->NewGlobalRef(Java::Env->FindClass("java/lang/String"));
-		string_contains = Java::Env->GetMethodID(string_class, "contains", "(Ljava/lang/CharSequence;)Z");
+		string_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/lang/String"));
+		string_contains = Java::GetInstance()->Env->GetMethodID(string_class, "contains", "(Ljava/lang/CharSequence;)Z");
 
-		floatBuffer_class = (jclass)Java::Env->NewGlobalRef(Java::Env->FindClass("java/nio/FloatBuffer"));
-		floatBuffer_get = Java::Env->GetMethodID(floatBuffer_class, "get", "(I)F");
-		intBuffer_class = (jclass)Java::Env->NewGlobalRef(Java::Env->FindClass("java/nio/IntBuffer"));
-		intBuffer_get = Java::Env->GetMethodID(intBuffer_class, "get", "(I)I");
+		floatBuffer_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/nio/FloatBuffer"));
+		floatBuffer_get = Java::GetInstance()->Env->GetMethodID(floatBuffer_class, "get", "(I)F");
+		intBuffer_class = (jclass)Java::GetInstance()->Env->NewGlobalRef(Java::GetInstance()->Env->FindClass("java/nio/IntBuffer"));
+		intBuffer_get = Java::GetInstance()->Env->GetMethodID(intBuffer_class, "get", "(I)I");
+		auto thread = GetCurrentThreadId();
+		CacheMap[thread] = this;
+		
 		initialized = true;
 	}
-	static void DeleteRefs() {
+	void DeleteRefs() {
 		if (IsLunar || Base::version == BADLION)
 			return;
-		Java::Env->DeleteGlobalRef(set_class);
-		Java::Env->DeleteGlobalRef(system_class);
-		Java::Env->DeleteGlobalRef(list_class);
-		Java::Env->DeleteGlobalRef(floatBuffer_class);
-		Java::Env->DeleteGlobalRef(intBuffer_class);
-		Java::Env->DeleteGlobalRef(string_class);
-		Java::Env->DeleteGlobalRef(minecraft_class);
-		Java::Env->DeleteGlobalRef(activeRenderInfo_class);
-		Java::Env->DeleteGlobalRef(gamesettings_class);
-		Java::Env->DeleteGlobalRef(keybind_class);
-		Java::Env->DeleteGlobalRef(entity_class);
-		Java::Env->DeleteGlobalRef(entityLivingBase_class);
-		Java::Env->DeleteGlobalRef(entityPlayerSP_class);
-		Java::Env->DeleteGlobalRef(entityPlayer_class);
-		Java::Env->DeleteGlobalRef(chunk_class);
-		Java::Env->DeleteGlobalRef(axisAlignedBB_class);
-		Java::Env->DeleteGlobalRef(movingObjectPosition_class);
-		Java::Env->DeleteGlobalRef(itemStack_class);
-		Java::Env->DeleteGlobalRef(inventoryPlayer_class);
-		Java::Env->DeleteGlobalRef(vec3_class);
-		Java::Env->DeleteGlobalRef(itemArmor_Class);
-		Java::Env->DeleteGlobalRef(item_class);
-		Java::Env->DeleteGlobalRef(renderManager_class);
-		Java::Env->DeleteGlobalRef(netHandlerPlayClient_class);
-		Java::Env->DeleteGlobalRef(guiIngame_class);
-		Java::Env->DeleteGlobalRef(guiPlayerTabOverlay_class);
-		Java::Env->DeleteGlobalRef(worldClient_class);
-		Java::Env->DeleteGlobalRef(timer_class);
-		Java::Env->DeleteGlobalRef(world_class);
-		Java::Env->DeleteGlobalRef(conllection_class);
-		Java::Env->DeleteGlobalRef(blockPos_class);
-		Java::Env->DeleteGlobalRef(block_class);
-		Java::Env->DeleteGlobalRef(blockState_class);
-		Java::Env->DeleteGlobalRef(iBlockState_class);
-		Java::Env->DeleteGlobalRef(blockAir_class);
-		Java::Env->DeleteGlobalRef(itemTool_class);
-		Java::Env->DeleteGlobalRef(nonNullList_class);
-		Java::Env->DeleteGlobalRef(networkManager_class);
-		Java::Env->DeleteGlobalRef(tileEntity_class);
-		Java::Env->DeleteGlobalRef(tileEntityBed_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(set_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(system_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(list_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(floatBuffer_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(intBuffer_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(string_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(minecraft_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(activeRenderInfo_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(gamesettings_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(keybind_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(entity_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(entityLivingBase_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(entityPlayerSP_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(entityPlayer_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(chunk_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(axisAlignedBB_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(movingObjectPosition_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(itemStack_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(inventoryPlayer_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(vec3_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(itemArmor_Class);
+		Java::GetInstance()->Env->DeleteGlobalRef(item_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(renderManager_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(netHandlerPlayClient_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(guiIngame_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(guiPlayerTabOverlay_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(worldClient_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(timer_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(world_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(conllection_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(blockPos_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(block_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(blockState_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(iBlockState_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(blockAir_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(itemTool_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(nonNullList_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(networkManager_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(tileEntity_class);
+		Java::GetInstance()->Env->DeleteGlobalRef(tileEntityBed_class);
 
 	}
 

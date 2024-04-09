@@ -5,5 +5,5 @@ class CPacket :public Object
 {
 public:
 	using Object::Object;
-	std::string ToString(JNIEnv* env = Java::Env);
+	std::string ToString(JNIEnv* env = Java::GetInstance()->Env);
 };

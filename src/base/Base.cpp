@@ -8,6 +8,7 @@
 #include "util/window/borderless.h"
 #include <thread>
 #include <unordered_map>
+#include <map>
 #include "security/security.hpp"
 #include "eventManager/events/EventKey.hpp"
 
@@ -41,10 +42,13 @@
 
 #include "jvm/wrapper.hpp"
 
-
+  
 Version Base::version = UNKNOWN;
 
-const char* GetWindowTitle(HWND hWnd)
+std::map<DWORD, ThreadContext*>ContextMap{};
+
+
+static const char* GetWindowTitle(HWND hWnd)
 {
 	char windowTitle[128];
 	GetWindowTextA(hWnd, windowTitle, 128);
@@ -52,7 +56,7 @@ const char* GetWindowTitle(HWND hWnd)
 	return windowTitle;
 }
 
-bool IsKeyReleased(int key)
+static bool IsKeyReleased(int key)
 {
 	static std::unordered_map<int, bool> keyStates;
 
@@ -98,10 +102,10 @@ int Base::InitUpdateMessge() {
 	jclass clazz{};
  
 	if (!clazz)
-		Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
+		Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 	if (!clazz)
 	{
-		Java::Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
+		Java::GetInstance()->Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
 	}
 	if (!clazz)
 	{
@@ -109,7 +113,7 @@ int Base::InitUpdateMessge() {
 		return -1;
 	}
 
-	return Java::Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
+	return Java::GetInstance()->Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
 }
 #include<Windows.h>
 #include "moduleManager/modules/visual/ChestESP.h"
@@ -117,35 +121,12 @@ int Base::InitUpdateMessge() {
 #include "moduleManager/modules/visual/ItemESP.h"
 #include "moduleManager/modules/visual/BedESP.h"
 
-void ShowAllClass() {
-	jint classCount;
-	jclass* classes;
-	int error = Java::Jvmti->GetLoadedClasses(&classCount, &classes);
-	if (error != JVMTI_ERROR_NONE) {
-		return;
-	}
-	for (int i = 0; i < classCount; i++) {
-		jclass cls = classes[i];
-
-		char* className;
-		error = Java::Jvmti->GetClassSignature(cls, &className, NULL);
-		if (error == JVMTI_ERROR_NONE) {
-
-			if (strstr(className, "net") != NULL) {
-				// 类名包含 "windowDisply"
-				printf("Class: %s\n", className);
-			}
-
-			Java::Jvmti->Deallocate((unsigned char*)className);
-		}
-	}
-}
 
 void Base::Init()
 {
 	BuildVersion = "Build 20240317 - f5c3a08";//动态获取？
-	Java::Init();
-	JavaHook::JVM::Init(Java::Env);
+	Java::GetInstance()->Init();
+	JavaHook::JVM::Init(Java::GetInstance()->Env);
 	Base::isObfuscate = false;
 	checkVersion();
 	SDK::Init();
@@ -353,7 +334,7 @@ void Base::Kill()
 		Borderless::Restore(Menu::HandleWindow);
 	//JavaHook::clean();
 	SDK::Clean();
-	StrayCache::DeleteRefs();
+	StrayCache::GetInstance()->DeleteRefs();
 	auto og = GetProcAddress(GetModuleHandle("lwjgl64.dll"), "Java_org_lwjgl_opengl_WindowsDisplay_nUpdate");
 	JNINativeMethod native[] = {
 		{const_cast<char*>("nUpdate"), const_cast<char*>("()V"), (void*)(og)} };
@@ -363,22 +344,22 @@ void Base::Kill()
 		jclass clazz{};
 		
 		if (!clazz)
-			Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
+			Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 		if (!clazz)
 		{
 			std::cout << "Unable to find windowsDisplay Class" << std::endl;
 			std::cout << "try env->FindClass" << std::endl;
-			Java::Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
+			Java::GetInstance()->Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
 		}
 		if (clazz)
 		{
-			Java::Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
+			Java::GetInstance()->Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
 		}
 		else {
 			std::cout << "Unable to find windowsDisplay Class 2" << std::endl;
 		}
 	}
-	Java::Kill();
+	Java::GetInstance()->Kill();
 	Menu::Kill();
 	Logger::Kill();
 	ModuleManager::getInstance().clean();

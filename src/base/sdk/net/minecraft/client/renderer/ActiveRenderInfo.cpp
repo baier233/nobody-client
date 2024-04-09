@@ -9,14 +9,14 @@ Matrix CActiveRenderInfo::ProjectionMatrix(JNIEnv* env )
 {
 	if (Base::version == FORGE_1_18_1)
 	{
-		auto shaderInstance = Java::Env->GetStaticObjectField(StrayCache::renderSystem_class, StrayCache::renderSystem_shader);
+		auto shaderInstance = Java::GetInstance()->Env->GetStaticObjectField(StrayCache::GetInstance()->renderSystem_class, StrayCache::GetInstance()->renderSystem_shader);
 		if (!shaderInstance) {
 			std::cout << " Cant not get shaderInstance" << std::endl;
 			return Matrix{};
 		}
-		auto projectionUniform = Java::Env->GetObjectField(shaderInstance, StrayCache::shaderInstance_PROJECTION_MATRIX);
+		auto projectionUniform = Java::GetInstance()->Env->GetObjectField(shaderInstance, StrayCache::GetInstance()->shaderInstance_PROJECTION_MATRIX);
 		if (!projectionUniform) { std::cout << " Cant not get projectionUniform" << std::endl; return Matrix{}; }
-		auto floatValues = Java::Env->GetObjectField(projectionUniform, StrayCache::uniform_floatValues);
+		auto floatValues = Java::GetInstance()->Env->GetObjectField(projectionUniform, StrayCache::GetInstance()->uniform_floatValues);
 		if (!floatValues) { std::cout << " Cant not get floatValues" << std::endl; return Matrix{}; }
 		Matrix m = FloatBuffer(floatValues).GetMatrix();
 		return m;
@@ -24,7 +24,7 @@ Matrix CActiveRenderInfo::ProjectionMatrix(JNIEnv* env )
 
 
 
-	jobject projection = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_PROJECTION);
+	jobject projection = env->GetStaticObjectField(StrayCache::GetInstance()->activeRenderInfo_class, StrayCache::GetInstance()->activeRenderInfo_PROJECTION);
 	if (!projection)
 	{
 		return Matrix{};
@@ -38,18 +38,18 @@ Matrix CActiveRenderInfo::ModelViewMatrix(JNIEnv* env )
 {
 	if (Base::version == FORGE_1_18_1)
 	{
-		auto shaderInstance = Java::Env->GetStaticObjectField(StrayCache::renderSystem_class, StrayCache::renderSystem_shader);
+		auto shaderInstance = Java::GetInstance()->Env->GetStaticObjectField(StrayCache::GetInstance()->renderSystem_class, StrayCache::GetInstance()->renderSystem_shader);
 		if (!shaderInstance) { std::cout << " Cant not get shaderInstance" << std::endl;  return Matrix{}; }
-		auto modleViewUniform = Java::Env->GetObjectField(shaderInstance, StrayCache::shaderInstance_MODEL_VIEW_MATRIX);
+		auto modleViewUniform = Java::GetInstance()->Env->GetObjectField(shaderInstance, StrayCache::GetInstance()->shaderInstance_MODEL_VIEW_MATRIX);
 		if (!modleViewUniform) { std::cout << " Cant not get modleViewUniform" << std::endl;  return Matrix{}; }
-		auto floatValues = Java::Env->GetObjectField(modleViewUniform, StrayCache::uniform_floatValues);
+		auto floatValues = Java::GetInstance()->Env->GetObjectField(modleViewUniform, StrayCache::GetInstance()->uniform_floatValues);
 		if (!floatValues) { std::cout << " Cant not get floatValues" << std::endl;  return Matrix{}; }
 		Matrix m = FloatBuffer(floatValues).GetMatrix();
 		return m;
 	}
 
 
-	jobject modelView = env->GetStaticObjectField(StrayCache::activeRenderInfo_class, StrayCache::activeRenderInfo_MODELVIEW);
+	jobject modelView = env->GetStaticObjectField(StrayCache::GetInstance()->activeRenderInfo_class, StrayCache::GetInstance()->activeRenderInfo_MODELVIEW);
 	if (!modelView)
 	{
 		return Matrix{};

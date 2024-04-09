@@ -11,7 +11,7 @@ extern "C" {
 uintptr_t __forceinline jhook_get_r14_address();
 }
 
-auto jvm_break_points::breakpoint_callback(
+auto _declspec(noinline) jvm_break_points::breakpoint_callback(
     java_hotspot::java_thread *java_thread,
     java_hotspot::method *method,
     const uintptr_t bytecode_address

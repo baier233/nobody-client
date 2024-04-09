@@ -73,7 +73,7 @@ void Reach::onUpdate(const EventUpdate e)
 		if (!target.isValid() || target.isNULL()) continue;
 
 		float distance = ReachDistanceValue->getValue();
-		if (Java::Env->IsSameObject(thePlayer->getInstance(), target.getInstance())) continue;
+		if (Java::GetInstance()->Env->IsSameObject(thePlayer->getInstance(), target.getInstance())) continue;
 
 		BoundingBox targetBB = target.GetBB().GetNativeBoundingBox();
 

@@ -3,9 +3,13 @@
 #define LOLOLOL
 #define LOLOLOL2
 
+#include "../../ext/jni/jni.h"
+
+
 #include "eventManager/events/EventKey.hpp"
 #include <chrono>
-#include "java/java.h"
+#include <map>
+#include <Windows.h>
 enum Version
 {
 	FORGE_1_12_2,
@@ -18,6 +22,23 @@ enum Version
 	FORGE_1_18_1,
 	UNKNOWN
 };
+
+
+class SDK;
+class Java;
+class StrayCache;
+
+struct ThreadContext
+{
+	SDK* currentSDK;
+	Java* currentJava;
+	StrayCache* currentCache;
+};
+
+
+extern std::map<DWORD, ThreadContext*>ContextMap;
+
+
 
 struct Base
 {

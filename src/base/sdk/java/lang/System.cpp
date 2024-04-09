@@ -2,5 +2,5 @@
 
 void System::gc(JNIEnv* env)
 {
-	env->CallStaticVoidMethod(StrayCache::system_class, StrayCache::system_gc);
+	env->CallStaticVoidMethod(StrayCache::GetInstance()->system_class, StrayCache::GetInstance()->system_gc);
 }

@@ -11,12 +11,12 @@ int CItemArmor::getColor(CItemStack stack, JNIEnv* env) {
 	if (!stack.GetItem().getInstance()) return NULL;
 	if (Base::version == FORGE_1_18_1)
 	{
-		if (!env->IsInstanceOf(stack.getInstance(), StrayCache::dyeableLeatherItem_class)) return NULL;
-		return env->CallIntMethod(this->instance, StrayCache::dyeableLeatherItem_getColor);
+		if (!env->IsInstanceOf(stack.getInstance(), StrayCache::GetInstance()->dyeableLeatherItem_class)) return NULL;
+		return env->CallIntMethod(this->instance, StrayCache::GetInstance()->dyeableLeatherItem_getColor);
 	}
 
-	if (!env->IsInstanceOf(stack.GetItem().getInstance(), StrayCache::itemArmor_Class)) return NULL;
+	if (!env->IsInstanceOf(stack.GetItem().getInstance(), StrayCache::GetInstance()->itemArmor_Class)) return NULL;
 	
 
-	return env->CallIntMethod(this->getInstance(), StrayCache::itemArmor_getColor, stack.getInstance());
+	return env->CallIntMethod(this->getInstance(), StrayCache::GetInstance()->itemArmor_getColor, stack.getInstance());
 }
