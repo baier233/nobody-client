@@ -6,6 +6,7 @@ NotificationManager::NotificationManager() : cleanInterval(6000) {
 	//GetWindowRect(FindWindow("LWJGL", nullptr), &rect);
 	//this->startX = rect.right - 250;
 	//this->startY = rect.bottom - 250;
+	
 	this->notifications.clear();
 	this->cleanTimer.reset();
 	//EventManager::getInstance().reg<EventRender>([this](auto&& PH1) { render(std::forward<decltype(PH1)>(PH1)); });

@@ -149,10 +149,10 @@ int Base::InitUpdateMessge() {
 	jclass clazz{};
 
 	if (!clazz)
-		Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
+		Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 	if (!clazz)
 	{
-		Java::GetInstance()->Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
+		Java::Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
 	}
 	if (!clazz)
 	{
@@ -160,7 +160,7 @@ int Base::InitUpdateMessge() {
 		return -1;
 	}
 
-	return Java::GetInstance()->Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
+	return Java::Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
 }
 #include<Windows.h>
 #include "moduleManager/modules/visual/ChestESP.h"
@@ -172,31 +172,30 @@ int Base::InitUpdateMessge() {
 void Base::Init()
 {
 	BuildVersion = "Build 20240317 - f5c3a08";//动态获取？
-	Java::GetInstance()->Init();
-	JavaHook::JVM::Init(Java::GetInstance()->Env);
-	Base::isObfuscate = false;
+	Java::Init();
+	JavaHook::JVM::Init(Java::Env);
 	checkVersion();
-	SDK::GetInstance()->Init();
+	SDK::Init();
 	//JavaHook::init();
 	Menu::Init();
 	initModule();
 	//CreateThread(0, 0, (LPTHREAD_START_ROUTINE)KeyBoard::StartListen, 0, 0, 0);
-	if (version != FORGE_1_18_1 or version != FPSMASTER_1_12_2)
+	if (version != FORGE_1_18_1)
 		InitUpdateMessge();
 
 	ResourceManager::getInstance().LoadAllResource();
 	Base::Running = true;
-	//SDK::GetInstance()->Minecraft->gameSettings->SetFullscreenKeyToNull();
+	//SDK::Minecraft->gameSettings->SetFullscreenKeyToNull();
 	WebServerManager::getInstance().Start(8080);
 	NotificationManager::getInstance().makeNotification("Press INSERT to open Gui", Type::INFO);
 	while (Base::Running)
 	{
-		if (IsKeyReleased(VK_F11)) {
+		/*if (IsKeyReleased(VK_F11)) {
 			if (Borderless::Enabled)
 				Borderless::Restore(Menu::HandleWindow);
 			else
 				Borderless::Enable(Menu::HandleWindow);
-		}
+		}*/
 
 		EventManager::getInstance().call(EventUpdate());
 
@@ -213,10 +212,7 @@ void Base::Init()
 
 	Main::Kill();
 }
-void Base::initConsole() {
-	AllocConsole();
-	freopen("CONOUT$", "w", stdout);
-}
+
 
 void Base::initModule() {
 	{
@@ -240,8 +236,9 @@ void Base::initModule() {
 		ModuleManager::getInstance().addModule<Xray>(Xray::getInstance());
 		ModuleManager::getInstance().addModule<ChestESP>(ChestESP::getInstance());
 		ModuleManager::getInstance().addModule<ItemESP>(ItemESP::getInstance());
-		if (version == FORGE_1_12_2 or version == LUNAR_1_12_2)ModuleManager::getInstance().addModule<BedESP>(BedESP::getInstance());
-		if (version != FORGE_1_12_2 and version != LUNAR_1_12_2)ModuleManager::getInstance().addModule<BlockESP>(BlockESP::getInstance());
+		//Dont know why BedESP may causes crashes in forge 1.12.2 but stable in lunar
+		if (version == LUNAR_1_12_2)ModuleManager::getInstance().addModule<BedESP>(BedESP::getInstance());
+		if (version == VANILLA_1_8_9 or version == LUNAR_1_8_9 or version == FORGE_1_8_9 )ModuleManager::getInstance().addModule<BlockESP>(BlockESP::getInstance());
 	}
 
 	{
@@ -383,16 +380,16 @@ void Base::Kill()
 		}
 	}
 
-	if (Java::GetInstance()->Initialized)
+	if (Java::Initialized)
 	{
-		SDK::GetInstance()->Minecraft->gameSettings->RestoreFullscreenKey();
+		SDK::Minecraft->gameSettings->RestoreFullscreenKey();
 	}
 
 	if (Borderless::Enabled)
 		Borderless::Restore(Menu::HandleWindow);
 	//JavaHook::clean();
-	if (Java::GetInstance()->Initialized) SDK::GetInstance()->Clean();
-	if (Java::GetInstance()->Initialized) StrayCache::GetInstance()->DeleteRefs();
+	if (Java::Initialized) SDK::Clean();
+	if (Java::Initialized) StrayCache::DeleteRefs();
 	auto lwjgl = GetModuleHandle("lwjgl64.dll");
 	if (!lwjgl) 	lwjgl = GetModuleHandleA("lwjgl.dll");
 	if (!lwjgl) 	lwjgl = GetModuleHandleA("lwjgl32.dll");
@@ -408,16 +405,16 @@ void Base::Kill()
 		jclass clazz{};
 
 		if (!clazz)
-			if (Java::GetInstance()->Initialized) Java::GetInstance()->AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
+			if (Java::Initialized) Java::AssignClass("org.lwjgl.opengl.WindowsDisplay", clazz);
 		if (!clazz)
 		{
 			std::cout << "Unable to find windowsDisplay Class" << std::endl;
 			std::cout << "try env->FindClass" << std::endl;
-			if (Java::GetInstance()->Initialized) Java::GetInstance()->Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
+			if (Java::Initialized) Java::Env->FindClass("org/lwjgl/opengl/WindowsDisplay");
 		}
 		if (clazz)
 		{
-			if (Java::GetInstance()->Initialized) Java::GetInstance()->Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
+			if (Java::Initialized) Java::Env->RegisterNatives(clazz, native, sizeof(native) / sizeof(JNINativeMethod));
 		}
 		else {
 			std::cout << "Unable to find windowsDisplay Class 2" << std::endl;
@@ -428,5 +425,4 @@ void Base::Kill()
 	Logger::Kill();
 	ModuleManager::getInstance().clean();
 	WebServerManager::getInstance().detach();
-	JavaMap.clear();
 }

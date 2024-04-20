@@ -8,6 +8,6 @@ class CBlockState : public Object
 public:
 	using Object::Object;
 
-	CBlock getBlock(JNIEnv* env = Java::GetInstance()->Env);
+	CBlock getBlock(JNIEnv* env = Java::Env);
 };
 

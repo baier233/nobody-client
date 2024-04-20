@@ -15,7 +15,7 @@ public:
 	bool isTeam(CEntityPlayer p) {
 
 
-		if (Java::GetInstance()->Env->IsSameObject(p.getInstance(), NULL)) {
+		if (Java::Env->IsSameObject(p.getInstance(), NULL)) {
 			return true;
 		}
 
@@ -24,7 +24,7 @@ public:
 			return true;
 		}
 
-		CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
+		CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
 
 		if (!thePlayer->GetInventory().isValid()|| p.GetInventory().isNULL())
 		{

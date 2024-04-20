@@ -17,6 +17,6 @@ std::string String::ToString(JNIEnv* env)
 }
 
 bool String::contains(jstring str, JNIEnv* env) {
-	return env->CallBooleanMethod(this->getInstance(), StrayCache::GetInstance()->string_contains, str);
+	return env->CallBooleanMethod(this->getInstance(), StrayCache::string_contains, str);
 }
 

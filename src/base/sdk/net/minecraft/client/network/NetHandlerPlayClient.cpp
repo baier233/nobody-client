@@ -6,5 +6,5 @@ CNetworkPlayerInfo CNetHandlerPlayClient::getPlayerInfo(Object UUID, JNIEnv* env
 	{
 		return CNetworkPlayerInfo();
 	}
-	return CNetworkPlayerInfo(env->CallObjectMethod(this->getInstance(), StrayCache::GetInstance()->netHandlerPlayClient_getPlayerInfo, UUID));
+	return CNetworkPlayerInfo(env->CallObjectMethod(this->getInstance(), StrayCache::netHandlerPlayClient_getPlayerInfo, UUID));
 }

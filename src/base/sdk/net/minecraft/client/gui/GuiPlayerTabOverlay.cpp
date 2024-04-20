@@ -5,5 +5,5 @@ String CGuiPlayerTabOverlay::getPlayName(CNetworkPlayerInfo info, JNIEnv* env) {
 	{
 		return String();
 	}
-	return String(env->CallObjectMethod(this->getInstance(), StrayCache::GetInstance()->guiPlayerTabOverlay_getPlayerName, info.getInstance()));
+	return String(env->CallObjectMethod(this->getInstance(), StrayCache::guiPlayerTabOverlay_getPlayerName, info.getInstance()));
 }

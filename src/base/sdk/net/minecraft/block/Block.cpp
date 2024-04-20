@@ -6,7 +6,7 @@ int CBlock::GetID(JNIEnv* env )
 
 	const auto blockClass = env->GetObjectClass(this->getInstance());
 
-	const auto ret = env->CallStaticIntMethod(blockClass, StrayCache::GetInstance()->block_getIdFromBlock, this->getInstance());
+	const auto ret = env->CallStaticIntMethod(blockClass, StrayCache::block_getIdFromBlock, this->getInstance());
 
 	if (blockClass)
 		env->DeleteLocalRef((jclass)blockClass);

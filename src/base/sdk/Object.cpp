@@ -1,50 +1,50 @@
 #include "Object.h"
 
-Object::Object(jobject instance, JNIEnv* env)
+Object::Object(jobject instance )
 {
 	if (instance) {
-		this->instance = env->NewGlobalRef(instance);
-		env->DeleteLocalRef(instance);
+		this->instance = Java::Env->NewGlobalRef(instance);
+		Java::Env->DeleteLocalRef(instance);
 	}
 	else this->instance = nullptr;
 }
 
-Object::Object(const Object& other_Object, JNIEnv* env)
+Object::Object(const Object& other_Object)
 {
-	if (other_Object.instance) this->instance = env->NewGlobalRef(other_Object.instance);
+	if (other_Object.instance) this->instance = Java::Env->NewGlobalRef(other_Object.instance);
 	else this->instance = nullptr;
 }
 
-Object::Object(JNIEnv* env)
+Object::Object()
 {
 }
 
 Object& Object::operator=(const Object& other_Object)
 {
-	if (this->instance) Java::GetInstance()->Env->DeleteGlobalRef(this->instance);
-	if (other_Object.instance) this->instance = Java::GetInstance()->Env->NewGlobalRef(other_Object.instance);
+	if (this->instance) Java::Env->DeleteGlobalRef(this->instance);
+	if (other_Object.instance) this->instance = Java::Env->NewGlobalRef(other_Object.instance);
 	else this->instance = nullptr;
 	return *this;
 }
 
 Object& Object::operator=(jobject instance)
 {
-	if (this->instance) Java::GetInstance()->Env->DeleteGlobalRef(this->instance);
+	if (this->instance) Java::Env->DeleteGlobalRef(this->instance);
 	if (instance) {
-		this->instance = Java::GetInstance()->Env->NewGlobalRef(instance);
-		Java::GetInstance()->Env->DeleteLocalRef(instance);
+		this->instance = Java::Env->NewGlobalRef(instance);
+		Java::Env->DeleteLocalRef(instance);
 	}
 	else this->instance = nullptr;
 	return *this;
 }
 
-bool Object::isEqualTo(const Object& other_Object, JNIEnv* env)
+bool Object::isEqualTo(const Object& other_Object )
 {
 	if (this->instance == other_Object.instance) {
 		return true;
 	}
 	else if (this->instance && other_Object.instance) {
-		return env->IsSameObject(this->instance, other_Object.instance) == JNI_TRUE;
+		return Java::Env->IsSameObject(this->instance, other_Object.instance) == JNI_TRUE;
 	}
 	return false;
 }
@@ -54,39 +54,39 @@ bool Object::operator!()
 	return this->instance == nullptr;
 }
 
-bool Object::isValid(JNIEnv* env)
+bool Object::isValid()
 {
 	return this->instance != nullptr;
 }
-bool Object::check(JNIEnv* env) {
+bool Object::check() {
 	return this->isValid() || !this->isNULL();
 }
-bool Object::isNULL(JNIEnv* env)
+bool Object::isNULL()
 {
-	return env->IsSameObject(this->instance, NULL);
+	return Java::Env->IsSameObject(this->instance, NULL);
 }
 
 Object::~Object()
 {
-	if (!Java::GetInstance()->Env) return;
-	if (instance) Java::GetInstance()->Env->DeleteGlobalRef(instance);
+	if (!Java::Env) return;
+	if (instance) Java::Env->DeleteGlobalRef(instance);
 }
 
-void Object::clear(JNIEnv* env)
+void Object::clear()
 {
-	if (!env) return;
+	if (!Java::Env) return;
 	if (this->instance) {
-		env->DeleteGlobalRef(this->instance);
+		Java::Env->DeleteGlobalRef(this->instance);
 		this->instance = nullptr;
 	}
 }
 
-jobject Object::getInstance(JNIEnv* env) const
+jobject Object::getInstance() const
 {
 	return instance;
 }
 
-jclass Object::getClass(JNIEnv* env) const
+jclass Object::getClass() const
 {
-	return env->GetObjectClass(this->instance);
+	return Java::Env->GetObjectClass(this->instance);
 }

@@ -15,6 +15,6 @@ class CChunk : public Object
 	//
 public:
 	using Object::Object;
-	CBlock getBlock(jint x, jint y, jint z, JNIEnv* env = Java::GetInstance()->Env);
+	CBlock getBlock(jint x, jint y, jint z, JNIEnv* env = Java::Env);
 };
 

@@ -7,6 +7,6 @@ class FloatBuffer : public Object
 {
 public:
 	using Object::Object;
-	Matrix GetMatrix(JNIEnv* env = Java::GetInstance()->Env);
+	Matrix GetMatrix(JNIEnv* env = Java::Env);
 };
 

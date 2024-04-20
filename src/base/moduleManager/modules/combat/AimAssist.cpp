@@ -61,7 +61,7 @@ void AimAssist::onUpdate(const EventUpdate e)
 		return;
 	}
 
-	CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
+	CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
 
 	Vector3 pos = thePlayer->GetPos();
 	Vector3 headPos = thePlayer->GetEyePos();
@@ -97,7 +97,7 @@ void AimAssist::onUpdate(const EventUpdate e)
 		}
 
 		if (player.GetName().length() < 0) return;
-		if (!Java::GetInstance()->Env->IsSameObject(thePlayer->getInstance(), player.getInstance())) {
+		if (!Java::Env->IsSameObject(thePlayer->getInstance(), player.getInstance())) {
 			if (!thePlayer->CanEntityBeSeen(player.getInstance())) continue;
 
 			float playerHeight = target.GetHeight() - 0.1;

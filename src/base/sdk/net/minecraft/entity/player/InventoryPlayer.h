@@ -8,9 +8,9 @@ class CInventoryPlayer :public Object
 
 public:
 	using Object::Object;
-	CItemStack GetCurrentItem(JNIEnv* env = Java::GetInstance()->Env);
-	void SetCurrentItem(int index, JNIEnv* env = Java::GetInstance()->Env);
-	CItemStack GetIndexItem(int index, JNIEnv* env = Java::GetInstance()->Env);
-	CItemStack GetStackInSlot(int index, JNIEnv* env = Java::GetInstance()->Env);
-	CItemStack GetArmorItem(int index, JNIEnv* env = Java::GetInstance()->Env);
+	CItemStack GetCurrentItem(JNIEnv* env = Java::Env);
+	void SetCurrentItem(int index, JNIEnv* env = Java::Env);
+	CItemStack GetIndexItem(int index, JNIEnv* env = Java::Env);
+	CItemStack GetStackInSlot(int index, JNIEnv* env = Java::Env);
+	CItemStack GetArmorItem(int index, JNIEnv* env = Java::Env);
 };

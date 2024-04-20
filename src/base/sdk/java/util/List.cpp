@@ -9,5 +9,5 @@ jobjectArray List::toArray(JNIEnv* env)
 		return NULL;
 	}
 
-	return (jobjectArray)env->CallObjectMethod(this->instance, StrayCache::GetInstance()->list_toArray);
+	return (jobjectArray)env->CallObjectMethod(this->instance, StrayCache::list_toArray);
 }

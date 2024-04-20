@@ -29,7 +29,6 @@ enum Version
 struct Base
 {
 	static void Init();
-	static void initConsole();
 	static void initModule();
 	static void checkVersion();
 	static void handleEventKey(int key);

@@ -29,8 +29,8 @@ void Velocity::onUpdate(const EventUpdate e)
 	auto mode = this->VelocityModeValue->getValue();
 	if (!this->getToggle()) return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
-	if (SDK::GetInstance()->Minecraft->IsInGuiState()) return;
-	CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
+	if (SDK::Minecraft->IsInGuiState()) return;
+	CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
 
 	Vector3 pos = thePlayer->GetPos();
 	Vector2 rot = Vector2(thePlayer->GetRotationYaw(), thePlayer->GetRotationPitch());
@@ -40,7 +40,7 @@ void Velocity::onUpdate(const EventUpdate e)
 
 		if (!p.isValid() || p.isNULL()) continue;
 
-		if (Java::GetInstance()->Env->IsSameObject(p.getInstance(), thePlayer->getInstance())) {
+		if (Java::Env->IsSameObject(p.getInstance(), thePlayer->getInstance())) {
 			continue;
 		}
 

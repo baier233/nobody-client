@@ -6,54 +6,54 @@
 jobject classLoader{};
 jmethodID mid_findClass{};
 void Java::SetUpBlcClassLoader() {
-	jclass c_Thread = Java::GetInstance()->Env->FindClass("java/lang/Thread");
-	jclass c_Map = Java::GetInstance()->Env->FindClass("java/util/Map");
-	jclass c_Set = Java::GetInstance()->Env->FindClass("java/util/Set");
-	jclass c_ClassLoader = Java::GetInstance()->Env->FindClass("java/lang/ClassLoader");
+	jclass c_Thread = Java::Env->FindClass("java/lang/Thread");
+	jclass c_Map = Java::Env->FindClass("java/util/Map");
+	jclass c_Set = Java::Env->FindClass("java/util/Set");
+	jclass c_ClassLoader = Java::Env->FindClass("java/lang/ClassLoader");
 
-	jmethodID mid_getAllStackTraces = Java::GetInstance()->Env->GetStaticMethodID(c_Thread, "getAllStackTraces", "()Ljava/util/Map;");
-	jmethodID mid_keySet = Java::GetInstance()->Env->GetMethodID(c_Map, "keySet", "()Ljava/util/Set;");
-	jmethodID mid_toArray = Java::GetInstance()->Env->GetMethodID(c_Set, "toArray", "()[Ljava/lang/Object;");
-	jmethodID mid_getContextClassLoader = Java::GetInstance()->Env->GetMethodID(c_Thread, "getContextClassLoader", "()Ljava/lang/ClassLoader;");
-	mid_findClass = Java::GetInstance()->Env->GetMethodID(c_ClassLoader, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
-	jmethodID mid_currentThread = Java::GetInstance()->Env->GetStaticMethodID(c_Thread, "currentThread", "()Ljava/lang/Thread;");
+	jmethodID mid_getAllStackTraces = Java::Env->GetStaticMethodID(c_Thread, "getAllStackTraces", "()Ljava/util/Map;");
+	jmethodID mid_keySet = Java::Env->GetMethodID(c_Map, "keySet", "()Ljava/util/Set;");
+	jmethodID mid_toArray = Java::Env->GetMethodID(c_Set, "toArray", "()[Ljava/lang/Object;");
+	jmethodID mid_getContextClassLoader = Java::Env->GetMethodID(c_Thread, "getContextClassLoader", "()Ljava/lang/ClassLoader;");
+	mid_findClass = Java::Env->GetMethodID(c_ClassLoader, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+	jmethodID mid_currentThread = Java::Env->GetStaticMethodID(c_Thread, "currentThread", "()Ljava/lang/Thread;");
 
-	jobject obj_stackTracesMap = Java::GetInstance()->Env->CallStaticObjectMethod(c_Thread, mid_getAllStackTraces);
-	jobject obj_threadsSet = Java::GetInstance()->Env->CallObjectMethod(obj_stackTracesMap, mid_keySet);
+	jobject obj_stackTracesMap = Java::Env->CallStaticObjectMethod(c_Thread, mid_getAllStackTraces);
+	jobject obj_threadsSet = Java::Env->CallObjectMethod(obj_stackTracesMap, mid_keySet);
 
-	jobjectArray threads = (jobjectArray)Java::GetInstance()->Env->CallObjectMethod(obj_threadsSet, mid_toArray);
-	jint szThreads = Java::GetInstance()->Env->GetArrayLength(threads);
+	jobjectArray threads = (jobjectArray)Java::Env->CallObjectMethod(obj_threadsSet, mid_toArray);
+	jint szThreads = Java::Env->GetArrayLength(threads);
 
 	for (int i = 0; i < szThreads; i++)
 	{
-		jobject thread = Java::GetInstance()->Env->GetObjectArrayElement(threads, i);
-		jobject classLoaderObj = Java::GetInstance()->Env->CallObjectMethod(thread, mid_getContextClassLoader);
+		jobject thread = Java::Env->GetObjectArrayElement(threads, i);
+		jobject classLoaderObj = Java::Env->CallObjectMethod(thread, mid_getContextClassLoader);
 
 		if (classLoaderObj) {
 
-			jstring className = Java::GetInstance()->Env->NewStringUTF("ave");
-			jobject minecraftClass = Java::GetInstance()->Env->CallObjectMethod(classLoaderObj, mid_findClass, className);
+			jstring className = Java::Env->NewStringUTF("ave");
+			jobject minecraftClass = Java::Env->CallObjectMethod(classLoaderObj, mid_findClass, className);
 
 			if (minecraftClass)
 			{
 				classLoader = classLoaderObj;
 
-				Java::GetInstance()->Env->DeleteLocalRef(minecraftClass);
+				Java::Env->DeleteLocalRef(minecraftClass);
 
 				break;
 			}
 		}
 
-		Java::GetInstance()->Env->DeleteLocalRef(thread);
+		Java::Env->DeleteLocalRef(thread);
 	}
 
-	Java::GetInstance()->Env->DeleteLocalRef(threads);
-	Java::GetInstance()->Env->DeleteLocalRef(obj_stackTracesMap);
-	Java::GetInstance()->Env->DeleteLocalRef(obj_threadsSet);
-	Java::GetInstance()->Env->DeleteLocalRef(c_Thread);
-	Java::GetInstance()->Env->DeleteLocalRef(c_Map);
-	Java::GetInstance()->Env->DeleteLocalRef(c_Set);
-	Java::GetInstance()->Env->DeleteLocalRef(c_ClassLoader);
+	Java::Env->DeleteLocalRef(threads);
+	Java::Env->DeleteLocalRef(obj_stackTracesMap);
+	Java::Env->DeleteLocalRef(obj_threadsSet);
+	Java::Env->DeleteLocalRef(c_Thread);
+	Java::Env->DeleteLocalRef(c_Map);
+	Java::Env->DeleteLocalRef(c_Set);
+	Java::Env->DeleteLocalRef(c_ClassLoader);
 
 }
 
@@ -62,56 +62,56 @@ static void setupClassLoader()
 	//Client Thread
 	if (!JNIHelper::IsForge() && !JNIHelper::IsVanilla())
 	{
-		jclass c_Thread = Java::GetInstance()->Env->FindClass("java/lang/Thread");
-		jclass c_Map = Java::GetInstance()->Env->FindClass("java/util/Map");
-		jclass c_Set = Java::GetInstance()->Env->FindClass("java/util/Set");
-		jclass c_ClassLoader = Java::GetInstance()->Env->FindClass("java/lang/ClassLoader");
+		jclass c_Thread = Java::Env->FindClass("java/lang/Thread");
+		jclass c_Map = Java::Env->FindClass("java/util/Map");
+		jclass c_Set = Java::Env->FindClass("java/util/Set");
+		jclass c_ClassLoader = Java::Env->FindClass("java/lang/ClassLoader");
 
-		jmethodID mid_getAllStackTraces = Java::GetInstance()->Env->GetStaticMethodID(c_Thread, "getAllStackTraces", "()Ljava/util/Map;");
-		jmethodID mid_keySet = Java::GetInstance()->Env->GetMethodID(c_Map, "keySet", "()Ljava/util/Set;");
-		jmethodID mid_toArray = Java::GetInstance()->Env->GetMethodID(c_Set, "toArray", "()[Ljava/lang/Object;");
-		jmethodID mid_getContextClassLoader = Java::GetInstance()->Env->GetMethodID(c_Thread, "getContextClassLoader", "()Ljava/lang/ClassLoader;");
-		mid_findClass = Java::GetInstance()->Env->GetMethodID(c_ClassLoader, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
-		jmethodID mid_currentThread = Java::GetInstance()->Env->GetStaticMethodID(c_Thread, "currentThread", "()Ljava/lang/Thread;");
+		jmethodID mid_getAllStackTraces = Java::Env->GetStaticMethodID(c_Thread, "getAllStackTraces", "()Ljava/util/Map;");
+		jmethodID mid_keySet = Java::Env->GetMethodID(c_Map, "keySet", "()Ljava/util/Set;");
+		jmethodID mid_toArray = Java::Env->GetMethodID(c_Set, "toArray", "()[Ljava/lang/Object;");
+		jmethodID mid_getContextClassLoader = Java::Env->GetMethodID(c_Thread, "getContextClassLoader", "()Ljava/lang/ClassLoader;");
+		mid_findClass = Java::Env->GetMethodID(c_ClassLoader, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+		jmethodID mid_currentThread = Java::Env->GetStaticMethodID(c_Thread, "currentThread", "()Ljava/lang/Thread;");
 
-		jobject obj_stackTracesMap = Java::GetInstance()->Env->CallStaticObjectMethod(c_Thread, mid_getAllStackTraces);
-		jobject obj_threadsSet = Java::GetInstance()->Env->CallObjectMethod(obj_stackTracesMap, mid_keySet);
+		jobject obj_stackTracesMap = Java::Env->CallStaticObjectMethod(c_Thread, mid_getAllStackTraces);
+		jobject obj_threadsSet = Java::Env->CallObjectMethod(obj_stackTracesMap, mid_keySet);
 
-		jobjectArray threads = (jobjectArray)Java::GetInstance()->Env->CallObjectMethod(obj_threadsSet, mid_toArray);
-		jint szThreads = Java::GetInstance()->Env->GetArrayLength(threads);
+		jobjectArray threads = (jobjectArray)Java::Env->CallObjectMethod(obj_threadsSet, mid_toArray);
+		jint szThreads = Java::Env->GetArrayLength(threads);
 
 		for (int i = 0; i < szThreads; i++)
 		{
-			jobject thread = Java::GetInstance()->Env->GetObjectArrayElement(threads, i);
-			jobject classLoaderObj = Java::GetInstance()->Env->CallObjectMethod(thread, mid_getContextClassLoader);
+			jobject thread = Java::Env->GetObjectArrayElement(threads, i);
+			jobject classLoaderObj = Java::Env->CallObjectMethod(thread, mid_getContextClassLoader);
 
 			if (classLoaderObj) {
 
-				jstring className = Java::GetInstance()->Env->NewStringUTF("net.minecraft.client.Minecraft");
-				jobject minecraftClass = Java::GetInstance()->Env->CallObjectMethod(classLoaderObj, mid_findClass, className);
+				jstring className = Java::Env->NewStringUTF("net.minecraft.client.Minecraft");
+				jobject minecraftClass = Java::Env->CallObjectMethod(classLoaderObj, mid_findClass, className);
 
 				if (minecraftClass)
 				{
-					classLoader = Java::GetInstance()->Env->NewGlobalRef(classLoaderObj);
+					classLoader = Java::Env->NewGlobalRef(classLoaderObj);
 
 
-					Java::GetInstance()->Env->DeleteLocalRef(minecraftClass);
-					Java::GetInstance()->Env->DeleteLocalRef(classLoaderObj);
+					Java::Env->DeleteLocalRef(minecraftClass);
+					Java::Env->DeleteLocalRef(classLoaderObj);
 
 					break;
 				}
 			}
 
-			Java::GetInstance()->Env->DeleteLocalRef(thread);
+			Java::Env->DeleteLocalRef(thread);
 		}
 
-		Java::GetInstance()->Env->DeleteLocalRef(threads);
-		Java::GetInstance()->Env->DeleteLocalRef(obj_stackTracesMap);
-		Java::GetInstance()->Env->DeleteLocalRef(obj_threadsSet);
-		Java::GetInstance()->Env->DeleteLocalRef(c_Thread);
-		Java::GetInstance()->Env->DeleteLocalRef(c_Map);
-		Java::GetInstance()->Env->DeleteLocalRef(c_Set);
-		Java::GetInstance()->Env->DeleteLocalRef(c_ClassLoader);
+		Java::Env->DeleteLocalRef(threads);
+		Java::Env->DeleteLocalRef(obj_stackTracesMap);
+		Java::Env->DeleteLocalRef(obj_threadsSet);
+		Java::Env->DeleteLocalRef(c_Thread);
+		Java::Env->DeleteLocalRef(c_Map);
+		Java::Env->DeleteLocalRef(c_Set);
+		Java::Env->DeleteLocalRef(c_ClassLoader);
 	}
 
 }
@@ -121,59 +121,46 @@ void Java::InitFromEnv(JNIEnv* env) {
 	env->GetJavaVM(&Java::jvm);
 	jint res = Java::jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
 	if (res == JNI_EDETACHED)
-		res = jvm->AttachCurrentThreadAsDaemon((void**)&env, nullptr); //ÔøΩÿªÔøΩÔøΩﬂ≥ÔøΩ
+		res = jvm->AttachCurrentThreadAsDaemon((void**)&env, nullptr); // ÿª§œﬂ≥Ã
 	if (res != JNI_OK)
 		std::cout << "Cant Setup Enviornment" << std::endl;
 
 
 
-	this->Initialized = true;
+	Initialized = true;
 }
 
 void Java::Init()
 {
-	if (this->Initialized) return;
 
-	// Check if there is any Java VMs in the injected thread
-	if (!this->jvm)
-	{
-		jsize count{};
-		if (JNI_GetCreatedJavaVMs(&jvm, 1, &count) != JNI_OK || count == 0)
-			return;
-	}
+	jsize count{};
+	if (JNI_GetCreatedJavaVMs(&jvm, 1, &count) != JNI_OK || count == 0)
+		return;
 
-	if (!this->Env)
-	{
-		jint res = jvm->GetEnv((void**)&this->Env, JNI_VERSION_1_8);
 
-		if (res == JNI_EDETACHED)
-			res = jvm->AttachCurrentThreadAsDaemon((void**)&this->Env, nullptr); //ÔøΩÿªÔøΩÔøΩﬂ≥ÔøΩ
+	jint res = jvm->GetEnv((void**)&Env, JNI_VERSION_1_8);
 
-		if (res != JNI_OK)
-			return;
-	}
-	
-	if (!this->Jvmti)
-	{
-		jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
-	}
-	if (this->Env == nullptr) {
+	if (res == JNI_EDETACHED)
+		res = jvm->AttachCurrentThreadAsDaemon((void**)&Env, nullptr); // ÿª§œﬂ≥Ã
+
+	if (res != JNI_OK)
+		return;
+
+	jvm->GetEnv((void**)&Java::Jvmti, JVMTI_VERSION_1_2);
+	if (Env == nullptr) {
 		jvm->DetachCurrentThread();
 		jvm->DestroyJavaVM();
 	}
-	if (!Logger::Initialized)
-	{
-		Logger::Init();
-	}
-	if (!classLoader)
-	{
-		setupClassLoader();
-	}
+
+	Logger::Init();
+
+
+	setupClassLoader();
 
 	//JavaMap.insert(std::make_pair(GetCurrentThreadId(), this));
 
 
-	this->Initialized = true;
+	Initialized = true;
 }
 
 void Java::Kill()
@@ -208,13 +195,13 @@ bool Java::AssignClass(std::string name, jclass& out)
 			//std::cout << signature << std::endl;
 			if (signature == name)
 			{
-				out = (jclass)Java::GetInstance()->Env->NewLocalRef(loaded_classes[i]);
+				out = (jclass)Java::Env->NewLocalRef(loaded_classes[i]);
 				break;
 			}
 		}
 		for (jint i = 0; i < loaded_classes_count; ++i)
 		{
-			Java::GetInstance()->Env->DeleteLocalRef(loaded_classes[i]);
+			Java::Env->DeleteLocalRef(loaded_classes[i]);
 		}
 		tienv->Deallocate((unsigned char*)loaded_classes);
 		return true;
@@ -226,12 +213,12 @@ bool Java::AssignClass(std::string name, jclass& out)
 	}
 
 	if (JNIHelper::IsVanilla()) {
-		out = Java::GetInstance()->Env->FindClass(name.c_str());
+		out = Java::Env->FindClass(name.c_str());
 		return true;
 	}
 
-	jstring className = Java::GetInstance()->Env->NewStringUTF(name.c_str());
-	jobject findClass = Java::GetInstance()->Env->CallObjectMethod(classLoader, mid_findClass, className);
+	jstring className = Java::Env->NewStringUTF(name.c_str());
+	jobject findClass = Java::Env->CallObjectMethod(classLoader, mid_findClass, className);
 
 	if (findClass)
 	{

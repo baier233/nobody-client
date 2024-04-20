@@ -6,5 +6,5 @@ class CGuiPlayerTabOverlay : public Object
 {
 public:
 	using Object::Object;
-	String getPlayName(CNetworkPlayerInfo info, JNIEnv* env = Java::GetInstance()->Env);
+	String getPlayName(CNetworkPlayerInfo info, JNIEnv* env = Java::Env);
 };

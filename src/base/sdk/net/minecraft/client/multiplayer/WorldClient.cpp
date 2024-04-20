@@ -6,18 +6,18 @@
 
 //CWorldClient::CWorldClient()
 //{
-//	Java::GetInstance()->AssignClass("net.minecraft.client.multiplayer.WorldClient", this->Class);
-//	Java::GetInstance()->AssignClass("net.minecraft.entity.player.EntityPlayer", this->EntityPlayer); // doing this because am lazy
+//	Java::AssignClass("net.minecraft.client.multiplayer.WorldClient", this->Class);
+//	Java::AssignClass("net.minecraft.entity.player.EntityPlayer", this->EntityPlayer); // doing this because am lazy
 //	if (this->EntityPlayer == nullptr)
 //	{
-//		if (!StrayCache::GetInstance()->initialized) StrayCache::GetInstance()->Initialize();
-//		this->EntityPlayer = StrayCache::GetInstance()->entityPlayer_class;
+//		if (!StrayCache::initialized) StrayCache::Initialize();
+//		this->EntityPlayer = StrayCache::entityPlayer_class;
 //	}
 //	
 //	if (this->Class == nullptr)
 //	{
-//		if (!StrayCache::GetInstance()->initialized) StrayCache::GetInstance()->Initialize();
-//		this->Class = StrayCache::GetInstance()->worldClient_class;
+//		if (!StrayCache::initialized) StrayCache::Initialize();
+//		this->Class = StrayCache::worldClient_class;
 //	}
 //
 //	if (JNIHelper::IsForge()) {
@@ -40,12 +40,12 @@
 //
 //jobject CWorldClient::getInstance()
 //{
-//	return env->GetObjectField(SDK::GetInstance()->Minecraft->getInstance(), SDK::GetInstance()->Minecraft->FieldIDs["theWorld"]);
+//	return env->GetObjectField(SDK::Minecraft->getInstance(), SDK::Minecraft->FieldIDs["theWorld"]);
 //}
 
 Set CWorldClient::GetEntityList(JNIEnv* env )
 {
-	jfieldID targetField = StrayCache::GetInstance()->worldClient_entityList;
+	jfieldID targetField = StrayCache::worldClient_entityList;
 
 	jobject playerEntitiesList = env->GetObjectField(this->getInstance(), targetField);
 
@@ -56,7 +56,7 @@ Set CWorldClient::GetEntityList(JNIEnv* env )
 int CWorldClient::getIDFromBlock(jobject block, JNIEnv* env )
 {
 	if (this->getInstance() == NULL)return 0;
-	int blockID = env->CallIntMethod(StrayCache::GetInstance()->blockPos_class, StrayCache::GetInstance()->block_getIdFromBlock, block);
+	int blockID = env->CallIntMethod(StrayCache::blockPos_class, StrayCache::block_getIdFromBlock, block);
 
 
 	//env->DeleteLocalRef(block);

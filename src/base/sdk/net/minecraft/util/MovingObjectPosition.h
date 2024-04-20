@@ -13,10 +13,10 @@ class CMovingObjectPosition :public Object
 	//jobject getInstance();
 public:
 	using Object::Object;
-	CVec3 GetBlockPosition(JNIEnv* env = Java::GetInstance()->Env);
-	CBlock GetBlock(JNIEnv* env = Java::GetInstance()->Env);
-	bool IsTypeOfBlock(JNIEnv* env = Java::GetInstance()->Env);
-	bool IsTypeOfEntity(JNIEnv* env = Java::GetInstance()->Env);
-	BlockPos getBlockPos(JNIEnv* env = Java::GetInstance()->Env);
+	CVec3 GetBlockPosition(JNIEnv* env = Java::Env);
+	CBlock GetBlock(JNIEnv* env = Java::Env);
+	bool IsTypeOfBlock(JNIEnv* env = Java::Env);
+	bool IsTypeOfEntity(JNIEnv* env = Java::Env);
+	BlockPos getBlockPos(JNIEnv* env = Java::Env);
 };
 

@@ -9,38 +9,38 @@ jclass JNIHelper::ForgeFindClass(const char* name)
 {
 	if (LaunchWrapperClassLoaderClass == NULL)
 	{
-		LaunchWrapperClassLoaderClass = Java::GetInstance()->Env->FindClass("net/minecraft/launchwrapper/LaunchClassLoader");
+		LaunchWrapperClassLoaderClass = Java::Env->FindClass("net/minecraft/launchwrapper/LaunchClassLoader");
 		if (LaunchWrapperClassLoaderClass == NULL) return NULL;
 	}
 
 	if (FindClassMethodID == NULL)
 	{
-		FindClassMethodID = Java::GetInstance()->Env->GetMethodID(LaunchWrapperClassLoaderClass, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+		FindClassMethodID = Java::Env->GetMethodID(LaunchWrapperClassLoaderClass, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
 		if (FindClassMethodID == NULL) return NULL;
 	}
 
 	if (LaunchClass == NULL)
 	{
-		LaunchClass = Java::GetInstance()->Env->FindClass("net/minecraft/launchwrapper/Launch");
+		LaunchClass = Java::Env->FindClass("net/minecraft/launchwrapper/Launch");
 		if (LaunchClass == NULL) return NULL;
 	}
 
 	if (ClassLoaderFieldID == NULL)
 	{
-		ClassLoaderFieldID = Java::GetInstance()->Env->GetStaticFieldID(LaunchClass, "classLoader", "Lnet/minecraft/launchwrapper/LaunchClassLoader;");
+		ClassLoaderFieldID = Java::Env->GetStaticFieldID(LaunchClass, "classLoader", "Lnet/minecraft/launchwrapper/LaunchClassLoader;");
 		if (ClassLoaderFieldID == NULL) return NULL;
 	}
 
 	if (ClassLoaderObject == NULL)
 	{
-		ClassLoaderObject = Java::GetInstance()->Env->GetStaticObjectField(LaunchClass, ClassLoaderFieldID);
+		ClassLoaderObject = Java::Env->GetStaticObjectField(LaunchClass, ClassLoaderFieldID);
 		if (ClassLoaderObject == NULL) return NULL;
 	}
 
-	jstring jname = Java::GetInstance()->Env->NewStringUTF(name);
-	jclass cls = (jclass)Java::GetInstance()->Env->CallObjectMethod(ClassLoaderObject, FindClassMethodID, jname);
+	jstring jname = Java::Env->NewStringUTF(name);
+	jclass cls = (jclass)Java::Env->CallObjectMethod(ClassLoaderObject, FindClassMethodID, jname);
 
-	Java::GetInstance()->Env->DeleteLocalRef(jname);
+	Java::Env->DeleteLocalRef(jname);
 
 	return cls;
 }
@@ -50,11 +50,11 @@ bool JNIHelper::IsForge()
 	if (!AlreadyCheckedForge)
 	{
 		AlreadyCheckedForge = true;
-		jclass forgeClass = Java::GetInstance()->Env->FindClass("net/minecraftforge/common/ForgeVersion");
+		jclass forgeClass = Java::Env->FindClass("net/minecraftforge/common/ForgeVersion");
 		std::cout << forgeClass << std::endl;
 		if (forgeClass != NULL)
 		{
-			Java::GetInstance()->Env->DeleteLocalRef(forgeClass);
+			Java::Env->DeleteLocalRef(forgeClass);
 			IsForgeExisting = true;
 		}
 	}

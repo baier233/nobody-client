@@ -8,8 +8,8 @@ class CItemStack : public Object
 {
 public:
 	using Object::Object;
-	CItem GetItem(JNIEnv* env = Java::GetInstance()->Env);
+	CItem GetItem(JNIEnv* env = Java::Env);
 
-	float GetStrVsBlock(CBlock block, JNIEnv* env = Java::GetInstance()->Env);
-	float GetStrVsBlock(CIBlockState block, JNIEnv* env = Java::GetInstance()->Env);
+	float GetStrVsBlock(CBlock block, JNIEnv* env = Java::Env);
+	float GetStrVsBlock(CIBlockState block, JNIEnv* env = Java::Env);
 };

@@ -110,10 +110,10 @@ void ItemESP::onUpdate(EventUpdate e)
 		return;
 	if (!CommonData::getInstance()->SanityCheck()) return;
 	std::vector<Vector3D> temp;
-	List entitylist = SDK::GetInstance()->Minecraft->getTheWorld().GetLoadedEntityList();
+	List entitylist = SDK::Minecraft->getTheWorld().GetLoadedEntityList();
 	auto list = entitylist.toVector<CEntity>();
 	for (CEntity entitys : list) {
-		if (Java::GetInstance()->Env->IsInstanceOf(entitys.getInstance(), StrayCache::GetInstance()->entityItem_class)) {
+		if (Java::Env->IsInstanceOf(entitys.getInstance(), StrayCache::entityItem_class)) {
 			CEntityItem entity = CEntityItem(entitys.getInstance());
 			double x = entity.GetPos().x - CommonData::getInstance()->renderPos.x;
 			double y = entity.GetPos().y + 0.5 - (CommonData::getInstance()->renderPos.y);

@@ -7,6 +7,6 @@ class CBlock : public Object
 {
 public:
 	using Object::Object;
-	int GetID(JNIEnv* env = Java::GetInstance()->Env);
+	int GetID(JNIEnv* env = Java::Env);
 };
 

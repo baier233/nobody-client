@@ -45,29 +45,29 @@ public:
 	void UpdateData(const EventUpdate e)
 	{
 		if (!SanityCheck()) return;
-		*SDK::GetInstance()->Minecraft->thePlayer = SDK::GetInstance()->Minecraft->getThePlayer();
-		*SDK::GetInstance()->Minecraft->theWorld = SDK::GetInstance()->Minecraft->getTheWorld();
-		*SDK::GetInstance()->Minecraft->activeRenderInfo = CActiveRenderInfo();
-		fov = SDK::GetInstance()->Minecraft->gameSettings->GetFOV();
-		thirdPersonView = SDK::GetInstance()->Minecraft->gameSettings->GetThirdPersonView();
-		playerEntities = SDK::GetInstance()->Minecraft->theWorld->GetPlayerList();
-		modelView = SDK::GetInstance()->Minecraft->activeRenderInfo->ModelViewMatrix();
-		projection = SDK::GetInstance()->Minecraft->activeRenderInfo->ProjectionMatrix();
+		*SDK::Minecraft->thePlayer = SDK::Minecraft->getThePlayer();
+		*SDK::Minecraft->theWorld = SDK::Minecraft->getTheWorld();
+		*SDK::Minecraft->activeRenderInfo = CActiveRenderInfo();
+		fov = SDK::Minecraft->gameSettings->GetFOV();
+		thirdPersonView = SDK::Minecraft->gameSettings->GetThirdPersonView();
+		playerEntities = SDK::Minecraft->theWorld->GetPlayerList();
+		modelView = SDK::Minecraft->activeRenderInfo->ModelViewMatrix();
+		projection = SDK::Minecraft->activeRenderInfo->ProjectionMatrix();
 		if (Base::version != FORGE_1_18_1)
 		{
-			loadedTitleEntities = SDK::GetInstance()->Minecraft->theWorld->GetLoadedTileEntityList();
+			loadedTitleEntities = SDK::Minecraft->theWorld->GetLoadedTileEntityList();
 		}
 		float ySubtractValue = 3.4;
-		if (SDK::GetInstance()->Minecraft->thePlayer->IsSneaking())
+		if (SDK::Minecraft->getThePlayer().IsSneaking())
 			ySubtractValue -= .175f;
 		isCombat = false;
 
-		renderPartialTicks = SDK::GetInstance()->Minecraft->timer->GetRenderPartialTicks();
+		renderPartialTicks = SDK::Minecraft->timer->GetRenderPartialTicks();
 		if (Base::version == FORGE_1_18_1)
 		{
-			auto eyeHeight = SDK::GetInstance()->Minecraft->thePlayer->GetEyeHeight();
-			auto pos = SDK::GetInstance()->Minecraft->thePlayer->GetPos();
-			auto lastTickPos = SDK::GetInstance()->Minecraft->thePlayer->GetLastTickPos();
+			auto eyeHeight = SDK::Minecraft->getThePlayer().GetEyeHeight();
+			auto pos = SDK::Minecraft->thePlayer->GetPos();
+			auto lastTickPos = SDK::Minecraft->thePlayer->GetLastTickPos();
 			double x = (double)lastTickPos.x + ((double)pos.x - (double)lastTickPos.x) * (double)renderPartialTicks;
 			double y = (double)lastTickPos.y + ((double)pos.y - (double)lastTickPos.y) * (double)renderPartialTicks;
 			double z = (double)lastTickPos.z + ((double)pos.z - (double)lastTickPos.z) * (double)renderPartialTicks;
@@ -75,7 +75,7 @@ public:
 		}
 		else {
 
-			renderPos = SDK::GetInstance()->Minecraft->renderManager->RenderPos() + Vector3{ 0, ySubtractValue, 0 };
+			renderPos = SDK::Minecraft->renderManager->RenderPos() + Vector3{ 0, ySubtractValue, 0 };
 		}
 
 		dataUpdated = true;
@@ -87,30 +87,27 @@ public:
 
 	bool SanityCheck() {
 
-		if (!Java::GetInstance()->Initialized) {
-			Java::GetInstance()->Init();
+		if (!Java::Initialized) {
+			Java::Init();
 		}
 	
-		if (!StrayCache::GetInstance()->initialized) {
-			StrayCache::GetInstance()->Initialize();
+		if (!StrayCache::initialized) {
+			StrayCache::Initialize();
 		}
+		
 
-		if (!SDK::GetInstance()->Minecraft) {
-			SDK::GetInstance()->Init();
-		}
-
-		if (Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->getInstance(), NULL))
+		if (Java::Env->IsSameObject(SDK::Minecraft->getInstance(), NULL))
 		{
 			return false;
 		}
 
-		if (Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->getTheWorld().getInstance(), NULL) ||
-			Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->getThePlayer().getInstance(), NULL))
+		if (Java::Env->IsSameObject(SDK::Minecraft->getTheWorld().getInstance(), NULL) ||
+			Java::Env->IsSameObject(SDK::Minecraft->getThePlayer().getInstance(), NULL))
 		{
 			CommonData::dataUpdated = false;
 			return false;
 		}
-		if (Base::version != FORGE_1_18_1 && Java::GetInstance()->Env->IsSameObject(SDK::GetInstance()->Minecraft->GetRenderManager().getInstance(), NULL))
+		if (Base::version != FORGE_1_18_1 && Java::Env->IsSameObject(SDK::Minecraft->GetRenderManager().getInstance(), NULL))
 		{
 
 			CommonData::dataUpdated = false;

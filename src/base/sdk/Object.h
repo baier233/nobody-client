@@ -6,20 +6,20 @@
 
 class Object {
 public:
-	Object(jobject instance, JNIEnv* env = Java::GetInstance()->Env);
-	Object(const Object& other_Object, JNIEnv* env = Java::GetInstance()->Env);
-	Object(JNIEnv* env = Java::GetInstance()->Env);
+	Object(jobject instance);
+	Object(const Object& other_Object);
+	Object();
 	Object& operator=(const Object& other_Object);
 	Object& operator=(jobject instance);
-	bool isEqualTo(const Object& other_Object, JNIEnv* env = Java::GetInstance()->Env);
+	bool isEqualTo(const Object& other_Object);
 	bool operator!();
-	bool isValid(JNIEnv* env = Java::GetInstance()->Env);
-	bool check(JNIEnv* env = Java::GetInstance()->Env);
-	bool isNULL(JNIEnv* env = Java::GetInstance()->Env);
+	bool isValid();
+	bool check();
+	bool isNULL();
 	~Object();
-	void clear(JNIEnv* env = Java::GetInstance()->Env);
-	jobject getInstance(JNIEnv* env = Java::GetInstance()->Env) const;
-	jclass getClass(JNIEnv* env = Java::GetInstance()->Env) const;
+	void clear();
+	jobject getInstance() const;
+	jclass getClass() const;
 protected:
 	jobject instance = nullptr;
 };

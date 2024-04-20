@@ -34,24 +34,24 @@ void RClick::onUpdate(const EventUpdate e)
 {
 	if (!getToggle()) return;
 	if (Menu::Open) return;
-	if (SDK::GetInstance()->Minecraft->IsInGuiState()) return;
+	if (SDK::Minecraft->IsInGuiState()) return;
 
 	jclass blockClass{};
 	if (Base::version == FORGE_1_18_1)
 	{
-		if (CacheInstance->itemBlock_class)
+		if (StrayCache::itemBlock_class)
 		{
-			blockClass = CacheInstance->itemBlock_class;
+			blockClass = StrayCache::itemBlock_class;
 		}
 		else {
-			Java::GetInstance()->AssignClass("net.minecraft.world.item.BlockItem", blockClass);
+			Java::AssignClass("net.minecraft.world.item.BlockItem", blockClass);
 		}
 	}
 	else {
-		Java::GetInstance()->AssignClass("net.minecraft.item.ItemBlock", blockClass);
+		Java::AssignClass("net.minecraft.item.ItemBlock", blockClass);
 	}
-	if (SDK::GetInstance()->Minecraft->thePlayer->GetInventory().GetCurrentItem().getInstance() == NULL) return;
-	if (this->blocksOnlyValue->getValue() && !Java::GetInstance()->Env->IsInstanceOf(SDK::GetInstance()->Minecraft->thePlayer->GetInventory().GetCurrentItem().GetItem().getInstance(), blockClass)) return;
+	if (SDK::Minecraft->thePlayer->GetInventory().GetCurrentItem().getInstance() == NULL) return;
+	if (this->blocksOnlyValue->getValue() && !Java::Env->IsInstanceOf(SDK::Minecraft->thePlayer->GetInventory().GetCurrentItem().GetItem().getInstance(), blockClass)) return;
 
 	long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	if (rightLastClickTime == 0) rightLastClickTime = milli;

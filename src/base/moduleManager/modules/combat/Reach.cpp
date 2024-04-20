@@ -51,7 +51,7 @@ void Reach::onUpdate(const EventUpdate e)
 	else
 		lastUpdate = nanoTime;
 
-	CEntityPlayerSP* thePlayer = SDK::GetInstance()->Minecraft->thePlayer;
+	CEntityPlayerSP* thePlayer = SDK::Minecraft->thePlayer;
 	List playerList = CommonData::getInstance()->playerEntities;
 
 	Vector2 playerAngles = thePlayer->GetAngles();
@@ -73,7 +73,7 @@ void Reach::onUpdate(const EventUpdate e)
 		if (!target.isValid() || target.isNULL()) continue;
 
 		float distance = ReachDistanceValue->getValue();
-		if (Java::GetInstance()->Env->IsSameObject(thePlayer->getInstance(), target.getInstance())) continue;
+		if (Java::Env->IsSameObject(thePlayer->getInstance(), target.getInstance())) continue;
 
 		BoundingBox targetBB = target.GetBB().GetNativeBoundingBox();
 
