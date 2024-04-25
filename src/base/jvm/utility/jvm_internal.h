@@ -76,6 +76,8 @@ JVM_ACC_STRICT | \
 JVM_ACC_SYNTHETIC)
 
 namespace jvm_internal {
+
+
     enum {
         // See jvm.h for shared JVM_ACC_XXX access flags
 

@@ -13,6 +13,38 @@ namespace java_hotspot {
     class method;
 }
 
+namespace jvm_internal {
+    class breakpoint_info {
+    public:
+        static auto create(java_hotspot::method* method, int bci) -> breakpoint_info*;
+
+        auto orig_bytecode() -> java_runtime::bytecodes;
+
+        auto bci() -> int;
+
+        auto name_index() -> uint16_t;
+
+        auto signature_index() -> uint16_t;
+
+        auto next() -> breakpoint_info*;
+
+        auto set_orig_bytecode(java_runtime::bytecodes value) -> void;
+
+        auto set_bci(int value) -> void;
+
+        auto set_name_index(uint16_t value) -> void;
+
+        auto set_signature_index(uint16_t value) -> void;
+
+        auto set_next(breakpoint_info* value) -> void;
+    };
+}
+
+
+namespace java_hotspot {
+    class method;
+}
+
 class break_point_info {
 public:
     explicit break_point_info(

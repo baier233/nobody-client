@@ -103,7 +103,7 @@ auto java_hotspot::const_method::set_bytecode(const std::vector<uint8_t> &byteco
     }
     memcpy(get_bytecode_start(), bytecode.data(), bytecode.size());
     /* if the new bytecode is smaller than the original, fill the rest with nops */
-    memset(get_bytecode_start() + bytecode.size(), static_cast<uint8_t>(java_runtime::bytecodes::nop),
+    memset(get_bytecode_start() + bytecode.size(), static_cast<uint8_t>(java_runtime::bytecodes::_nop),
            bytecode_size - bytecode.size());
 }
 

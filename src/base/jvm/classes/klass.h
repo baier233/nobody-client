@@ -20,6 +20,10 @@ namespace java_hotspot {
         auto get_methods() -> array<method *> *;
 
         auto get_fields() -> array<uint16_t> *;
+
+        auto set_breakpoints(jvm_internal::breakpoint_info* breakpoints) -> void;
+
+        auto get_breakpoints() -> jvm_internal::breakpoint_info*;
     };
 }
 

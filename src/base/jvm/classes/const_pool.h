@@ -22,6 +22,10 @@ namespace java_hotspot {
         auto get_symbol_at(int index) -> symbol *;
 
         auto get_symbol_at_address(int index) -> symbol **;
+
+        auto get_pool_holder() -> void*;
+
+
     };
 }
 
