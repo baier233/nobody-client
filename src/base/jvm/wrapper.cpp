@@ -157,7 +157,7 @@ void JavaHook::MethodHook::SetHook() {
     const auto constants_pool = target_method->get_const_method()->get_constants();
     auto* holder_klass = static_cast<java_hotspot::instance_klass*>(constants_pool->get_pool_holder());
     auto* info = jvm_internal::breakpoint_info::create(target_method, 0);
-    info->set_orig_bytecode(java_runtime::bytecodes::_nop);
+    info->set_orig_bytecode(static_cast<java_runtime::bytecodes>(target_method->get_const_method()->get_bytecode()[0]));
     info->set_next(holder_klass->get_breakpoints());
     holder_klass->set_breakpoints(info);
     this->target_method->set_break_point(0x00,
