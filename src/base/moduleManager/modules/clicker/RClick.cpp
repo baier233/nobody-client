@@ -87,5 +87,14 @@ void RClick::RenderMenu()
 		Menu::DoToggleButtonStuff(73451, "Blocks Only", this->blocksOnlyValue->getValuePtr());
 
 	}
+
+	ImGui::SameLine(0, 20);
+
+	ImGui::BeginChild("RClick2", ImVec2(320, 426), true);
+	{
+		int mode{};
+		ImGui::Keybind("Click To Bind", image::keybind, &this->getKey(), &mode);
+	}
+	ImGui::EndChild();
 	ImGui::EndChild();
 }

@@ -98,7 +98,7 @@ void LClick::RenderMenu()
 	
 	ImGui::SameLine(0, 20);
 
-	ImGui::BeginChild("autoclicker", ImVec2(320, 426), true);
+	ImGui::BeginChild("autoclicker2", ImVec2(320, 426), true);
 	{
 		int mode{};
 		ImGui::Keybind("Click To Bind", image::keybind, &this->getKey(), &mode);

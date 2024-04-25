@@ -187,7 +187,7 @@ auto java_hotspot::method::set_dont_inline(bool enabled) -> void
     {
         static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("Method").value().get()["_intrinsic_id"];
         if (!vm_entry) return;
-        constexpr uintptr_t relative_offset_from_intrinsic_id = 1;//Maybe should be 5 in jvm 1.8
+        constexpr uintptr_t relative_offset_from_intrinsic_id = 1;
         unsigned char* flags = ((uint8_t*)this + vm_entry->offset + relative_offset_from_intrinsic_id);
         if (enabled)
             *flags |= (1 << 3);
