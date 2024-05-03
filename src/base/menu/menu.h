@@ -1,8 +1,9 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <Windows.h>
 #include <vector>
+#include <queue>
 
 #include "../../../ext/imgui/imgui.h"
 #include "../moduleManager/AbstractModule.h"
@@ -11,7 +12,10 @@ typedef void(*callback)();
 typedef bool(*callback2)();
 
 ImTextureID glLoadTextureFromMemory(const unsigned char* buffer, int size);
-
+struct KeyEvent
+{
+	unsigned Key{};
+};
 struct Menu
 {
 	inline static const ImColor watermarkColor = ImColor(0, 0, 200);
@@ -48,6 +52,8 @@ struct Menu
 
 	static void Unhook_wglSwapBuffers();
 	static void Unhook_wndProc();
+	static inline std::queue<KeyEvent>keyEvents;
+
 
 };
 

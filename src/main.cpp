@@ -8,10 +8,10 @@ DWORD Main::Init(HANDLE _)
 	return NULL;
 }
 
-void Main::Kill()
+void Main::Kill(HMODULE module)
 {
 	Base::Kill();
-	FreeLibraryAndExitThread(Main::HModule, 0);
+	FreeLibraryAndExitThread(module, 0);
 }
 #include "base/java/java.h"
 BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
@@ -19,17 +19,18 @@ BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
 
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
+
 		Main::HModule = hModule;
 		DisableThreadLibraryCalls(hModule);
 
 		HANDLE hThread = CreateThread(nullptr, 0, Main::Init, hModule, 0, nullptr);
-		
+
 		if (hThread) CloseHandle(hThread);
 	}
 
 	if (dwReason == DLL_PROCESS_DETACH)
 	{
-		Main::Kill();
+		Main::Kill(hModule);
 	}
 
 	return TRUE;

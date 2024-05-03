@@ -7,7 +7,7 @@ class Main
 {
 public:
 	static DWORD Init(HANDLE _);
-	static void Kill();
+	static void Kill(HMODULE module = HModule);
 
 	static inline HMODULE HModule;
 };
