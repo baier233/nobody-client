@@ -29,7 +29,7 @@ LRESULT CALLBACK hook_WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			ModuleManager::getInstance().ProcessKeyEvent(wParam);
 		}
 	}*/
-	if (Base::version == FORGE_1_18_1) Menu::keyEvents.push(KeyEvent{ (unsigned int)wParam });
+	if (Base::version == FORGE_1_18_1 && msg == WM_KEYDOWN) Menu::keyEvents.push(KeyEvent{ (unsigned int)wParam });
 	if (Menu::Open && Menu::Initialized)
 	{
 		ImGui_ImplWin32_WndProcHandler(hwnd, msg, wParam, lParam);
