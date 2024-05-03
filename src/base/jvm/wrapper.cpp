@@ -2,6 +2,7 @@
 #include "utility/jvm_internal.h"
 #include "break/jvm_break_points.h"
 #include "utility/vm_helper.h"
+#include "classes/klass.h"
 
 
 
@@ -62,7 +63,7 @@ static auto ScanByteCodeOffset(JNIEnv* env) -> void {
     std::cout << "Dispatch table: " << reinterpret_cast<void*>(dispatch_table) << std::endl;
 
     /* Get breakpoint method */
-    const uintptr_t breakpoint_method = *reinterpret_cast<uintptr_t*>(dispatch_table + static_cast<uint8_t>(java_runtime::bytecodes::breakpoint) * 8);
+    const uintptr_t breakpoint_method = *reinterpret_cast<uintptr_t*>(dispatch_table + static_cast<uint8_t>(java_runtime::bytecodes::_breakpoint) * 8);
     if (!breakpoint_method) {
         std::cout << "Failed to find breakpoint method" << std::endl;
     }
@@ -139,6 +140,8 @@ void JavaHook::MethodHook::RemoveHook()
     this->target_method->remove_all_break_points();
 }
 
+
+
 void JavaHook::MethodHook::SetHook() {
    
     if (this->isHooked)
@@ -151,6 +154,12 @@ void JavaHook::MethodHook::SetHook() {
 
     hook_map[this->target_method] = this;
 
+    const auto constants_pool = target_method->get_const_method()->get_constants();
+    auto* holder_klass = static_cast<java_hotspot::instance_klass*>(constants_pool->get_pool_holder());
+    auto* info = jvm_internal::breakpoint_info::create(target_method, 0);
+    info->set_orig_bytecode(static_cast<java_runtime::bytecodes>(target_method->get_const_method()->get_bytecode()[0]));
+    info->set_next(holder_klass->get_breakpoints());
+    holder_klass->set_breakpoints(info);
     this->target_method->set_break_point(0x00,
         breakpoint_callback_handler);
 }

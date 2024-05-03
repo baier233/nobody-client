@@ -60,7 +60,7 @@ auto jvm_break_points::set_breakpoint(java_hotspot::method *method, const uintpt
     original_bytecodes[address] = bytecode;
     breakpoint_callbacks[address] = callback;
     // Set breakpoint
-    *bytecode_address = static_cast<uint8_t>(java_runtime::bytecodes::breakpoint);
+    *bytecode_address = static_cast<uint8_t>(java_runtime::bytecodes::_breakpoint);
     return true;
 }
 

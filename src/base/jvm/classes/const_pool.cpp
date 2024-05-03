@@ -30,3 +30,10 @@ auto java_hotspot::const_pool::get_symbol_at(const int index) -> symbol * {
 auto java_hotspot::const_pool::get_symbol_at_address(const int index) -> symbol ** {
     return reinterpret_cast<symbol **>(&get_base()[index]);
 }
+
+auto java_hotspot::const_pool::get_pool_holder() -> void* {
+    static VMStructEntry* pool_holder_entry = JVMWrappers::find_type_fields("ConstantPool").value().get()[
+        "_pool_holder"];
+    if (!pool_holder_entry) return nullptr;
+    return *reinterpret_cast<void**>(reinterpret_cast<uint8_t*>(this) + pool_holder_entry->offset);
+}

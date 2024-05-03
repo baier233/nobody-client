@@ -103,7 +103,7 @@ auto java_hotspot::const_method::set_bytecode(const std::vector<uint8_t> &byteco
     }
     memcpy(get_bytecode_start(), bytecode.data(), bytecode.size());
     /* if the new bytecode is smaller than the original, fill the rest with nops */
-    memset(get_bytecode_start() + bytecode.size(), static_cast<uint8_t>(java_runtime::bytecodes::nop),
+    memset(get_bytecode_start() + bytecode.size(), static_cast<uint8_t>(java_runtime::bytecodes::_nop),
            bytecode_size - bytecode.size());
 }
 
@@ -187,7 +187,7 @@ auto java_hotspot::method::set_dont_inline(bool enabled) -> void
     {
         static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("Method").value().get()["_intrinsic_id"];
         if (!vm_entry) return;
-        constexpr uintptr_t relative_offset_from_intrinsic_id = 1;//Maybe should be 5 in jvm 1.8
+        constexpr uintptr_t relative_offset_from_intrinsic_id = 1;
         unsigned char* flags = ((uint8_t*)this + vm_entry->offset + relative_offset_from_intrinsic_id);
         if (enabled)
             *flags |= (1 << 3);

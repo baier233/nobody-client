@@ -29,3 +29,19 @@ auto java_hotspot::instance_klass::get_fields() -> array<uint16_t> * {
     if (!_fields_entry) return nullptr;
     return *reinterpret_cast<array<uint16_t> **>(reinterpret_cast<uint8_t *>(this) + _fields_entry->offset);
 }
+
+auto java_hotspot::instance_klass::set_breakpoints(jvm_internal::breakpoint_info* breakpoints) -> void {
+    static VMStructEntry* _breakpoints_entry = JVMWrappers::find_type_fields("InstanceKlass").value().get()[
+        "_breakpoints"];
+    if (!_breakpoints_entry) return;
+    *reinterpret_cast<jvm_internal::breakpoint_info**>(reinterpret_cast<uint8_t*>(this) + _breakpoints_entry->offset)
+        = breakpoints;
+}
+
+auto java_hotspot::instance_klass::get_breakpoints() -> jvm_internal::breakpoint_info* {
+    static VMStructEntry* _breakpoints_entry = JVMWrappers::find_type_fields("InstanceKlass").value().get()[
+        "_breakpoints"];
+    if (!_breakpoints_entry) return nullptr;
+    return *reinterpret_cast<jvm_internal::breakpoint_info**>(
+        reinterpret_cast<uint8_t*>(this) + _breakpoints_entry->offset);
+}
